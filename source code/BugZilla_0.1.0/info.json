@@ -8,6 +8,6 @@
   "homepage": "https://github.com/LovelySanta/FactorioMods",
   "description": "Deletes the normal bugs as we know it, BugZilla, mother of all bugs takes over... Good luck! (you'll need it)",
   "dependencies": [
-    "base >= 0.15.30"
+    "base >= 0.15.31"
   ]
 }

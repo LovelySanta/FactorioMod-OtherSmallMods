@@ -1,3 +1,4 @@
+-- Settings for phaseCycler
 data:extend{
   {
     -- Initial time to prepair before the first attack

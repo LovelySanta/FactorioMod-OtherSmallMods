@@ -1,4 +1,5 @@
-require 'Libs/Utilities/math'
+require 'lib/utilities/math'
+require 'lib/utilities/generic'
 
 -- Class that controls the behavior of the surface:
   -- control the darkness
@@ -13,16 +14,16 @@ PhaseCycler = {}
 -- 6. back to 2
 PhaseCycler.initPhaseIndex = 0
 PhaseCycler.dayPhaseIndex = 1
-phaseCycler.nightfallPhaseIndex = 2
-phaseCycler.nightPhaseIndex = 3
-phaseCycler.sunsetPhaseIndex = 4
+PhaseCycler.nightfallPhaseIndex = 2
+PhaseCycler.nightPhaseIndex = 3
+PhaseCycler.sunsetPhaseIndex = 4
 -- next phase
 PhaseCycler.getNextPhaseIndex = {
   [PhaseCycler.initPhaseIndex] = PhaseCycler.nightfallPhaseIndex,
-  [PhaseCycler.dayPhaseIndex] = phaseCycler.nightfallPhaseIndex,
-  [phaseCycler.nightfallPhaseIndex] = phaseCycler.nightPhaseIndex,
-  [phaseCycler.nightPhaseIndex] = phaseCycler.sunsetPhaseIndex,
-  [phaseCycler.sunsetPhaseIndex] = PhaseCycler.dayPhaseIndex
+  [PhaseCycler.dayPhaseIndex] = PhaseCycler.nightfallPhaseIndex,
+  [PhaseCycler.nightfallPhaseIndex] = PhaseCycler.nightPhaseIndex,
+  [PhaseCycler.nightPhaseIndex] = PhaseCycler.sunsetPhaseIndex,
+  [PhaseCycler.sunsetPhaseIndex] = PhaseCycler.dayPhaseIndex
 }
 -- brightness config
 PhaseCycler.dayBrightness = 1
@@ -33,16 +34,17 @@ PhaseCycler.nightBrightness = 0
 function PhaseCycler.Init(self)
   -- Init the world
   game.map_settings.pollution.enabled = false
-  game.map_settings.enemy_evolution = false
-  game.map_settings.enemy_expansion = false
+  game.map_settings.enemy_evolution.enabled = false
+  game.map_settings.enemy_expansion.enabled = false
   -- TODO: kill all spawned biters & spawners
   game.surfaces[1].freeze_daytime = true
 
   -- Init data if not existing
-  if global.BZ_data == nil then
+  if not global.BZ_data then
     global.BZ_data = self:InitGlobalData()
-  else
-    game.print("BugZilla.lib.phaseCycler.lua: Cannot init global.BZ_data")
+    if global.BZ_data == nil then
+      game.print("BugZilla.lib.phaseCycler.lua: Initialisation of global.BZ_data went wrong")
+    end
   end
 end
 
@@ -53,22 +55,22 @@ function PhaseCycler.InitGlobalData(_)
     -- meta data
     Name = 'BZ_data',
     Version = '1',
-    -- Time count
-    time = {
-      ticksThisSecond = 0,
-      totalTicks = 0
-    },
-    -- State
+
+    -- states
     previousState = nil,
     currentState = nil,
+
+    -- state data
     initState = {
       phaseIndex = PhaseCycler.initPhaseIndex,
-      phaseDuration = 0, -- seconds we are in this phase
-      phaseTotalDuration = settings.global["BZ-initial-day-length"].value * 60, -- how long this phase lasts
+      phaseDuration = 0, -- time (seconds) we are in this phase
+      phaseTotalDuration = settings.global["BZ-initial-day-length"].value * 60, -- how long this phase lasts (in seconds)
+
       currentBrightness = PhaseCycler.dayBrightness,
       startBrightness = PhaseCycler.dayBrightness,
       endBrightness = PhaseCycler.dayBrightness,
-      nextPhaseIndex = PhaseCycler.dayPhaseIndex
+
+      nextPhaseIndex = PhaseCycler.nightfallPhaseIndex
     }
   }
   data.currentState = DeepCopy(data.initState)
@@ -77,75 +79,102 @@ end
 
 
 
-function PhaseCycler.OnTick(self)
-  global.BZ_data.time.totalTicks = global.BZ_data.time.totalTicks + 1
+function PhaseCycler.OnSettingsChanged(self, event)
+  if event.setting_type == "runtime-global" then
+    -- game.print(game.players[event.player_index].name .. " changed setting " .. event.setting)
 
-  if global.BZ_data.time.ticksThisSecond >= 59 then -- each second
-    global.BZ_data.time.ticksThisSecond = 0
+    if global.BZ_data ~= nil then
+      local currentState = global.BZ_data.currentState
+      if (event.setting == "BZ-day-length" and currentState.phaseIndex == PhaseCycler.dayPhaseIndex)
+      or (event.setting == "BZ-night-length" and currentState.phaseIndex == PhaseCycler.nightPhaseIndex)
+      or event.setting == "BZ-initial-day-length" and currentState.phaseIndex == PhaseCycler.initPhaseIndex then
+        currentState.phaseTotalDuration = 60 * settings.global[event.setting].value
+        global.BZ_data.currentState = currentState
+        -- game.print("updated global.BZ_data")
+      end
+    else
+      game.print("BugZilla.lib.phaseCycler.lua: global.BZ_data hasn't been declared yet")
+    end
+  end
+end
+
+
+
+function PhaseCycler.OnTick(self)
+  if game.tick % 60 == 0 then -- each second
     self:OnSecond()
-  else
-    global.BZ_data.time.ticksThisSecond = global.BZ_data.time.ticksThisSecond + 1
   end
 end
 
 
 
 function PhaseCycler.OnSecond(self)
-  global.BZ_data.previousState = DeepCopy(global.BZ_data.currentState)
-  global.BZ_data.currentState.phaseDuration = global.BZ_data.currentState.phaseDuration + 1
+  local currentState = global.BZ_data.currentState
+  global.BZ_data.previousState = DeepCopy(currentState)
+
+  currentState.phaseDuration = currentState.phaseDuration + 1
+  -- game.print("This phase: " .. global.BZ_data.currentState.phaseDuration .. "/" .. global.BZ_data.currentState.phaseTotalDuration)
 
   -- Check if we are finished with the current phase
-  if global.BZ_data.currentState.phaseDuration >= global.BZ_data.currentState.totalPhaseDuration then
+  if currentState.phaseDuration >= currentState.phaseTotalDuration then
     self:GoToNextPhase()
   end
 
   -- Check if we need to change the brightness
-  if global.BZ_data.currentBrightness ~= global.BZ_data.endBrightness then
-    global.BZ_data.currentBrightness = Math.Lerp(global.BZ_data.startBrightness, global.BZ_data.endBrightness, global.BZ_data.phaseTotalDuration - 1)
-    SetBrightness(global.BZ_data.currentBrightness)
+  if currentState.currentBrightness ~= currentState.endBrightness then
+    currentState.currentBrightness = Math.Lerp(currentState.startBrightness, currentState.endBrightness, (currentState.phaseDuration + 1)/currentState.phaseTotalDuration)
+    self:SetBrightness(currentState.currentBrightness)
   end
+
+  global.BZ_data.currentState = currentState
 end
 
 
 
 function PhaseCycler.GoToNextPhase(self)
+  local currentState = global.BZ_data.currentState
   -- reset phase timer
-  global.BZ_data.currentState.phaseDuration = 0
+  currentState.phaseDuration = 0
 
   -- update phase itself
-  global.BZ_data.phaseIndex = global.BZ_data.nextPhaseIndex
-  global.BZ_data.nextPhaseIndex = self.getNextPhaseIndex[global.BZ_data.phaseIndex]
+  currentState.phaseIndex = currentState.nextPhaseIndex
+  currentState.nextPhaseIndex = self.getNextPhaseIndex[currentState.phaseIndex]
 
-  -- update phaseData
+  -- update phaseData depending on phaseIndex
      -- phaseTotalDuration
      -- startBrightness, endBrightness
-  global.BZ_data.startBrightness = global.BZ_data.currentBrightness
+  currentState.startBrightness = currentState.currentBrightness
 
-  if global.BZ_data.phaseIndex == PhaseCycler.dayPhaseIndex then
-    global.BZ_data.phaseTotalDuration = 60 * settings.global["BZ-day-length"].value
-    global.BZ_data.endBrightness = PhaseCycler.dayBrightness
+  if currentState.phaseIndex == PhaseCycler.dayPhaseIndex then
+    currentState.phaseTotalDuration = 60 * settings.global["BZ-day-length"].value
+    currentState.endBrightness = PhaseCycler.dayBrightness
 
-  elseif global.BZ_data.phaseIndex == phaseCycler.nightfallPhaseIndex then
-    global.BZ_data.phaseTotalDuration = 10
-    global.BZ_data.endBrightness = PhaseCycler.nightBrightness
+  elseif currentState.phaseIndex == PhaseCycler.nightfallPhaseIndex then
+    currentState.phaseTotalDuration = 60
+    currentState.endBrightness = PhaseCycler.nightBrightness
+    MessageAll("BugZilla is prepairing an attack, be prepaired would be advised.")
 
-  elseif global.BZ_data.phaseIndex == phaseCycler.nightPhaseIndex then
-    global.BZ_data.phaseTotalDuration = 60 * settings.global["BZ-night-length"].value
-    global.BZ_data.endBrightness = PhaseCycler.nightBrightness
+  elseif currentState.phaseIndex == PhaseCycler.nightPhaseIndex then
+    currentState.phaseTotalDuration = 60 * settings.global["BZ-night-length"].value
+    currentState.endBrightness = PhaseCycler.nightBrightness
+    -- TODO: spawn BugZilla here
 
-  elseif global.BZ_data.phaseIndex == phaseCycler.sunsetPhaseIndex then
-    global.BZ_data.phaseTotalDuration = 10
-    global.BZ_data.endBrightness = PhaseCycler.dayBrightness
+  elseif currentState.phaseIndex == PhaseCycler.sunsetPhaseIndex then
+    currentState.phaseTotalDuration = 60
+    currentState.endBrightness = PhaseCycler.dayBrightness
+    MessageAll("BugZilla is gone, let's hope it stays away...")
 
   else
-    game.print("BugZilla.lib.phaseCycler.lua: Unknown phase")
+    game.print("BugZilla.lib.phaseCycler.lua: Unknown phase:" .. currentState.phaseIndex)
   end
+
+  global.BZ_data.currentState = currentState
 end
 
 
 
 function PhaseCycler.SetBrightness(_, brightness)
-  --Lerp between day (0.5 = noon) and night (0.0 = midnight)
-  -- game.surfaces.nauvis.daytime = Math.Lerp(0.42, 0.25, scalar)
-  game.surfaces.nauvis.daytime = Math.Lerp(0.25, 0.42, brightness)
+  -- game.print("brightness: " .. brightness)
+  -- Lerp between day (0.5 = noon) and night (0.0 = midnight)
+  game.surfaces.nauvis.daytime = Math.Lerp(0.42, 0.25, brightness)
 end

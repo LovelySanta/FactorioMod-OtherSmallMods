@@ -1,13 +1,15 @@
-require 'Libs/Utility/math'
+require 'lib/utilities/math'
 
-function MessageAll(s) --luacheck: allow defined top
+function MessageAll(s)
   game.print(s)
-  if remote.interfaces.ChatToFile and remote.interfaces.ChatToFile.chat then --luacheck: ignore
+
+  -- If mod ChatToFile is in the modlist, we can print this out too
+  if remote.interfaces.ChatToFile and remote.interfaces.ChatToFile.chat then
         remote.call("ChatToFile", "chat", s)
     end
 end
 
-function DeepCopy(original) --luacheck: allow defined top
+function DeepCopy(original)
     local original_type = type(original)
     local copy
     if original_type == 'table' then

@@ -28,3 +28,25 @@ data:extend{
     order = "BZ-a[phase-length]-d",
   },
 }
+
+-- Settings for boss
+data:extend{
+  {
+    -- Radius for BugZilla to Spawn in
+    type = "int-setting",
+    name = "BZ-min-spawn-range", -- in tiles
+    setting_type = "runtime-global",
+    minimum_value = 100,
+    default_value = 150,
+    order = "BZ-b[boss-spawn]-c",
+  },
+  {
+    -- Radius for BugZilla to Spawn in
+    type = "int-setting",
+    name = "BZ-max-spawn-range", -- in tiles
+    setting_type = "runtime-global",
+    minimum_value = 200,
+    default_value = 250,
+    order = "BZ-b[boss-spawn]-d",
+  }
+}

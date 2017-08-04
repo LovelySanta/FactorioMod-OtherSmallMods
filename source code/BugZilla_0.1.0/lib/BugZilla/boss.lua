@@ -35,9 +35,23 @@ end
 function Boss.getAttackTarget(_)
   local force = game.forces.player
   local surface = game.surfaces[1]
+
+  local biggestEntitycount = 0
+  local attackTarget = nil
   for chunk in surface.get_chunks() do
-    if force.is_chunk_visible(surface, chunk)
-      -- do calc
+    local entityCount = surface.count_entities_filtered({
+      area = { left_top = { x = chunk.x * 32, y = chunk.y * 32 }, right_bottom = {x = (chunk.x + 1) * 32, y = (chunk.y + 1) * 32}},
+      force = force
+    })
+    if entityCount > biggestEntitycount then
+      biggestEntityCount = entityCount
+      attackTarget = surface.find_entities_filtered({
+        area = { left_top = { x = chunk.x * 32, y = chunk.y * 32 }, right_bottom = {x = (chunk.x + 1) * 32, y = (chunk.y + 1) * 32}},
+        force = force,
+        limit = 1
+      })
     end
   end
+
+  return attackTarget -- This can be a player (!)
 end

@@ -2,22 +2,26 @@ require 'lib/utilities/math'
 
 Boss = {}
 
-function Boss.init()
+function Boss.Init()
   game.forces.enemy.ai_controllable = false -- Make sure Boss don't spawn a spawner
   Boss.entity = nil
 end
 
 
 
-function Boss.spawn(self)
+function Boss.Spawn(self)
   if Boss.entity == nil then
     -- TODO: check for luaSurface:: can_place_entity{...}
     Boss.entity = game.surfaces[1].create_entity{
       name = "behemoth-biter",
       force = game.forces.enemy,
       position = self:getSpawnPosition()
-      target = self:getAttackTarget()
     }
+    local cmd = defines.command.attack_area
+    cmd.destination =
+    cmd.radius = settings.global["BZ-min-spawn-range"].value
+    cmd.distraction = defines.distraction.by_anything
+    Boss.entity.set_command(cmd)
   else
     game.print("BugZilla.lib.boss.lua: BugZilla already exist.")
   end

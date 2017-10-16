@@ -1,4 +1,3 @@
--- Settings for phaseCycler
 data:extend{
   {
     -- Initial time to prepair before the first attack
@@ -27,26 +26,22 @@ data:extend{
     default_value = 5,
     order = "BZ-a[phase-length]-d",
   },
-}
-
--- Settings for boss
-data:extend{
   {
-    -- Radius for BugZilla to Spawn in
+    -- Minimal range away from spawn bugzilla will spawn (in tiles)
     type = "int-setting",
-    name = "BZ-min-spawn-range", -- in tiles
+    name = "BZ-min-spawn-range", -- in minutes
     setting_type = "runtime-global",
-    minimum_value = 100,
-    default_value = 150,
-    order = "BZ-b[boss-spawn]-c",
+    minimum_value = 1,
+    default_value = 500,
+    order = "BZ-a[phase-length]-d",
   },
   {
-    -- Radius for BugZilla to Spawn in
+    -- Maximal range away from spawn bugzilla will spawn (in tiles)
     type = "int-setting",
-    name = "BZ-max-spawn-range", -- in tiles
+    name = "BZ-max-spawn-range", -- in minutes
     setting_type = "runtime-global",
-    minimum_value = 200,
-    default_value = 250,
-    order = "BZ-b[boss-spawn]-d",
-  }
+    minimum_value = 1,
+    default_value = 1000,
+    order = "BZ-a[phase-length]-d",
+  },
 }

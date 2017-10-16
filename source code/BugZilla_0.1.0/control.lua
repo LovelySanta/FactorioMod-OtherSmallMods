@@ -1,8 +1,11 @@
+
 require 'lib/BugZilla/phaseCycler'
+require 'lib/BugZilla/boss'
 
 
 script.on_init(function(_)
   PhaseCycler:Init()
+  Boss:Init()
 end)
 
 

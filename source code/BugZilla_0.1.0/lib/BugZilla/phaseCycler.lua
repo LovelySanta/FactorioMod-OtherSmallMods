@@ -157,6 +157,7 @@ function PhaseCycler.GoToNextPhase(self)
   elseif currentState.phaseIndex == PhaseCycler.nightPhaseIndex then
     currentState.phaseTotalDuration = 60 * settings.global["BZ-night-length"].value
     currentState.endBrightness = PhaseCycler.nightBrightness
+    MessageAll("DEBUG: BugZilla spawned.")
     -- TODO: spawn BugZilla here
 
   elseif currentState.phaseIndex == PhaseCycler.sunsetPhaseIndex then

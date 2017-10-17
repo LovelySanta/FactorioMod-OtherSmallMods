@@ -8,6 +8,11 @@
 * Latest version: 0.1.1
 
 # Changelog
+#### Land Mover [v0.1.1]
+Changed to a more appropriate recipy (not final)
+Nice graphics for tech and entity designed by geilolo
+
+-----
 #### Land Mover [v0.1.0]
 Initial release for a playthrough
 

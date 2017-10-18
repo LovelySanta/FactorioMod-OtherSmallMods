@@ -8,6 +8,12 @@
 * Latest version: 0.1.1
 
 # Changelog
+#### Land Mover [v0.1.2]
+Bugfix entity sprite size not correctly
+Changed stack size to 100 to match the stack size of landfill
+Changed recipe to use an actual shovel (+ added shovel entity)
+
+-----
 #### Land Mover [v0.1.1]
 Changed to a more appropriate recipy (not final)
 Nice graphics for tech and entity designed by geilolo

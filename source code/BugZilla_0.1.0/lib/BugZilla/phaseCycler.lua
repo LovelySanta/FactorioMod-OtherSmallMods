@@ -1,5 +1,6 @@
 require 'lib/utilities/math'
 require 'lib/utilities/generic'
+require 'lib/BugZilla/boss'
 
 -- Class that controls the behavior of the surface:
   -- control the darkness
@@ -36,8 +37,16 @@ function PhaseCycler.Init(self)
   game.map_settings.pollution.enabled = false
   game.map_settings.enemy_evolution.enabled = false
   game.map_settings.enemy_expansion.enabled = false
-  -- TODO: kill all spawned biters & spawners
-  game.surfaces[1].freeze_daytime = true
+  game.map_settings.peaceful_mode = false
+  game.surfaces['nauvis'].freeze_daytime = true
+
+  -- Kill all biters
+  local surface = game.surfaces['nauvis']
+  for c in surface.get_chunks() do  -- kill all biters
+     for key, entity in pairs(surface.find_entities_filtered({area={{c.x * 32, c.y * 32}, {c.x * 32 + 32, c.y * 32 + 32}}, force= "enemy"})) do
+         entity.destroy()
+     end
+   end
 
   -- Init data if not existing
   if not global.BZ_data then
@@ -158,12 +167,13 @@ function PhaseCycler.GoToNextPhase(self)
     currentState.phaseTotalDuration = 60 * settings.global["BZ-night-length"].value
     currentState.endBrightness = PhaseCycler.nightBrightness
     MessageAll("DEBUG: BugZilla spawned.")
-    -- TODO: spawn BugZilla here
+    -- Spawn boss
+    Boss.Spawn()
 
   elseif currentState.phaseIndex == PhaseCycler.sunsetPhaseIndex then
     currentState.phaseTotalDuration = 60
     currentState.endBrightness = PhaseCycler.dayBrightness
-    MessageAll("BugZilla is gone, let's hope it stays away...")
+    MessageAll("BugZilla is gone, let's hope \'it\' stays away...")
 
   else
     game.print("BugZilla.lib.phaseCycler.lua: Unknown phase:" .. currentState.phaseIndex)

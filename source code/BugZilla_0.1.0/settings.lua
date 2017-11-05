@@ -23,7 +23,7 @@ data:extend{
     name = "BZ-night-length", -- in minutes
     setting_type = "runtime-global",
     minimum_value = 1,
-    default_value = 5,
+    default_value = 10,
     order = "BZ-a[phase-length]-d",
   },
   {
@@ -33,7 +33,7 @@ data:extend{
     setting_type = "runtime-global",
     minimum_value = 1,
     default_value = 500,
-    order = "BZ-a[phase-length]-d",
+    order = "BZ-b[phase-length]-c",
   },
   {
     -- Maximal range away from spawn bugzilla will spawn (in tiles)
@@ -42,6 +42,6 @@ data:extend{
     setting_type = "runtime-global",
     minimum_value = 1,
     default_value = 1000,
-    order = "BZ-a[phase-length]-d",
+    order = "BZ-b[phase-length]-d",
   },
 }

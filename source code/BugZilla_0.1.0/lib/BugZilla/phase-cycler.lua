@@ -1,6 +1,6 @@
 require 'lib/utilities/math'
 require 'lib/utilities/generic'
-require 'lib/BugZilla/boss'
+require 'lib/bugzilla/boss'
 
 -- Class that controls the behavior of the surface:
   -- control the darkness
@@ -142,44 +142,53 @@ end
 
 function PhaseCycler.GoToNextPhase(self)
   local currentState = global.BZ_data.currentState
-  -- reset phase timer
-  currentState.phaseDuration = 0
 
-  -- update phase itself
-  currentState.phaseIndex = currentState.nextPhaseIndex
-  currentState.nextPhaseIndex = self.getNextPhaseIndex[currentState.phaseIndex]
+  if currentState.phaseDuration >= 10 then
+    -- reset phase timer
+    currentState.phaseDuration = 0
 
-  -- update phaseData depending on phaseIndex
-     -- phaseTotalDuration
-     -- startBrightness, endBrightness
-  currentState.startBrightness = currentState.currentBrightness
+    -- update phase itself
+    currentState.phaseIndex = currentState.nextPhaseIndex
+    currentState.nextPhaseIndex = self.getNextPhaseIndex[currentState.phaseIndex]
 
-  if currentState.phaseIndex == PhaseCycler.dayPhaseIndex then
-    currentState.phaseTotalDuration = 60 * settings.global["BZ-day-length"].value
-    currentState.endBrightness = PhaseCycler.dayBrightness
+    -- update phaseData depending on phaseIndex
+       -- phaseTotalDuration
+       -- startBrightness, endBrightness
+    currentState.startBrightness = currentState.currentBrightness
 
-  elseif currentState.phaseIndex == PhaseCycler.nightfallPhaseIndex then
-    currentState.phaseTotalDuration = 60
-    currentState.endBrightness = PhaseCycler.nightBrightness
-    MessageAll("BugZilla is prepairing an attack, be prepaired would be advised.")
+    if currentState.phaseIndex == PhaseCycler.dayPhaseIndex then
+      currentState.phaseTotalDuration = 60 * settings.global["BZ-day-length"].value
+      currentState.endBrightness = PhaseCycler.dayBrightness
 
-  elseif currentState.phaseIndex == PhaseCycler.nightPhaseIndex then
-    currentState.phaseTotalDuration = 60 * settings.global["BZ-night-length"].value
-    currentState.endBrightness = PhaseCycler.nightBrightness
-    MessageAll("DEBUG: BugZilla spawned.")
-    -- Spawn boss
-    Boss.Spawn()
+    elseif currentState.phaseIndex == PhaseCycler.nightfallPhaseIndex then
+      currentState.phaseTotalDuration = 60
+      currentState.endBrightness = PhaseCycler.nightBrightness
+      MessageAll("BugZilla is prepairing an attack, be prepaired would be advised.")
 
-  elseif currentState.phaseIndex == PhaseCycler.sunsetPhaseIndex then
-    currentState.phaseTotalDuration = 60
-    currentState.endBrightness = PhaseCycler.dayBrightness
-    MessageAll("BugZilla is gone, let's hope \'it\' stays away...")
+    elseif currentState.phaseIndex == PhaseCycler.nightPhaseIndex then
+      currentState.phaseTotalDuration = 60 * settings.global["BZ-night-length"].value
+      currentState.endBrightness = PhaseCycler.nightBrightness
+      -- Spawn boss
+      -- TODO: random choose a boss type
+      Boss.Spawn(Boss.types[0])
+
+    elseif currentState.phaseIndex == PhaseCycler.sunsetPhaseIndex then
+      currentState.phaseTotalDuration = 60
+      currentState.endBrightness = PhaseCycler.dayBrightness
+      if Boss.IsAlive() then
+        Boss.Despawn()
+      end
+      MessageAll("BugZilla is gone, let's hope \'it\' stays away...")
+
+    else
+      game.print("BugZilla.lib.phaseCycler.lua: Unknown phase:" .. currentState.phaseIndex)
+    end
+
+    global.BZ_data.currentState = currentState
 
   else
-    game.print("BugZilla.lib.phaseCycler.lua: Unknown phase:" .. currentState.phaseIndex)
+    game.print("BugZilla.lib.phaseCycler.lua: Switching phases too fast...")
   end
-
-  global.BZ_data.currentState = currentState
 end
 
 

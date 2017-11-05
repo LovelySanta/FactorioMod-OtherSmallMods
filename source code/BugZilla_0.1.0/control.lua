@@ -19,6 +19,11 @@ script.on_event(defines.events.on_tick, function(event)
 end)
 
 
+script.on_event(defines.events.on_chunk_generated, function(event)
+  PhaseCycler:OnChunkGenerated(event)
+end)
+
+
 script.on_event(defines.events.on_entity_died, function(event)
   Boss:OnEntityDied(event)
 end)

@@ -34,7 +34,9 @@ PhaseCycler.nightBrightness = 0
 
 function PhaseCycler.Init(self)
   -- Init the world
-  game.map_settings.pollution.enabled = false
+  game.map_settings.pollution.enabled = true
+  game.map_settings.pollution.diffusion_ratio = 0.5
+  game.map_settings.pollution.min_to_diffuse = 15
   game.map_settings.enemy_evolution.enabled = false
   game.map_settings.enemy_expansion.enabled = false
   game.map_settings.peaceful_mode = false
@@ -107,6 +109,16 @@ function PhaseCycler.OnSettingsChanged(self, event)
   end
 end
 
+
+
+function PhaseCycler.OnChunkGenerated(self, event)
+  local surface = event.surface
+  if surface == game.surfaces['nauvis'] then
+    for key, entity in pairs(surface.find_entities_filtered({area=event.area, force= "enemy"})) do
+        entity.destroy()
+    end
+  end
+end
 
 
 function PhaseCycler.OnTick(self)

@@ -41,7 +41,7 @@ data:extend{
     name = "BZ-max-spawn-range", -- in minutes
     setting_type = "runtime-global",
     minimum_value = 1,
-    default_value = 1000,
+    default_value = 550,
     order = "BZ-b[phase-length]-d",
   },
 }

@@ -417,14 +417,6 @@ end
 --############################################################################--
 local function make_attack_parameter(data_app, data_dmg)
   if data_app.type == "biter" then
-    data_dmg.type = "projectile"
-    data_dmg.category = "melee"
-    data_dmg.range = 0.5
-    data_dmg.cooldown = 35
-    data_dmg.min_attack_distance = nil
-    data_dmg.creation_distance = nil
-    data_dmg.damage_modifier = nil
-    data_dmg.warmup = nil
     data_dmg.ammo =
     {
       category = "melee",
@@ -447,10 +439,10 @@ local function make_attack_parameter(data_app, data_dmg)
 
   return
   {
-    type = data_dmg.type,
+    type = "projectile",
     ammo_category = data_dmg.category,
     cooldown = data_dmg.cooldown,
-    range = data_dmg.range,
+    range = .5*data_app.scale + data_dmg.range,
     min_attack_distance = data_dmg.min_attack_distance,
     projectile_creation_distance = data_dmg.creation_distance,
     damage_modifier = data_dmg.damage_modifier,
@@ -478,7 +470,7 @@ function BZ_bugzilla.functions.make_alien(def_data)
       resistances = def_data.resistance,
       order = "b-b-Z",
       subgroup="enemies",
-      healing_per_tick = 0.01,
+      healing_per_tick = def_data.appearance.healing,
       collision_box = {{-0.2*def_data.appearance.scale, -0.2*def_data.appearance.scale}, {0.2*def_data.appearance.scale, 0.2*def_data.appearance.scale}},
       selection_box = {{-0.4*def_data.appearance.scale, -0.7*def_data.appearance.scale}, {0.7*def_data.appearance.scale, 0.4*def_data.appearance.scale}},
       attack_parameters = make_attack_parameter(def_data.appearance, def_data.attack),

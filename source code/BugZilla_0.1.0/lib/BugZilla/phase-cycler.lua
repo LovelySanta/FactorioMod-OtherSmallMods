@@ -175,7 +175,7 @@ function PhaseCycler.GoToNextPhase(self)
     elseif currentState.phaseIndex == PhaseCycler.nightfallPhaseIndex then
       currentState.phaseTotalDuration = 60
       currentState.endBrightness = PhaseCycler.nightBrightness
-      MessageAll("BugZilla is prepairing an attack, be prepaired would be advised.")
+      MessageAll("BugZilla is prepairing an attack, being prepaired would be advised.")
 
     elseif currentState.phaseIndex == PhaseCycler.nightPhaseIndex then
       currentState.phaseTotalDuration = 60 * settings.global["BZ-night-length"].value

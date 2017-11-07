@@ -13,10 +13,11 @@ bugzilla_biter =
       tint2 = {r=0.88, g=0.24, b=0.24, a=0.9},
       speed = 0.2,
       health = 100000,
+	  healing = 0.01 -- 10/tick
     },
     attack = {
       category = "melee",
-      range = 1,
+      range = 0,
       cooldown = 18,
       min_attack_distance = nil,
       creation_distance = nil,
@@ -25,9 +26,9 @@ bugzilla_biter =
       damage = 550,
     },
     resistance = {
-      {type = "physical", decrease = 20, percent = 75},
-      {type = "fire", decrease = 60, percent = 75},
-      {type = "explosion", decrease = 50, percent = 75},
-      {type = "laser", decrease = 40, percent = 75}
+      {type = "physical", decrease = 5, percent = 75},
+      {type = "fire", decrease = 25, percent = 75},
+      {type = "explosion", decrease = 20, percent = 75},
+      {type = "laser", decrease = 15, percent = 75}
     }
   }

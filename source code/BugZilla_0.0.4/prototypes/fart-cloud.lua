@@ -67,7 +67,7 @@ data:extend({
     {
       {
         filename = "__core__/graphics/empty.png",
-        priority = "high",
+        priority = "extra-high",
         width = 1,
         height = 1,
         frame_count = 1,

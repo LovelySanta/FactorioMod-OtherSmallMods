@@ -47,3 +47,12 @@ end)
 script.on_event(defines.events.on_entity_died, function(event)
   Boss:OnEntityDied(event)
 end)
+
+
+-- called every time a player died
+script.on_event(defines.events.on_player_died, function(event)
+    local _,_ = pcall(function()
+        local player = game.players[event.player_index]
+        player.surface.create_entity({name = "deathscream", position = player.position})
+    end)
+end)

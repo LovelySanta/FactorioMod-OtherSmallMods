@@ -46,14 +46,36 @@ end
 
 
 
+function Boss.OnConfigurationChanged(self)
+  local bossData = global.BZ_boss
+
+  if not bossData then
+    bossData = self:InitGlobalData()
+
+  else
+    -- update version 1 --> 2
+    if bossData.Version == '1' then
+      bossData.Version = '2'
+      bossData.fart_cloud_timer = 0
+    end
+
+    -- current version running: 2
+    global.BZ_boss = bossData
+  end
+end
+
+
+
 function Boss.InitGlobalData(_)
   local bossData = {
     -- meta data
     Name = 'BZ_boss',
-    Version = '1',
+    Version = '2',
 
     entity = nil,
+
     fart_cloud = nil,
+    fart_cloud_timer = 0,
   }
   return DeepCopy(bossData)
 end
@@ -293,57 +315,39 @@ function Boss.FartCloudBehaviour(self)
     entities = entities + 4 * game.surfaces['nauvis'].count_entities_filtered{
       area = area,
       type = 'land-mine',
-      limit = threshold/2
+      limit = Math:Round(threshold / 4)
     }
     entities = entities + .5 * game.surfaces['nauvis'].count_entities_filtered{
       area = area,
       type = 'ammo-turret',
-      limit = threshold*2
+      limit = threshold * 2
     }
 
-    if entities >= threshold then
+    if (entities >= threshold and boss.fart_cloud_timer > 1) or boss.fart_cloud_timer > 15 then
       boss.fart_cloud = game.surfaces['nauvis'].create_entity{
-        name = 'fart-cloud',
+        name = 'fart',
         position = self:GetFartPosition(),
         force = 'enemy',
         target = boss.entity,
         speed = 0.15
       }
-      game.surfaces['nauvis'].create_entity{
-        name = 'fart-sound',
-        position = self:GetFartPosition(),
-        force = 'enemy',
-        target = boss.entity,
-        speed = 0.15
-      }
+      boss.fart_cloud_timer = 0
+      global.BZ_boss = boss
+
+    else -- No cloud spawned, then increase default time
+      boss.fart_cloud_timer = boss.fart_cloud_timer + 1
       global.BZ_boss = boss
     end
 
-    -- Fart cloud exist, time to deal some damage
-    elseif boss.fart_cloud.valid then
-      local pos = boss.fart_cloud.position
-      local range = 10/2
-      local entities = game.surfaces['nauvis'].find_entities_filtered {
-        area = {
-          left_top = {pos.x-range, pos.y-range},
-          right_bottom = {pos.x+range, pos.y+range}
-        },
-        force = 'player'
-      }
-      if #entities then
-        for _,entity in pairs(entities) do
-          if entity.valid and entity.destructible and entity.health and entity.health > 0 then
-            entity.damage(50, 'enemy', 'poison')
-          end
-        end
-      end
-
-  -- Invalid, or fart_cloud is gone
-  else
+  -- There is/was a fart cloud,
+  -- update date if it's invalid, or fart_cloud is gone
+  elseif not boss.fart_cloud.valid then
     boss.fart_cloud = nil
+    boss.fart_cloud_timer = 0
     global.BZ_boss = boss
     -- game.print("BugZilla.lib.bugzilla.boss.lua: Invalid fart-cloud.")
   end
+
 end
 
 

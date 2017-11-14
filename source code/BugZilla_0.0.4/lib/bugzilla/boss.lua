@@ -25,9 +25,9 @@ Boss.messages.despawn_messages = {
 }
 
 Boss.reward = {
-  {name='science-pack-1', count=200},
-  {name='science-pack-2', count=200},
-  {name='military-science-pack', count=150},
+  {name='science-pack-1', count=300},
+  {name='science-pack-2', count=250},
+  {name='military-science-pack', count=200},
   {name='science-pack-3', count=150},
   {name='production-science-pack', count=150},
   {name='high-tech-science-pack', count=100},
@@ -279,6 +279,7 @@ function Boss.CreateRewardSpawnPosition(self, entity_name, entity_force)
 
   return spawn
 end
+
 
 
 function Boss.CheckCollision(_, entity_name, entity_force, entity_position)

@@ -5,6 +5,13 @@ local fart_range = 6 -- radius
 
 data:extend({
   {
+    type = "damage-type",
+    name = "toxic-gas"
+  },
+})
+
+data:extend({
+  {
     type = "smoke-with-trigger",
     name = "fart-cloud",
     flags = {"not-on-map", "placeable-off-grid"},
@@ -47,7 +54,7 @@ data:extend({
               target_effects =
               {
                 type = "damage",
-                damage = { amount = fart_damage, type = "poison"}
+                damage = { amount = fart_damage, type = "toxic-gas"}
               }
             }
           }
@@ -80,7 +87,7 @@ data:extend({
     {
       {
         filename = "__BugZilla__/sounds/fart1.ogg",
-        volume = 1
+        volume = 1.5
       }
     }
   },

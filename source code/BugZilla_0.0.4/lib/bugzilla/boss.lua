@@ -282,6 +282,7 @@ function Boss.SpawnReward(self, bossIndex)
     force = game.forces.player,
     position = self:CreateRewardSpawnPosition(chest, game.forces.player, bossEntity.position)
   }
+  chest_entity.destructible = false
 
   local chest_inventory = chest_entity.get_inventory(defines.inventory.chest)
   if chest_inventory and chest_inventory.valid then

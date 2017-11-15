@@ -175,8 +175,7 @@ function PhaseCycler.GoToNextPhase(self)
       currentState.phaseTotalDuration = 60 * settings.global["BZ-night-length"].value
       currentState.endBrightness = PhaseCycler.nightBrightness
       -- Spawn boss
-      -- TODO: random choose a boss type
-      Boss:Spawn(Boss.types[1])
+      Boss:Spawn()
 
     elseif currentState.phaseIndex == PhaseCycler.sunsetPhaseIndex then
       currentState.phaseTotalDuration = 60
@@ -198,7 +197,7 @@ function PhaseCycler.GoToNextPhase(self)
     global.BZ_data.currentState = currentState
 
   else
-    -- game.print("BugZilla.lib.phaseCycler.lua: Switching phases too fast...")
+    game.print("BugZilla.lib.phaseCycler.lua: Switching phases too fast...")
   end
 end
 

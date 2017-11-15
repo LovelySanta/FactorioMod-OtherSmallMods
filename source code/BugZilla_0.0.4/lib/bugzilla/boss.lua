@@ -49,14 +49,29 @@ end
 function Boss.OnConfigurationChanged(self)
   local bossData = global.BZ_boss
 
-  if not bossData then
+  if not bossData.Version then
     bossData = self:InitGlobalData()
 
   else
     -- update version 1 --> 2
     if bossData.Version == '1' then
       bossData.Version = '2'
-      bossData.fart_cloud_timer = 0
+
+      bossData.entities = {}
+      bossData.entityCount = 0
+      if bossData.entity then
+        local boss = {}
+        boss.bossEntity = bossData.entity
+        boss.fartEntity = bossData.fart_cloud
+        boss.fartEntityTimer = 0
+        table.insert(bossData.entities, boss)
+        bossData.entityCount = bossData.entityCount + 1
+
+        bossData.entity = nil
+        bossData.fart_cloud = nil
+      end
+      bossData.killScore = 0
+
     end
 
     -- current version running: 2
@@ -72,10 +87,9 @@ function Boss.InitGlobalData(_)
     Name = 'BZ_boss',
     Version = '2',
 
-    entity = nil,
-
-    fart_cloud = nil,
-    fart_cloud_timer = 0,
+    entities = {},
+    entityCount = 0,
+    killScore = 0
   }
   return DeepCopy(bossData)
 end
@@ -84,32 +98,43 @@ end
 
 function Boss.OnSecond(self)
   if self:IsAlive() then
-    if global.BZ_boss.entity.name == self.types[1] then -- bugzilla-biter
-      self:FartCloudBehaviour()
+    local entities = global.BZ_boss.entities
+    for bossIndex, bossData in pairs(entities) do
+      local bossEntity = bossData.bossEntity
+      if bossEntity and bossEntity.valid and bossEntity.name == self.types[1] then -- bugzilla-biter
+        self:FartCloudBehaviour(bossIndex)
+      end
     end
   end
 end
 
 
 
-function Boss.Spawn(self, boss_type)
-  local boss_entity = global.BZ_boss.entity
+function Boss.Spawn(self)
+  local bossEntities = global.BZ_boss.entities
+  local bossEntityCount = global.BZ_boss.entityCount
 
-  if boss_entity == nil then
-    boss_entity = game.surfaces['nauvis'].create_entity{
-      name = boss_type,
-      force = game.forces.enemy,
-      position = self:CreateBossSpawnPosition(boss_type, game.forces.enemy)
-    }
-    boss_entity.set_command({
-      type = defines.command.attack_area,
-      destination = {x=0, y=0},
-      radius = settings.global["BZ-min-spawn-range"].value,
-      distraction = defines.distraction.by_anything
-    })
+  if #bossEntities == 0 then
+    -- for each type
+    for _,spawnData in pairs(self:GetSpawnAmounts()) do
+      local bossType = spawnData.type
+      local bossAmount = spawnData.amount
 
-    global.BZ_boss.entity = boss_entity
-    -- game.print("DEBUG BugZilla.lib.boss.lua: BugZilla spawned.")
+      -- spawn amount
+      for _=1, bossAmount, 1 do
+        -- create a new boss
+        local bossEntity = self:CreateNewBoss(bossType)
+        -- add new boss to existing boss entities
+        table.insert(bossEntities, bossEntity)
+        bossEntityCount = bossEntityCount + 1
+        -- game.print("DEBUG BugZilla.lib.boss.lua: BugZilla spawned.")
+      end
+    end
+
+    -- save changes in data
+    global.BZ_boss.entities = bossEntities
+    global.BZ_boss.entityCount = bossEntityCount
+
   else
     -- game.print("DEBUG BugZilla.lib.boss.lua: BugZilla already exist.")
   end
@@ -117,12 +142,140 @@ end
 
 
 
-function Boss.SpawnReward(self)
+function Boss.Despawn(self)
+  local bossEntities = global.BZ_boss.entities
+  local bossEntityCount = global.BZ_boss.entityCount
+  local bossKillScore = global.BZ_boss.killScore
+
+  -- Despawn all bosses
+  for bossIndex,_ in pairs(bossEntities) do
+    bossData = table.remove(bossEntities, bossIndex)
+    bossEntityCount = bossEntityCount - 1
+    bossKillScore = bossKillScore - 1
+
+    local bossEntity = bossData.bossEntity
+    local fartEntity = bossData.fartEntity
+    local fartEntityTimer = bossData.fartEntityTimer
+
+    if bossEntity and bossEntity.valid and bossEntity.destroy() then
+      if fartEntity and fartEntity.valid and fartEntity.can_be_destroyed() then
+        fartEntity.destroy()
+      end
+      -- game.print("DEBUG BugZilla.lib.boss.lua: BugZilla destroyed.")
+    else
+      -- game.print("DEBUG BugZilla.lib.boss.lua: BugZilla not destroyed.")
+    end
+    -- garbage collection will destroy the empty table
+    fartEntity = nil
+    fartEntityTimer = nil
+    bossEntity = nil
+  end
+  if bossKillScore < 0 then
+    bossKillScore = 0
+  end
+
+  -- save changes in data
+  global.BZ_boss.entities = bossEntities
+  global.BZ_boss.entityCount = bossEntityCount
+  global.BZ_boss.killScore = bossKillScore
+end
+
+
+
+function Boss.OnEntityDied(self, event)
+  local bossEntities = global.BZ_boss.entities
+  local bossEntityCount = global.BZ_boss.entityCount
+  local bossKillScore = global.BZ_boss.killScore
+
+  -- Find the correct bossEntity (it will be invalid)
+  for bossIndex, bossData in pairs(bossEntities) do
+    local bossEntity = bossData.bossEntity
+    if bossEntity and bossEntity == event.entity then
+      -- Spawn a reward
+      self:SpawnReward(bossIndex)
+
+      -- Remove the boss out of bossEntities
+      bossRemovedData = table.remove(bossEntities, bossIndex)
+      bossEntityCount = bossEntityCount - 1
+      bossKillScore = bossKillScore + 1
+
+      -- Check to remove the fart as wel
+      if fartEntity and fartEntity.valid and fartEntity.can_be_destroyed() then
+        fartEntity.destroy()
+      end
+
+      -- No need to look further, it's already found
+      break
+    end
+  end
+  game.print('entitycount: '..bossEntityCount)
+  -- save changes in data
+  global.BZ_boss.entities = bossEntities
+  global.BZ_boss.entityCount = bossEntityCount
+  global.BZ_boss.killScore = bossKillScore
+
+  -- Now we deleted the boss, check if we need to go to nextPhase
+  if bossEntityCount == 0 then
+    PhaseCycler:GoToNextPhase()
+  end
+
+  -- TODO check for fart cloud entity died
+end
+
+
+
+function Boss.CreateNewBoss(self, boss_type)
+  local bossEntity = {}
+
+  bossEntity.bossEntity = game.surfaces['nauvis'].create_entity{
+    name = boss_type,
+    force = game.forces.enemy,
+    position = self:CreateBossSpawnPosition(boss_type, game.forces.enemy)
+  }
+  bossEntity.bossEntity.set_command({
+    type = defines.command.attack_area,
+    destination = {x=0, y=0},
+    radius = settings.global["BZ-min-spawn-range"].value,
+    distraction = defines.distraction.by_anything
+  })
+  bossEntity.fartEntity = nil
+  bossEntity.fartEntityTimer = 0
+
+  return bossEntity
+end
+
+
+
+function Boss.GetSpawnAmounts(self)
+  local spawns = {}
+
+  -- We only have one type yet
+  --local spawnBiters = {type = self.types[1], amount = 2}
+  --table.insert(spawns, spawnBiters)
+
+  local killScore = global.BZ_boss.killScore
+  game.print('killscore: '..killScore)
+
+  local amount = Math:Round(math.sqrt((3*killScore+1)/5))
+  if amount < 1 then
+    amount = 1
+  end
+
+  local spawnBiters = {type = self.types[1], amount = amount}
+  table.insert(spawns, spawnBiters)
+
+  return spawns
+end
+
+
+
+function Boss.SpawnReward(self, bossIndex)
+  local bossEntity = global.BZ_boss.entities[bossIndex].bossEntity
   local chest = 'steel-chest'
-  local chest_entity = game.surfaces['nauvis'].create_entity{
+  local chest_entity = bossEntity.surface.create_entity{
     name = chest,
     force = game.forces.player,
-    position = self:CreateRewardSpawnPosition(chest, game.forces.player)
+    position = self:CreateRewardSpawnPosition(chest, game.forces.player, bossEntity.position)
   }
 
   local chest_inventory = chest_entity.get_inventory(defines.inventory.chest)
@@ -169,67 +322,15 @@ end
 
 
 function Boss.IsAlive(_)
-  local boss_entity = global.BZ_boss.entity
-  if boss_entity and boss_entity.valid then
+  if global.BZ_boss.entityCount > 0 then
     return true
-  else
-    return false
   end
+  return false
 end
 
 
 
-function Boss.Despawn(self)
-  local boss_entity = global.BZ_boss.entity
-  local fart_cloud_entity = nil
-  if boss_entity.name == self.types[0] then -- bugzilla-biter
-    fart_cloud_entity = global.BZ_boss.fart_cloud
-  end
-
-  if boss_entity then
-    if boss_entity.valid and boss_entity.destroy() then
-      boss_entity = nil
-      if fart_cloud_entity and fart_cloud_entity.valid and fart_cloud_entity.destroy() then
-        fart_cloud_entity = nil
-      end
-      -- game.print("DEBUG BugZilla.lib.boss.lua: BugZilla destroyed.")
-    else
-      -- game.print("DEBUG BugZilla.lib.boss.lua: BugZilla not destroyed.")
-    end
-  else
-    boss_entity = nil
-    -- game.print("DEBUG BugZilla.lib.boss.lua: BugZilla didn't exist.")
-  end
-
-  global.BZ_boss.entity = boss_entity
-end
-
-
-
-function Boss.OnEntityDied(self, event)
-  local boss = global.BZ_boss
-  if boss.entity and event.entity == boss.entity then
-    --game.print("DEBUG BugZilla.lib.bsoss.lua: BugZilla killed.")
-
-    -- Spawn a reward
-    self:SpawnReward()
-
-    -- Update data
-    boss.entity = nil
-    if boss.fart_cloud then
-      boss.fart_cloud.destroy()
-      boss.fart_cloud = nil
-    end
-    global.BZ_boss = boss
-
-    -- Go to the next phase
-    PhaseCycler:GoToNextPhase()
-  end
-end
-
-
-
-function Boss.CreateBossSpawnPosition(self, entity_name, entity_force)
+function Boss.CreateBossSpawnPosition(self, entityName, entityForce)
   local iter = 0
   local try = 0
   local radius, angle, spawn
@@ -242,11 +343,13 @@ function Boss.CreateBossSpawnPosition(self, entity_name, entity_force)
       y = radius * math.sin(angle)
     }
 
-    if self:CheckCollision(entity_name, entity_force, spawn) then
+    if self:CheckCollision(entityName, entityForce, spawn) then
       iter = -1
     elseif try >= 10 then
       try = 0
       iter = iter + 1
+    else
+      try = try + 1
     end
   end
 
@@ -255,9 +358,8 @@ end
 
 
 
-function Boss.CreateRewardSpawnPosition(self, entity_name, entity_force)
-  local pos = global.BZ_boss.entity.position
-  local iter = 5
+function Boss.CreateRewardSpawnPosition(self, entityName, entityForce, position)
+  local iter = 0 -- TODO why not 0?
   local try = 0
   local radius, angle, spawn
 
@@ -265,15 +367,17 @@ function Boss.CreateRewardSpawnPosition(self, entity_name, entity_force)
     radius = Math:Lerp(0, 0 + iter, math.random())
     angle = math.random()*2*math.pi
     spawn = {
-      x = Math:Round(pos.x + radius * math.cos(angle)),
-      y = Math:Round(pos.y + radius * math.sin(angle))
+      x = Math:Round(position.x + radius * math.cos(angle)),
+      y = Math:Round(position.y + radius * math.sin(angle))
     }
 
-    if self:CheckCollision(entity_name, entity_force, spawn) then
+    if self:CheckCollision(entityName, entityForce, spawn) then
       iter = -1
     elseif try >= 10 then
       try = 0
       iter = iter + 1
+    else
+      try = try + 1
     end
   end
 
@@ -282,83 +386,89 @@ end
 
 
 
-function Boss.CheckCollision(_, entity_name, entity_force, entity_position)
+function Boss.CheckCollision(_, entityName, entityForce, entityPosition)
   return game.surfaces['nauvis'].can_place_entity{
-    name = entity_name,
-    position = entity_position,
-    force = entity_force
+    name = entityName,
+    position = entityPosition,
+    force = entityForce
   }
 end
 
 
 
-function Boss.FartCloudBehaviour(self)
-  local boss = global.BZ_boss
+function Boss.FartCloudBehaviour(self, bossIndex)
+  local bossData = global.BZ_boss.entities[bossIndex]
+  local bossEntity = bossData.bossEntity
+  local fartEntity = bossData.fartEntity
+  local fartEntityTimer = bossData.fartEntityTimer
+
   local threshold = 20
 
   -- Create fart cloud if requirements are met
-  if not boss.fart_cloud then
-    local pos = boss.entity.position
+  if not fartEntity then
+    local surface = bossEntity.surface
+    local pos = bossEntity.position
     local area = {
       left_top = {pos.x-5, pos.y-5},
       right_bottom = {pos.x+5, pos.y+5}
     }
-    local entities = game.surfaces['nauvis'].count_entities_filtered{
+    local entities = surface.count_entities_filtered{
       area = area,
       type = 'transport-belt',
       limit = threshold
     }
-    entities = entities + game.surfaces['nauvis'].count_entities_filtered{
+    entities = entities + surface.count_entities_filtered{
       area = area,
       type = 'splitter',
       limit = threshold
     }
-    entities = entities + 4 * game.surfaces['nauvis'].count_entities_filtered{
+    entities = entities + 4 * surface.count_entities_filtered{
       area = area,
       type = 'land-mine',
       limit = Math:Round(threshold / 4)
     }
-    entities = entities + .5 * game.surfaces['nauvis'].count_entities_filtered{
+    entities = entities + .5 * surface.count_entities_filtered{
       area = area,
       type = 'ammo-turret',
       limit = threshold * 2
     }
 
-    if (entities >= threshold and boss.fart_cloud_timer > 1) or boss.fart_cloud_timer > 15 then
-      boss.fart_cloud = game.surfaces['nauvis'].create_entity{
+    if (entities >= threshold and fartEntityTimer > 1) or fartEntityTimer > 15 then
+      fartEntity = game.surfaces['nauvis'].create_entity{
         name = 'fart',
-        position = self:GetFartPosition(),
+        position = self:GetFartPosition(bossEntity),
         force = 'enemy',
-        target = boss.entity,
+        target = bossEntity,
         speed = 0.15
       }
-      boss.fart_cloud_timer = 0
-      global.BZ_boss = boss
+      fartEntityTimer = 0
 
     else -- No cloud spawned, then increase default time
-      boss.fart_cloud_timer = boss.fart_cloud_timer + 1
-      global.BZ_boss = boss
+      fartEntityTimer = fartEntityTimer + 1
     end
 
   -- There is/was a fart cloud,
   -- update date if it's invalid, or fart_cloud is gone
-  elseif not boss.fart_cloud.valid then
-    boss.fart_cloud = nil
-    boss.fart_cloud_timer = 0
-    global.BZ_boss = boss
+  elseif not fartEntity.valid then
+    fartEntity = nil
+    fartEntityTimer = 0
     -- game.print("BugZilla.lib.bugzilla.boss.lua: Invalid fart-cloud.")
   end
+
+  -- save changes in data
+  bossData.fartEntity = fartEntity
+  bossData.fartEntityTimer = fartEntityTimer
+  global.BZ_boss.entities[bossIndex] = bossData
 
 end
 
 
 
-function Boss.GetFartPosition(self)
-  local boss_entity = global.BZ_boss.entity
-  local orientation = boss_entity.orientation
-  local offset = game.entity_prototypes[boss_entity.name].selection_box.left_top
+function Boss.GetFartPosition(self, bossEntity)
+  local orientation = bossEntity.orientation
+  local offset = game.entity_prototypes[bossEntity.name].selection_box.left_top
   return {
-    x = boss_entity.position.x - offset.x * math.sin(2*math.pi*orientation),
-    y = boss_entity.position.y - offset.y * math.cos(2*math.pi*orientation)
+    x = bossEntity.position.x - offset.x * math.sin(2*math.pi*orientation),
+    y = bossEntity.position.y - offset.y * math.cos(2*math.pi*orientation)
   }
 end

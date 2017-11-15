@@ -16,7 +16,8 @@ Boss.messages.spawn_messages = {
 Boss.messages.kill_messages = {
   "BugZilla died, let's hope there aren't any others...",
   "Here lies BugZilla, the big irritating bug... let's keep it that way.",
-  "Rest in pieces BugZilla! Now let\'s automate More Faster!"
+  "Rest in pieces BugZilla! Now let\'s automate More Faster!",
+  "The stinky BugZilla died, she farts no more..."
 }
 Boss.messages.despawn_messages = {
   "BugZilla is gone, let's hope \'it\' stays away...",
@@ -204,11 +205,16 @@ function Boss.OnEntityDied(self, event)
         fartEntity.destroy()
       end
 
+      -- Display message if character kills it
+      if event.cause and event.cause.valid and event.cause.type == "player" then
+        MessageAll(event.cause.player.name.." delt the last bit of damage to BugZilla!")
+      end
+
       -- No need to look further, it's already found
       break
     end
   end
-  game.print('entitycount: '..bossEntityCount)
+
   -- save changes in data
   global.BZ_boss.entities = bossEntities
   global.BZ_boss.entityCount = bossEntityCount
@@ -254,7 +260,6 @@ function Boss.GetSpawnAmounts(self)
   --table.insert(spawns, spawnBiters)
 
   local killScore = global.BZ_boss.killScore
-  game.print('killscore: '..killScore)
 
   local amount = Math:Round(math.sqrt((3*killScore+1)/5))
   if amount < 1 then

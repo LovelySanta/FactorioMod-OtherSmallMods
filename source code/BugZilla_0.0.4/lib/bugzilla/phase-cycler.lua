@@ -149,56 +149,52 @@ end
 function PhaseCycler.GoToNextPhase(self)
   local currentState = global.BZ_data.currentState
 
-  if currentState.phaseDuration > 1 then
-    -- reset phase timer
-    currentState.phaseDuration = 0
+  -- reset phase timer
+  currentState.phaseDuration = 0
 
-    -- update phase itself
-    currentState.phaseIndex = currentState.nextPhaseIndex
-    currentState.nextPhaseIndex = self.getNextPhaseIndex[currentState.phaseIndex]
+  -- update phase itself
+  currentState.phaseIndex = currentState.nextPhaseIndex
+  currentState.nextPhaseIndex = self.getNextPhaseIndex[currentState.phaseIndex]
 
-    -- update phaseData depending on phaseIndex
-       -- phaseTotalDuration
-       -- startBrightness, endBrightness
-    currentState.startBrightness = currentState.currentBrightness
+  -- update phaseData depending on phaseIndex
+     -- phaseTotalDuration
+     -- startBrightness, endBrightness
+  currentState.startBrightness = currentState.currentBrightness
 
-    if currentState.phaseIndex == PhaseCycler.dayPhaseIndex then
-      currentState.phaseTotalDuration = 60 * settings.global["BZ-day-length"].value
-      currentState.endBrightness = PhaseCycler.dayBrightness
+  if currentState.phaseIndex == PhaseCycler.dayPhaseIndex then
+    currentState.phaseTotalDuration = 60 * settings.global["BZ-day-length"].value
+    currentState.endBrightness = PhaseCycler.dayBrightness
 
-    elseif currentState.phaseIndex == PhaseCycler.nightfallPhaseIndex then
-      currentState.phaseTotalDuration = 60
-      currentState.endBrightness = PhaseCycler.nightBrightness
-      MessageAll(Boss:GetSpawnMessage())
+  elseif currentState.phaseIndex == PhaseCycler.nightfallPhaseIndex then
+    currentState.phaseTotalDuration = 60
+    currentState.endBrightness = PhaseCycler.nightBrightness
+    MessageAll(Boss:GetSpawnMessage())
 
-    elseif currentState.phaseIndex == PhaseCycler.nightPhaseIndex then
-      currentState.phaseTotalDuration = 60 * settings.global["BZ-night-length"].value
-      currentState.endBrightness = PhaseCycler.nightBrightness
-      -- Spawn boss
-      Boss:Spawn()
+  elseif currentState.phaseIndex == PhaseCycler.nightPhaseIndex then
+    currentState.phaseTotalDuration = 60 * settings.global["BZ-night-length"].value
+    currentState.endBrightness = PhaseCycler.nightBrightness
+    -- Spawn boss
+    Boss:Spawn()
 
-    elseif currentState.phaseIndex == PhaseCycler.sunsetPhaseIndex then
-      currentState.phaseTotalDuration = 60
-      currentState.endBrightness = PhaseCycler.dayBrightness
-      -- despawn boss if it's not death
-      if Boss:IsAlive() then
-        Boss:Despawn()
-        MessageAll(Boss:GetDespawnMessage())
-      else
-        -- phase will end early if its killed, but still has to display the message
-        MessageAll(Boss:GetKillMessage())
-      end
-
-
+  elseif currentState.phaseIndex == PhaseCycler.sunsetPhaseIndex then
+    currentState.phaseTotalDuration = 60
+    currentState.endBrightness = PhaseCycler.dayBrightness
+    -- despawn boss if it's not death
+    if Boss:IsAlive() then
+      Boss:Despawn()
+      MessageAll(Boss:GetDespawnMessage())
     else
-      -- game.print("BugZilla.lib.phaseCycler.lua: Unknown phase:" .. currentState.phaseIndex)
+      -- phase will end early if its killed, but still has to display the message
+      MessageAll(Boss:GetKillMessage())
     end
 
-    global.BZ_data.currentState = currentState
 
   else
-    game.print("BugZilla.lib.phaseCycler.lua: Switching phases too fast...")
+    -- game.print("BugZilla.lib.phaseCycler.lua: Unknown phase:" .. currentState.phaseIndex)
   end
+
+  global.BZ_data.currentState = currentState
+
 end
 
 

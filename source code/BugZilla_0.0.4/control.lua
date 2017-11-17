@@ -1,7 +1,8 @@
-
 require 'lib/utilities/math'
 require 'lib/bugzilla/phase-cycler'
 require 'lib/bugzilla/boss'
+require 'lib/bugzilla/deathscream'
+
 
 
 -- on load game for first time
@@ -28,6 +29,7 @@ script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
 end)
 
 
+
 -- called once per in-game tick
 script.on_event(defines.events.on_tick, function(event)
   if game.tick % 60 == 0 then -- each second
@@ -37,10 +39,12 @@ script.on_event(defines.events.on_tick, function(event)
 end)
 
 
+
 -- called every time a chunk gets generated
 script.on_event(defines.events.on_chunk_generated, function(event)
   PhaseCycler:OnChunkGenerated(event)
 end)
+
 
 
 -- called every time an entity die
@@ -49,10 +53,10 @@ script.on_event(defines.events.on_entity_died, function(event)
 end)
 
 
+
 -- called every time a player died
 script.on_event(defines.events.on_player_died, function(event)
-    local _,_ = pcall(function()
-        local player = game.players[event.player_index]
-        player.surface.create_entity({name = "deathscream", position = player.position})
-    end)
+  -- Creat deathscream
+  Deathscream:CreateScream(event.player_index)
+end)
 end)

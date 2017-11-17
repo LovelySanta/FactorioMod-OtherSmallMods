@@ -43,23 +43,23 @@
 
 -----
 #### Land Mover [v0.1.2]
-Bugfix entity sprite size not correctly
-Changed stack size to 100 to match the stack size of landfill
-Changed recipe to use an actual shovel (+ added shovel entity)
+* Bugfix entity sprite size not correctly
+* Changed stack size to 100 to match the stack size of landfill
+* Changed recipe to use an actual shovel (+ added shovel entity)
 
 -----
 #### Land Mover [v0.1.1]
-Changed to a more appropriate recipy (not final)
-Nice graphics for tech and entity designed by geilolo
+* Changed to a more appropriate recipy (not final)
+* Nice graphics for tech and entity designed by geilolo
 
 -----
 #### Land Mover [v0.1.0]
-Initial release for a playthrough
+* Initial release for a playthrough
 
 -----
 #### Santa's Nixie Tube Display [v0.1.1]
-Bugfix positioning of arrows on small nixie display
+* Bugfix positioning of arrows on small nixie display
 
 -----
 #### Santa's Nixie Tube Display [v0.1.0]
-Initial release of regular and small nixie
+* Initial release of regular and small nixie

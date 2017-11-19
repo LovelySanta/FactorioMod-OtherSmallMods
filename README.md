@@ -12,6 +12,11 @@
 * Latest version: 0.1.1
 
 # Changelog
+#### BugZilla [v0.0.5]
+* Bugfix that you would change cycle every time an entity died
+* Bugfix that bugzilla wouldn't despawn correctly when multiple spawned
+
+-----
 #### BugZilla [v0.0.4]
 * Total rework (optimalisation) of fart entity, increased volume and added default fart time
 * Rework of the BugZilla so multiple biters can spawn, to make it harder

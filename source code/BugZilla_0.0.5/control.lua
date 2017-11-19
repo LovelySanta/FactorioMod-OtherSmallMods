@@ -72,6 +72,8 @@ script.on_event(defines.events.on_player_died, function(event)
   DeathUI:AddDeath(event.player_index)
 end)
 
+
+
 -- called every time someone clicks on a gui
 script.on_event(defines.events.on_gui_click, function(event)
   DeathUI:OnClick(event)

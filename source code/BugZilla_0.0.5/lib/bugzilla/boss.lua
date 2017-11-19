@@ -65,8 +65,8 @@ function Boss.OnConfigurationChanged(self)
         boss.bossEntity = bossData.entity
         boss.fartEntity = bossData.fart_cloud
         boss.fartEntityTimer = 0
-        table.insert(bossData.entities, boss)
         bossData.entityCount = bossData.entityCount + 1
+        bossData.entities[bossData.entityCount] = boss
 
         bossData.entity = nil
         bossData.fart_cloud = nil
@@ -115,7 +115,7 @@ function Boss.Spawn(self)
   local bossEntities = global.BZ_boss.entities
   local bossEntityCount = global.BZ_boss.entityCount
 
-  if #bossEntities == 0 then
+  if bossEntityCount == 0 then
     -- for each type
     for _,spawnData in pairs(self:GetSpawnAmounts()) do
       local bossType = spawnData.type
@@ -123,11 +123,9 @@ function Boss.Spawn(self)
 
       -- spawn amount
       for _=1, bossAmount, 1 do
-        -- create a new boss
-        local bossEntity = self:CreateNewBoss(bossType)
-        -- add new boss to existing boss entities
-        table.insert(bossEntities, bossEntity)
+        -- create a new boss and add it to existing entities
         bossEntityCount = bossEntityCount + 1
+        bossEntities[bossEntityCount] = self:CreateNewBoss(bossType)
         -- game.print("DEBUG BugZilla.lib.boss.lua: BugZilla spawned.")
       end
     end
@@ -149,14 +147,11 @@ function Boss.Despawn(self)
   local bossKillScore = global.BZ_boss.killScore
 
   -- Despawn all bosses
-  for bossIndex,_ in pairs(bossEntities) do
-    bossData = table.remove(bossEntities, bossIndex)
-    bossEntityCount = bossEntityCount - 1
-    bossKillScore = bossKillScore - 1
+  while bossEntityCount > 0 do
+    local bossData = bossEntities[bossEntityCount]
 
     local bossEntity = bossData.bossEntity
     local fartEntity = bossData.fartEntity
-    local fartEntityTimer = bossData.fartEntityTimer
 
     if bossEntity and bossEntity.valid and bossEntity.destroy() then
       if fartEntity and fartEntity.valid and fartEntity.can_be_destroyed() then
@@ -167,13 +162,19 @@ function Boss.Despawn(self)
       -- game.print("DEBUG BugZilla.lib.boss.lua: BugZilla not destroyed.")
     end
     -- garbage collection will destroy the empty table
-    fartEntity = nil
-    fartEntityTimer = nil
-    bossEntity = nil
+
+    bossEntities[bossEntityCount] = nil
+    bossEntityCount = bossEntityCount - 1
+    bossKillScore = bossKillScore - 1
   end
+
+  -- Make score keeps 0 or above
   if bossKillScore < 0 then
     bossKillScore = 0
   end
+
+  -- Display despawn message
+  MessageAll(self:GetDespawnMessage())
 
   -- save changes in data
   global.BZ_boss.entities = bossEntities
@@ -184,48 +185,61 @@ end
 
 
 function Boss.OnEntityDied(self, event)
-  local bossEntities = global.BZ_boss.entities
-  local bossEntityCount = global.BZ_boss.entityCount
-  local bossKillScore = global.BZ_boss.killScore
+  -- Check if the boss died
+  if self:CheckBossDied(event) then
+    local bossEntities = global.BZ_boss.entities
+    local bossEntityCount = global.BZ_boss.entityCount
+    local bossKillScore = global.BZ_boss.killScore
 
-  -- Find the correct bossEntity (it will be invalid)
-  for bossIndex, bossData in pairs(bossEntities) do
-    local bossEntity = bossData.bossEntity
-    if bossEntity and bossEntity == event.entity then
-      -- Spawn a reward
-      self:SpawnReward(bossIndex)
+    -- Find the correct bossEntity (it will be invalid)
+    for bossIndex = 1, bossEntityCount, 1 do
+      local bossEntity = bossEntities[bossIndex].bossEntity
 
-      -- Remove the boss out of bossEntities
-      bossRemovedData = table.remove(bossEntities, bossIndex)
-      bossEntityCount = bossEntityCount - 1
-      bossKillScore = bossKillScore + 1
+      if bossEntity and bossEntity == event.entity then
+        local fartEntity = bossEntities[bossIndex].fartEntity
 
-      -- Check to remove the fart as wel
-      if fartEntity and fartEntity.valid and fartEntity.can_be_destroyed() then
-        fartEntity.destroy()
+        -- Spawn a reward
+        self:SpawnReward(bossIndex)
+
+        -- Remove the boss out of bossEntities
+        bossRemovedData = bossEntities[bossIndex]
+        -- Close the gap of the array
+        for i = bossIndex + 1, bossEntityCount, 1 do
+          bossEntities[i-1] = bossEntities[i]
+        end
+        bossEntities[bossEntityCount] = nil
+        bossEntityCount = bossEntityCount - 1
+        bossKillScore = bossKillScore + 1
+
+        -- Check to remove the fart as wel
+        if fartEntity and fartEntity.valid and fartEntity.can_be_destroyed() then
+          fartEntity.destroy()
+        end
+
+        -- Display message if character kills it
+        if event.cause and event.cause.valid and event.cause.type == "player" then
+          MessageAll(event.cause.player.name.." delt the last bit of damage to BugZilla!")
+        end
+        -- Display the kill message
+        MessageAll(self:GetKillMessage())
+
+        -- No need to look further, it's already found
+        break
       end
-
-      -- Display message if character kills it
-      if event.cause and event.cause.valid and event.cause.type == "player" then
-        MessageAll(event.cause.player.name.." delt the last bit of damage to BugZilla!")
-      end
-
-      -- No need to look further, it's already found
-      break
     end
+
+    -- save changes in data
+    global.BZ_boss.entities = bossEntities
+    global.BZ_boss.entityCount = bossEntityCount
+    global.BZ_boss.killScore = bossKillScore
+
+    -- Now we deleted the boss, check if we need to go to nextPhase
+    if bossEntityCount == 0 then
+      PhaseCycler:GoToNextPhase()
+    end
+  else
+    -- TODO check for fart cloud entity died
   end
-
-  -- save changes in data
-  global.BZ_boss.entities = bossEntities
-  global.BZ_boss.entityCount = bossEntityCount
-  global.BZ_boss.killScore = bossKillScore
-
-  -- Now we deleted the boss, check if we need to go to nextPhase
-  if bossEntityCount == 0 then
-    PhaseCycler:GoToNextPhase()
-  end
-
-  -- TODO check for fart cloud entity died
 end
 
 
@@ -261,7 +275,7 @@ function Boss.GetSpawnAmounts(self)
 
   local killScore = global.BZ_boss.killScore
 
-  local amount = Math:Round(math.sqrt((3*killScore+1)/5))
+  local amount = Math:Round(math.sqrt((2*killScore+3)/5+1/2))
   if amount < 1 then
     amount = 1
   end
@@ -330,6 +344,18 @@ end
 function Boss.IsAlive(_)
   if global.BZ_boss.entityCount > 0 then
     return true
+  end
+  return false
+end
+
+
+
+function Boss.CheckBossDied(self, event)
+  local EntityName = event.entity.name
+  for _, BossName in pairs (self.types) do
+    if EntityName == BossName then
+      return true
+    end
   end
   return false
 end
@@ -440,7 +466,7 @@ function Boss.FartCloudBehaviour(self, bossIndex)
     }
 
     if (entities >= threshold and fartEntityTimer > 1) or fartEntityTimer > 15 then
-      fartEntity = game.surfaces['nauvis'].create_entity{
+      fartEntity = surface.create_entity{
         name = 'fart',
         position = self:GetFartPosition(bossEntity),
         force = 'enemy',

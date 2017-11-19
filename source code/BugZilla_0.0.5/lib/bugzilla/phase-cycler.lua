@@ -147,9 +147,10 @@ end
 
 
 function PhaseCycler.GoToNextPhase(self)
+  -- game.print("BugZilla.lib.phaseCycler.lua: switching phases!")
   local currentState = global.BZ_data.currentState
 
-if currentState.phaseDuration > 1 then
+  if currentState.phaseDuration > 1 then
     -- reset phase timer
     currentState.phaseDuration = 0
 
@@ -183,10 +184,6 @@ if currentState.phaseDuration > 1 then
       -- despawn boss if it's not death
       if Boss:IsAlive() then
         Boss:Despawn()
-        MessageAll(Boss:GetDespawnMessage())
-      else
-        -- phase will end early if its killed, but still has to display the message
-        MessageAll(Boss:GetKillMessage())
       end
 
 

@@ -1,7 +1,7 @@
 # Current mods
 #### BugZilla
 * Description: The goal is to prepaire a base in a limited amount of time, afther that, one big happy bug come and walk your base over. It's your task to survive, rebuild, defeat! And most of all: Having fun with friends.
-* Latest version: 0.0.4 (bèta release)
+* Latest version: 0.0.5 (bèta release)
 
 #### Land Mover
 * Description: A mod that removes the recipy of landfill. Use land mover instead: dig a hole, get the land, place it elsewhere

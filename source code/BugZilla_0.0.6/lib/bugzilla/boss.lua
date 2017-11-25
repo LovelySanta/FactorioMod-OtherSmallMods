@@ -468,6 +468,11 @@ function Boss.FartCloudBehaviour(self, bossIndex)
       type = 'ammo-turret',
       limit = threshold * 2
     }
+    entities = entities + 2 * surface.count_entities_filtered{
+      area = area,
+      type = 'tree',
+      limit = Math:Round(threshold / 2)
+    }
 
     if (entities >= threshold and fartEntityTimer > 1) or fartEntityTimer > 15 then
       fartEntity = surface.create_entity{

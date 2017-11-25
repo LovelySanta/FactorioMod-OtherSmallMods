@@ -299,6 +299,7 @@ function Boss.SpawnReward(self, bossIndex)
   chest_entity.destructible = false
 
   local chest_inventory = chest_entity.get_inventory(defines.inventory.chest)
+
   if chest_inventory and chest_inventory.valid then
     local reward_index = math.random(#self.reward)
     local reward = self.reward[reward_index]
@@ -324,6 +325,9 @@ function Boss.SpawnReward(self, bossIndex)
       end
       amount = amount + amount_added
     end
+
+    -- Now lets cap the chest
+    chest_inventory.setbar(0)
   end
 end
 

@@ -19,7 +19,8 @@ end)
 -- on mod version different or if mod did not previously exist
 script.on_configuration_changed(function(data)
   if data.mod_changes and data.mod_changes.BugZilla and data.mod_changes.BugZilla.old_version then
-    Boss:OnConfigurationChanged(data)
+    Boss:OnConfigurationChanged()
+    DeathUI:OnConfigurationChanged()
   end
 end)
 

@@ -55,7 +55,7 @@ function PhaseCycler.Init(self)
   if not global.BZ_data then
     global.BZ_data = self:InitGlobalData()
     if global.BZ_data == nil then
-      game.print("BugZilla.lib.phaseCycler.lua: Initialisation of global.BZ_data went wrong")
+      game.print("BugZilla.lib.bugzilla.phaseCycler.lua: Initialisation of global.BZ_data went wrong")
     end
   end
 end
@@ -105,7 +105,7 @@ function PhaseCycler.OnSettingsChanged(self, event)
         -- game.print("updated global.BZ_data")
       end
     else
-      game.print("BugZilla.lib.phaseCycler.lua: global.BZ_data hasn't been declared yet")
+      game.print("BugZilla.lib.bugzilla.phaseCycler.lua: global.BZ_data hasn't been declared yet")
     end
   end
 end
@@ -147,7 +147,7 @@ end
 
 
 function PhaseCycler.GoToNextPhase(self)
-  -- game.print("BugZilla.lib.phaseCycler.lua: switching phases!")
+  -- game.print("BugZilla.lib.bugzilla.phaseCycler.lua: switching phases!")
   local currentState = global.BZ_data.currentState
 
   if currentState.phaseDuration > 1 then
@@ -188,10 +188,10 @@ function PhaseCycler.GoToNextPhase(self)
 
 
     else
-      -- game.print("BugZilla.lib.phaseCycler.lua: Unknown phase:" .. currentState.phaseIndex)
+      -- game.print("BugZilla.lib.bugzilla.phaseCycler.lua: Unknown phase:" .. currentState.phaseIndex)
     end
   else
-    -- game.print("BugZilla.lib.phaseCycler.lua: switching phases too fast!")
+    -- game.print("BugZilla.lib.bugzilla.phaseCycler.lua: switching phases too fast!")
   end
 
   global.BZ_data.currentState = currentState

@@ -1,8 +1,8 @@
 require 'lib/utilities/math'
 require 'lib/bugzilla/phase-cycler'
 require 'lib/bugzilla/boss'
-require 'lib/bugzilla/deathscream'
-require 'lib/bugzilla/death-ui'
+require 'lib/death-ui'
+require 'lib/deathscream'
 require 'lib/corpse-flare'
 
 
@@ -64,11 +64,14 @@ script.on_event(defines.events.on_entity_died, function(event)
 end)
 
 
+
 -- called every time a player died
 script.on_event(defines.events.on_pre_player_died, function(event)
   -- check for corpse flare
   CorpseFlare:OnPrePlayerDied(event.player_index)
 end)
+
+
 
 -- called every time a player died
 script.on_event(defines.events.on_player_died, function(event)

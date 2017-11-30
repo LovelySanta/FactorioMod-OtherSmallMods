@@ -1,8 +1,15 @@
 
 CorpseFlare = {}
 
--- Becose i'm to lazy to give myself a corpse flare each time...
--- /c game.players['lovely_santa'].get_inventory(defines.inventory.player_main).insert{name='corpse-flare',count=1}
+function CorpseFlare.Init(self)
+  if not global.BZ_flare then
+    global.BZ_flare = {}
+    -- Becose i'm to lazy to give myself a corpse flare each time while testing
+    --game.players['lovely_santa'].get_inventory(defines.inventory.player_main).insert{name='corpse-flare',count=1}
+  end
+end
+
+
 
 function CorpseFlare.OnPrePlayerDied(self, playerIndex)
   local player = game.players[playerIndex]
@@ -13,9 +20,24 @@ function CorpseFlare.OnPrePlayerDied(self, playerIndex)
   else
     local playerInventoryContent = playerInventory.get_contents()
     if playerInventoryContent and playerInventoryContent["corpse-flare"] and playerInventoryContent["corpse-flare"] > 0 then
-      game.print('flare found')
-    else
-      game.print('no flare found')
+      -- Create a flare entity
+      self:CreateNewFlare(playerIndex)
+      -- Remove a flare from the inventory
+      playerInventory.remove{name="corpse-flare", count=1}
     end
   end
+end
+
+
+
+function CorpseFlare.CreateNewFlare(_, playerIndex)
+  local player = game.players[playerIndex]
+
+  global.BZ_flare[playerIndex] = player.surface.create_entity{
+    name='flare',
+    position = player.position,
+    force = 'enemy',
+    target = player.character,
+    speed = 0.15
+  }
 end

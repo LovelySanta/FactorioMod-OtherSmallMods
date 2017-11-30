@@ -13,6 +13,7 @@ script.on_init(function(_)
   PhaseCycler:Init()
   Boss:Init()
   DeathUI:Init()
+  CorpseFlare:Init()
 end)
 
 

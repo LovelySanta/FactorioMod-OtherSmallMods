@@ -10,7 +10,7 @@ Boss.messages.spawn_messages = {
   "BugZilla is prepairing an attack, being prepared would be advised.",
   "BugZilla found your hiding place, she will come after you...",
   "BugZilla couldn't sleep with all the noise... She might come silence you.",
-  "Darkness falls upon the land... Evil is comming..."
+  "Darkness falls upon the land... Evil is coming..."
 }
 Boss.messages.kill_messages = {
   "BugZilla died, let's hope there aren't any others...",

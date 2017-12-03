@@ -1,7 +1,7 @@
 # Current mods
 #### BugZilla
 * Description: The goal is to prepaire a base in a limited amount of time, afther that, one big happy bug come and walk your base over. It's your task to survive, rebuild, defeat! And most of all: Having fun with friends.
-* Latest version: 0.0.5 (bèta release)
+* Latest version: 0.0.6
 
 #### Land Mover
 * Description: A mod that removes the recipy of landfill. Use land mover instead: dig a hole, get the land, place it elsewhere
@@ -12,6 +12,15 @@
 * Latest version: 0.1.1
 
 # Changelog
+#### BugZilla [v0.0.6]
+* Added aggro on trees
+* Added penalty when you don't kill the BugZilla
+* Added corpse flare so you can find your lost bodies easier
+* UI rework, more flexibility to add more content
+* Deaths ordened on amount instead of player index
+* Fixed that inserters would insert into reward chest
+
+-----
 #### BugZilla [v0.0.5]
 * Bugfix that you would change cycle every time an entity died
 * Bugfix that bugzilla wouldn't despawn correctly when multiple spawned

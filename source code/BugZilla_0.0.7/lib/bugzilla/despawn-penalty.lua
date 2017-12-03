@@ -19,18 +19,15 @@ end
 
 function DespawnPenalty.OnSecond(self)
   local penaltyData = global.BZ_despawnPenalty
-
   if penaltyData.entityCount > 0 and (game.tick % penaltyData.fartUpdateRate) == 0 then
 
     for _, entity in pairs(penaltyData.entities) do
       if entity and entity.valid and entity.health > 0 then
-        if updateFart then
-          entity.surface.create_entity{
-            name = "fart-cloud",
-            position = entity.position,
-            force = entity.force
-          }
-        end
+        entity.surface.create_entity{
+          name = "fart-cloud",
+          position = entity.position,
+          force = entity.force
+        }
       end
     end
 
@@ -45,7 +42,7 @@ function DespawnPenalty.OnEntityDied(self, entity)
 
   if penaltyData.entityCount > 0 and entity and entity.name == "pile-of-poop" then
     -- find the index of this entityData
-    for i,entity in pairs(penaltyData.entities do
+    for i,entity in pairs(penaltyData.entities) do
       if entity == entityIndexEntity then
         entityIndex = i
         break

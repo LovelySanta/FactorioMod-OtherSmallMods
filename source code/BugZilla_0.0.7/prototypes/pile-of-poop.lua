@@ -37,7 +37,7 @@ data:extend({
     flags = {"placeable-enemy", "not-repairable"},
     order="b-b-e",
     -- subgroup="enemies",
-    max_health = bugzilla_biter.appearance.health * 12,
+    max_health = bugzilla_biter.appearance.health * 10,
     resistances = bugzilla_biter.resistance,
     healing_per_tick = 0,
     collision_box = {{-1.6, -1.0}, {0.6, 1.0}},

@@ -1,6 +1,10 @@
 require 'lib/utilities/math'
-require 'lib/bugzilla/phase-cycler'
+require 'lib/utilities/generic'
+
+require 'lib/bugzilla/despawn-penalty'
 require 'lib/bugzilla/boss'
+require 'lib/bugzilla/phase-cycler'
+
 require 'lib/death-ui'
 require 'lib/deathscream'
 require 'lib/corpse-flare'
@@ -10,8 +14,11 @@ require 'lib/corpse-flare'
 -- on load game for first time
 script.on_init(function(_)
   Math:Init()
+
   PhaseCycler:Init()
+  DespawnPenalty:Init()
   Boss:Init()
+
   DeathUI:Init()
   CorpseFlare:Init()
 end)
@@ -22,6 +29,8 @@ end)
 script.on_configuration_changed(function(data)
   if data.mod_changes and data.mod_changes.BugZilla and data.mod_changes.BugZilla.old_version then
     Boss:OnConfigurationChanged()
+    DespawnPenalty:OnConfigurationChanged()
+
     DeathUI:OnConfigurationChanged()
   end
 end)
@@ -47,6 +56,7 @@ script.on_event(defines.events.on_tick, function(event)
   if game.tick % 60 == 0 then -- each second
     PhaseCycler:OnSecond()
     Boss:OnSecond()
+    DespawnPenalty:OnSecond()
   end
 end)
 
@@ -62,6 +72,7 @@ end)
 -- called every time an entity die
 script.on_event(defines.events.on_entity_died, function(event)
   Boss:OnEntityDied(event)
+  DespawnPenalty:OnEntityDied(event.entity)
 end)
 
 

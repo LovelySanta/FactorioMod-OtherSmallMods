@@ -34,7 +34,7 @@ data:extend({
     duration = fart_duration,
     fade_away_duration = 2 * 60,
     spread_duration = 10,
-    color = { r = 0.6, g = 0.298, b = 0.0 },
+    color = { r = 0.6, g = 0.298, b = 0.0, a = 0.5},
     action =
     {
       type = "direct",

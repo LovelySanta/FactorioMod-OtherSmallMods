@@ -1,7 +1,3 @@
-require 'lib/utilities/math'
-require 'lib/utilities/generic'
-require 'lib/bugzilla/boss'
-
 -- Class that controls the behavior of the surface:
   -- control the darkness
 PhaseCycler = {}

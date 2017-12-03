@@ -1,4 +1,3 @@
-require 'lib/utilities/math'
 
 Boss = {}
 
@@ -151,6 +150,12 @@ function Boss.Despawn(self)
     local bossData = bossEntities[bossEntityCount]
 
     local bossEntity = bossData.bossEntity
+    local entityData = {}
+    entityData.surface = bossEntity.surface
+    entityData.name = bossEntity.name
+    entityData.position = bossEntity.position
+    entityData.force = bossEntity.force
+
     local fartEntity = bossData.fartEntity
 
     if bossEntity and bossEntity.valid and bossEntity.destroy() then
@@ -158,6 +163,9 @@ function Boss.Despawn(self)
         fartEntity.destroy()
       end
       -- game.print("DEBUG BugZilla.lib.boss.lua: BugZilla destroyed.")
+
+      -- Spawn Penalty
+      DespawnPenalty:CreateNewPenalty(entityData)
     else
       -- game.print("DEBUG BugZilla.lib.boss.lua: BugZilla not destroyed.")
     end

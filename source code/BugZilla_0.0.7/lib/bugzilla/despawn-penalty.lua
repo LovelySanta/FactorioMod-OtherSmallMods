@@ -3,7 +3,7 @@ DespawnPenalty = {}
 
 function DespawnPenalty.Init(self)
   if not global.BZ_despawnPenalty then
-    global.BZ_despawnPenalty = self.InitGlobalData()
+    global.BZ_despawnPenalty = self:InitGlobalData()
   end
 end
 
@@ -11,7 +11,7 @@ end
 
 function DespawnPenalty.OnConfigurationChanged(self)
   if not global.BZ_despawnPenalty then
-    global.BZ_despawnPenalty = self.InitGlobalData()
+    global.BZ_despawnPenalty = self:InitGlobalData()
   end
 end
 
@@ -45,9 +45,9 @@ function DespawnPenalty.OnEntityDied(self, entity)
 
   if penaltyData.entityCount > 0 and entity and entity.name == "pile-of-poop" then
     -- find the index of this entityData
-    for entityCount=1,penaltyData.entityCount,1 do
-      if entity == penaltyData.entities[entityCount] then
-        entityIndex = entityCount
+    for i,entity in pairs(penaltyData.entities do
+      if entity == entityIndexEntity then
+        entityIndex = i
         break
       end
     end
@@ -70,6 +70,7 @@ function DespawnPenalty.CreateNewPenalty(self, entityData)
 
   if entityData.name == "bugzilla-biter" then
     penaltyData.entityCount = penaltyData.entityCount + 1
+
     penaltyData.entities[penaltyData.entityCount] = entityData.surface.create_entity{
       name = "pile-of-poop",
       position = entityData.position,

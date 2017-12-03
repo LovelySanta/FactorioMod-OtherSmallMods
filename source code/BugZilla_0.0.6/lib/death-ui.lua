@@ -29,6 +29,13 @@ function DeathUI.OnConfigurationChanged(self)
       guiData.Name = "BZ_gui"
       guiData.Version = "1"
 
+      -- update guiState to new data
+      local guiState = guiData.guiState
+      guiState.deathDetailsVisible = guiState.detailsVisible
+      guiState.detailsVisible = nil
+      guiData.guiState = guiState
+
+      -- update deathData
       local oldDeaths = guiData.deaths
       deathRank = {}
       deathRankLength = 0
@@ -51,10 +58,37 @@ function DeathUI.OnConfigurationChanged(self)
         end
 
         -- On this version we need also recreate the UI for each player
-        local scrollPane = game.players[playerIndex].gui.top.BZ_gui_frame.BZ_gui_flow.BZ_gui_scrollPane
-        scrollPane.BZ_gui_lblDeaths.destroy() -- Destroy the old label
+        local frame = game.players[playerIndex].gui.top.BZ_gui_frame
+        frame.BZ_gui_flow.destroy() -- Destroy the old flow
 
-        -- Now create the new labels
+        -- Create the now flow
+        local flow_h = frame.add{
+          type = "flow",
+          name = "BZ_gui_flow_h",
+          direction = "horizontal"
+        }
+        local flow_v1 = flow_h.add{
+          type = "flow",
+          name = "BZ_gui_flow_v1",
+          direction = "vertical"
+        }
+
+        local scrollPane = flow_v1.add{
+          type = "scroll-pane",
+          name = "BZ_gui_scrollPane",
+          vertical_scroll_policy = "auto"
+        }
+        scrollPane.style.maximal_height = 500
+
+        -- Recreate the button we accidently deleted
+        flow_v1.add{
+          type = "button",
+          name = "BZ_gui_btnDeathsMore",
+          caption = "  ▼  "
+        }
+        self:UpdateButtons(playerIndex)
+
+        -- Create the new labels
         local deathsTable = scrollPane.add{
           type = "table",
           name = "BZ_gui_deathsTable",
@@ -86,7 +120,7 @@ function DeathUI.OnConfigurationChanged(self)
     end
   end
 
-  -- Up to date data here, now lets re-draw the GUI
+  -- Up to date data here, now lets re-draw the GUI content
   self:UpdateAllLabels()
 end
 
@@ -100,9 +134,9 @@ end
 
 
 function DeathUI.OnClick(self, event)
-  if event.element.name == "BZ_gui_btnMore" then
+  if event.element.name == "BZ_gui_btnDeathsMore" then
     local playerIndex = event.player_index
-    global.BZ_gui.guiState[playerIndex].detailsVisible = not global.BZ_gui.guiState[playerIndex].detailsVisible
+    global.BZ_gui.guiState[playerIndex].deathDetailsVisible = not global.BZ_gui.guiState[playerIndex].deathDetailsVisible
     self:UpdateButtons(playerIndex)
     self:UpdateLabels(playerIndex)
   end
@@ -141,12 +175,18 @@ function DeathUI.InitPlayer(self, playerIndex)
       type = "frame",
       name = "BZ_gui_frame"
     }
-    local flow = frame.add{
+    local flow_h = frame.add{
       type = "flow",
-      name = "BZ_gui_flow",
+      name = "BZ_gui_flow_h",
+      direction = "horizontal"
+    }
+    local flow_v1 = flow_h.add{
+      type = "flow",
+      name = "BZ_gui_flow_v1",
       direction = "vertical"
     }
-    local scrollPane = flow.add{
+
+    local scrollPane = flow_v1.add{
       type = "scroll-pane",
       name = "BZ_gui_scrollPane",
       vertical_scroll_policy = "auto"
@@ -178,15 +218,15 @@ function DeathUI.InitPlayer(self, playerIndex)
       single_line = false
     }
 
-    flow.add{
+    flow_v1.add{
       type = "button",
-      name = "BZ_gui_btnMore",
-      caption = "More..."
+      name = "BZ_gui_btnDeathsMore",
+      caption = "  ▼  "
     }
 
     -- init gui state visible for the player
     local state = {}
-    state.detailsVisible = false
+    state.deathDetailsVisible = false
     global.BZ_gui.guiState[playerIndex] = state
   end
 end
@@ -230,12 +270,12 @@ end
 function DeathUI.UpdateButtons(self, playerIndex)
   local frame = game.players[playerIndex].gui.top.BZ_gui_frame
   if frame then
-    local btnMore = frame.BZ_gui_flow.BZ_gui_btnMore
+    local btnDeahtsMore = frame.BZ_gui_flow_h.BZ_gui_flow_v1.BZ_gui_btnDeathsMore
     local state = global.BZ_gui.guiState[playerIndex]
-    if state.detailsVisible then
-      btnMore.caption = "Less..."
+    if state.deathDetailsVisible then
+      btnDeahtsMore.caption = "  ▲  "
     else
-      btnMore.caption = "More..."
+      btnDeahtsMore.caption = "  ▼  "
     end
   end
 end
@@ -255,7 +295,7 @@ function DeathUI.UpdateLabels(self, playerIndex)
   local frame = game.players[playerIndex].gui.top.BZ_gui_frame
   if frame then
     local deathsRank, deathsName, deathsCount = self:GetDeathsLabelText(playerIndex)
-    local deathsTable = frame.BZ_gui_flow.BZ_gui_scrollPane.BZ_gui_deathsTable
+    local deathsTable = frame.BZ_gui_flow_h.BZ_gui_flow_v1.BZ_gui_scrollPane.BZ_gui_deathsTable
 
     deathsTable.BZ_gui_lblDeathsRank.caption = deathsRank
     deathsTable.BZ_gui_lblDeathsName.caption = deathsName
@@ -267,7 +307,7 @@ end
 
 function DeathUI.GetDeathsLabelText(self, playerIndex)
   -- Either single line or multi line string depending on GUI state
-  if global.BZ_gui.guiState[playerIndex].detailsVisible then
+  if global.BZ_gui.guiState[playerIndex].deathDetailsVisible then
     local deathsRank = "†"
     local deathsName = "Deaths:"
     local deathsCount = ""

@@ -36,28 +36,27 @@ end
 
 
 
-function DespawnPenalty.OnEntityDied(self, entity)
+function DespawnPenalty.OnEntityDied(self, event)
   local penaltyData = global.BZ_despawnPenalty
-  local entityIndex
+  local entity = event.entity
 
   if penaltyData.entityCount > 0 and entity and entity.name == "pile-of-poop" then
     -- find the index of this entityData
-    for i,entity in pairs(penaltyData.entities) do
-      if entity == entityIndexEntity then
-        entityIndex = i
+    for poopIndex, poopEntity in pairs(penaltyData.entities) do
+      if entity == poopEntity then
+        -- swap out this entity with last entity to keep all entities correctly
+        penaltyData.entities[poopIndex] = penaltyData.entities[penaltyData.entityCount]
+        penaltyData.entities[penaltyData.entityCount] = nil
+        penaltyData.entityCount = penaltyData.entityCount - 1
+
+        -- Safe data
+        global.BZ_despawnPenalty = penaltyData
+
+        -- no need to look further, we found the entity already
         break
       end
     end
-
-    -- Change data
-    penaltyData.entities[entityIndex] = penaltyData.entities[penaltyData.entityCount]
-    penaltyData.entities[penaltyData.entityCount] = nil
-    penaltyData.entityCount = penaltyData.entityCount - 1
-
-    -- Safe data
-    global.BZ_despawnPenalty = penaltyData
   end
-
 end
 
 
@@ -67,7 +66,6 @@ function DespawnPenalty.CreateNewPenalty(self, entityData)
 
   if entityData.name == "bugzilla-biter" then
     penaltyData.entityCount = penaltyData.entityCount + 1
-
     penaltyData.entities[penaltyData.entityCount] = entityData.surface.create_entity{
       name = "pile-of-poop",
       position = entityData.position,

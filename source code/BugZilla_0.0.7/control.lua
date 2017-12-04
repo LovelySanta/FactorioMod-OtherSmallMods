@@ -72,7 +72,7 @@ end)
 -- called every time an entity die
 script.on_event(defines.events.on_entity_died, function(event)
   Boss:OnEntityDied(event)
-  DespawnPenalty:OnEntityDied(event.entity)
+  DespawnPenalty:OnEntityDied(event)
 end)
 
 

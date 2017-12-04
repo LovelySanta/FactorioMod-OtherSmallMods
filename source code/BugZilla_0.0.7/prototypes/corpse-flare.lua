@@ -6,8 +6,9 @@ data:extend({
   {
     type = "item",
     name = "corpse-flare",
-    icon = "__BugZilla__/graphics/entity/corpse-flare.png",
-    icon_size = 200,
+    icon = "__BugZilla__/graphics/icons/corpse-flare.png",
+    icon_size = 32,
+    scale = 1,
     flags = {"goes-to-main-inventory"},
     subgroup = "tool",
     order = "z[mining]-z[shovel]",
@@ -33,8 +34,8 @@ data:extend({
     type = "technology",
     name = "corpse-flare",
     prerequisites = {"military-2"},
-    icon = "__BugZilla__/graphics/entity/corpse-flare.png",
-    icon_size = 200,
+    icon = "__BugZilla__/graphics/technology/corpse-flare.png",
+    icon_size = 64,
     unit =
     {
       count = 100,

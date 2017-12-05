@@ -80,7 +80,8 @@ data:extend({
     duration = flare_duration,
     fade_away_duration = 2 * 60,
     spread_duration = 10,
-    color = { r = 0.675, g = 0.078, b = 0.455 },
+    --color = { r = 0.675, g = 0.078, b = 0.455 },
+    color = { r = 0.824, g = 0.496, b = 0.703 },
     action =
     {
       type = "direct",

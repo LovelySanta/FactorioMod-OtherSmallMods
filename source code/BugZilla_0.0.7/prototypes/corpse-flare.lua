@@ -56,9 +56,7 @@ data:extend({
     },
     order = "b-d"
   },
-})
 
-data:extend({
   {
     type = "smoke-with-trigger",
     name = "flare-cloud",
@@ -66,14 +64,14 @@ data:extend({
     show_when_smoke_off = true,
     animation =
     {
-      filename = "__base__/graphics/entity/cloud/cloud-45-frames.png",
+      filename = "__BugZilla__/graphics/entity/corpse-flare.png",
       flags = { "compressed" },
       priority = "low",
       width = 256,
       height = 256,
-      frame_count = 45,
-      animation_speed = 0.5,
-      line_length = 7,
+      frame_count = 4,
+      animation_speed = 0.1,
+      line_length = 4,
       scale = 1,
     },
     slow_down_factor = 0,
@@ -111,41 +109,4 @@ data:extend({
     },
     action_cooldown = flare_duration + 2 * 60,
   },
-
-
-
-  {
-    type = "projectile",
-    name = "flare",
-    flags = {"not-on-map"},
-    acceleration = 0,
-    direction_only = false,
-    action =
-    {
-      {
-        type = "direct",
-        action_delivery =
-        {
-          type = "instant",
-          target_effects =
-          {
-              {
-                type = "create-entity",
-                entity_name = "flare-cloud"
-              },
-          }
-        }
-      }
-    },
-    animation =
-    {
-      filename = "__core__/graphics/empty.png",
-      priority = "high",
-      width = 1,
-      height = 1,
-      frame_count = 1,
-      line_length = 1,
-      animation_speed = 1
-    },
-  }
 })

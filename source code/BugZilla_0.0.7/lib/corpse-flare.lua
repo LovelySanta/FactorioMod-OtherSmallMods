@@ -34,8 +34,11 @@ function CorpseFlare.CreateNewFlare(_, playerIndex)
   local player = game.players[playerIndex]
 
   global.BZ_flare[playerIndex] = player.surface.create_entity{
-    name='flare',
-    position = player.position,
+    name='flare-cloud',
+    position = {
+      x = player.position.x + 3.5,
+      y = player.position.y - 3.5
+    },
     force = 'enemy',
     target = player.character,
     speed = 0.15

@@ -308,9 +308,9 @@ end
 function DeathUI.GetDeathsLabelText(self, playerIndex)
   -- Either single line or multi line string depending on GUI state
   if global.BZ_gui.guiState[playerIndex].deathDetailsVisible then
-    local deathsRank = "†"
-    local deathsName = "Deaths:"
-    local deathsCount = ""
+    local deathsRank = "\n\n†"
+    local deathsName = "Score: \n\nDeaths:"
+    local deathsCount = global.BZ_boss.killScore .. "\n\n"
 
     for i = 1, global.BZ_gui.deathRankLength, 1 do
       local playerIndex = global.BZ_gui.deathRank[i]
@@ -329,6 +329,6 @@ function DeathUI.GetDeathsLabelText(self, playerIndex)
     return deathsRank, deathsName, deathsCount
 
   else
-    return "† Deaths: ", global.BZ_gui.deaths[playerIndex], ""
+    return "Score: \n† Deaths: ", global.BZ_boss.killScore .. "\n" .. global.BZ_gui.deaths[playerIndex], ""
   end
 end

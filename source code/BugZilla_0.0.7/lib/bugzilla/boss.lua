@@ -188,6 +188,9 @@ function Boss.Despawn(self)
   global.BZ_boss.entities = bossEntities
   global.BZ_boss.entityCount = bossEntityCount
   global.BZ_boss.killScore = bossKillScore
+
+  -- update UI
+  DeathUI:UpdateAllLabels()
 end
 
 
@@ -240,6 +243,9 @@ function Boss.OnEntityDied(self, event)
     global.BZ_boss.entities = bossEntities
     global.BZ_boss.entityCount = bossEntityCount
     global.BZ_boss.killScore = bossKillScore
+
+    -- update UI
+    DeathUI:UpdateAllLabels()
 
     -- Now we deleted the boss, check if we need to go to nextPhase
     if bossEntityCount == 0 then

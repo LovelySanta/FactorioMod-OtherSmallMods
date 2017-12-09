@@ -1,7 +1,7 @@
 # Current mods
 #### BugZilla
 * Description: The goal is to prepaire a base in a limited amount of time, afther that, one big happy bug come and walk your base over. It's your task to survive, rebuild, defeat! And most of all: Having fun with friends.
-* Latest version: 0.0.6
+* Latest version: 0.0.7
 
 #### Land Mover
 * Description: A mod that removes the recipy of landfill. Use land mover instead: dig a hole, get the land, place it elsewhere
@@ -12,6 +12,16 @@
 * Latest version: 0.1.1
 
 # Changelog
+#### BugZilla [v0.0.7]
+* Added Flare cloud sprite instead of a pink cloud
+* Bugfix poop name was missing in english translation
+* Bugfix poop was not spawning fart clouds
+* Bugfix flare item name was missing on english translation
+* Bugfix flare icon sprite was too big
+* Bugfix flare was not working in the quickbar
+* Added BugZilla score on UI
+
+-----
 #### BugZilla [v0.0.6]
 * Added aggro on trees
 * Added penalty when you don't kill the BugZilla

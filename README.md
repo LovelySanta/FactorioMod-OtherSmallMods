@@ -5,13 +5,17 @@
 
 #### Land Mover
 * Description: A mod that removes the recipy of landfill. Use land mover instead: dig a hole, get the land, place it elsewhere
-* Latest version: 0.1.2
+* Latest version: 0.1.3
 
 #### Santa's Nixie Tube Display
 * Description: Mod that adds some nixie tubes from the nixie tube mod, in exchange for some extra UPS
 * Latest version: 0.1.1
 
 # Changelog
+#### Land Mover [v0.1.3]
+* Updated to base game 0.16.0
+
+-----
 #### BugZilla [v0.0.7]
 * Added Flare cloud sprite instead of a pink cloud
 * Bugfix poop name was missing in english translation

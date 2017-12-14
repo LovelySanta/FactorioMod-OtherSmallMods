@@ -9,9 +9,13 @@
 
 #### Santa's Nixie Tube Display
 * Description: Mod that adds some nixie tubes from the nixie tube mod, in exchange for some extra UPS
-* Latest version: 0.1.1
+* Latest version: 0.1.2
 
 # Changelog
+#### Santa's Nixie Tube Display [v0.1.2]
+* Updated to base game 0.16.2
+
+-----
 #### Land Mover [v0.1.3]
 * Updated to base game 0.16.0
 

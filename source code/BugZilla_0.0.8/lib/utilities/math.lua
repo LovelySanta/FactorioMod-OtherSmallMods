@@ -13,7 +13,7 @@ function Math.Init(self)
 	-- seed the generator
   math.randomseed(self:Round(seed_gen(1,math.pow(2,32))))
 	while seed_iter < 100 do
-		math.random()
+		local temp = math.random()
 		seed_iter = seed_iter + 1
 	end
 end

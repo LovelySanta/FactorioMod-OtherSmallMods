@@ -229,7 +229,7 @@ function Boss.OnEntityDied(self, event)
 
         -- Display message if character kills it
         if event.cause and event.cause.valid and event.cause.type == "player" then
-          MessageAll(event.cause.player.name.." delt the last bit of damage to BugZilla!")
+          MessageAll(event.cause.player.name.." dealt the last bit of damage to BugZilla!")
         end
         -- Display the kill message
         MessageAll(self:GetKillMessage())

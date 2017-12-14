@@ -8,6 +8,6 @@
   "homepage": "https://github.com/LovelySanta/FactorioMods",
   "description": "Another version of the nixie tubes, less features, less UPS drops.",
   "dependencies": [
-    "base >= 0.16.0"
+    "base >= 0.16.2"
   ]
 }

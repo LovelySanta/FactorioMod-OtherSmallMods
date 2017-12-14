@@ -22,3 +22,13 @@ function DeepCopy(original)
   end
   return copy
 end
+
+function TableHasValue(table, value)
+  for _,val in pairs(table) do
+    if value == val then
+      return true
+    end
+  end
+
+  return false
+end

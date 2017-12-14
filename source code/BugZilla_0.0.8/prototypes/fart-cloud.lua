@@ -47,7 +47,7 @@ data:extend({
           action =
           {
             type = "area",
-            perimeter = fart_range,
+            radius = fart_range,
             action_delivery =
             {
               type = "instant",
@@ -61,7 +61,7 @@ data:extend({
         }
       }
     },
-    action_cooldown = fart_damage_interval
+    action_cooldown = fart_damage_interval,
   },
 
 

@@ -91,10 +91,17 @@ function DeathUI.OnConfigurationChanged(self)
         name = "BZ_gui_buttonFrame",
         direction = "horizontal"
       }
-      local buttonDeaths = buttons.add{
+      buttons.add{
         type = "sprite-button",
         name = "BZ_gui_buttonDeaths",
-        sprite = "item/iron-plate"
+        sprite = "item/iron-plate",
+        style = "icon_button"
+      }
+      button.add{
+        type = "sprite-button",
+        name = "BZ_gui_buttonBiterstats",
+        sprite = "item/iron-plate",
+        style = "icon_button"
       }
       -- create the detailed view
       local detailFrame = flow.add{
@@ -184,10 +191,17 @@ function DeathUI.InitPlayer(self, playerIndex)
       name = "BZ_gui_buttonFrame",
       direction = "horizontal"
     }
-    local buttonDeaths = buttons.add{
+    buttons.add{
       type = "sprite-button",
       name = "BZ_gui_buttonDeaths",
-      sprite = "item/iron-plate"
+      sprite = "item/iron-plate",
+      style = "icon_button"
+    }
+    button.add{
+      type = "sprite-button",
+      name = "BZ_gui_buttonBiterstats",
+      sprite = "item/iron-plate",
+      style = "icon_button"
     }
     -- create the detailed view
     local detailFrame = flow.add{

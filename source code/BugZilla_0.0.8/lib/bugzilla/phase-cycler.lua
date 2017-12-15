@@ -1,5 +1,6 @@
 -- Class that controls the behavior of the surface:
   -- control the darkness
+  -- control the time (related to darkness)
 PhaseCycler = {}
 
 -- PHASES:
@@ -14,6 +15,7 @@ PhaseCycler.dayPhaseIndex = 1
 PhaseCycler.nightfallPhaseIndex = 2
 PhaseCycler.nightPhaseIndex = 3
 PhaseCycler.sunsetPhaseIndex = 4
+
 -- next phase
 PhaseCycler.getNextPhaseIndex = {
   [PhaseCycler.initPhaseIndex] = PhaseCycler.nightfallPhaseIndex,
@@ -58,7 +60,7 @@ end
 
 
 
-function PhaseCycler.InitGlobalData(_)
+function PhaseCycler.InitGlobalData(self)
   local data = {
     -- meta data
     Name = 'BZ_data',
@@ -70,15 +72,15 @@ function PhaseCycler.InitGlobalData(_)
 
     -- state data
     initState = {
-      phaseIndex = PhaseCycler.initPhaseIndex,
+      phaseIndex = self.initPhaseIndex,
       phaseDuration = 0, -- time (seconds) we are in this phase
       phaseTotalDuration = settings.global["BZ-initial-day-length"].value * 60, -- how long this phase lasts (in seconds)
 
-      currentBrightness = PhaseCycler.dayBrightness,
-      startBrightness = PhaseCycler.dayBrightness,
-      endBrightness = PhaseCycler.dayBrightness,
+      currentBrightness = self.dayBrightness,
+      startBrightness = self.dayBrightness,
+      endBrightness = self.dayBrightness,
 
-      nextPhaseIndex = PhaseCycler.nightfallPhaseIndex
+      nextPhaseIndex = self.nightfallPhaseIndex
     }
   }
   data.currentState = DeepCopy(data.initState)
@@ -93,9 +95,9 @@ function PhaseCycler.OnSettingsChanged(self, event)
 
     if global.BZ_data ~= nil then
       local currentState = global.BZ_data.currentState
-      if (event.setting == "BZ-day-length" and currentState.phaseIndex == PhaseCycler.dayPhaseIndex)
-      or (event.setting == "BZ-night-length" and currentState.phaseIndex == PhaseCycler.nightPhaseIndex)
-      or event.setting == "BZ-initial-day-length" and currentState.phaseIndex == PhaseCycler.initPhaseIndex then
+      if (event.setting == "BZ-day-length" and currentState.phaseIndex == self.dayPhaseIndex)
+      or (event.setting == "BZ-night-length" and currentState.phaseIndex == self.nightPhaseIndex)
+      or event.setting == "BZ-initial-day-length" and currentState.phaseIndex == self.initPhaseIndex then
         currentState.phaseTotalDuration = 60 * settings.global[event.setting].value
         global.BZ_data.currentState = currentState
         -- game.print("updated global.BZ_data")
@@ -159,24 +161,24 @@ function PhaseCycler.GoToNextPhase(self)
        -- startBrightness, endBrightness
     currentState.startBrightness = currentState.currentBrightness
 
-    if currentState.phaseIndex == PhaseCycler.dayPhaseIndex then
+    if currentState.phaseIndex == self.dayPhaseIndex then
       currentState.phaseTotalDuration = 60 * settings.global["BZ-day-length"].value
-      currentState.endBrightness = PhaseCycler.dayBrightness
+      currentState.endBrightness = self.dayBrightness
 
-    elseif currentState.phaseIndex == PhaseCycler.nightfallPhaseIndex then
+    elseif currentState.phaseIndex == self.nightfallPhaseIndex then
       currentState.phaseTotalDuration = 60
-      currentState.endBrightness = PhaseCycler.nightBrightness
+      currentState.endBrightness = self.nightBrightness
       MessageAll(Boss:GetSpawnMessage())
 
-    elseif currentState.phaseIndex == PhaseCycler.nightPhaseIndex then
+    elseif currentState.phaseIndex == self.nightPhaseIndex then
       currentState.phaseTotalDuration = 60 * settings.global["BZ-night-length"].value
-      currentState.endBrightness = PhaseCycler.nightBrightness
+      currentState.endBrightness = self.nightBrightness
       -- Spawn boss
       Boss:Spawn()
 
-    elseif currentState.phaseIndex == PhaseCycler.sunsetPhaseIndex then
+    elseif currentState.phaseIndex == self.sunsetPhaseIndex then
       currentState.phaseTotalDuration = 60
-      currentState.endBrightness = PhaseCycler.dayBrightness
+      currentState.endBrightness = self.dayBrightness
       -- despawn boss if it's not death
       if Boss:IsAlive() then
         Boss:Despawn()

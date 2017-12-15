@@ -57,6 +57,7 @@ function Boss.OnConfigurationChanged(self)
     if bossData.Version == '1' then
       bossData.Version = '2'
 
+      -- adding entities and entityCount
       bossData.entities = {}
       bossData.entityCount = 0
       if bossData.entity then
@@ -71,25 +72,45 @@ function Boss.OnConfigurationChanged(self)
         bossData.fart_cloud = nil
       end
       bossData.killScore = 0
-
     end
 
-    -- current version running: 2
+    -- update version 2 --> 3
+    if bossData.Version == '2' then
+      bossData.Version = '3'
+      local kills = {}
+      for _,bossName in pairs(self.types) do
+        kills[bossName] = {}
+        kills[bossName].killed = 0
+        kills[bossName].total = 0
+      end
+      bossData.killCount = DeepCopy(kills)
+    end
+
+    -- current version running: 3
     global.BZ_boss = bossData
   end
 end
 
 
 
-function Boss.InitGlobalData(_)
+function Boss.InitGlobalData(self)
+  local kills = {}
+  for _,bossName in pairs(self.types) do
+    kills[bossName] = {}
+    kills[bossName].killed = 0
+    kills[bossName].total = 0
+  end
+
   local bossData = {
     -- meta data
     Name = 'BZ_boss',
-    Version = '2',
+    Version = '3',
 
     entities = {},
     entityCount = 0,
-    killScore = 0
+
+    killScore = 0,
+    killCount = DeepCopy(kills),
   }
   return DeepCopy(bossData)
 end
@@ -144,6 +165,7 @@ function Boss.Despawn(self)
   local bossEntities = global.BZ_boss.entities
   local bossEntityCount = global.BZ_boss.entityCount
   local bossKillScore = global.BZ_boss.killScore
+  local bossKillCount = global.BZ_boss.killCount
 
   -- Despawn all bosses
   while bossEntityCount > 0 do
@@ -174,6 +196,8 @@ function Boss.Despawn(self)
     bossEntities[bossEntityCount] = nil
     bossEntityCount = bossEntityCount - 1
     bossKillScore = bossKillScore - 1
+
+    bossKillCount[entityData.name].total = bossKillCount[entityData.name].total + 1
   end
 
   -- Make score keeps 0 or above
@@ -188,6 +212,7 @@ function Boss.Despawn(self)
   global.BZ_boss.entities = bossEntities
   global.BZ_boss.entityCount = bossEntityCount
   global.BZ_boss.killScore = bossKillScore
+  global.BZ_boss.killCount = bossKillCount
 
   -- update UI
   DeathUI:UpdateAllLabels()
@@ -201,6 +226,7 @@ function Boss.OnEntityDied(self, event)
     local bossEntities = global.BZ_boss.entities
     local bossEntityCount = global.BZ_boss.entityCount
     local bossKillScore = global.BZ_boss.killScore
+    local bossKillCount = global.BZ_boss.killCount
 
     -- Find the correct bossEntity (it will be invalid)
     for bossIndex = 1, bossEntityCount, 1 do
@@ -221,6 +247,8 @@ function Boss.OnEntityDied(self, event)
         bossEntities[bossEntityCount] = nil
         bossEntityCount = bossEntityCount - 1
         bossKillScore = bossKillScore + 1
+        bossKillCount[bossEntity.name].total = bossKillCount[bossEntity.name].total + 1
+        bossKillCount[bossEntity.name].killed = bossKillCount[bossEntity.name].killed + 1
 
         -- Check to remove the fart as wel
         if fartEntity and fartEntity.valid and fartEntity.can_be_destroyed() then
@@ -243,6 +271,7 @@ function Boss.OnEntityDied(self, event)
     global.BZ_boss.entities = bossEntities
     global.BZ_boss.entityCount = bossEntityCount
     global.BZ_boss.killScore = bossKillScore
+    global.BZ_boss.killCount = bossKillCount
 
     -- update UI
     DeathUI:UpdateAllLabels()

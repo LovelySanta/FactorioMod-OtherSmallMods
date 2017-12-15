@@ -1,5 +1,13 @@
 require("lib.utilities.generic")
+
+
 DeathUI = {}
+
+
+
+DeathUI.bossNames = {
+  ["bugzilla-biter"] = "BugZilla Biter",
+}
 
 
 
@@ -97,10 +105,10 @@ function DeathUI.OnConfigurationChanged(self)
         sprite = "item/iron-plate",
         style = "icon_button"
       }
-      button.add{
+      buttons.add{
         type = "sprite-button",
         name = "BZ_gui_buttonBiterstats",
-        sprite = "item/iron-plate",
+        sprite = "item/copper-plate",
         style = "icon_button"
       }
       -- create the detailed view
@@ -141,6 +149,16 @@ function DeathUI.OnClick(self, event)
     -- show the not detailed view
     guiState.deathDetailsVisible = not guiState.deathDetailsVisible
     guiState.bugzillaDetailsVisible = false
+
+    -- update data
+    global.BZ_gui.guiState[playerIndex] = guiState
+    -- draw new detailed view
+    self:UpdateLabel(playerIndex)
+
+  elseif event.element.name == "BZ_gui_buttonBiterstats" then
+    -- show the not biter stats
+    guiState.bugzillaDetailsVisible = not guiState.bugzillaDetailsVisible
+    guiState.deathDetailsVisible = false
 
     -- update data
     global.BZ_gui.guiState[playerIndex] = guiState
@@ -197,10 +215,10 @@ function DeathUI.InitPlayer(self, playerIndex)
       sprite = "item/iron-plate",
       style = "icon_button"
     }
-    button.add{
+    buttons.add{
       type = "sprite-button",
       name = "BZ_gui_buttonBiterstats",
-      sprite = "item/iron-plate",
+      sprite = "item/copper-plate",
       style = "icon_button"
     }
     -- create the detailed view
@@ -290,7 +308,7 @@ function DeathUI.UpdateLabel(self, playerIndex)
       -- We need the deathUI
       local deathsRank, deathsName, deathsCount = self:GetDeathsLabelText(playerIndex)
 
-      if TableHasValue(detailedView.children_names, BZ_gui_deathsTable) then
+      if TableHasValue(detailedView.children_names, "BZ_gui_deathsTable") then
         -- If the GUI was there, we only have to update the caption
         local deathsTable = detailedView.BZ_gui_deathsTable
         deathsTable.BZ_gui_lblDeathsRank.caption = deathsRank
@@ -326,7 +344,41 @@ function DeathUI.UpdateLabel(self, playerIndex)
         }
         lblDeathsCount.style.single_line = false
       end
-    -- TODO add bugzillaDetailsVisible
+
+    else
+      -- we need the bugzilla UI
+      local bugzillaName, bugzillaScore = self:GetBugzillaLabelText()
+
+      if TableHasValue(detailedView.children_names, "BZ_gui_bugzillaTable") then
+        -- If the GUI was there, we only have to update the captions
+        local bugzillaTable = detailedView.BZ_gui_bugzillaTable
+        bugzillaTable.BZ_gui_lblBugzillaName.caption = bugzillaName
+        bugzillaTable.BZ_gui_lblBugzillaScore.caption = bugzillaScore
+
+      else
+        -- We need to redraw the detailedView
+        detailedView.clear()
+
+        -- Create the new labels
+        local bugzillaTable = detailedView.add{
+          type = "table",
+          name = "BZ_gui_bugzillaTable",
+          column_count = 2
+        }
+        local lblBugzillaName = bugzillaTable.add{
+          type = "label",
+          name = "BZ_gui_lblBugzillaName",
+          caption = bugzillaName,
+        }
+        lblBugzillaName.style.single_line = false
+        local lblBugzillaScore = bugzillaTable.add{
+          type = "label",
+          name = "BZ_gui_lblBugzillaScore",
+          caption = bugzillaScore,
+        }
+        lblBugzillaScore.style.single_line = false
+
+      end
     end
   end
 end
@@ -359,4 +411,21 @@ function DeathUI.GetDeathsLabelText(self, playerIndex)
   else
     return "Score: \n† Deaths: ", global.BZ_boss.killScore .. "\n" .. global.BZ_gui.deaths[playerIndex], ""
   end
+end
+
+
+
+function DeathUI.GetBugzillaLabelText(self)
+  local bugzillaName = "Score: \n"
+  local bugzillaScore = global.BZ_boss.killScore .. "\n"
+
+  local killCount = global.BZ_boss.killCount
+  for bossName,bossCount in pairs(killCount) do
+    if bossCount.total > 0 then
+      bugzillaName = bugzillaName .. "\n" .. self.bossNames[bossName]  .. ": "
+      bugzillaScore = bugzillaScore .. "\n" .. bossCount.killed .. "/" .. bossCount.total
+    end
+  end
+
+  return bugzillaName, bugzillaScore
 end

@@ -13,7 +13,7 @@ bugzilla_biter =
       tint2 = {r=0.88, g=0.24, b=0.24, a=0.9},
       speed = 0.2,
       health = 100000, --100000
-	  healing = 0.01
+      healing = 0.01
     },
     attack = {
       category = "melee",

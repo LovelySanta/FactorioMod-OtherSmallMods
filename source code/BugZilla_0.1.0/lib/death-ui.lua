@@ -1,5 +1,7 @@
 require("lib.utilities.generic")
 
+local default_frame_font_vertical_compensation = -6
+
 
 DeathUI = {}
 
@@ -99,16 +101,17 @@ function DeathUI.OnConfigurationChanged(self)
         name = "BZ_gui_buttonFrame",
         direction = "horizontal"
       }
+      buttons.style.top_padding = -1 * default_frame_font_vertical_compensation
       buttons.add{
         type = "sprite-button",
         name = "BZ_gui_buttonDeaths",
-        sprite = "item/iron-plate",
+        sprite = "item/death-skull",
         style = "icon_button"
       }
       buttons.add{
         type = "sprite-button",
         name = "BZ_gui_buttonBiterstats",
-        sprite = "item/copper-plate",
+        sprite = "entity/bugzilla-biter",
         style = "icon_button"
       }
       -- create the detailed view
@@ -117,6 +120,7 @@ function DeathUI.OnConfigurationChanged(self)
         name = "BZ_gui_detailFrame",
         direction = "vertical"
       }
+      detailFrame.style.top_padding = -1 * default_frame_font_vertical_compensation
       local detailedView = detailFrame.add{
         type = "scroll-pane",
         name = "BZ_gui_detailedView",
@@ -209,16 +213,17 @@ function DeathUI.InitPlayer(self, playerIndex)
       name = "BZ_gui_buttonFrame",
       direction = "horizontal"
     }
+    buttons.style.top_padding = -1 * default_frame_font_vertical_compensation
     buttons.add{
       type = "sprite-button",
       name = "BZ_gui_buttonDeaths",
-      sprite = "item/iron-plate",
+      sprite = "item/death-skull",
       style = "icon_button"
     }
     buttons.add{
       type = "sprite-button",
       name = "BZ_gui_buttonBiterstats",
-      sprite = "item/copper-plate",
+      sprite = "entity/bugzilla-biter",
       style = "icon_button"
     }
     -- create the detailed view
@@ -227,6 +232,7 @@ function DeathUI.InitPlayer(self, playerIndex)
       name = "BZ_gui_detailFrame",
       direction = "vertical"
     }
+    detailFrame.style.top_padding = -1 * default_frame_font_vertical_compensation
     local detailedView = detailFrame.add{
       type = "scroll-pane",
       name = "BZ_gui_detailedView",

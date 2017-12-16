@@ -9,9 +9,13 @@
 
 #### Santa's Nixie Tube Display
 * Description: Mod that adds some nixie tubes from the nixie tube mod, in exchange for some extra UPS
-* Latest version: 0.1.2
+* Latest version: 0.1.3
 
 # Changelog
+#### Santa's Nixie Tube Display [v0.1.3]
+* Added hides arrows on detailed view
+
+-----
 #### BugZilla [v0.1.0]
 * UI rework: Added sprite buttons to open/close UI
 * UI rework: Split UI into two blocks: death UI and bugzilla statistics

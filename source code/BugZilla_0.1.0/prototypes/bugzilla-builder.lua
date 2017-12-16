@@ -459,6 +459,7 @@ function BZ_bugzilla.functions.make_alien(def_data)
       flags = {"placeable-player", "placeable-enemy", "placeable-off-grid", "not-repairable", "breaths-air"},
       max_health = def_data.appearance.health,
       resistances = def_data.resistance,
+      has_belt_immunity = def_data.appearance.has_belt_immunity,
       order = "b-b-Z",
       subgroup="enemies",
       healing_per_tick = def_data.appearance.healing,

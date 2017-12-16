@@ -1,7 +1,7 @@
 # Current mods
 #### BugZilla
 * Description: The goal is to prepaire a base in a limited amount of time, afther that, one big happy bug come and walk your base over. It's your task to survive, rebuild, defeat! And most of all: Having fun with friends.
-* Latest version: 0.0.7
+* Latest version: 0.1.0
 
 #### Land Mover
 * Description: A mod that removes the recipy of landfill. Use land mover instead: dig a hole, get the land, place it elsewhere
@@ -12,6 +12,14 @@
 * Latest version: 0.1.2
 
 # Changelog
+#### BugZilla [v0.1.0]
+* UI rework: Added sprite buttons to open/close UI
+* UI rework: Split UI into two blocks: death UI and bugzilla statistics
+* Fixed typo in player killed bug message
+* Code optimalisations on biter generation with vision on adding next tier of bug (soon TM)
+* Biter immune to belt movement
+
+-----
 #### Santa's Nixie Tube Display [v0.1.2]
 * Updated to base game 0.16.2
 

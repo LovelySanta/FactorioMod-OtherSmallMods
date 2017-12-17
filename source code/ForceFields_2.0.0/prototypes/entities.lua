@@ -3,6 +3,7 @@ local baseForceField =
   type = "wall",
   name = "",
   icon = "",
+  icon_size = nil,
   flags = {"placeable-neutral", "player-creation", "not-repairable"},
   collision_box = {{-0.29, -0.29}, {0.29, 0.29}},
   selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
@@ -62,7 +63,7 @@ local baseForceField =
   {
     single =
     {
-      layers = 
+      layers =
       {
         {
           priority = "extra-high",
@@ -296,6 +297,7 @@ local baseForceFieldGate =
   type = "gate",
   name = "",
   icon = "",
+  icon_size = nil,
   flags = {"placeable-neutral", "placeable-player", "player-creation", "not-repairable"},
   minable = {hardness = 0.2, mining_time = 4, result = "forcefield-tool", count = 0},
   collision_box = {{-0.29, -0.29}, {0.29, 0.29}},
@@ -363,7 +365,7 @@ local baseForceFieldGate =
         frame_count = 16,
         shift = {0.015625, -0.40625}
       },
-      { 
+      {
         line_length = 8,
         width = 41,
         height = 50,
@@ -377,7 +379,7 @@ local baseForceFieldGate =
   {
     layers =
     {
-      { 
+      {
         line_length = 8,
         width = 32,
         height = 36,
@@ -455,7 +457,7 @@ local baseForceFieldGate =
   {
     layers =
     {
-      { 
+      {
         line_length = 8,
         width = 22,
         height = 54,
@@ -673,11 +675,12 @@ local baseSourceAttackReaction =
 
 function addForceField(color, maxHealth, sourceAttackReaction)
   local newForceField = util.table.deepcopy(baseForceField)
-  local imgDir = "__Force Fields__/graphics/walls/"
+  local imgDir = "__ForceFields__/graphics/walls/"
   newForceField.name = color .. "-forcefield"
-  newForceField.icon = imgDir .. color .. "/" .. "/wall-single.png"
+  newForceField.icon = imgDir .. color .. "/" .. "/wall-icon.png"
+  newForceField.icon_size = 42
   newForceField.max_health = maxHealth
-  
+
   local p = newForceField.pictures
   p.single.layers[1].filename = imgDir .. color .. "/wall-single.png"
   p.single.layers[2].filename = imgDir .. color .. "/wall-single-shadow.png"
@@ -703,21 +706,21 @@ function addForceField(color, maxHealth, sourceAttackReaction)
   p.ending_right.layers[2].filename = imgDir .. color .. "/wall-ending-right-shadow.png"
   p.ending_left.layers[1].filename = imgDir .. color .. "/wall-ending-left.png"
   p.ending_left.layers[2].filename = imgDir .. color .. "/wall-ending-left-shadow.png"
-  
+
   if sourceAttackReaction then
     table.insert(newForceField.attack_reaction, sourceAttackReaction)
   end
-  
+
   data:extend({newForceField})
 end
 
 function addForceFieldGate(color, maxHealth, sourceAttackReaction)
   local newForceFieldGate = util.table.deepcopy(baseForceFieldGate)
-  local imgDir = "__Force Fields__/graphics/gates/"
+  local imgDir = "__ForceFields__/graphics/gates/"
   newForceFieldGate.name = color .. "-forcefield-gate"
   newForceFieldGate.icon = imgDir .. color .. "/" .. "/gate.png"
   newForceFieldGate.max_health = maxHealth
-  
+
   newForceFieldGate.vertical_animation.layers[1].filename = imgDir .. color .. "/gate-vertical.png"
   newForceFieldGate.vertical_animation.layers[2].filename = imgDir .. color .. "/gate-vertical-shadow.png"
   newForceFieldGate.horizontal_animation.layers[1].filename = imgDir .. color .. "/gate-horizontal.png"
@@ -748,11 +751,11 @@ function addForceFieldGate(color, maxHealth, sourceAttackReaction)
   newForceFieldGate.wall_patch.west.layers[2].filename = imgDir .. color .. "/wall-patch-west-shadow.png"
   newForceFieldGate.wall_diode_green.filename = imgDir .. color .. "/wall-diode-green.png"
   newForceFieldGate.wall_diode_red.filename = imgDir .. color .. "/wall-diode-red.png"
-  
+
   if sourceAttackReaction then
     table.insert(newForceFieldGate.attack_reaction, sourceAttackReaction)
   end
-  
+
   data:extend({newForceFieldGate})
 end
 
@@ -771,7 +774,8 @@ data:extend(
   {
     type = "accumulator",
     name = "forcefield-emitter",
-    icon = "__Force Fields__/graphics/forcefield-emitter-icon.png",
+    icon = "__ForceFields__/graphics/forcefield-emitter-icon.png",
+    icon_size = 32,
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 1, result = "forcefield-emitter"},
     max_health = 50,
@@ -789,7 +793,7 @@ data:extend(
     },
     picture =
     {
-      filename = "__Force Fields__/graphics/forcefield-emitter-active.png",
+      filename = "__ForceFields__/graphics/forcefield-emitter-active.png",
       priority = "extra-high",
       width = 72,
       height = 62,
@@ -797,19 +801,20 @@ data:extend(
     },
     charge_animation =
     {
-      filename = "__Force Fields__/graphics/forcefield-emitter-active.png",
+      filename = "__ForceFields__/graphics/forcefield-emitter-active.png",
       width = 72,
       height = 62,
       line_length = 1,
       frame_count = 1,
       shift = {0.49145, -0.25},
-      animation_speed = 0
+      animation_speed = 1
     },
     charge_cooldown = 45,
     discharge_cooldown = 30,
     order="s[accu]-t1",
     subgroup = "forcefields"
   },
+
   {
     type = "decorative",
     name = "forcefield-tool",
@@ -820,11 +825,12 @@ data:extend(
     max_health = 150,
     drawing_position = {0.5, 0.5},
     inventory_size = 1,
-    icon = "__Force Fields__/graphics/config-tool.png",
+    icon = "__ForceFields__/graphics/config-tool.png",
+    icon_size = 32,
     pictures =
     {
       {
-        filename = "__Force Fields__/graphics/config-tool.png",
+        filename = "__ForceFields__/graphics/config-tool.png",
         width = 32,
         height = 32,
         priority = "extra-high",
@@ -832,10 +838,12 @@ data:extend(
       }
     }
   },
+
   {
     type = "tree",
     name = "forcefield-damaged",
-    icon = "__Force Fields__/graphics/null.png",
+    icon = "__ForceFields__/graphics/null.png",
+    icon_size = 32,
     flags = {"placeable-neutral", "not-on-map", "placeable-off-grid"},
     subgroup = "remnants",
     order = "a[remnants]",
@@ -843,15 +851,16 @@ data:extend(
     selection_box = {{-0.0, -0.0}, {0.0, 0.0}},
     collision_box = {{-0.0, -0.0}, {0.0, 0.0}},
     collision_mask = {"object-layer"},
-    pictures = 
+    pictures =
     {
       {
-        filename = "__Force Fields__/graphics/null.png",
+        filename = "__ForceFields__/graphics/null.png",
         width = 32,
         height = 32,
       }
     }
   },
+
   {
 		type = "smoke-with-trigger",
 		name = "forcefield-build-damage",
@@ -859,14 +868,14 @@ data:extend(
 		show_when_smoke_off = false,
 		animation =
 		{
-			filename = "__Force Fields__/graphics/null.png",
+			filename = "__ForceFields__/graphics/null.png",
 			priority = "low",
 			width = 32,
 			height = 32,
 			frame_count = 1,
 			width = 32,
 			height = 32,
-			animation_speed = 0,
+			animation_speed = 1,
 			line_length = 1,
 			scale = 1,
 		},
@@ -889,7 +898,7 @@ data:extend(
 					action =
 					{
 						type = "area",
-						perimeter = 1,
+						radius = 1,
 						entity_flags = {"breaths-air"},
 						action_delivery =
 						{
@@ -906,6 +915,7 @@ data:extend(
 		},
 		action_frequency = 60
 	},
+
 	{
 		type = "smoke-with-trigger",
 		name = "forcefield-death-damage",
@@ -913,14 +923,14 @@ data:extend(
 		show_when_smoke_off = false,
 		animation =
 		{
-			filename = "__Force Fields__/graphics/null.png",
+			filename = "__ForceFields__/graphics/null.png",
 			priority = "low",
 			width = 32,
 			height = 32,
 			frame_count = 1,
 			width = 32,
 			height = 32,
-			animation_speed = 0,
+			animation_speed = 1,
 			line_length = 1,
 			scale = 1,
 		},
@@ -943,7 +953,7 @@ data:extend(
 					action =
 					{
 						type = "area",
-						perimeter = 4,
+						radius = 4,
 						entity_flags = {"breaths-air"},
 						action_delivery =
 						{
@@ -961,4 +971,3 @@ data:extend(
 		action_frequency = 60
 	}
 })
-

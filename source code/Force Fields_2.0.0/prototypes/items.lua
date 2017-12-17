@@ -6,20 +6,24 @@ data:extend(
       group = "combat",
       order = "z"
     },
+
     {
       type = "item",
       name = "forcefield-emitter",
-      icon = "__Force Fields__/graphics/forcefield-emitter-icon.png",
+      icon = "__ForceFields__/graphics/forcefield-emitter-icon.png",
+      icon_size = 32,
       flags = {"goes-to-quickbar"},
       subgroup = "forcefields",
       order = "f[forcefield-emitter]",
       place_result = "forcefield-emitter",
       stack_size = 50
     },
+    
     {
       type = "item",
       name = "forcefield-tool",
-      icon = "__Force Fields__/graphics/config-tool.png",
+      icon = "__ForceFields__/graphics/config-tool.png",
+      icon_size = 32,
       flags = {"goes-to-quickbar"},
       subgroup = "forcefields",
       order = "f[forcefield-tool]",

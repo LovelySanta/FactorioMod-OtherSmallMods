@@ -1,7 +1,7 @@
 local baseItemButton =
 {
   type = "button_style",
-  parent = "button_style",
+  parent = "button",
   scalable = false,
   width = 36,
   height = 36,
@@ -177,18 +177,18 @@ local distancetextfield_style =
 local advancedCircuit = util.table.deepcopy(baseItemButton)
 local processingUnit = util.table.deepcopy(baseItemButton)
 
-advancedCircuit.default_graphical_set.monolith_image.filename = "__Force Fields__/graphics/gui/advanced-circuit-default.png"
+advancedCircuit.default_graphical_set.monolith_image.filename = "__ForceFields__/graphics/gui/advanced-circuit-default.png"
 advancedCircuit.default_graphical_set.monolith_image.x = 0
-advancedCircuit.hovered_graphical_set.monolith_image.filename = "__Force Fields__/graphics/gui/advanced-circuit-hover.png"
+advancedCircuit.hovered_graphical_set.monolith_image.filename = "__ForceFields__/graphics/gui/advanced-circuit-hover.png"
 advancedCircuit.hovered_graphical_set.monolith_image.x = 0
-advancedCircuit.clicked_graphical_set.monolith_image.filename = "__Force Fields__/graphics/gui/advanced-circuit-hover.png"
+advancedCircuit.clicked_graphical_set.monolith_image.filename = "__ForceFields__/graphics/gui/advanced-circuit-hover.png"
 advancedCircuit.clicked_graphical_set.monolith_image.x = 0
 
-processingUnit.default_graphical_set.monolith_image.filename = "__Force Fields__/graphics/gui/processing-unit-default.png"
+processingUnit.default_graphical_set.monolith_image.filename = "__ForceFields__/graphics/gui/processing-unit-default.png"
 processingUnit.default_graphical_set.monolith_image.x = 0
-processingUnit.hovered_graphical_set.monolith_image.filename = "__Force Fields__/graphics/gui/processing-unit-hover.png"
+processingUnit.hovered_graphical_set.monolith_image.filename = "__ForceFields__/graphics/gui/processing-unit-hover.png"
 processingUnit.hovered_graphical_set.monolith_image.x = 0
-processingUnit.clicked_graphical_set.monolith_image.filename = "__Force Fields__/graphics/gui/processing-unit-hover.png"
+processingUnit.clicked_graphical_set.monolith_image.filename = "__ForceFields__/graphics/gui/processing-unit-hover.png"
 processingUnit.clicked_graphical_set.monolith_image.x = 0
 
 data.raw["gui-style"].default["noitem"] = baseItemButton

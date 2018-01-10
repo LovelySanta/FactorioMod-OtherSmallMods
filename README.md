@@ -1,6 +1,11 @@
-# Current mods
+# Current (released) mods
 #### BugZilla
 * Description: The goal is to prepaire a base in a limited amount of time, afther that, one big happy bug come and walk your base over. It's your task to survive, rebuild, defeat! And most of all: Having fun with friends.
+* Latest version: 0.1.0
+
+#### Expensive Cliffs
+* Description: Cliffs are though to play with, for the die-hards I made them even thougher...
+*We put a stick in the cliffside, rap 500 explosive arround it with some wires, soak it in some acid, and have a nuke to set it off.*
 * Latest version: 0.1.0
 
 #### Land Mover
@@ -12,6 +17,12 @@
 * Latest version: 0.1.3
 
 # Changelog
+#### Expensive Cliffs [v0.1.0]
+* Force cliff settings to make the game tougher
+* Changed recipy for cliff explosives to make it  more expensive, so carefull when you destroy them.
+* Changed research tree to match the recipy
+
+-----
 #### Santa's Nixie Tube Display [v0.1.3]
 * Added hides arrows on detailed view
 

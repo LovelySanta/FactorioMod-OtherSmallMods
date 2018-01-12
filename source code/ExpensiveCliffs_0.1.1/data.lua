@@ -30,3 +30,51 @@ data.raw.recipe["cliff-explosives"].ingredients =
     {"red-wire", 100},
     {"atomic-bomb", 1},
   }
+
+
+data.raw.projectile["cliff-explosives"].action =
+  {
+    {
+      type = "direct",
+      action_delivery =
+      {
+        type = "instant",
+        target_effects =
+        {
+          {
+            type = "create-entity",
+            entity_name = "ground-explosion"
+          },
+          {
+            type = "destroy-cliffs",
+            radius = 1.5,
+            explosion = "explosion"
+          },
+          {
+            type = "create-entity",
+            entity_name = "small-scorchmark",
+            check_buildability = true
+          }
+        }
+      }
+    },
+    {
+      type = "area",
+      radius = 5,
+      action_delivery =
+      {
+        type = "instant",
+        target_effects =
+        {
+          {
+          type = "damage",
+          damage = {amount = 35, type = "explosion"}
+          },
+          {
+          type = "create-entity",
+          entity_name = "explosion"
+          }
+        }
+      }
+    }
+  }

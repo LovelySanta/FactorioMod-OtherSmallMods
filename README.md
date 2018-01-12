@@ -6,10 +6,10 @@
 #### Expensive Cliffs
 * Description: Cliffs are though to play with, for the die-hards I made them even thougher...
 *We put a stick in the cliffside, rap 500 explosive arround it with some wires, soak it in some acid, and have a nuke to set it off.*
-* Latest version: 0.1.0
+* Latest version: 0.1.1
 
 #### Land Mover
-* Description: A mod that removes the recipy of landfill. Use land mover instead: dig a hole, get the land, place it elsewhere
+* Description: A mod that removes the recipe of landfill. Use land mover instead: dig a hole, get the land, place it elsewhere
 * Latest version: 0.1.3
 
 #### Santa's Nixie Tube Display
@@ -17,10 +17,16 @@
 * Latest version: 0.1.3
 
 # Changelog
+#### Expensive Cliffs [v0.1.1]
+* Changed recipe so it takes both red and green wires now, (don't cut the red one)
+* Added tech description
+* Added grenade explosion, so it damages other entities as well
+
+-----
 #### Expensive Cliffs [v0.1.0]
 * Force cliff settings to make the game tougher
-* Changed recipy for cliff explosives to make it  more expensive, so carefull when you destroy them.
-* Changed research tree to match the recipy
+* Changed recipe for cliff explosives to make it  more expensive, so carefull when you destroy them.
+* Changed research tree to match the recipe
 
 -----
 #### Santa's Nixie Tube Display [v0.1.3]
@@ -104,7 +110,7 @@
 
 -----
 #### Land Mover [v0.1.1]
-* Changed to a more appropriate recipy (not final)
+* Changed to a more appropriate recipe (not final)
 * Nice graphics for tech and entity designed by geilolo
 
 -----

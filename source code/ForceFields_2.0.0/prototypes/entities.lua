@@ -9,7 +9,7 @@ local baseForceField =
   selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
   max_health = nil,
   --mined_sound = { filename = "__base__/sound/deconstruct-bricks.ogg" },
-  minable = {hardness = 0.2, mining_time = 2, result = "forcefield-tool", count = 0},
+  minable = {hardness = 0.2, mining_time = 2, result = "forcefield-emitter", count = 0},
   order = "a[items]-f[forcefields]",
   attack_reaction =
   {
@@ -299,7 +299,7 @@ local baseForceFieldGate =
   icon = "",
   icon_size = nil,
   flags = {"placeable-neutral", "placeable-player", "player-creation", "not-repairable"},
-  minable = {hardness = 0.2, mining_time = 4, result = "forcefield-tool", count = 0},
+  minable = {hardness = 0.2, mining_time = 4, result = "forcefield-emitter", count = 0},
   collision_box = {{-0.29, -0.29}, {0.29, 0.29}},
   selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
   opening_speed = 0.1,
@@ -769,6 +769,8 @@ addForceField("red", 300, baseSourceAttackReaction)
 --addForceFieldGate("purple", 150)
 --addForceFieldGate("red", 300, baseSourceAttackReaction)
 
+
+
 data:extend(
 {
   {
@@ -813,30 +815,6 @@ data:extend(
     discharge_cooldown = 30,
     order="s[accu]-t1",
     subgroup = "forcefields"
-  },
-
-  {
-    type = "decorative",
-    name = "forcefield-tool",
-    flags = {"placeable-neutral", "player-creation", "placeable-off-grid"},
-    collision_box = {{0, 0}, {0, 0}},
-    selection_box = {{0, 0}, {0, 0}},
-    minable = {hardness = 0.2, mining_time = 0.5, result = "forcefield-tool"},
-    max_health = 150,
-    drawing_position = {0.5, 0.5},
-    inventory_size = 1,
-    icon = "__ForceFields__/graphics/config-tool.png",
-    icon_size = 32,
-    pictures =
-    {
-      {
-        filename = "__ForceFields__/graphics/config-tool.png",
-        width = 32,
-        height = 32,
-        priority = "extra-high",
-        shift = {0, 0}
-      }
-    }
   },
 
   {

@@ -13,16 +13,6 @@ data:extend(
         {"small-lamp", 4}
       },
       result = "forcefield-emitter"
-    },
-    {
-      type = "recipe",
-      name = "forcefield-tool",
-      enabled = "false",
-      ingredients =
-      {
-        {"advanced-circuit", 1}
-      },
-      result = "forcefield-tool"
     }
   }
 )

@@ -18,10 +18,6 @@ data:extend(
         {
           type = "unlock-recipe",
           recipe = "forcefield-emitter"
-        },
-        {
-          type = "unlock-recipe",
-          recipe = "forcefield-tool"
         }
       },
       unit =

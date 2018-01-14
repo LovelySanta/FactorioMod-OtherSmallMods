@@ -10,13 +10,17 @@
 
 #### Land Mover
 * Description: A mod that removes the recipe of landfill. Use land mover instead: dig a hole, get the land, place it elsewhere
-* Latest version: 0.1.3
+* Latest version: 0.1.4
 
 #### Santa's Nixie Tube Display
 * Description: Mod that adds some nixie tubes from the nixie tube mod, in exchange for some extra UPS
 * Latest version: 0.1.3
 
 # Changelog
+#### Land Mover [v0.1.4]
+* Fixed research tree so landfill research is only altered, compatibility with Dectorio now
+
+-----
 #### Expensive Cliffs [v0.1.1]
 * Changed recipe so it takes both red and green wires now, (don't cut the red one)
 * Added tech description

@@ -7,6 +7,6 @@
   "homepage": "https://mods.factorio.com/mods/lovely_santa/Force%20Fields",
   "description": "Electric powered walls.",
   "dependencies": [
-    "base >= 0.16.4"
+    "base >= 0.16.16"
   ]
 }

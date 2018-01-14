@@ -774,11 +774,13 @@ addForceField("red", 300, baseSourceAttackReaction)
 data:extend(
 {
   {
-    type = "accumulator",
+    type = "electric-energy-interface",
     name = "forcefield-emitter",
     icon = "__ForceFields__/graphics/forcefield-emitter-icon.png",
     icon_size = 32,
     flags = {"placeable-neutral", "player-creation"},
+    enable_gui = true,
+    allow_copy_paste = false,
     minable = {hardness = 0.2, mining_time = 1, result = "forcefield-emitter"},
     max_health = 50,
     corpse = "small-remnants",
@@ -793,6 +795,8 @@ data:extend(
       output_flow_limit = "0kW",
       drain = "100kW"
     },
+    energy_production = "0kW",
+    energy_consumption = "100MW",
     picture =
     {
       filename = "__ForceFields__/graphics/forcefield-emitter-active.png",
@@ -801,19 +805,21 @@ data:extend(
       height = 62,
       shift = {0.49145, -0.25}
     },
-    charge_animation =
+    working_sound =
     {
-      filename = "__ForceFields__/graphics/forcefield-emitter-active.png",
-      width = 72,
-      height = 62,
-      line_length = 1,
-      frame_count = 1,
-      shift = {0.49145, -0.25},
-      animation_speed = 1
+      idle_sound =
+      {
+        filename = "__base__/sound/accumulator-idle.ogg",
+        volume = 0.4
+      },
+      sound =
+      {
+        filename = "__base__/sound/accumulator-idle.ogg",
+        volume = 0.4
+      },
+      max_sounds_per_type = 5
     },
-    charge_cooldown = 45,
-    discharge_cooldown = 30,
-    order="s[accu]-t1",
+    order="s[electric-energy-interface]-t1",
     subgroup = "forcefields"
   },
 

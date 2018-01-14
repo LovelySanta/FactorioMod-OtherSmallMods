@@ -1,0 +1,10 @@
+{
+  "name": "LandMover",
+  "version": "0.1.4",
+  "factorio_version": "0.16",
+  "title": "Land Mover",
+  "author": "lovely_santa",
+  "homepage": "https://mods.factorio.com/mods/lovely_santa/LandMover",
+  "description": "Dig a hole to get some landfill, resulting in a hole of water. Then you can replace the land somewhere else...",
+   "dependencies": ["base >= 0.16.0"]
+}

@@ -1,5 +1,42 @@
-data.raw.technology["landfill"] = nil -- Disable research for landfill
 data.raw.recipe["landfill"].enabled = false -- Disable landfill recipe
+
+-- Edit the landfill research accordingly
+local landfillTechnology = data.raw.technology["landfill"]
+
+-- Edit the icon
+landfillTechnology.icon = "__LandMover__/graphics/landmover_tech.png"
+landfillTechnology.icon_size = 128
+
+-- Disable the landfill recipe effect
+for index, effect in pairs(landfillTechnology.effects) do
+  if effect.type == "unlock-recipe" and effect.recipe == "landfill" then
+    table.remove(landfillTechnology.effects, index)
+    break
+  end
+end
+
+-- Add the new recipe effects to create landfill
+table.insert(landfillTechnology.effects,
+  {
+    type = "unlock-recipe",
+    recipe = "landmover"
+  })
+table.insert(landfillTechnology.effects,
+  {
+    type = "unlock-recipe",
+    recipe = "landmover-shovel"
+  })
+
+-- Add the required prerequisites
+if not landfillTechnology.prerequisites then
+  landfillTechnology.prerequisites = {}
+end
+table.insert(landfillTechnology.prerequisites, "concrete")
+
+-- Edit the data.raw to updated landfill version
+data.raw.technology["landfill"] = landfillTechnology
+
+
 
 data:extend({
   {
@@ -60,34 +97,4 @@ data:extend({
     result= "landmover",
     result_count = 100
   },
-
-  {
-    type = "technology",
-    name = "landmover",
-    prerequisites = {"concrete"},
-    icon = "__LandMover__/graphics/landmover_tech.png",
-    icon_size = 128,
-    unit =
-    {
-      count = 50,
-      ingredients =
-      {
-        {"science-pack-1", 1},
-        {"science-pack-2", 1},
-      },
-      time = 25
-    },
-    effects =
-    {
-      {
-        type = "unlock-recipe",
-        recipe = "landmover-shovel"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "landmover"
-      }
-    },
-    order = "b-d"
-  }
 })

@@ -81,10 +81,10 @@ function Settings.verifySettings(self)
     throwError("Tick rate must be >= 0.")
   end
 
-  if self.toolRadius < 0 then
-    self.toolRadius = 0
-    throwError("Tool radius must be >= 0.")
-  end
+  --if self.toolRadius < 0 then
+  --  self.toolRadius = 0
+  --  throwError("Tool radius must be >= 0.")
+  --end
 
   if self.emitterDefaultDistance < 1 then
     self.emitterDefaultDistance = 1

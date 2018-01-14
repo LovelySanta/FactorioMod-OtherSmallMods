@@ -122,3 +122,8 @@ script.on_event(defines.events.on_gui_opened, function(event)
     Gui:onOpenGui(event.entity, event.player_index)
   end
 end)
+
+-- When the player wants to close the gui
+script.on_event(defines.events.on_gui_closed, function(event)
+  Gui:onCloseGui(event.element)
+end)

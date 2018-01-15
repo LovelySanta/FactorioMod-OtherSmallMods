@@ -6,6 +6,55 @@ Gui = {}
 
 
 
+Gui.guiElementNames =
+{
+  -- gui base
+  guiFrame = "emitterConfig",
+  configTable = "emitterConfigTable",
+
+  -- Direction of forcefield
+  directionLabel = "directionLabel",
+  directionTable = "directions",
+  directionOptionN = "directionN",
+  directionOptionS = "directionS",
+  directionOptionE = "directionE",
+  directionOptionW = "directionW",
+
+  -- Type of forcefield
+  fieldTypeLabel = "fieldTypeLabel",
+  fieldTypeTable = "fields",
+  fieldTypeOptionB = "fieldB",
+  fieldTypeOptionG = "fieldG",
+  fieldTypeOptionR = "fieldR",
+  fieldTypeOptionP = "fieldP",
+
+  -- Distance of forcefield
+  distanceLabel = "distanceLabel",
+  distanceTable = "distance",
+  distanceInput = "emitterDistance",
+  distanceMaxInput = "emitterMaxDistance",
+
+  -- Width of forcefield
+  widthLabel = "currentWidthLabel",
+  widthTable = "width",
+  widthInput = "emitterWidth",
+  widthMaxInput = "emitterMaxWidth",
+
+  -- Upgrades of emitter
+  upgradesLabel = "upgradesLabel",
+  upgradesTable = "upgrades",
+  upgradesDistance = "distanceUpgrades",
+  upgradesWidth = "widthUpgrades",
+
+  -- Bottom buttons
+  buttonFrame = "buttonsFlow",
+  buttonHelp = "emitterHelpButton",
+  buttonRemoveUpgrades = "removeAllButton",
+  buttonApplySettings = "applyButton"
+}
+
+
+
 function Gui.onOpenGui(self, emitter, playerIndex)
   local emitterTable = Emitter:findEmitter(emitter)
   if emitterTable ~= nil then
@@ -15,8 +64,8 @@ end
 
 
 
-function Gui:onCloseGui(guiElement)
-  if guiElement and guiElement.valid and guiElement.name == "emitterConfig" then
+function Gui.onCloseGui(self, guiElement, playerIndex)
+  if guiElement and guiElement.valid and guiElement.name == self.guiElementNames.guiFrame then
     game.print("closig ui")
     guiElement.destroy() -- TODO: needs to update the globals
   end
@@ -30,10 +79,10 @@ function Gui.showEmitterGui(self, emitterTable, playerIndex)
   local canOpenGui = true
 
   -- Check if someone else has this gui open at this moment
-  if global.forcefields.emitterConfigGUIs ~= nil then
+  if global.forcefields.emitterConfigGuis ~= nil then
     for index,player in pairs(game.players) do
       --if index ~= playerIndex then
-        if global.forcefields.emitterConfigGUIs["I" .. index] ~= nil and global.forcefields.emitterConfigGUIs["I" .. index][1] == emitterTable then
+        if global.forcefields.emitterConfigGuis["I" .. index] ~= nil and global.forcefields.emitterConfigGuis["I" .. index][1] == emitterTable then
           if index ~= playerIndex then
             game.players[playerIndex].print(player.name .. " (player " .. index .. ") has the GUI for this emitter open right now.")
           end
@@ -46,16 +95,16 @@ function Gui.showEmitterGui(self, emitterTable, playerIndex)
 
   -- Create the gui
   if canOpenGui and guiCenter and guiCenter.emitterConfig == nil then
-    local frame = guiCenter.add({type = "frame", name = "emitterConfig", caption = game.entity_prototypes[Settings.emitterName].localised_name, direction = "vertical", style = frame_caption_label})
-    local configTable = frame.add({type ="table", name = "emitterConfigTable", column_count = 2})
+    local frame = guiCenter.add({type = "frame", name = self.guiElementNames.guiFrame, caption = game.entity_prototypes[Settings.emitterName].localised_name, direction = "vertical", style = frame_caption_label})
+    local configTable = frame.add({type ="table", name = self.guiElementNames.configTable, column_count = 2})
 
-    -- Directions
-    configTable.add({type = "label", name = "directionLabel", caption = "Direction:                       "})
-    local directions = configTable.add({type = "table", name = "directions", column_count = 4})
-    local d1 = directions.add({type = "button", name = "directionN", caption = "N", style = "selectbuttons"})
-    local d2 = directions.add({type = "button", name = "directionS", caption = "S", style = "selectbuttons"})
-    local d3 = directions.add({type = "button", name = "directionE", caption = "E", style = "selectbuttons"})
-    local d4 = directions.add({type = "button", name = "directionW", caption = "W", style = "selectbuttons"})
+    -- Direction of forcefield
+    configTable.add({type = "label", name = self.guiElementNames.directionLabel, caption = "Direction:                       "})
+    local directions = configTable.add({type = "table", name = self.guiElementNames.directionTable, column_count = 4})
+    local d1 = directions.add({type = "button", name = self.guiElementNames.directionOptionN, caption = "N", style = "selectbuttons"})
+    local d2 = directions.add({type = "button", name = self.guiElementNames.directionOptionS, caption = "S", style = "selectbuttons"})
+    local d3 = directions.add({type = "button", name = self.guiElementNames.directionOptionE, caption = "E", style = "selectbuttons"})
+    local d4 = directions.add({type = "button", name = self.guiElementNames.directionOptionW, caption = "W", style = "selectbuttons"})
 
     if emitterTable["direction"] == defines.direction.north then
       d1.style = "selectbuttonsselected"
@@ -68,12 +117,12 @@ function Gui.showEmitterGui(self, emitterTable, playerIndex)
     end
 
     -- Type of forcefield
-    configTable.add({type = "label", name = "fieldTypeLabel", caption = "Field type:"})
-    local fields = configTable.add({type = "table", name = "fields", column_count = 4})
-    local f1 = fields.add({type = "button", name = "fieldB", caption = "B", style = "selectbuttons"})
-    local f2 = fields.add({type = "button", name = "fieldG", caption = "G", style = "selectbuttons"})
-    local f3 = fields.add({type = "button", name = "fieldR", caption = "R", style = "selectbuttons"})
-    local f4 = fields.add({type = "button", name = "fieldP", caption = "P", style = "selectbuttons"})
+    configTable.add({type = "label", name = self.guiElementNames.fieldTypeLabel, caption = "Field type:"})
+    local fields = configTable.add({type = "table", name = self.guiElementNames.fieldTypeTable, column_count = 4})
+    local f1 = fields.add({type = "button", name = self.guiElementNames.fieldTypeOptionB, caption = "B", style = "selectbuttons"})
+    local f2 = fields.add({type = "button", name = self.guiElementNames.fieldTypeOptionG, caption = "G", style = "selectbuttons"})
+    local f3 = fields.add({type = "button", name = self.guiElementNames.fieldTypeOptionR, caption = "R", style = "selectbuttons"})
+    local f4 = fields.add({type = "button", name = self.guiElementNames.fieldTypeOptionP, caption = "P", style = "selectbuttons"})
 
     if emitterTable["type"] == "blue" .. Settings.fieldSuffix then
       f1.style = "selectbuttonsselected"
@@ -85,44 +134,44 @@ function Gui.showEmitterGui(self, emitterTable, playerIndex)
       f4.style = "selectbuttonsselected"
     end
 
-    -- Distance
-    configTable.add({type = "label", name = "distanceLabel", caption = "Emitter distance:"})
-    local distance = configTable.add({type = "table", name = "distance", column_count = 2})
-    distance.add({type = "textfield", name = "emitterDistance", style = "distancetext"}).text = emitterTable["distance"]
-    distance.add({type = "label", name = "emitterMaxDistance", caption = "Max: " .. tostring(Settings.emitterDefaultDistance + self:getEmitterBonusDistance(emitterTable)), style = description_title_label})
+    -- Distance of forcefield
+    configTable.add({type = "label", name = self.guiElementNames.distanceLabel, caption = "Emitter distance:"})
+    local distance = configTable.add({type = "table", name = self.guiElementNames.distanceTable, column_count = 2})
+    distance.add({type = "textfield", name = self.guiElementNames.distanceInput, style = "distancetext"}).text = emitterTable["distance"]
+    distance.add({type = "label", name = self.guiElementNames.distanceMaxInput, caption = "Max: " .. tostring(Settings.emitterDefaultDistance + self:getEmitterBonusDistance(emitterTable)), style = description_title_label})
 
-    -- Width
-    configTable.add({type = "label", name = "currentWidthLabel", caption = "Emitter width:"})
-    local width = configTable.add({type = "table", name = "width", column_count = 2})
-    width.add({type = "textfield", name = "emitterWidth", style = "distancetext"}).text = emitterTable["width"]
-    width.add({type = "label", name = "emitterMaxWidth", caption = "Max: " .. tostring(Settings.emitterDefaultWidth + self:getEmitterBonusWidth(emitterTable)), style = description_title_label})
+    -- Width of forcefield
+    configTable.add({type = "label", name = self.guiElementNames.widthLabel, caption = "Emitter width:"})
+    local width = configTable.add({type = "table", name = self.guiElementNames.widthTable, column_count = 2})
+    width.add({type = "textfield", name = self.guiElementNames.widthInput, style = "distancetext"}).text = emitterTable["width"]
+    width.add({type = "label", name = self.guiElementNames.widthMaxInput, caption = "Max: " .. tostring(Settings.emitterDefaultWidth + self:getEmitterBonusWidth(emitterTable)), style = description_title_label})
 
-    -- Upgrades
-    configTable.add({type = "label", name = "upgradesLabel", caption = "Upgrades applied:"})
-    local upgrades = configTable.add({type = "table", name = "upgrades", column_count = 2})
+    -- Upgrades of emitter
+    configTable.add({type = "label", name = self.guiElementNames.upgradesLabel, caption = "Upgrades applied:"})
+    local upgrades = configTable.add({type = "table", name = self.guiElementNames.upgradesTable, column_count = 2})
     if emitterTable["width-upgrades"] ~= 0 then
-      upgrades.add({type = "button", name = "distanceUpgrades", caption = "x" .. tostring(emitterTable["width-upgrades"]), style = "advanced-circuit"})
+      upgrades.add({type = "button", name = self.guiElementNames.upgradesDistance, caption = "x" .. tostring(emitterTable["width-upgrades"]), style = "advanced-circuit"})
     else
-      upgrades.add({type = "button", name = "distanceUpgrades", caption = " ", style = "noitem"})
+      upgrades.add({type = "button", name = self.guiElementNames.upgradesDistance, caption = " ", style = "noitem"})
     end
     if emitterTable["distance-upgrades"] ~= 0 then
-      upgrades.add({type = "button", name = "widthUpgrades", caption = "x" .. tostring(emitterTable["distance-upgrades"]), style = "processing-unit"})
+      upgrades.add({type = "button", name = self.guiElementNames.upgradesWidth, caption = "x" .. tostring(emitterTable["distance-upgrades"]), style = "processing-unit"})
     else
-      upgrades.add({type = "button", name = "widthUpgrades", caption = " ", style = "noitem"})
+      upgrades.add({type = "button", name = self.guiElementNames.upgradesWidth, caption = " ", style = "noitem"})
     end
 
     -- Bottom buttons
-    local buttonFlow = frame.add({type = "flow", name = "buttonsFlow", direction = "horizontal"})
-    buttonFlow.add({type = "button", name = "emitterHelpButton", caption = "?"})
-    buttonFlow.add({type = "button", name = "removeAllButton", caption = "Remove all upgrades"})
-    buttonFlow.add({type = "button", name = "applyButton", caption = "Apply"})
+    local buttonFlow = frame.add({type = "flow", name = self.guiElementNames.buttonFrame, direction = "horizontal"})
+    buttonFlow.add({type = "button", name = self.guiElementNames.buttonHelp, caption = "?"})
+    buttonFlow.add({type = "button", name = self.guiElementNames.buttonRemoveUpgrades, caption = "Remove all upgrades"})
+    buttonFlow.add({type = "button", name = self.guiElementNames.buttonApplySettings, caption = "Apply"})
 
     -- Save gui
-    if global.forcefields.emitterConfigGUIs == nil then
-      global.forcefields.emitterConfigGUIs = {}
+    if global.forcefields.emitterConfigGuis == nil then
+      global.forcefields.emitterConfigGuis = {}
     end
-    global.forcefields.emitterConfigGUIs["I" .. playerIndex] = {}
-    global.forcefields.emitterConfigGUIs["I" .. playerIndex][1] = emitterTable
+    global.forcefields.emitterConfigGuis["I" .. playerIndex] = {}
+    global.forcefields.emitterConfigGuis["I" .. playerIndex][1] = emitterTable
 
     return frame
   else
@@ -158,22 +207,22 @@ end
 
 Gui.guiButtonHandlers =
 {
-  ["directionN"] = Gui.handleGuiDirectionButtons,
-  ["directionS"] = Gui.handleGuiDirectionButtons,
-  ["directionE"] = Gui.handleGuiDirectionButtons,
-  ["directionW"] = Gui.handleGuiDirectionButtons,
+  [Gui.guiElementNames.directionOptionN] = Gui.handleGuiDirectionButtons,
+  [Gui.guiElementNames.directionOptionS] = Gui.handleGuiDirectionButtons,
+  [Gui.guiElementNames.directionOptionE] = Gui.handleGuiDirectionButtons,
+  [Gui.guiElementNames.directionOptionW] = Gui.handleGuiDirectionButtons,
 
-  ["fieldB"] = Gui.handleGuiFieldTypeButtons,
-  ["fieldG"] = Gui.handleGuiFieldTypeButtons,
-  ["fieldR"] = Gui.handleGuiFieldTypeButtons,
-  ["fieldP"] = Gui.handleGuiFieldTypeButtons,
+  [Gui.guiElementNames.fieldTypeOptionB] = Gui.handleGuiFieldTypeButtons,
+  [Gui.guiElementNames.fieldTypeOptionG] = Gui.handleGuiFieldTypeButtons,
+  [Gui.guiElementNames.fieldTypeOptionR] = Gui.handleGuiFieldTypeButtons,
+  [Gui.guiElementNames.fieldTypeOptionP] = Gui.handleGuiFieldTypeButtons,
 
-  ["distanceUpgrades"] = Gui.handleGuiUpgradeButtons,
-  ["widthUpgrades"] = Gui.handleGuiUpgradeButtons,
+  [Gui.guiElementNames.upgradesDistance] = Gui.handleGuiUpgradeButtons,
+  [Gui.guiElementNames.upgradesWidth] = Gui.handleGuiUpgradeButtons,
 
-  ["emitterHelpButton"] = Gui.handleGuiMenuButtons,
-  ["removeAllButton"] = Gui.handleGuiMenuButtons,
-  ["applyButton"] = Gui.handleGuiMenuButtons
+  [Gui.guiElementNames.buttonHelp] = Gui.handleGuiMenuButtons,
+  [Gui.guiElementNames.buttonRemoveUpgrades] = Gui.handleGuiMenuButtons,
+  [Gui.guiElementNames.buttonApplySettings] = Gui.handleGuiMenuButtons
 }
 
 

@@ -1,10 +1,8 @@
 require 'src/utilities'
 require 'src/settings'
 
---require 'src/tool'
 require 'src/forcefield'
 require 'src/emitter'
-
 require 'src/gui'
 
 require 'src/testing'

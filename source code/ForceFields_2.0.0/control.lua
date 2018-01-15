@@ -125,5 +125,12 @@ end)
 
 -- When the player wants to close the gui
 script.on_event(defines.events.on_gui_closed, function(event)
-  Gui:onCloseGui(event.element)
+  Gui:onCloseGui(event.element, event.player_index)
+end)
+
+-- When the player clicks on a button
+script.on_event(defines.events.on_gui_click, function(event)
+  if Gui.guiButtonHandlers[event.element.name] then
+    Gui.guiButtonHandlers[event.element.name](Gui, event)
+  end
 end)

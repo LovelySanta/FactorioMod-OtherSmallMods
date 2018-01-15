@@ -1,7 +1,7 @@
 # Current (released) mods
 #### BugZilla
 * Description: The goal is to prepaire a base in a limited amount of time, afther that, one big happy bug come and walk your base over. It's your task to survive, rebuild, defeat! And most of all: Having fun with friends.
-* Latest version: 0.1.0
+* Latest version: 0.1.1
 
 #### Expensive Cliffs
 * Description: Cliffs are though to play with, for the die-hards I made them even thougher...
@@ -17,6 +17,10 @@
 * Latest version: 0.1.3
 
 # Changelog
+#### BugZilla [v0.1.1]
+* Fixed chatToFile death message not showing name of entity correctly
+
+-----
 #### Land Mover [v0.1.4]
 * Fixed research tree so landfill research is only altered, compatibility with Dectorio now
 

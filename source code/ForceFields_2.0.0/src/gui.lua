@@ -67,7 +67,13 @@ end
 function Gui.onCloseGui(self, guiElement, playerIndex)
   if guiElement and guiElement.valid and guiElement.name == self.guiElementNames.guiFrame then
     game.print("closig ui")
-    guiElement.destroy() -- TODO: needs to update the globals
+    if global.forcefields.emitterConfigGuis["I" .. playerIndex] ~= nil then
+      global.forcefields.emitterConfigGuis["I" .. playerIndex] = nil
+    end
+    if tableIsEmpty(global.forcefields.emitterConfigGuis) then
+      global.forcefields.emitterConfigGuis = nil
+    end
+    guiElement.destroy()
   end
 end
 

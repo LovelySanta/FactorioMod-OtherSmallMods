@@ -1,4 +1,7 @@
 require 'src/settings'
+require 'src/utilities'
+
+require 'src/forcefield'
 require 'src/emitter'
 
 
@@ -206,7 +209,27 @@ end
 
 
 function Gui.handleGuiMenuButtons(self, event)
-  game.print("button pressed")
+  local playerIndex = event.element.player_index
+  local player = game.players[playerIndex]
+  local frame = player.gui.center[self.guiElementNames.guiFrame]
+  if frame ~= nil then
+    -- Apply button --TODO
+    if event.element.name == self.guiElementNames.buttonApplySettings then
+      if self:verifyAndSetFromGui(playerIndex) then
+        global.forcefields.emitterConfigGuis["I" .. playerIndex] = nil
+        if tableIsEmpty(global.forcefields.emitterConfigGuis) then
+          global.forcefields.emitterConfigGuis = nil
+        end
+        frame.destroy()
+      end
+    -- Help button
+  elseif event.element.name == self.guiElementNames.buttonHelp then
+      self:printGuiHelp(player)
+    -- Remove upgrades buttons
+  elseif event.element.name == self.guiElementNames.buttonRemoveUpgrades then
+      self:removeAllUpgrades(playerIndex)
+    end
+  end
 end
 
 
@@ -241,4 +264,200 @@ end
 
 function Gui.getEmitterBonusWidth(self, emitterTable)
   return emitterTable["width-upgrades"] * Settings.widthUpgradeMultiplier
+end
+
+
+
+function Gui.printGuiHelp(self, player)
+  player.print("Direction: the direction the emitter projects the forcefields in.")
+  player.print("Field type: the type of forcefield the emitter projects:")
+  player.print("    [B]lue: normal health, normal re-spawn, normal power usage.")
+  player.print("    [G]reen: higher health, very slow re-spawn, below-normal power usage.")
+  player.print("    [R]ed: normal health, slow re-spawn, very high power usage. Damages living things that directly attack them.")
+  player.print("    [P]urple: low health, very slow re-spawn, high power usage. On death, heavily damages living things near-by.")
+  player.print("Emitter distance: the distance from the emitter in the configured direction the fields are constructed.")
+  player.print("Emitter width: the width of the field constructed by the emitter.")
+  player.print("Upgrades applied: the distance (advanced circuit) and width (processing unit) upgrades applied to the emitter.")
+  player.print("Help button: displays this information.")
+  player.print("Remove all upgrades: removes all upgrades from the emitter.")
+  player.print("Apply: saves and applies the settings to the emitter.")
+end
+
+
+
+function Gui.verifyAndSetFromGui(self, playerIndex)
+  -- emitter settings
+  local newDirection
+  local newFieldType
+  local newDistance
+  local newWidth
+  local maxDistance
+  local maxWidth
+  local newWidthUpgrades
+  local newDistanceUpgrades
+  local selectedButtonStyle = "selectbuttonsselected"
+  local player = game.players[playerIndex]
+  local settingsAreGood = true
+  local settingsChanged = false
+  local frame = player.gui.center[self.guiElementNames.guiFrame]
+  local emitterConfigTable = frame[self.guiElementNames.configTable]
+  local upgrades = emitterConfigTable[self.guiElementNames.upgradesTable]
+
+  if global.forcefields.emitterConfigGuis ~= nil
+    and global.forcefields.emitterConfigGuis["I" .. playerIndex] ~= nil
+    and global.forcefields.emitterConfigGuis["I" .. playerIndex][1]["entity"].valid then
+
+    -- Check if settings have changed
+    local emitterTable = global.forcefields.emitterConfigGuis["I" .. playerIndex][1]
+
+    -- Direction of the forcefield
+    if global.forcefields.emitterConfigGuis["I" .. playerIndex][2] ~= nil then
+      newDirection = global.forcefields.emitterConfigGuis["I" .. playerIndex][2]
+    else
+      newDirection = emitterTable["direction"]
+    end
+
+    -- Type of forcefield
+    if global.forcefields.emitterConfigGuis["I" .. playerIndex][3] ~= nil then
+      newFieldType = global.forcefields.emitterConfigGuis["I" .. playerIndex][3]
+    else
+      newFieldType = emitterTable["type"]
+    end
+
+    -- Distance of forcefield
+    newDistance = tonumber(emitterConfigTable[self.guiElementNames.distanceTable][self.guiElementNames.distanceInput].text)
+    maxDistance = tonumber(string.sub(emitterConfigTable[self.guiElementNames.distanceTable][self.guiElementNames.distanceMaxInput].caption, 6))
+    if upgrades[self.guiElementNames.upgradesDistance].caption ~= " " then
+      newDistanceUpgrades = tonumber(string.sub(upgrades[self.guiElementNames.upgradesDistance].caption, 2))
+    else
+      newDistanceUpgrades = 0
+    end
+    if not newDistance then
+      player.print("New Distance is not a valid number.")
+      settingsAreGood = false
+    elseif newDistance > maxDistance then
+      player.print("New Distance is larger than the allowed maximum.")
+      settingsAreGood = false
+    elseif newDistance < 1 then
+      player.print("New Distance is smaller than the allowed minimum (1).")
+      settingsAreGood = false
+    elseif math.floor(newDistance) ~= newDistance then
+      player.print("New Distance is not a valid number (can't have decimals).")
+      settingsAreGood = false
+    end
+
+    -- Width of forcefield
+    newWidth = tonumber(emitterConfigTable[self.guiElementNames.widthTable][self.guiElementNames.widthInput].text)
+    maxWidth = tonumber(string.sub(emitterConfigTable[self.guiElementNames.widthTable][self.guiElementNames.widthMaxInput].caption, 6))
+    if upgrades[self.guiElementNames.upgradesWidth].caption ~= " " then
+      newWidthUpgrades = tonumber(string.sub(upgrades[self.guiElementNames.upgradesWidth].caption, 2))
+    else
+      newWidthUpgrades = 0
+    end
+    if not newWidth then
+      player.print("New Width is not a valid number.")
+      settingsAreGood = false
+    elseif newWidth > maxWidth then
+      player.print("New Width is larger than the allowed maximum.")
+      settingsAreGood = false
+    elseif newWidth < 1 then
+      player.print("New Width is smaller than the allowed minimum (1).")
+      settingsAreGood = false
+    elseif math.floor(newWidth) ~= newWidth then
+      player.print("New Width is not a valid number (can't have decimals).")
+      settingsAreGood = false
+    elseif (math.floor((newWidth - 1) / 2) * 2) + 1 ~= newWidth then
+      player.print("New Width has to be an odd number.")
+      emitterConfigTable[self.guiElementNames.widthTable][self.guiElementNames.widthInput].text = tostring((math.floor((newWidth - 1) / 2) * 2) + 1)
+      settingsAreGood = false
+    end
+
+    -- If settings are all checked and correct, we can update the emitterTable
+    if settingsAreGood then
+      -- If any changes on the forcefield, we need to rebuild it
+      if emitterTable["width"] ~= newWidth
+        or emitterTable["distance"] ~= newDistance
+        or emitterTable["type"] ~= newFieldType
+        or emitterTable["direction"] ~= newDirection then
+
+        Forcefield:degradeLinkedFields(emitterTable)
+        emitterTable["damaged-fields"] = nil
+        emitterTable["width"] = newWidth
+        emitterTable["distance"] = newDistance
+        emitterTable["type"] = newFieldType
+        emitterTable["direction"] = newDirection
+        emitterTable["generating-fields"] = nil
+        Emitter:setActive(emitterTable, true)
+      end
+
+      -- If the upgrades changed we have to update that too, but no need to rebuild
+      emitterTable["width-upgrades"] = newDistanceUpgrades
+      emitterTable["distance-upgrades"] = newWidthUpgrades
+
+      -- Return true to close the UI
+      return true
+    end
+    -- Not closing UI yet (settingsAreGood == false)
+  else
+    -- Invalid entity, close this UI
+    return true
+  end
+end
+
+
+
+function Gui.removeAllUpgrades(self, playerIndex)
+  game.print("removeAllUpgrades")
+  local frame = game.players[playerIndex].gui.center[self.guiElementNames.guiFrame]
+
+  if frame then -- This shouldn't ever be required but won't hurt to check
+    if global.forcefields.emitterConfigGuis ~= nil
+      and global.forcefields.emitterConfigGuis["I" .. playerIndex] ~= nil
+      and global.forcefields.emitterConfigGuis["I" .. playerIndex][1]["entity"].valid then
+      local upgrades = frame[self.guiElementNames.configTable][self.guiElementNames.upgradesTable]
+      local count
+      --local buttonName
+      for upgradeItemName, button in pairs({
+        ["advanced-circuit"] = upgrades[self.guiElementNames.upgradesDistance],
+        ["processing-unit"] = upgrades[self.guiElementNames.upgradesWidth]
+      }) do
+        if button.caption ~= " " then
+          count = tonumber(string.sub(button.caption, 2))
+          button.caption = " "
+          button.style = "noitem"
+
+          self:updateMaxLabel(frame, button)
+          transferToPlayer(game.players[playerIndex], {name = upgradeItemName, count = count})
+        end
+      end
+    else -- invalid emitter entity (for example when someone destroys the emitter while another person is viewing the gui)
+      if global.forcefields.emitterConfigGuis ~= nil and global.forcefields.emitterConfigGuis["I" .. playerIndex] ~= nil then
+        global.forcefields.emitterConfigGuis["I" .. playerIndex] = nil
+        if tableIsEmpty(global.forcefields.emitterConfigGuis) then
+          global.forcefields.emitterConfigGuis = nil
+        end
+      end
+      -- close the gui
+      frame.destroy()
+    end
+  end
+end
+
+
+
+function Gui.updateMaxLabel(self, frame, upgradeButton)
+  game.print("updateMaxLabel")
+  local count
+  if upgradeButton.caption == " " then
+    count = 0
+  else
+    count = tonumber(string.sub(upgradeButton.caption, 2))
+  end
+  if upgradeButton.name == self.guiElementNames.upgradesDistance then
+    -- Distance upgrade button
+    frame[self.guiElementNames.configTable][self.guiElementNames.distanceTable][self.guiElementNames.distanceMaxInput].caption = "Max: " .. tostring(Settings.emitterDefaultDistance + count)
+  else
+    -- Width upgrade button
+    frame[self.guiElementNames.configTable][self.guiElementNames.widthTable][self.guiElementNames.widthMaxInput].caption = "Max: " .. tostring(Settings.emitterDefaultWidth + (count * Settings.widthUpgradeMultiplier))
+  end
 end

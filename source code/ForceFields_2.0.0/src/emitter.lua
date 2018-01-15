@@ -5,7 +5,7 @@ require 'src/utilities'
 Emitter = {}
 
 
-function Emitter.onEmitterBuilt(self, createdEntity)
+function Emitter:onEmitterBuilt(createdEntity)
   local newEmitter = {}
   local surface = createdEntity.surface
   if not global.forcefields then
@@ -53,7 +53,7 @@ end
 
 
 
-function Emitter.onEmitterMined(self, emitter, playerIndex)
+function Emitter:onEmitterMined(emitter, playerIndex)
   local emitterTable = self:findEmitter(emitter)
   local player
 
@@ -82,7 +82,7 @@ end
 
 
 
-function Emitter.onEmitterDied(self, emitter)
+function Emitter:onEmitterDied(emitter)
   local emitterTable = self:findEmitter(emitter)
   if emitterTable ~= nil then
     self:removeEmitterID(emitterTable["emitter-NEI"])
@@ -92,7 +92,7 @@ end
 
 
 
-function Emitter.findEmitter(self, emitter)
+function Emitter:findEmitter(emitter)
   if global.forcefields.emitters ~= nil then
     for k,v in pairs(global.forcefields.emitters) do
       if v["entity"] == emitter then
@@ -104,7 +104,7 @@ end
 
 
 
-function Emitter.setActive(self, emitterTable, enableCheckBuildingFields, skipResetTimer)
+function Emitter:setActive(emitterTable, enableCheckBuildingFields, skipResetTimer)
   if emitterTable["disabled"] == true then
     return
   end
@@ -128,7 +128,7 @@ end
 
 
 
-function Emitter.activateTicker(self)
+function Emitter:activateTicker()
   if not global.forcefields.ticking then
     global.forcefields.ticking = Settings.tickRate
     script.on_event(defines.events.on_tick, function(_) Emitter:onTick() end)
@@ -137,7 +137,7 @@ end
 
 
 
-function Emitter.onTick(self)
+function Emitter:onTick()
   if global.forcefields.ticking == 0 then
     global.forcefields.ticking = Settings.tickRate - 1
     self:updateTick()
@@ -148,7 +148,7 @@ end
 
 
 
-function Emitter.updateTick(self)
+function Emitter:updateTick()
   local shouldKeepTicking
   -- Active emitters tick
   if global.forcefields.activeEmitters ~= nil then
@@ -250,7 +250,7 @@ end
 
 
 
-function Emitter.removeEmitterID(self, emitterID)
+function Emitter:removeEmitterID(emitterID)
   if global.forcefields.emitters ~= nil then
     if global.forcefields.emitters[emitterID] ~= nil then
       Forcefield:degradeLinkedFields(global.forcefields.emitters[emitterID])
@@ -267,7 +267,7 @@ end
 
 
 
-function Emitter.removeActiveEmitterID(self, activeEmitterID)
+function Emitter:removeActiveEmitterID(activeEmitterID)
   -- Returns true if the global.forcefields.activeEmitters table isn't empty
   if global.forcefields.activeEmitters ~= nil then
     table.remove(global.forcefields.activeEmitters, activeEmitterID)
@@ -281,7 +281,7 @@ end
 
 
 
-function Emitter.removeKilledEmitter(self, index)
+function Emitter:removeKilledEmitter(index)
   table.remove(global.forcefields.killedEmitters, index)
   if #global.forcefields.killedEmitters == 0 then
     global.forcefields.killedEmitters = nil
@@ -290,7 +290,7 @@ end
 
 
 
-function Emitter.storeKilledEmitter(self, emitterTable)
+function Emitter:storeKilledEmitter(emitterTable)
   local newKilledEmitter = {}
   if global.forcefields.killedEmitters == nil then
     global.forcefields.killedEmitters = {}

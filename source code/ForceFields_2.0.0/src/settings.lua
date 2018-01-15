@@ -75,7 +75,7 @@ Settings.maxFieldDistance = math.max(Settings.emitterMaxDistance, Settings.emitt
 
 
 
-function Settings.verifySettings(self)
+function Settings:verifySettings()
   if self.tickRate < 0 then
     self.tickRate = 0
     throwError("Tick rate must be >= 0.")

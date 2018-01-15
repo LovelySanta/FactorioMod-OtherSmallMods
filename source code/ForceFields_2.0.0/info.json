@@ -5,7 +5,7 @@
   "title": "Force Fields",
   "author": "lovely_santa",
   "homepage": "https://mods.factorio.com/mods/lovely_santa/Force%20Fields",
-  "description": "Electric powered walls.",
+  "description": "Adds multiple types of electric powered, self healing walls to keep the biters out.",
   "dependencies": [
     "base >= 0.16.16"
   ]

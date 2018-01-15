@@ -5,7 +5,7 @@ require 'src/utilities'
 Forcefield = {}  -- TODO
 
 
-function Forcefield.onForcefieldDamaged(self, surface, pos)
+function Forcefield:onForcefieldDamaged(surface, pos)
   local index = surface.index
 
   pos.x = math.floor(pos.x)
@@ -25,7 +25,7 @@ end
 
 
 
-function Forcefield.onForcefieldDied(self, field)
+function Forcefield:onForcefieldDied(field)
   local pos = field.position
   local surface = field.surface
   local index = surface.index
@@ -44,7 +44,7 @@ end
 
 
 
-function Forcefield.onForcefieldMined(self, field, playerIndex)
+function Forcefield:onForcefieldMined(field, playerIndex)
   if playerIndex ~= nil then
     local player = game.players[playerIndex]
     if player.character ~= nil then
@@ -67,7 +67,7 @@ end
 
 
 
-function Forcefield.scanAndBuildFields(self, emitterTable)
+function Forcefield:scanAndBuildFields(emitterTable)
   local buildField
 
   if emitterTable["build-tick"] == 0 then
@@ -191,7 +191,7 @@ end
 
 
 
-function Forcefield.generateFields(self, emitterTable)
+function Forcefield:generateFields(emitterTable)
   local availableEnergy = emitterTable["entity"].energy
 
   -- Generate each field
@@ -228,7 +228,7 @@ end
 
 
 
-function Forcefield.regenerateFields(self, emitterTable)
+function Forcefield:regenerateFields(emitterTable)
   local availableEnergy = emitterTable["entity"].energy
   local neededEnergy
 
@@ -261,7 +261,7 @@ end
 
 
 
-function Forcefield.handleDamagedFields(self, forceFields)
+function Forcefield:handleDamagedFields(forceFields)
   local pos
   local surface
   local index
@@ -308,7 +308,7 @@ end
 
 
 
-function Forcefield.getFieldsArea(self, emitterTable)
+function Forcefield:getFieldsArea(emitterTable)
   local scanDirection = emitterTable["direction"]
   local pos = {}
   local xInc = 0
@@ -337,7 +337,7 @@ end
 
 
 
-function Forcefield.findForcefieldsArea(self, surface, area, includeFullHealth)
+function Forcefield:findForcefieldsArea(surface, area, includeFullHealth)
   local walls = surface.find_entities_filtered({area = area, type = "wall"})
   local gates = surface.find_entities_filtered({area = area, type = "gate"})
   local foundFields = {}
@@ -364,7 +364,7 @@ end
 
 
 
-function Forcefield.findForcefieldsRadius(self, surface, position, radius, includeFullHealth)
+function Forcefield:findForcefieldsRadius(surface, position, radius, includeFullHealth)
   local walls = surface.find_entities_filtered({area = {{x = position.x - radius, y = position.y - radius}, {x = position.x + radius, y = position.y + radius}}, type = "wall"})
   local gates = surface.find_entities_filtered({area = {{x = position.x - radius, y = position.y - radius}, {x = position.x + radius, y = position.y + radius}}, type = "gate"})
   local foundFields = {}
@@ -392,7 +392,7 @@ end
 
 
 
-function Forcefield.degradeLinkedFields(self, emitterTable)
+function Forcefield:degradeLinkedFields(emitterTable)
   if global.forcefields.fields ~= nil then
     local pos1, xInc, yInc, incTimes = self:getFieldsArea(emitterTable)
     local pos2 = {x = pos1.x + (xInc * incTimes), y = pos1.y + (yInc * incTimes)}
@@ -432,7 +432,7 @@ end
 
 
 
-function Forcefield.removeDegradingFieldID(self, fieldID)
+function Forcefield:removeDegradingFieldID(fieldID)
   -- Returns true if the global.forcefields.degradingFields table isn't empty
   if global.forcefields.degradingFields ~= nil then
     local pos = global.forcefields.degradingFields[fieldID]["position"]
@@ -456,7 +456,7 @@ end
 
 
 
-function Forcefield.removeForcefield(self, field)
+function Forcefield:removeForcefield(field)
   if global.forcefields.fields ~= nil then
     local pos = field.position
     local index = field.surface.index
@@ -468,7 +468,7 @@ end
 
 
 
-function Forcefield.removeForceFieldID(self, index, x, y)
+function Forcefield:removeForceFieldID(index, x, y)
   -- Does no checking, make sure its a valid table index
   global.forcefields.fields[index][x][y] = nil
   if tableIsEmpty(global.forcefields.fields[index][x]) then

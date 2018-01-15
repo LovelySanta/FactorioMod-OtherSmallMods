@@ -58,7 +58,7 @@ Gui.guiElementNames =
 
 
 
-function Gui.onOpenGui(self, emitter, playerIndex)
+function Gui:onOpenGui(emitter, playerIndex)
   local emitterTable = Emitter:findEmitter(emitter)
   if emitterTable ~= nil then
     game.players[playerIndex].opened = self:showEmitterGui(emitterTable, playerIndex)
@@ -67,7 +67,7 @@ end
 
 
 
-function Gui.onCloseGui(self, guiElement, playerIndex)
+function Gui:onCloseGui(guiElement, playerIndex)
   if guiElement and guiElement.valid and guiElement.name == self.guiElementNames.guiFrame then
     game.print("closig ui")
     if global.forcefields.emitterConfigGuis["I" .. playerIndex] ~= nil then
@@ -82,7 +82,7 @@ end
 
 
 
-function Gui.showEmitterGui(self, emitterTable, playerIndex)
+function Gui:showEmitterGui(emitterTable, playerIndex)
   game.print("opening UI")
   local guiCenter = game.players[playerIndex].gui.center
   local canOpenGui = true
@@ -190,25 +190,25 @@ end
 
 
 
-function Gui.handleGuiDirectionButtons(self, event)
+function Gui:handleGuiDirectionButtons(event)
   game.print("button pressed")
 end
 
 
 
-function Gui.handleGuiFieldTypeButtons(self, event)
+function Gui:handleGuiFieldTypeButtons(event)
   game.print("button pressed")
 end
 
 
 
-function Gui.handleGuiUpgradeButtons(self, event)
+function Gui:handleGuiUpgradeButtons(event)
   game.print("button pressed")
 end
 
 
 
-function Gui.handleGuiMenuButtons(self, event)
+function Gui:handleGuiMenuButtons(event)
   local playerIndex = event.element.player_index
   local player = game.players[playerIndex]
   local frame = player.gui.center[self.guiElementNames.guiFrame]
@@ -256,19 +256,19 @@ Gui.guiButtonHandlers =
 
 
 
-function Gui.getEmitterBonusDistance(self, emitterTable)
+function Gui:getEmitterBonusDistance(emitterTable)
   return emitterTable["distance-upgrades"]
 end
 
 
 
-function Gui.getEmitterBonusWidth(self, emitterTable)
+function Gui:getEmitterBonusWidth(emitterTable)
   return emitterTable["width-upgrades"] * Settings.widthUpgradeMultiplier
 end
 
 
 
-function Gui.printGuiHelp(self, player)
+function Gui:printGuiHelp(player)
   player.print("Direction: the direction the emitter projects the forcefields in.")
   player.print("Field type: the type of forcefield the emitter projects:")
   player.print("    [B]lue: normal health, normal re-spawn, normal power usage.")
@@ -285,7 +285,7 @@ end
 
 
 
-function Gui.verifyAndSetFromGui(self, playerIndex)
+function Gui:verifyAndSetFromGui(playerIndex)
   -- emitter settings
   local newDirection
   local newFieldType
@@ -406,7 +406,7 @@ end
 
 
 
-function Gui.removeAllUpgrades(self, playerIndex)
+function Gui:removeAllUpgrades(playerIndex)
   game.print("removeAllUpgrades")
   local frame = game.players[playerIndex].gui.center[self.guiElementNames.guiFrame]
 
@@ -445,7 +445,7 @@ end
 
 
 
-function Gui.updateMaxLabel(self, frame, upgradeButton)
+function Gui:updateMaxLabel(frame, upgradeButton)
   game.print("updateMaxLabel")
   local count
   if upgradeButton.caption == " " then

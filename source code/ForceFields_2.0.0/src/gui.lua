@@ -69,7 +69,6 @@ end
 
 function Gui:onCloseGui(guiElement, playerIndex)
   if guiElement and guiElement.valid and guiElement.name == self.guiElementNames.guiFrame then
-    game.print("closig ui")
     if global.forcefields.emitterConfigGuis["I" .. playerIndex] ~= nil then
       global.forcefields.emitterConfigGuis["I" .. playerIndex] = nil
     end
@@ -83,7 +82,6 @@ end
 
 
 function Gui:showEmitterGui(emitterTable, playerIndex)
-  game.print("opening UI")
   local guiCenter = game.players[playerIndex].gui.center
   local canOpenGui = true
 
@@ -191,7 +189,30 @@ end
 
 
 function Gui:handleGuiDirectionButtons(event)
-  game.print("button pressed")
+  local playerIndex = event.element.player_index
+  local player = game.players[playerIndex]
+  local frame = player.gui.center[self.guiElementNames.guiFrame]
+  local nameToDirection =
+  {
+    [self.guiElementNames.directionOptionN] = defines.direction.north,
+    [self.guiElementNames.directionOptionS] = defines.direction.south,
+    [self.guiElementNames.directionOptionE] = defines.direction.east,
+    [self.guiElementNames.directionOptionW] = defines.direction.west
+  }
+
+  if frame ~= nil then
+    local directions = frame[self.guiElementNames.configTable][self.guiElementNames.directionTable]
+
+    -- Save the newly selected direction
+    global.forcefields.emitterConfigGuis["I" .. playerIndex][2] = nameToDirection[event.element.name]
+
+    -- Set the buttons accordingly to pressed selection
+    directions[self.guiElementNames.directionOptionN].style = "selectbuttons"
+    directions[self.guiElementNames.directionOptionS].style = "selectbuttons"
+    directions[self.guiElementNames.directionOptionE].style = "selectbuttons"
+    directions[self.guiElementNames.directionOptionW].style = "selectbuttons"
+    directions[event.element.name].style = "selectbuttonsselected"
+  end
 end
 
 

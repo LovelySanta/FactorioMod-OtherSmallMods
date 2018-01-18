@@ -36,14 +36,17 @@ end
 
 
 function transferToPlayer(player, dropStack)
-  local countBefore = player.get_item_count(dropStack.name)
-  local countAfter
-
-  player.insert(dropStack)
-  countAfter = player.get_item_count(dropStack.name)
-  if countAfter < (countBefore + dropStack.count) then
-    dropOnGround(player.surface, player.position, {name = dropStack.name, count = (countBefore + dropStack.count) - countAfter})
+  local countInserted = player.insert(dropStack)
+  if countInserted < dropStack.count then
+    dropOnGround(player.surface, player.position, {name = dropStack.name, count = dropStack.count - countInserted})
   end
+end
+
+
+
+function takeFromPlayer(player, dropStack)
+  local countRemoved = player.remove_item(dropStack)
+  return dropStack.count - countRemoved
 end
 
 

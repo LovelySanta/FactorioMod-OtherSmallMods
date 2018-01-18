@@ -64,18 +64,18 @@ function Emitter:onEmitterMined(emitter, playerIndex)
     player = game.players[playerIndex]
   end
 
-  if emitterTable["width-upgrades"] ~= 0 then
-    if player then
-      transferToPlayer(player, {name = "advanced-circuit", count = emitterTable["width-upgrades"]})
-    else
-      dropOnGround(emitterTable["entity"].surface, emitterTable["entity"].position, {name = "advanced-circuit", count = emitterTable["width-upgrades"]}, true, emitterTable["entity"].force)
-    end
-  end
   if emitterTable["distance-upgrades"] ~= 0 then
     if player then
-      transferToPlayer(player, {name = "processing-unit", count = emitterTable["distance-upgrades"]})
+      transferToPlayer(player, {name = "advanced-circuit", count = emitterTable["distance-upgrades"]})
     else
-      dropOnGround(emitterTable["entity"].surface, emitterTable["entity"].position, {name = "processing-unit", count = emitterTable["distance-upgrades"]}, true, emitterTable["entity"].force)
+      dropOnGround(emitterTable["entity"].surface, emitterTable["entity"].position, {name = "advanced-circuit", count = emitterTable["distance-upgrades"]}, true, emitterTable["entity"].force)
+    end
+  end
+  if emitterTable["width-upgrades"] ~= 0 then
+    if player then
+      transferToPlayer(player, {name = "processing-unit", count = emitterTable["width-upgrades"]})
+    else
+      dropOnGround(emitterTable["entity"].surface, emitterTable["entity"].position, {name = "processing-unit", count = emitterTable["width-upgrades"]}, true, emitterTable["entity"].force)
     end
   end
 end

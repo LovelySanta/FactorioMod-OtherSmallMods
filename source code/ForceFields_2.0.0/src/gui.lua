@@ -70,6 +70,41 @@ end
 function Gui:onCloseGui(guiElement, playerIndex)
   if guiElement and guiElement.valid and guiElement.name == self.guiElementNames.guiFrame then
     if global.forcefields.emitterConfigGuis["I" .. playerIndex] ~= nil then
+      -- Check the upgrade items
+      if global.forcefields.emitterConfigGuis["I" .. playerIndex][1]["entity"].valid then
+        local emitterTable = global.forcefields.emitterConfigGuis["I" .. playerIndex][1]
+        local upgrades = guiElement[self.guiElementNames.configTable][self.guiElementNames.upgradesTable]
+
+        -- Distance upgrades
+        local oldDistanceUpgrades = emitterTable["distance-upgrades"]
+        local newDistanceUpgrades = tonumber(string.sub(upgrades[self.guiElementNames.upgradesDistance].caption, 2))
+        if not newDistanceUpgrades then
+          newDistanceUpgrades = 0
+        end
+        if newDistanceUpgrades ~= oldDistanceUpgrades then
+          if newDistanceUpgrades > oldDistanceUpgrades then
+            transferToPlayer(game.players[playerIndex], {name = "advanced-circuit", count = newDistanceUpgrades - oldDistanceUpgrades})
+          else
+            takeFromPlayer(game.players[playerIndex], {name = "advanced-circuit", count = oldDistanceUpgrades - newDistanceUpgrades})
+          end
+        end
+
+        -- Width upgrades
+        local oldWidthUpgrades = emitterTable["width-upgrades"]
+        local newWidthUpgrades = tonumber(string.sub(upgrades[self.guiElementNames.upgradesWidth].caption, 2))
+        if not newWidthUpgrades then
+          newWidthUpgrades = 0
+        end
+        if newWidthUpgrades ~= oldWidthUpgrades then
+          if newWidthUpgrades > oldWidthUpgrades then
+            transferToPlayer(game.players[playerIndex], {name = "processing-unit", count = newWidthUpgrades - oldWidthUpgrades})
+          else
+            takeFromPlayer(game.players[playerIndex], {name = "processing-unit", count = oldWidthUpgrades - newWidthUpgrades})
+          end
+        end
+      end
+
+      -- Delete the gui data now...
       global.forcefields.emitterConfigGuis["I" .. playerIndex] = nil
     end
     if tableIsEmpty(global.forcefields.emitterConfigGuis) then
@@ -256,7 +291,7 @@ function Gui:handleGuiFieldTypeButtons(event)
       fields[self.guiElementNames.fieldTypeOptionP].style = "selectbuttons"
       fields[selectedButtonName].style = "selectbuttonsselected"
     else
-      player.print("You need to complete research before this field type can be used.")
+      player.print("You need to complete the required research before this field type can be used.")
     end
   end
 end
@@ -537,7 +572,6 @@ end
 
 
 function Gui:removeAllUpgrades(playerIndex)
-  game.print("removeAllUpgrades")
   local frame = game.players[playerIndex].gui.center[self.guiElementNames.guiFrame]
 
   if frame then -- This shouldn't ever be required but won't hurt to check

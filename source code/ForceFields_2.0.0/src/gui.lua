@@ -218,7 +218,47 @@ end
 
 
 function Gui:handleGuiFieldTypeButtons(event)
-  game.print("button pressed")
+  local playerIndex = event.element.player_index
+  local player = game.players[playerIndex]
+  local force = player.force
+  local frame = player.gui.center[self.guiElementNames.guiFrame]
+  local nameToFieldName =
+  {
+    [self.guiElementNames.fieldTypeOptionB] = "blue" .. Settings.fieldSuffix,
+    [self.guiElementNames.fieldTypeOptionG] = "green" .. Settings.fieldSuffix,
+    [self.guiElementNames.fieldTypeOptionR] = "red" .. Settings.fieldSuffix,
+    [self.guiElementNames.fieldTypeOptionP] = "purple" .. Settings.fieldSuffix
+  }
+
+  if frame ~= nil then
+    -- Current fieldtype
+    local fields = frame[self.guiElementNames.configTable][self.guiElementNames.fieldTypeTable]
+    local selectedButtonName = event.element.name
+
+    -- Check if the force of that player has the required researched
+    local shouldSwitch = true
+    if selectedButtonName == self.guiElementNames.fieldTypeOptionG then
+      shouldSwitch = force.technologies["green-fields"].researched
+    elseif selectedButtonName == self.guiElementNames.fieldTypeOptionR then
+      shouldSwitch = force.technologies["red-fields"].researched
+    elseif selectedButtonName == self.guiElementNames.fieldTypeOptionP then
+      shouldSwitch = force.technologies["purple-fields"].researched
+    end
+
+    if shouldSwitch then
+      -- Save the newly selected direction
+      global.forcefields.emitterConfigGuis["I" .. playerIndex][3] = nameToFieldName[selectedButtonName]
+
+      -- Set the buttons accordingly to pressed selection
+      fields[self.guiElementNames.fieldTypeOptionB].style = "selectbuttons"
+      fields[self.guiElementNames.fieldTypeOptionG].style = "selectbuttons"
+      fields[self.guiElementNames.fieldTypeOptionR].style = "selectbuttons"
+      fields[self.guiElementNames.fieldTypeOptionP].style = "selectbuttons"
+      fields[selectedButtonName].style = "selectbuttonsselected"
+    else
+      player.print("You need to complete research before this field type can be used.")
+    end
+  end
 end
 
 

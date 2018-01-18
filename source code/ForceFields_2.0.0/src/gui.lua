@@ -156,13 +156,13 @@ function Gui:showEmitterGui(emitterTable, playerIndex)
     -- Upgrades of emitter
     configTable.add({type = "label", name = self.guiElementNames.upgradesLabel, caption = "Upgrades applied:"})
     local upgrades = configTable.add({type = "table", name = self.guiElementNames.upgradesTable, column_count = 2})
-    if emitterTable["width-upgrades"] ~= 0 then
-      upgrades.add({type = "button", name = self.guiElementNames.upgradesDistance, caption = "x" .. tostring(emitterTable["width-upgrades"]), style = "advanced-circuit"})
+    if emitterTable["distance-upgrades"] ~= 0 then
+      upgrades.add({type = "button", name = self.guiElementNames.upgradesDistance, caption = "x" .. tostring(emitterTable["distance-upgrades"]), style = "advanced-circuit"})
     else
       upgrades.add({type = "button", name = self.guiElementNames.upgradesDistance, caption = " ", style = "noitem"})
     end
-    if emitterTable["distance-upgrades"] ~= 0 then
-      upgrades.add({type = "button", name = self.guiElementNames.upgradesWidth, caption = "x" .. tostring(emitterTable["distance-upgrades"]), style = "processing-unit"})
+    if emitterTable["width-upgrades"] ~= 0 then
+      upgrades.add({type = "button", name = self.guiElementNames.upgradesWidth, caption = "x" .. tostring(emitterTable["width-upgrades"]), style = "processing-unit"})
     else
       upgrades.add({type = "button", name = self.guiElementNames.upgradesWidth, caption = " ", style = "noitem"})
     end
@@ -264,7 +264,76 @@ end
 
 
 function Gui:handleGuiUpgradeButtons(event)
-  game.print("button pressed")
+  local playerIndex = event.element.player_index
+  local player = game.players[playerIndex]
+  local frame = player.gui.center[self.guiElementNames.guiFrame]
+  local nameToUpgradeLimit =
+  {
+    [self.guiElementNames.upgradesDistance] = Settings.maxRangeUpgrades,
+    [self.guiElementNames.upgradesWidth] = Settings.maxWidthUpgrades
+  }
+  local nameToStyle =
+  {
+    [self.guiElementNames.upgradesDistance] = "advanced-circuit",
+    [self.guiElementNames.upgradesWidth] = "processing-unit"
+  }
+  local styleToName = {}
+  for k,v in pairs(nameToStyle) do
+    styleToName[v] = k
+  end
+
+  if frame ~= nil then
+    local upgrades = frame[self.guiElementNames.configTable][self.guiElementNames.upgradesTable]
+    local upgradeButton
+    local count
+
+    -- Check if the player has items on his cursor => increase upgrades
+    local stack = player.cursor_stack
+    if stack.valid_for_read then
+      if styleToName[stack.name] ~= nil then
+        upgradeButton = upgrades[styleToName[stack.name]]
+        -- Add one to the upgrades
+        if upgradeButton.caption ~= " " then
+          count = tonumber(string.sub(upgradeButton.caption, 2)) + 1
+        else
+          count = 1
+        end
+
+        -- Update the gui if it didn't exceeded the max limit
+        if count <= nameToUpgradeLimit[upgradeButton.name] then
+          upgradeButton.caption = "x" .. tostring(count)
+          self:updateMaxLabel(frame, upgradeButton)
+
+          -- If this is the first item we need to change the style too
+          if count == 1 then
+            upgradeButton.style = nameToStyle[upgradeButton.name]
+          end
+
+          -- Remove one item from the players cursos
+          stack.count = stack.count - 1
+        else
+          player.print("Maximum upgrades of this type already installed.")
+        end
+      end
+    else -- player has an empty cursor => decrease upgrades
+      upgradeButton = upgrades[event.element.name]
+
+      if upgradeButton.caption ~= " " then
+        count = tonumber(string.sub(upgradeButton.caption, 2)) - 1
+
+        if count == 0 then
+          upgradeButton.caption = " "
+          -- if count is zero we need to change the style too
+          upgradeButton.style = "noitem"
+        else
+          upgradeButton.caption = "x" .. tostring(count)
+        end
+
+        self:updateMaxLabel(frame, upgradeButton)
+        transferToPlayer(player, {name = nameToStyle[upgradeButton.name], count = 1})
+      end
+    end
+  end
 end
 
 
@@ -452,8 +521,8 @@ function Gui:verifyAndSetFromGui(playerIndex)
       end
 
       -- If the upgrades changed we have to update that too, but no need to rebuild
-      emitterTable["width-upgrades"] = newDistanceUpgrades
-      emitterTable["distance-upgrades"] = newWidthUpgrades
+      emitterTable["distance-upgrades"] = newDistanceUpgrades
+      emitterTable["width-upgrades"] = newWidthUpgrades
 
       -- Return true to close the UI
       return true

@@ -8,6 +8,10 @@
 *We put a stick in the cliffside, rap 500 explosive arround it with some wires, soak it in some acid, and have a nuke to set it off.*
 * Latest version: 0.1.1
 
+#### Force Fields
+* Description: Adds multiple types of electric powered, self healing walls to keep the biters out.
+* Latest version: 2.0.0
+
 #### Land Mover
 * Description: A mod that removes the recipe of landfill. Use land mover instead: dig a hole, get the land, place it elsewhere
 * Latest version: 0.1.4
@@ -17,6 +21,13 @@
 * Latest version: 0.1.3
 
 # Changelog
+#### Force Fields [v2.0.0]
+* Initial release from me, updated to 0.16
+* Can now open GUI without the need for the tool
+* Can now close the GUI with pressing E/esc (without applying the changes)
+* Emitters not taken into accumulator calculations anymore
+
+-----
 #### BugZilla [v0.1.1]
 * Fixed chatToFile death message not showing name of entity correctly
 

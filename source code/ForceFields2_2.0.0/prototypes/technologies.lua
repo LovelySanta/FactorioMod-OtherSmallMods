@@ -3,7 +3,7 @@ data:extend(
     {
       type = "technology",
       name = "force-fields",
-      icon = "__ForceFields__/graphics/blue-forcefields.png",
+      icon = "__ForceFields2__/graphics/blue-forcefields.png",
       icon_size = 64,
       prerequisites =
       {
@@ -37,7 +37,7 @@ data:extend(
     {
       type = "technology",
       name = "green-fields",
-      icon = "__ForceFields__/graphics/green-forcefields.png",
+      icon = "__ForceFields2__/graphics/green-forcefields.png",
       icon_size = 64,
       prerequisites =
       {
@@ -61,7 +61,7 @@ data:extend(
     {
       type = "technology",
       name = "purple-fields",
-      icon = "__ForceFields__/graphics/purple-forcefields.png",
+      icon = "__ForceFields2__/graphics/purple-forcefields.png",
       icon_size = 64,
       prerequisites =
       {
@@ -87,7 +87,7 @@ data:extend(
     {
       type = "technology",
       name = "red-fields",
-      icon = "__ForceFields__/graphics/red-forcefields.png",
+      icon = "__ForceFields2__/graphics/red-forcefields.png",
       icon_size = 64,
       prerequisites =
       {

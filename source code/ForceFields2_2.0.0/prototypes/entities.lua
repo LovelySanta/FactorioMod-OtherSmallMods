@@ -675,7 +675,7 @@ local baseSourceAttackReaction =
 
 function addForceField(color, maxHealth, sourceAttackReaction)
   local newForceField = util.table.deepcopy(baseForceField)
-  local imgDir = "__ForceFields__/graphics/walls/"
+  local imgDir = "__ForceFields2__/graphics/walls/"
   newForceField.name = color .. "-forcefield"
   newForceField.icon = imgDir .. color .. "/" .. "/wall-icon.png"
   newForceField.icon_size = 42
@@ -716,7 +716,7 @@ end
 
 function addForceFieldGate(color, maxHealth, sourceAttackReaction)
   local newForceFieldGate = util.table.deepcopy(baseForceFieldGate)
-  local imgDir = "__ForceFields__/graphics/gates/"
+  local imgDir = "__ForceFields2__/graphics/gates/"
   newForceFieldGate.name = color .. "-forcefield-gate"
   newForceFieldGate.icon = imgDir .. color .. "/" .. "/gate.png"
   newForceFieldGate.max_health = maxHealth
@@ -776,7 +776,7 @@ data:extend(
   {
     type = "electric-energy-interface",
     name = "forcefield-emitter",
-    icon = "__ForceFields__/graphics/forcefield-emitter-icon.png",
+    icon = "__ForceFields2__/graphics/forcefield-emitter-icon.png",
     icon_size = 32,
     flags = {"placeable-neutral", "player-creation"},
     enable_gui = true,
@@ -799,7 +799,7 @@ data:extend(
     energy_consumption = "100MW",
     picture =
     {
-      filename = "__ForceFields__/graphics/forcefield-emitter-active.png",
+      filename = "__ForceFields2__/graphics/forcefield-emitter-active.png",
       priority = "extra-high",
       width = 72,
       height = 62,
@@ -826,7 +826,7 @@ data:extend(
   {
     type = "tree",
     name = "forcefield-damaged",
-    icon = "__ForceFields__/graphics/null.png",
+    icon = "__ForceFields2__/graphics/null.png",
     icon_size = 32,
     flags = {"placeable-neutral", "not-on-map", "placeable-off-grid"},
     subgroup = "remnants",
@@ -838,7 +838,7 @@ data:extend(
     pictures =
     {
       {
-        filename = "__ForceFields__/graphics/null.png",
+        filename = "__ForceFields2__/graphics/null.png",
         width = 32,
         height = 32,
       }
@@ -852,7 +852,7 @@ data:extend(
     show_when_smoke_off = false,
     animation =
     {
-      filename = "__ForceFields__/graphics/null.png",
+      filename = "__ForceFields2__/graphics/null.png",
       priority = "low",
       width = 32,
       height = 32,
@@ -907,7 +907,7 @@ data:extend(
     show_when_smoke_off = false,
     animation =
     {
-      filename = "__ForceFields__/graphics/null.png",
+      filename = "__ForceFields2__/graphics/null.png",
       priority = "low",
       width = 32,
       height = 32,

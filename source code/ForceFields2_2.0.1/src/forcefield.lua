@@ -122,7 +122,7 @@ function Forcefield:scanAndBuildFields(emitterTable)
             emitterTable["entity"].energy = emitterTable["entity"].energy -  (Settings.tickRate * Settings.forcefieldTypes[emitterTable["type"]]["energyPerRespawn"])
             -- If we can't get to the end, we need to degrade as we have no power to maintain the full field
             if n ~= incTimes and emitterTable["entity"].energy == 0 then
-              emitterTable["build-tick"] = forcefieldTypes[emitterTable["type"]]["respawnRate"] * 10
+              emitterTable["build-tick"] = Settings.forcefieldTypes[emitterTable["type"]]["respawnRate"] * 10
               self:degradeLinkedFields(emitterTable)
               break
             end

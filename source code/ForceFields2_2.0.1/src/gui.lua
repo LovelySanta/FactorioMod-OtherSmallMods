@@ -610,7 +610,6 @@ end
 
 
 function Gui:updateMaxLabel(frame, upgradeButton)
-  game.print("updateMaxLabel")
   local count
   if upgradeButton.caption == " " then
     count = 0

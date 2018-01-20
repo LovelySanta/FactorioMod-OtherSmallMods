@@ -780,7 +780,7 @@ data:extend(
     icon_size = 32,
     flags = {"placeable-neutral", "player-creation"},
     enable_gui = true,
-    allow_copy_paste = false,
+    allow_copy_paste = true,
     minable = {hardness = 0.2, mining_time = 1, result = "forcefield-emitter"},
     max_health = 50,
     corpse = "small-remnants",

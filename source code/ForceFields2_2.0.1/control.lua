@@ -114,6 +114,15 @@ end)
 
 
 
+-- When the player quick paste settings
+script.on_event(defines.events.on_entity_settings_pasted, function(event)
+  if event.source.name == Settings.emitterName and event.destination.name == Settings.emitterName then
+    Emitter:onEntitySettingsPasted(event)
+  end
+end)
+
+
+
 -- When the player clicks on the emitter to open the gui
 script.on_event(defines.events.on_gui_opened, function(event)
   if event.gui_type == defines.gui_type.entity and event.entity.name == Settings.emitterName then

@@ -789,7 +789,7 @@ data:extend(
     energy_source =
     {
       type = "electric",
-      buffer_capacity = "1GJ",
+      buffer_capacity = "100MJ",
       usage_priority = "primary-input",
       input_flow_limit = "100MW",
       output_flow_limit = "0kW",
@@ -897,7 +897,7 @@ data:extend(
         }
       }
     },
-    action_frequency = 60
+    action_cooldown = 60
   },
 
   {
@@ -952,6 +952,6 @@ data:extend(
         }
       }
     },
-    action_frequency = 60
+    action_cooldown = 60
   }
 })

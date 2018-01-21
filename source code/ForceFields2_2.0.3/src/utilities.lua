@@ -1,19 +1,12 @@
 
 function throwError(what)
-  for _,player in pairs(game.players) do
-    player.print(what)
-  end
+    game.print(what)
 end
 
 
 
 function tableIsEmpty(t)
-  if t then
-    for k in pairs(t) do
-      return false
-    end
-  end
-  return true
+  return not next(t)
 end
 
 

@@ -14,7 +14,7 @@ function init()
   if not global.forcefields then
     global.forcefields = {}
   end
-  global.forcefields.version = 1.0
+  global.forcefields.version = 1.1
 end
 
 script.on_init(function(_)
@@ -23,9 +23,8 @@ script.on_init(function(_)
 end)
 
 script.on_configuration_changed(function (data)
-  if data.mod_changes and data.mod_changes.ForceFields then
+  if data.mod_changes and data.mod_changes.ForceFields2 and data.mod_changes.ForceFields2.old_version then
     Settings:verifySettings()
-    init()
   end
 end)
 

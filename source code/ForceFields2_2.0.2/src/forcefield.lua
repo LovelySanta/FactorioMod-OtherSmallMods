@@ -145,7 +145,7 @@ function Forcefield:scanAndBuildFields(emitterTable)
                 -- Prevents the emitter from going into extended sleep from "can't build" due to degrading fields (happens most when switching field types)
                 local fpos = blockingField[1].position
                 for _,field in pairs(global.forcefields.degradingFields) do
-                  if field["entity"].position.x == pos.x and field["entity"].position.y == pos.y then
+                  if field["fieldEntity"].position.x == pos.x and field["entity"].position.y == pos.y then
                     builtField = true
                     break
                   end
@@ -430,7 +430,7 @@ function Forcefield:degradeLinkedFields(emitterTable)
       for k,field in pairs(fields) do
         pos = field.position
         if global.forcefields.fields[index] ~= nil and global.forcefields.fields[index][pos.x] ~= nil and global.forcefields.fields[index][pos.x][pos.y] == emitterTable["emitter-NEI"] then
-          table.insert(global.forcefields.degradingFields, {["entity"] = field, ["position"] = field.position, ["surface"] = surface})
+          table.insert(global.forcefields.degradingFields, {["fieldEntity"] = field, ["emitterTable"] = emitterTable})
           self:removeForceField(field)
 
           if global.forcefields.fields == nil then
@@ -453,17 +453,25 @@ end
 function Forcefield:removeDegradingFieldID(fieldID)
   -- Returns true if the global.forcefields.degradingFields table isn't empty
   if global.forcefields.degradingFields ~= nil then
-    local pos = global.forcefields.degradingFields[fieldID]["position"]
-    local surface = global.forcefields.degradingFields[fieldID]["surface"]
-    table.remove(global.forcefields.degradingFields, fieldID)
-    local emitters = surface.find_entities_filtered({area = {{x = pos.x - Settings.maxFieldDistance, y = pos.y - Settings.maxFieldDistance}, {x = pos.x + Settings.maxFieldDistance, y = pos.y + Settings.maxFieldDistance}}, name = emitterName})
-    local emitterTable
-    for _,emitter in pairs(emitters) do
-      emitterTable = Emitter:findEmitter(emitter)
-      if emitterTable then
-        Emitter:setActive(emitterTable, true)
+    local emitterTable = global.forcefields.degradingFields[fieldID]["emitterTable"]
+    if emitterTable ~= nil then
+      log("newVersion")
+      table.remove(global.forcefields.degradingFields, fieldID)
+      Emitter:setActive(emitterTable, true)
+    else
+      log("oldVersion")
+      local pos = global.forcefields.degradingFields[fieldID]["position"]
+      local surface = global.forcefields.degradingFields[fieldID]["surface"]
+      table.remove(global.forcefields.degradingFields, fieldID)
+      local emitters = surface.find_entities_filtered({area = {{x = pos.x - Settings.maxFieldDistance, y = pos.y - Settings.maxFieldDistance}, {x = pos.x + Settings.maxFieldDistance, y = pos.y + Settings.maxFieldDistance}}, name = emitterName})
+      for _,emitter in pairs(emitters) do
+        emitterTable = Emitter:findEmitter(emitter)
+        if emitterTable then
+          Emitter:setActive(emitterTable, true)
+        end
       end
     end
+
     if #global.forcefields.degradingFields == 0 then
       global.forcefields.degradingFields = nil
     else

@@ -275,10 +275,13 @@ function Emitter:updateTick()
   if global.forcefields.degradingFields ~= nil then
     shouldKeepTicking = true
     for k,v in pairs(global.forcefields.degradingFields) do
-      if v["entity"].valid then
-        v["entity"].health = v["entity"].health - (Settings.forcefieldTypes[v["entity"].name]["degradeRate"] * Settings.tickRate)
-        if v["entity"].health == 0 then
-          v["entity"].destroy()
+      if not v["fieldEntity"] and v["entity"] then
+        v["fieldEntity"] = v["entity"]
+      end
+      if v["fieldEntity"].valid then
+        v["fieldEntity"].health = v["fieldEntity"].health - (Settings.forcefieldTypes[v["fieldEntity"].name]["degradeRate"] * Settings.tickRate)
+        if v["fieldEntity"].health == 0 then
+          v["fieldEntity"].destroy()
           if not Forcefield:removeDegradingFieldID(k) then
             break
           end
@@ -301,7 +304,7 @@ function Emitter:updateTick()
       -- for each sy location in each sx location
       for sx,ys in pairs(xs) do
         for sy in pairs(ys) do
-          
+
           local foundFields = Forcefield:findForcefieldsRadius(surface, {x = sx + 0.5, y = sy + 0.5}, 1)
           if foundFields ~= nil then
             Forcefield:handleDamagedFields(foundFields)

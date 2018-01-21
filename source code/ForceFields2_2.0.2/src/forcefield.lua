@@ -455,11 +455,9 @@ function Forcefield:removeDegradingFieldID(fieldID)
   if global.forcefields.degradingFields ~= nil then
     local emitterTable = global.forcefields.degradingFields[fieldID]["emitterTable"]
     if emitterTable ~= nil then
-      log("newVersion")
       table.remove(global.forcefields.degradingFields, fieldID)
       Emitter:setActive(emitterTable, true)
     else
-      log("oldVersion")
       local pos = global.forcefields.degradingFields[fieldID]["position"]
       local surface = global.forcefields.degradingFields[fieldID]["surface"]
       table.remove(global.forcefields.degradingFields, fieldID)

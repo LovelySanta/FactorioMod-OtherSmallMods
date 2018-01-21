@@ -229,6 +229,7 @@ function Emitter:updateTick()
         -- By default let us not keep it active, if its needed we re-activate it
         shouldRemainActive = false
 
+        -- Building new forcefields (newly build or destroyed)
         if emitterTable["disabled"] == false then
           if emitterTable["build-scan"] ~= nil then
             -- The function will toggle index 4 (build-scan) if it finishes building fields.
@@ -237,6 +238,8 @@ function Emitter:updateTick()
             end
           end
         end
+
+        -- Generate health afther a field has been build
         if emitterTable["generating-fields"] then
           -- The function will toggle index 11 (generating-fields) if it finishes generating fields.
           if Forcefield:generateFields(emitterTable) then
@@ -244,6 +247,7 @@ function Emitter:updateTick()
           end
         end
 
+        -- Regenerate health when damaged
         if emitterTable["damaged-fields"] then
           -- The function will toggle index 3 (emitterTable) if it finishes repairing fields.
           if Forcefield:regenerateFields(emitterTable) then

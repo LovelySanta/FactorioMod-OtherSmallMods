@@ -107,7 +107,7 @@ function Forcefield:scanAndBuildFields(emitterTable)
             -- Quick fix
             if newField == nil then
               --game.print("Still a ghost in the way")
-              entities = surface.find_entities({{pos.x-.5,pos.y-.5},{pos.x+.5,pos.y+.5}})
+              entities = surface.find_entities_filtered{area = {{pos.x-.4,pos.y-.4},{pos.x+.4,pos.y+.4}}, type = "entity-ghost", force = force}
               for _,entity in pairs (entities) do
                 entity.destroy()
               end
@@ -423,7 +423,7 @@ function Forcefield:degradeLinkedFields(emitterTable)
         pos = field.position
         if global.forcefields.fields[index] ~= nil and global.forcefields.fields[index][pos.x] ~= nil and global.forcefields.fields[index][pos.x][pos.y] == emitterTable["emitter-NEI"] then
           table.insert(global.forcefields.degradingFields, {["entity"] = field, ["position"] = field.position, ["surface"] = surface})
-          self:removeForcefield(field)
+          self:removeForceField(field)
 
           if global.forcefields.fields == nil then
             break
@@ -466,7 +466,7 @@ end
 
 
 
-function Forcefield:removeForcefield(field)
+function Forcefield:removeForceField(field)
   if global.forcefields.fields ~= nil then
     local pos = field.position
     local index = field.surface.index

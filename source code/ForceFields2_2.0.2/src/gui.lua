@@ -154,7 +154,7 @@ function Gui:showEmitterGui(emitterTable, playerIndex)
       d2.style = "selectbuttonsselected"
     elseif emitterTable["direction"] == defines.direction.east then
       d3.style = "selectbuttonsselected"
-    elseif emitterTable["direction"] == defines.direction.south then
+    elseif emitterTable["direction"] == defines.direction.west then
       d4.style = "selectbuttonsselected"
     end
 

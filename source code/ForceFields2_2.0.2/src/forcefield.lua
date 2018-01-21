@@ -101,11 +101,12 @@ function Forcefield:scanAndBuildFields(emitterTable)
         -- If another emitter (or even this one previously) has built a field at this location, skip trying to build there
         if global.forcefields.fields[index][pos.x] == nil or global.forcefields.fields[index][pos.x][pos.y] == nil then
           -- If that spot has no field, try and build one
-          if surface.can_place_entity({name = emitterTable["type"], position = pos, direction = direction}) then
+          if surface.can_place_entity({name = emitterTable["type"], position = pos, force = force, direction = direction}) then
             local newField = surface.create_entity({name = emitterTable["type"], position = pos, force = force, direction = direction})
 
             -- Quick fix
             if newField == nil then
+              --game.print("Still a ghost in the way")
               entities = surface.find_entities({{pos.x-.5,pos.y-.5},{pos.x+.5,pos.y+.5}})
               for _,entity in pairs (entities) do
                 entity.destroy()

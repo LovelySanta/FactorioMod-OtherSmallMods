@@ -145,7 +145,7 @@ function Forcefield:scanAndBuildFields(emitterTable)
                 -- Prevents the emitter from going into extended sleep from "can't build" due to degrading fields (happens most when switching field types)
                 local fpos = blockingField[1].position
                 for _,field in pairs(global.forcefields.degradingFields) do
-                  if field["fieldEntity"].position.x == pos.x and field["entity"].position.y == pos.y then
+                  if field["fieldEntity"].position.x == pos.x and field["fieldEntity"].position.y == pos.y then
                     builtField = true
                     break
                   end

@@ -93,7 +93,10 @@ script.on_event(defines.events.on_robot_pre_mined, function(event)
 end)
 
 script.on_event(defines.events.on_marked_for_deconstruction, function(event)
-  if event.entity.name == Settings.emitterName then
+  if Settings.forcefieldTypes[event.entity.name] ~= nil then
+    -- Forcefields itself can't be deconstructed
+    event.entity.cancel_deconstruction(game.players[event.player_index].force)
+  elseif event.entity.name == Settings.emitterName then
     local emitterTable = Emitter:findEmitter(event.entity)
     if emitterTable ~= nil then
       emitterTable["disabled"] = true

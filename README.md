@@ -10,7 +10,7 @@
 
 #### Force Fields
 * Description: Adds multiple types of electric powered, self healing walls to keep the biters out.
-* Latest version: 2.0.1
+* Latest version: 2.0.2
 
 #### Land Mover
 * Description: A mod that removes the recipe of landfill. Use land mover instead: dig a hole, get the land, place it elsewhere
@@ -21,6 +21,13 @@
 * Latest version: 0.1.3
 
 # Changelog
+#### Force Fields [v2.0.2]
+* Bugfix deconstruction of the forcefield itself
+* Bugfix visual on direction W selected
+* Small optimalisations around the code
+* Huge optimalistation when degrading walls (big lagg spikes)
+
+-----
 #### Force Fields [v2.0.1]
 * Deleted debug message when changing upgrades in the emitter (sorry for that)
 * Added ability to copy paste settings between emitters (it even add/removes upgrades if possible)

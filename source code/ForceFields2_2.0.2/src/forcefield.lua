@@ -90,16 +90,17 @@ function Forcefield:scanAndBuildFields(emitterTable)
       end
 
       -- Check if table for that surface exist, if not, make it
-      if global.forcefields.fields == nil then
-        global.forcefields.fields = {}
+      local fields = global.forcefields.fields
+      if fields == nil then
+        fields = {}
       end
-      if global.forcefields.fields[index] == nil then
-        global.forcefields.fields[index] = {}
+      if fields[index] == nil then
+        fields[index] = {}
       end
 
       for n=1,incTimes do
         -- If another emitter (or even this one previously) has built a field at this location, skip trying to build there
-        if global.forcefields.fields[index][pos.x] == nil or global.forcefields.fields[index][pos.x][pos.y] == nil then
+        if fields[index][pos.x] == nil or fields[index][pos.x][pos.y] == nil then
           -- If that spot has no field, try and build one
           if surface.can_place_entity({name = emitterTable["type"], position = pos, force = force, direction = direction}) then
             local newField = surface.create_entity({name = emitterTable["type"], position = pos, force = force, direction = direction})
@@ -121,10 +122,10 @@ function Forcefield:scanAndBuildFields(emitterTable)
             end
             table.insert(emitterTable["generating-fields"], newField)
 
-            if global.forcefields.fields[index][pos.x] == nil then
-              global.forcefields.fields[index][pos.x] = {}
+            if fields[index][pos.x] == nil then
+              fields[index][pos.x] = {}
             end
-            global.forcefields.fields[index][pos.x][pos.y] = emitterTable["emitter-NEI"]
+            fields[index][pos.x][pos.y] = emitterTable["emitter-NEI"]
 
             -- We have build a new field, congratz
             buildField = true
@@ -165,15 +166,16 @@ function Forcefield:scanAndBuildFields(emitterTable)
       end
 
       -- full field is build
-      if global.forcefields.fields then
-        if tableIsEmpty(global.forcefields.fields[index]) then
-          global.forcefields.fields[index] = nil
+      if fields then
+        if tableIsEmpty(fields[index]) then
+          fields[index] = nil
         end
 
-        if tableIsEmpty(global.forcefields.fields) then
-          global.forcefields.fields = nil
+        if tableIsEmpty(fields) then
+          fields = nil
         end
       end
+      global.forcefields.fields = fields
 
       -- check if the whole field is blocked
       if blockingFields == incTimes then
@@ -203,14 +205,15 @@ end
 
 function Forcefield:generateFields(emitterTable)
   local availableEnergy = emitterTable["entity"].energy
+  local tickRate = Settings.tickRate
 
   -- Generate each field
   for k,field in pairs(emitterTable["generating-fields"]) do
     if field.valid then
       -- Generate field if enough energy
-      if availableEnergy >= (Settings.forcefieldTypes[field.name]["energyPerCharge"] * Settings.tickRate) then
-        field.health = field.health + (Settings.forcefieldTypes[field.name]["chargeRate"] * Settings.tickRate)
-        availableEnergy = availableEnergy - (Settings.forcefieldTypes[field.name]["energyPerCharge"] * Settings.tickRate)
+      if availableEnergy >= (Settings.forcefieldTypes[field.name]["energyPerCharge"] * tickRate) then
+        field.health = field.health + (Settings.forcefieldTypes[field.name]["chargeRate"] * tickRate)
+        availableEnergy = availableEnergy - (Settings.forcefieldTypes[field.name]["energyPerCharge"] * tickRate)
         -- If field is fully generated, remove out of the table
         if field.health >= Settings.forcefieldTypes[field.name]["maxHealth"] then
           table.remove(emitterTable["generating-fields"], k)
@@ -272,6 +275,8 @@ end
 
 
 function Forcefield:handleDamagedFields(forceFields)
+  local emitters = global.forcefields.emitters
+  local fields = global.forcefields.fields
   local pos
   local surface
   local index
@@ -279,7 +284,7 @@ function Forcefield:handleDamagedFields(forceFields)
   local addedFields
   local fieldID
 
-  if global.forcefields.fields ~= nil and global.forcefields.emitters ~= nil then
+  if fields ~= nil and emitters ~= nil then
     -- For each possibly damaged forcefield found
     for k,field in pairs(forceFields) do
       pos = field.position
@@ -288,12 +293,12 @@ function Forcefield:handleDamagedFields(forceFields)
       fieldShouldBeAdded = true
 
       -- If the field is known to the mod
-      if global.forcefields.fields[index] ~= nil and global.forcefields.fields[index][pos.x] ~= nil and global.forcefields.fields[index][pos.x][pos.y] ~= nil then
-        fieldID = global.forcefields.fields[index][pos.x][pos.y]
+      if fields[index] ~= nil and fields[index][pos.x] ~= nil and fields[index][pos.x][pos.y] ~= nil then
+        fieldID = fields[index][pos.x][pos.y]
         -- If the field has a valid linked emitter
-        if global.forcefields.emitters[fieldID] ~= nil then
-          if global.forcefields.emitters[fieldID]["generating-fields"] ~= nil then
-            for _,generatingField in pairs(global.forcefields.emitters[fieldID]["generating-fields"]) do
+        if emitters[fieldID] ~= nil then
+          if emitters[fieldID]["generating-fields"] ~= nil then
+            for _,generatingField in pairs(emitters[fieldID]["generating-fields"]) do
               if generatingField == field then
                 fieldShouldBeAdded = false
                 break
@@ -303,17 +308,19 @@ function Forcefield:handleDamagedFields(forceFields)
 
           -- Add the damaged field to the emitter damaged field table if it isn't already in it
           if fieldShouldBeAdded then
-            if global.forcefields.emitters[fieldID]["damaged-fields"] == nil then
-              global.forcefields.emitters[fieldID]["damaged-fields"] = {}
+            if emitters[fieldID]["damaged-fields"] == nil then
+              emitters[fieldID]["damaged-fields"] = {}
             end
-            table.insert(global.forcefields.emitters[fieldID]["damaged-fields"], field)
-            Emitter:setActive(global.forcefields.emitters[fieldID])
+            table.insert(emitters[fieldID]["damaged-fields"], field)
+            Emitter:setActive(emitters[fieldID])
             addedFields = true
           end
         end
       end
     end
   end
+
+  global.forcefields.emitters = emitters
 end
 
 
@@ -349,7 +356,7 @@ end
 
 function Forcefield:findForcefieldsArea(surface, area, includeFullHealth)
   local walls = surface.find_entities_filtered({area = area, type = "wall"})
-  local gates = surface.find_entities_filtered({area = area, type = "gate"})
+--  local gates = surface.find_entities_filtered({area = area, type = "gate"})
   local foundFields = {}
 
   if #walls ~= 0 then
@@ -359,13 +366,14 @@ function Forcefield:findForcefieldsArea(surface, area, includeFullHealth)
       end
     end
   end
-  if #gates ~= 0 then
-    for i,gate in pairs(gates) do
-      if Settings.forcefieldTypes[gate.name] ~= nil and (includeFullHealth or gate.health ~= Settings.forcefieldTypes[gate.name]["maxHealth"]) then
-        table.insert(foundFields, gate)
-      end
-    end
-  end
+
+--  if #gates ~= 0 then
+--    for i,gate in pairs(gates) do
+--      if Settings.forcefieldTypes[gate.name] ~= nil and (includeFullHealth or gate.health ~= Settings.forcefieldTypes[gate.name]["maxHealth"]) then
+--        table.insert(foundFields, gate)
+--      end
+--    end
+--  end
 
   if #foundFields ~= 0 then
     return foundFields
@@ -376,7 +384,7 @@ end
 
 function Forcefield:findForcefieldsRadius(surface, position, radius, includeFullHealth)
   local walls = surface.find_entities_filtered({area = {{x = position.x - radius, y = position.y - radius}, {x = position.x + radius, y = position.y + radius}}, type = "wall"})
-  local gates = surface.find_entities_filtered({area = {{x = position.x - radius, y = position.y - radius}, {x = position.x + radius, y = position.y + radius}}, type = "gate"})
+--  local gates = surface.find_entities_filtered({area = {{x = position.x - radius, y = position.y - radius}, {x = position.x + radius, y = position.y + radius}}, type = "gate"})
   local foundFields = {}
 
   if #walls ~= 0 then
@@ -387,13 +395,13 @@ function Forcefield:findForcefieldsRadius(surface, position, radius, includeFull
     end
   end
 
-  if #gates ~= 0 then
-    for i,gate in pairs(gates) do
-      if Settings.forcefieldTypes[gate.name] ~= nil and (includeFullHealth or gate.health ~= Settings.forcefieldTypes[gate.name]["maxHealth"]) then
-        table.insert(foundFields, gate)
-      end
-    end
-  end
+--  if #gates ~= 0 then
+--    for i,gate in pairs(gates) do
+--      if Settings.forcefieldTypes[gate.name] ~= nil and (includeFullHealth or gate.health ~= Settings.forcefieldTypes[gate.name]["maxHealth"]) then
+--        table.insert(foundFields, gate)
+--      end
+--    end
+--  end
 
   if #foundFields ~= 0 then
     return foundFields

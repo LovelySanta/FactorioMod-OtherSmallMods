@@ -292,25 +292,32 @@ function Emitter:updateTick()
   end
 
   if global.forcefields.searchDamagedPos ~= nil then
+    local searchDamagedPos = global.forcefields.searchDamagedPos
     shouldKeepTicking = true
+    -- for each damages position
     for index,xs in pairs (global.forcefields.searchDamagedPos) do
       local surface = game.surfaces[index]
+
+      -- for each sy location in each sx location
       for sx,ys in pairs(xs) do
         for sy in pairs(ys) do
+          
           local foundFields = Forcefield:findForcefieldsRadius(surface, {x = sx + 0.5, y = sy + 0.5}, 1)
           if foundFields ~= nil then
             Forcefield:handleDamagedFields(foundFields)
           end
           table.remove(ys, sy)
         end
-        table.remove(global.forcefields.searchDamagedPos, sx)
+        table.remove(searchDamagedPos, sx)
       end
-      table.remove(global.forcefields.searchDamagedPos, index)
+      table.remove(searchDamagedPos, index)
     end
 
-    if #global.forcefields.searchDamagedPos == 0 then
-      global.forcefields.searchDamagedPos = nil
+    if #searchDamagedPos == 0 then
+      searchDamagedPos = nil
     end
+
+    global.forcefields.searchDamagedPos = searchDamagedPos
   end
 
   if not shouldKeepTicking then

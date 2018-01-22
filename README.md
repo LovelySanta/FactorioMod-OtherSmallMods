@@ -14,13 +14,18 @@
 
 #### Land Mover
 * Description: A mod that removes the recipe of landfill. Use land mover instead: dig a hole, get the land, place it elsewhere
-* Latest version: 0.1.4
+* Latest version: 0.1.5
 
 #### Santa's Nixie Tube Display
 * Description: Mod that adds some nixie tubes from the nixie tube mod, in exchange for some extra UPS
 * Latest version: 0.1.3
 
 # Changelog
+#### Land Mover [v0.1.5]
+* Added ingame changelog
+* Factorio version 0.16.17: new on_player_built_tile event
+
+-----
 #### Force Fields [v2.0.3]
 * Bugfix crash due to copy paste error
 * Small optimalisations

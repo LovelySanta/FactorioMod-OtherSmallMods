@@ -69,7 +69,8 @@ local selectbuttonsselected =
   right_padding = 5,
   bottom_padding = 5,
   left_padding = 5,
-  minimal_width = 32,
+  minimal_width = 42,
+  minimal_height = 42,
   default_graphical_set =
   {
     type = "composition",
@@ -117,7 +118,8 @@ local selectbuttons =
   right_padding = 5,
   bottom_padding = 5,
   left_padding = 5,
-  minimal_width = 32,
+  minimal_width = 42,
+  minimal_height = 42,
   default_graphical_set =
   {
     type = "composition",

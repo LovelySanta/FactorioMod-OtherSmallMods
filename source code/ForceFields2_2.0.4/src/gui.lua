@@ -161,10 +161,10 @@ function Gui:showEmitterGui(emitterTable, playerIndex)
     -- Type of forcefield
     configTable.add({type = "label", name = self.guiElementNames.fieldTypeLabel, caption = "Field type:"})
     local fields = configTable.add({type = "table", name = self.guiElementNames.fieldTypeTable, column_count = 4})
-    local f1 = fields.add({type = "button", name = self.guiElementNames.fieldTypeOptionB, caption = "B", style = "selectbuttons"})
-    local f2 = fields.add({type = "button", name = self.guiElementNames.fieldTypeOptionG, caption = "G", style = "selectbuttons"})
-    local f3 = fields.add({type = "button", name = self.guiElementNames.fieldTypeOptionR, caption = "R", style = "selectbuttons"})
-    local f4 = fields.add({type = "button", name = self.guiElementNames.fieldTypeOptionP, caption = "P", style = "selectbuttons"})
+    local f1 = fields.add({type = "sprite-button", name = self.guiElementNames.fieldTypeOptionB, style = "selectbuttons", sprite = "entity/blue" .. Settings.fieldSuffix})
+    local f2 = fields.add({type = "sprite-button", name = self.guiElementNames.fieldTypeOptionG, style = "selectbuttons", sprite = "entity/green" .. Settings.fieldSuffix})
+    local f3 = fields.add({type = "sprite-button", name = self.guiElementNames.fieldTypeOptionR, style = "selectbuttons", sprite = "entity/red" .. Settings.fieldSuffix})
+    local f4 = fields.add({type = "sprite-button", name = self.guiElementNames.fieldTypeOptionP, style = "selectbuttons", sprite = "entity/purple" .. Settings.fieldSuffix})
 
     if emitterTable["type"] == "blue" .. Settings.fieldSuffix then
       f1.style = "selectbuttonsselected"

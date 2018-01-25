@@ -17,7 +17,7 @@ data:extend(
       flags = {"goes-to-quickbar"},
       subgroup = "forcefields",
       order = "f[forcefield-emitter]",
-      place_result = "forcefield-emitter",
+      place_result = Settings.emitterName,
       stack_size = 50
     }
   }

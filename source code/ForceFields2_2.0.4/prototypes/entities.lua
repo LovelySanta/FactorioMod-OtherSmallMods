@@ -11,28 +11,6 @@ local baseForceField =
   --mined_sound = { filename = "__base__/sound/deconstruct-bricks.ogg" },
   minable = {hardness = 0.2, mining_time = 2, result = "forcefield-emitter", count = 0},
   order = "a[items]-f[forcefields]",
-  attack_reaction =
-  {
-    {
-      range = 50,
-      action =
-      {
-        type = "direct",
-        action_delivery =
-        {
-          type = "instant",
-          source_effects =
-          {
-            {
-              type = "create-entity",
-              entity_name = "forcefield-damaged",
-              trigger_created_entity = "true"
-            }
-          }
-        }
-      }
-    }
-  },
   resistances =
   {
     {
@@ -306,28 +284,6 @@ local baseForceFieldGate =
   activation_distance = 6,
   timeout_to_close = 5,
   order = "a[items]-f[forcefields-gate]",
-  attack_reaction =
-  {
-    {
-      range = 100,
-      action =
-      {
-        type = "direct",
-        action_delivery =
-        {
-          type = "instant",
-          source_effects =
-          {
-            {
-              type = "create-entity",
-              entity_name = "forcefield-damaged",
-              trigger_created_entity = "true"
-            }
-          }
-        }
-      }
-    }
-  },
   resistances =
   {
     {
@@ -708,6 +664,9 @@ function addForceField(color, maxHealth, sourceAttackReaction)
   p.ending_left.layers[2].filename = imgDir .. color .. "/wall-ending-left-shadow.png"
 
   if sourceAttackReaction then
+    if not newForceField.attack_reaction then
+      newForceField.attack_reaction = {}
+    end
     table.insert(newForceField.attack_reaction, sourceAttackReaction)
   end
 
@@ -753,6 +712,9 @@ function addForceFieldGate(color, maxHealth, sourceAttackReaction)
   newForceFieldGate.wall_diode_red.filename = imgDir .. color .. "/wall-diode-red.png"
 
   if sourceAttackReaction then
+    if not newForceField.attack_reaction then
+      newForceField.attack_reaction = {}
+    end
     table.insert(newForceFieldGate.attack_reaction, sourceAttackReaction)
   end
 
@@ -821,28 +783,6 @@ data:extend(
     },
     order="s[electric-energy-interface]-t1",
     subgroup = "forcefields"
-  },
-
-  {
-    type = "tree",
-    name = "forcefield-damaged",
-    icon = "__ForceFields2__/graphics/null.png",
-    icon_size = 32,
-    flags = {"placeable-neutral", "not-on-map", "placeable-off-grid"},
-    subgroup = "remnants",
-    order = "a[remnants]",
-    max_health = 1,
-    selection_box = {{-0.0, -0.0}, {0.0, 0.0}},
-    collision_box = {{-0.0, -0.0}, {0.0, 0.0}},
-    collision_mask = {"object-layer"},
-    pictures =
-    {
-      {
-        filename = "__ForceFields2__/graphics/null.png",
-        width = 32,
-        height = 32,
-      }
-    }
   },
 
   {

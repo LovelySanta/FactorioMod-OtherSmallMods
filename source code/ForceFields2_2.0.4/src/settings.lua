@@ -55,7 +55,6 @@ Settings.forcefieldTypes =
   }
 }
 Settings.fieldgateSuffix = "-forcefield-gate"
-Settings.fieldDamagedTriggerName = "forcefield-damaged"
 
 -- emitter settings
 Settings.emitterName = "forcefield-emitter"

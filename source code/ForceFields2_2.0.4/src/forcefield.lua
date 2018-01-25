@@ -5,11 +5,12 @@ require 'src/utilities'
 Forcefield = {}  -- TODO
 
 
-function Forcefield:onForcefieldDamaged(surface, pos)
-  local index = surface.index
-
+function Forcefield:onForcefieldDamaged(damagedEntity)
+  local index = damagedEntity.surface.index
+  local pos = damagedEntity.position
   pos.x = math.floor(pos.x)
   pos.y = math.floor(pos.y)
+
   if global.forcefields.searchDamagedPos == nil then
     global.forcefields.searchDamagedPos = {}
   end

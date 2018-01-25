@@ -55,11 +55,8 @@ script.on_event(defines.events.on_robot_built_entity, onEntityBuilt)
 -- When entities get damaged (creates a trigger entity)
 script.on_event(defines.events.on_trigger_created_entity, function(event)
   -- Check if a forcefield is damaged
-  if event.entity.name == Settings.fieldDamagedTriggerName then
-    local position = event.entity.position
-    local surface = event.entity.surface
-    event.entity.destroy() -- Removes the trigger
-    Forcefield:onForcefieldDamaged(surface, position)
+  if Settings.forcefieldTypes[event.entity.name] ~= nil then
+    Forcefield:onForcefieldDamaged(event.entity)
   end
 end)
 

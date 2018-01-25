@@ -53,7 +53,7 @@ script.on_event(defines.events.on_robot_built_entity, onEntityBuilt)
 
 
 -- When entities get damaged (creates a trigger entity)
-script.on_event(defines.events.on_trigger_created_entity, function(event)
+script.on_event(defines.events.on_entity_damaged, function(event)
   -- Check if a forcefield is damaged
   if Settings.forcefieldTypes[event.entity.name] ~= nil then
     Forcefield:onForcefieldDamaged(event.entity)

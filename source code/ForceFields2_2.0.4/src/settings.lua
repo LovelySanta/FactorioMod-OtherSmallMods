@@ -3,9 +3,21 @@ local loaded
 
 Settings = {}
 
--- forcefields types
+
+Settings.modName = "__ForceFields2__"
+
+
+-- builder settings
+Settings.forcefieldBuildDamageName = "forcefield-build-damage"
+Settings.forcefieldDeathDamageName = "forcefield-death-damage"
+
+
+
+-- forcefields settings
 Settings.fieldSuffix = "-forcefield"
+Settings.fieldgateSuffix = "-forcefield-gate"
 Settings.defaultFieldType = "blue" .. Settings.fieldSuffix
+
 Settings.forcefieldTypes =
 {
   ["blue" .. Settings.fieldSuffix] =
@@ -39,7 +51,7 @@ Settings.forcefieldTypes =
     energyPerRespawn = 10000,
     energyPerHealthLost = 25000,
     damageWhenMined = 15,
-    deathEntity = "forcefield-death-damage",
+    deathEntity = Settings.forcefieldDeathDamageName,
     maxHealth = 150
   },
   ["red" .. Settings.fieldSuffix] =
@@ -54,7 +66,8 @@ Settings.forcefieldTypes =
     maxHealth = 300
   }
 }
-Settings.fieldgateSuffix = "-forcefield-gate"
+
+
 
 -- emitter settings
 Settings.emitterName = "forcefield-emitter"

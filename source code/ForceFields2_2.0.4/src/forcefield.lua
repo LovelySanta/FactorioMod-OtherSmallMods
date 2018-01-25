@@ -144,7 +144,7 @@ function Forcefield:scanAndBuildFields(emitterTable)
               end
             else
               -- Some other entity (other than a force field) is standing in the way, so we need to destroy it
-              surface.create_entity({name = "forcefield-build-damage", position = pos, force = force})
+              surface.create_entity({name = Settings.forcefieldBuildDamageName, position = pos, force = force})
             end
           end
         else -- There is already some field here, by this or an previous field

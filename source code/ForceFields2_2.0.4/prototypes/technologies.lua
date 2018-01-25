@@ -1,9 +1,13 @@
+require 'src/settings'
+
+
+
 data:extend(
   {
     {
       type = "technology",
       name = "force-fields",
-      icon = "__ForceFields2__/graphics/blue-forcefields.png",
+      icon = Settings.modName .. "/graphics/blue-forcefields.png",
       icon_size = 64,
       prerequisites =
       {
@@ -17,7 +21,7 @@ data:extend(
       {
         {
           type = "unlock-recipe",
-          recipe = "forcefield-emitter"
+          recipe = Settings.emitterName
         }
       },
       unit =
@@ -37,7 +41,7 @@ data:extend(
     {
       type = "technology",
       name = "green-fields",
-      icon = "__ForceFields2__/graphics/green-forcefields.png",
+      icon = Settings.modName .. "/graphics/green-forcefields.png",
       icon_size = 64,
       prerequisites =
       {
@@ -61,7 +65,7 @@ data:extend(
     {
       type = "technology",
       name = "purple-fields",
-      icon = "__ForceFields2__/graphics/purple-forcefields.png",
+      icon = Settings.modName .. "/graphics/purple-forcefields.png",
       icon_size = 64,
       prerequisites =
       {
@@ -87,7 +91,7 @@ data:extend(
     {
       type = "technology",
       name = "red-fields",
-      icon = "__ForceFields2__/graphics/red-forcefields.png",
+      icon = Settings.modName .. "/graphics/red-forcefields.png",
       icon_size = 64,
       prerequisites =
       {

@@ -1,8 +1,12 @@
+require 'src/settings'
+
+
+
 data:extend(
   {
     {
       type = "recipe",
-      name = "forcefield-emitter",
+      name = Settings.emitterName,
       enabled = "false",
       energy_required = 5,
       ingredients =
@@ -12,7 +16,7 @@ data:extend(
         {"advanced-circuit", 20},
         {"small-lamp", 4}
       },
-      result = "forcefield-emitter"
+      result = Settings.emitterName
     }
   }
 )

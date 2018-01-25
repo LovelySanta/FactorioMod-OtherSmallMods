@@ -105,16 +105,6 @@ function Forcefield:scanAndBuildFields(emitterTable)
           if surface.can_place_entity({name = emitterTable["type"], position = pos, force = force, direction = direction}) then
             local newField = surface.create_entity({name = emitterTable["type"], position = pos, force = force, direction = direction})
 
-            -- Quick fix
-            if newField == nil then
-              --game.print("Still a ghost in the way")
-              entities = surface.find_entities_filtered{area = {{pos.x-.4,pos.y-.4},{pos.x+.4,pos.y+.4}}, type = "entity-ghost", force = force}
-              for _,entity in pairs (entities) do
-                entity.destroy()
-              end
-              newField = surface.create_entity({name = emitterTable["type"], position = pos, force = force, direction = direction})
-            end
-
             -- This new entity will have 0 health on creation + one load of recharge this tick
             newField.health = Settings.forcefieldTypes[emitterTable["type"]]["chargeRate"]
             if emitterTable["generating-fields"] == nil then

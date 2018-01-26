@@ -143,10 +143,10 @@ function Gui:showEmitterGui(emitterTable, playerIndex)
     -- Direction of forcefield
     configTable.add({type = "label", name = self.guiElementNames.directionLabel, caption = "Direction:                       "})
     local directions = configTable.add({type = "table", name = self.guiElementNames.directionTable, column_count = 4})
-    local d1 = directions.add({type = "button", name = self.guiElementNames.directionOptionN, caption = "N", style = "selectbuttons"})
-    local d2 = directions.add({type = "button", name = self.guiElementNames.directionOptionS, caption = "S", style = "selectbuttons"})
-    local d3 = directions.add({type = "button", name = self.guiElementNames.directionOptionE, caption = "E", style = "selectbuttons"})
-    local d4 = directions.add({type = "button", name = self.guiElementNames.directionOptionW, caption = "W", style = "selectbuttons"})
+    local d1 = directions.add({type = "sprite-button", name = self.guiElementNames.directionOptionN, style = "selectbuttons", sprite = "virtual-signal/signal-N"})
+    local d2 = directions.add({type = "sprite-button", name = self.guiElementNames.directionOptionS, style = "selectbuttons", sprite = "virtual-signal/signal-S"})
+    local d3 = directions.add({type = "sprite-button", name = self.guiElementNames.directionOptionE, style = "selectbuttons", sprite = "virtual-signal/signal-E"})
+    local d4 = directions.add({type = "sprite-button", name = self.guiElementNames.directionOptionW, style = "selectbuttons", sprite = "virtual-signal/signal-W"})
 
     if emitterTable["direction"] == defines.direction.north then
       d1.style = "selectbuttonsselected"

@@ -733,7 +733,7 @@ function addForceFieldGate(color, maxHealth, sourceAttackReaction)
     if not newForceField.attack_reaction then
       newForceField.attack_reaction = {}
     end
-    table.insert(newForceFieldGate.attack_reaction, sourceAttackReaction)
+    table.insert(newForceFieldGate.attack_reaction, getForceFieldBaseAttackReaction())
   end
 
   data:extend({newForceFieldGate})

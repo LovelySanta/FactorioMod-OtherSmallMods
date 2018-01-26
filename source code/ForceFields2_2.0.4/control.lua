@@ -5,6 +5,7 @@ require 'src/forcefield'
 require 'src/emitter'
 require 'src/gui'
 
+require 'src/config-changes'
 require 'src/testing'
 
 
@@ -14,7 +15,7 @@ function init()
   if not global.forcefields then
     global.forcefields = {}
   end
-  global.forcefields.version = 1.1
+  global.forcefields.version = ConfigChanges.currentVersion
 end
 
 script.on_init(function(_)
@@ -24,6 +25,7 @@ end)
 
 script.on_configuration_changed(function (data)
   if data.mod_changes and data.mod_changes.ForceFields2 and data.mod_changes.ForceFields2.old_version then
+    ConfigChanges:onConfigurationChanged()
     Settings:verifySettings()
   end
 end)

@@ -166,13 +166,13 @@ function Gui:showEmitterGui(emitterTable, playerIndex)
     local f3 = fields.add({type = "sprite-button", name = self.guiElementNames.fieldTypeOptionR, style = "selectbuttons", sprite = "entity/red" .. Settings.fieldSuffix})
     local f4 = fields.add({type = "sprite-button", name = self.guiElementNames.fieldTypeOptionP, style = "selectbuttons", sprite = "entity/purple" .. Settings.fieldSuffix})
 
-    if emitterTable["type"] == "blue" .. Settings.fieldSuffix then
+    if emitterTable["type"] == "blue" then
       f1.style = "selectbuttonsselected"
-    elseif emitterTable["type"] == "green" .. Settings.fieldSuffix then
+    elseif emitterTable["type"] == "green" then
       f2.style = "selectbuttonsselected"
-    elseif emitterTable["type"] == "red" .. Settings.fieldSuffix then
+    elseif emitterTable["type"] == "red" then
       f3.style = "selectbuttonsselected"
-    elseif emitterTable["type"] == "purple" .. Settings.fieldSuffix then
+    elseif emitterTable["type"] == "purple" then
       f4.style = "selectbuttonsselected"
     end
 
@@ -259,10 +259,10 @@ function Gui:handleGuiFieldTypeButtons(event)
   local frame = player.gui.center[self.guiElementNames.guiFrame]
   local nameToFieldName =
   {
-    [self.guiElementNames.fieldTypeOptionB] = "blue" .. Settings.fieldSuffix,
-    [self.guiElementNames.fieldTypeOptionG] = "green" .. Settings.fieldSuffix,
-    [self.guiElementNames.fieldTypeOptionR] = "red" .. Settings.fieldSuffix,
-    [self.guiElementNames.fieldTypeOptionP] = "purple" .. Settings.fieldSuffix
+    [self.guiElementNames.fieldTypeOptionB] = "blue",
+    [self.guiElementNames.fieldTypeOptionG] = "green",
+    [self.guiElementNames.fieldTypeOptionR] = "red",
+    [self.guiElementNames.fieldTypeOptionP] = "purple"
   }
 
   if frame ~= nil then

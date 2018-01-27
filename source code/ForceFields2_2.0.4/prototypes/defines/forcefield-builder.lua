@@ -694,8 +694,8 @@ end
 function addForceFieldGate(color, maxHealth, sourceAttackReaction)
   local newForceFieldGate = util.table.deepcopy(getForceFieldBaseGate())
   local imgDir = Settings.modName .. "/graphics/gates/"
-  newForceFieldGate.name = color .. "-forcefield-gate"
-  newForceFieldGate.icon = imgDir .. color .. "/" .. "/gate.png"
+  newForceFieldGate.name = color .. Settings.fieldgateSuffix
+  newForceFieldGate.icon = imgDir .. color .. "/gate.png"
   newForceFieldGate.max_health = Settings.forcefieldTypes[newForceField.name].maxHealth
 
   newForceFieldGate.vertical_animation.layers[1].filename = imgDir .. color .. "/gate-vertical.png"

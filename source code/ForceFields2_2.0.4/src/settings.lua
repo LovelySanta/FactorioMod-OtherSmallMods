@@ -13,11 +13,29 @@ Settings.forcefieldDeathDamageName = "forcefield-death-damage"
 
 
 
+-- emitter settings
+Settings.emitterName = "forcefield-emitter"
+Settings.tickRate = 20
+
+Settings.emitterDefaultDistance = 10
+Settings.maxRangeUpgrades = 23
+Settings.emitterMaxDistance = Settings.emitterDefaultDistance + Settings.maxRangeUpgrades
+
+Settings.emitterDefaultWidth = 25
+Settings.maxWidthUpgrades = 10
+Settings.widthUpgradeMultiplier = 4
+Settings.emitterMaxWidth = Settings.emitterDefaultWidth + (Settings.maxWidthUpgrades * Settings.widthUpgradeMultiplier)
+
+Settings.maxFieldDistance = math.max(Settings.emitterMaxDistance, Settings.emitterMaxWidth)
+
+
+
 -- forcefields settings
 Settings.fieldSuffix = "-forcefield"
 Settings.fieldgateSuffix = "-forcefield-gate"
-Settings.defaultFieldType = "blue" .. Settings.fieldSuffix
+Settings.defaultFieldSuffix = Settings.fieldSuffix
 
+Settings.defaultFieldType = "blue"
 Settings.forcefieldTypes =
 {
   ["blue" .. Settings.fieldSuffix] =
@@ -66,24 +84,14 @@ Settings.forcefieldTypes =
     maxHealth = 300
   }
 }
+Settings.forcefieldTypes["blue" .. Settings.fieldgateSuffix] = Settings.forcefieldTypes["blue" .. Settings.fieldSuffix]
+Settings.forcefieldTypes["green" .. Settings.fieldgateSuffix] = Settings.forcefieldTypes["green" .. Settings.fieldSuffix]
+Settings.forcefieldTypes["purple" .. Settings.fieldgateSuffix] = Settings.forcefieldTypes["purple" .. Settings.fieldSuffix]
+Settings.forcefieldTypes["red" .. Settings.fieldgateSuffix] = Settings.forcefieldTypes["red" .. Settings.fieldSuffix]
 
-
-
--- emitter settings
-Settings.emitterName = "forcefield-emitter"
-Settings.tickRate = 20
-
-Settings.emitterDefaultWidth = 25
-
-Settings.maxRangeUpgrades = 23
-Settings.emitterDefaultDistance = 10
-Settings.emitterMaxDistance = Settings.emitterDefaultDistance + Settings.maxRangeUpgrades
-
-Settings.maxWidthUpgrades = 10
-Settings.widthUpgradeMultiplier = 4
-Settings.emitterMaxWidth = Settings.emitterDefaultWidth + (Settings.maxWidthUpgrades * Settings.widthUpgradeMultiplier)
-
-Settings.maxFieldDistance = math.max(Settings.emitterMaxDistance, Settings.emitterMaxWidth)
+Settings.fieldEmptySetting = 0
+Settings.fieldWallSetting = 1
+Settings.fieldGateSetting = 2
 
 
 
@@ -117,8 +125,9 @@ function Settings:verifySettings()
     self.maxFieldDistance = math.max(self.emitterMaxDistance, self.emitterMaxWidth)
   end
 
-  if not self.forcefieldTypes[self.defaultFieldType] then
-    self.defaultFieldType = "blue" .. self.fieldSuffix
+  if not self.forcefieldTypes[self.defaultFieldType .. self.defaultFieldSuffix] then
+    self.defaultFieldType = "blue"
+    self.defaultFieldSuffix = self.fieldSuffix
     throwError("Emitter default field type isn't known.")
   end
 end

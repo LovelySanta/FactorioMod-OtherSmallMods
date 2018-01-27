@@ -16,32 +16,46 @@ function Emitter:onEmitterBuilt(createdEntity)
     global.forcefields.emitterNEI = 1 -- NextEmitterIndex
   end
 
+  -- emitter data
   newEmitter["entity"] = createdEntity
-  newEmitter["active"] = false
-  newEmitter["damaged-fields"] = nil
-  newEmitter["build-scan"] = true
   newEmitter["emitter-NEI"] = "I" .. global.forcefields.emitterNEI
-  newEmitter["width"] = Settings.emitterDefaultWidth
-  newEmitter["distance"] = Settings.emitterDefaultDistance
-  newEmitter["build-tick"] = 0
+  -- emitter settings
   newEmitter["type"] = Settings.defaultFieldType
+  log(Settings.defaultFieldType)
+  newEmitter["config"] = {}
+  newEmitter["distance"] = Settings.emitterDefaultDistance
+  newEmitter["width"] = Settings.emitterDefaultWidth
   newEmitter["direction"] = defines.direction.north
-  newEmitter["generating-fields"] = nil
   newEmitter["width-upgrades"] = 0
   newEmitter["distance-upgrades"] = 0
+  -- emitter state
+  newEmitter["active"] = false
   newEmitter["disabled"] = false
+  newEmitter["build-scan"] = true
+  newEmitter["build-tick"] = 0
+  newEmitter["generating-fields"] = nil
+  newEmitter["damaged-fields"] = nil
 
   -- Simulates reviving killed emitters => it copies old settings
   if global.forcefields.killedEmitters ~= nil then
     for k,killedEmitter in pairs(global.forcefields.killedEmitters) do
       if killedEmitter["surface"] == surface and killedEmitter["position"].x == createdEntity.position.x and killedEmitter["position"].y == createdEntity.position.y then
-        newEmitter["width"] = killedEmitter["width"]
-        newEmitter["distance"] = killedEmitter["distance"]
         newEmitter["type"] = killedEmitter["type"]
+        newEmitter["config"] = killedEmitter["config"]
+        newEmitter["distance"] = killedEmitter["distance"]
+        newEmitter["width"] = killedEmitter["width"]
         newEmitter["direction"] = killedEmitter["direction"]
         self:removeKilledEmitter(k)
         break
       end
+    end
+  else
+    -- If it can't copy any settings, we need to fill it with default values
+    local maxWidth = Settings.emitterMaxWidth
+    local offset = (maxWidth + 1)/2
+    local defaultType = Settings.defaultFieldSuffix
+    for i=1, maxWidth do
+      newEmitter["config"][i-offset] = defaultType
     end
   end
 
@@ -128,7 +142,7 @@ function Emitter:onEntitySettingsPasted(event)
   if destinationEmitterTable["distance"] ~= sourceEmitterTable["distance"]
     or destinationEmitterTable["width"] ~= sourceEmitterTable["width"]
     or destinationEmitterTable["type"] ~= sourceEmitterTable["type"]
-    or destinationEmitterTable["direction"] ~= sourceEmitterTable["direction"] then
+    or destinationEmitterTable["direction"] ~= sourceEmitterTable["direction"] then --TODO config setting
 
     Forcefield:degradeLinkedFields(destinationEmitterTable)
     destinationEmitterTable["damaged-fields"] = nil
@@ -178,8 +192,8 @@ function Emitter:setActive(emitterTable, enableCheckBuildingFields, skipResetTim
 
   if enableCheckBuildingFields then
     emitterTable["build-scan"] = true
-    if not skipResetTimer and emitterTable["build-tick"] > Settings.forcefieldTypes[emitterTable["type"]]["respawnRate"] or not emitterTable["active"] then
-      emitterTable["build-tick"] = Settings.forcefieldTypes[emitterTable["type"]]["respawnRate"]
+    if not skipResetTimer and emitterTable["build-tick"] > Settings.forcefieldTypes[emitterTable["type"] .. Settings.defaultFieldSuffix]["respawnRate"] or not emitterTable["active"] then
+      emitterTable["build-tick"] = Settings.forcefieldTypes[emitterTable["type"] .. Settings.defaultFieldSuffix]["respawnRate"]
     end
   end
 
@@ -275,6 +289,7 @@ function Emitter:updateTick()
   if global.forcefields.degradingFields ~= nil then
     shouldKeepTicking = true
     for k,v in pairs(global.forcefields.degradingFields) do
+      -- TODO change v[entity] in config change + add position and surface
       if not v["fieldEntity"] and v["entity"] then
         v["fieldEntity"] = v["entity"]
       end
@@ -381,6 +396,7 @@ function Emitter:storeKilledEmitter(emitterTable)
   newKilledEmitter["width"] = emitterTable["width"]
   newKilledEmitter["distance"] = emitterTable["distance"]
   newKilledEmitter["type"] = emitterTable["type"]
+  newKilledEmitter["config"] = emitterTable["config"]
   newKilledEmitter["direction"] = emitterTable["direction"]
   table.insert(global.forcefields.killedEmitters, newKilledEmitter)
 end

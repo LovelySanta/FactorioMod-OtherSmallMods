@@ -1,6 +1,8 @@
 require 'src/settings'
 require 'src/utilities'
 
+require 'util'
+
 
 Emitter = {}
 
@@ -21,7 +23,6 @@ function Emitter:onEmitterBuilt(createdEntity)
   newEmitter["emitter-NEI"] = "I" .. global.forcefields.emitterNEI
   -- emitter settings
   newEmitter["type"] = Settings.defaultFieldType
-  log(Settings.defaultFieldType)
   newEmitter["config"] = {}
   newEmitter["distance"] = Settings.emitterDefaultDistance
   newEmitter["width"] = Settings.emitterDefaultWidth
@@ -50,7 +51,7 @@ function Emitter:onEmitterBuilt(createdEntity)
       end
     end
   else
-    -- If it can't copy any settings, we need to fill it with default values
+    -- If it can't copy old settings, we need to fill it with default values
     local maxWidth = Settings.emitterMaxWidth
     local offset = (maxWidth + 1)/2
     local defaultType = Settings.defaultFieldSuffix
@@ -142,7 +143,8 @@ function Emitter:onEntitySettingsPasted(event)
   if destinationEmitterTable["distance"] ~= sourceEmitterTable["distance"]
     or destinationEmitterTable["width"] ~= sourceEmitterTable["width"]
     or destinationEmitterTable["type"] ~= sourceEmitterTable["type"]
-    or destinationEmitterTable["direction"] ~= sourceEmitterTable["direction"] then --TODO config setting
+    or destinationEmitterTable["direction"] ~= sourceEmitterTable["direction"]
+    or not tablesAreEqual(destinationEmitterTable["config"], sourceEmitterTable["config"]) then --TODO config setting
 
     Forcefield:degradeLinkedFields(destinationEmitterTable)
     destinationEmitterTable["damaged-fields"] = nil
@@ -162,6 +164,8 @@ function Emitter:onEntitySettingsPasted(event)
     end
     destinationEmitterTable["type"] = sourceEmitterTable["type"]
     destinationEmitterTable["direction"] = sourceEmitterTable["direction"]
+    destinationEmitterTable["config"] = util.table.deepcopy(sourceEmitterTable["config"])
+
     destinationEmitterTable["generating-fields"] = nil
     Emitter:setActive(destinationEmitterTable, true)
 

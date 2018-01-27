@@ -89,9 +89,9 @@ Settings.forcefieldTypes["green" .. Settings.fieldgateSuffix] = Settings.forcefi
 Settings.forcefieldTypes["purple" .. Settings.fieldgateSuffix] = Settings.forcefieldTypes["purple" .. Settings.fieldSuffix]
 Settings.forcefieldTypes["red" .. Settings.fieldgateSuffix] = Settings.forcefieldTypes["red" .. Settings.fieldSuffix]
 
-Settings.fieldEmptySetting = 0
-Settings.fieldWallSetting = 1
-Settings.fieldGateSetting = 2
+--Settings.fieldEmptySetting = 0
+--Settings.fieldWallSetting = 1
+--Settings.fieldGateSetting = 2
 
 
 
@@ -100,11 +100,6 @@ function Settings:verifySettings()
     self.tickRate = 0
     throwError("Tick rate must be >= 0.")
   end
-
-  --if self.toolRadius < 0 then
-  --  self.toolRadius = 0
-  --  throwError("Tool radius must be >= 0.")
-  --end
 
   if self.emitterDefaultDistance < 1 then
     self.emitterDefaultDistance = 1

@@ -11,6 +11,25 @@ end
 
 
 
+function tablesAreEqual(t1, t2)
+  t1Empty = tableIsEmpty(t1)
+  t2Empty = tableIsEmpty(t2)
+  if t1Empty and t2Empty then
+    return true
+  elseif (t1Empty and not t2Empty) or (not t1Empty and t2Empty) then
+    return false
+  end
+
+  for k,v in pairs(t1) do
+    if v ~= t2[k] then
+      return false
+    end
+  end
+  return true
+end
+
+
+
 function directionToString(direction)
   if direction == defines.direction.north then
     return "north"

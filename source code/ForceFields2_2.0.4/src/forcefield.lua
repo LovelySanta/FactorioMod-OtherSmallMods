@@ -41,6 +41,9 @@ function Forcefield:onForcefieldDied(field)
       surface.create_entity({name = Settings.forcefieldTypes[field.name]["deathEntity"], position = pos, force = field.force})
     end
   end
+
+  -- Coz I don't want a ghost, and Rseding91 likes this Kappa
+  field.destroy()
 end
 
 

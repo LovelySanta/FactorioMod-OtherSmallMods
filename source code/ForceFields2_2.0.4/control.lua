@@ -69,8 +69,6 @@ script.on_event(defines.events.on_entity_damaged, function(event)
   end
 end)
 
-
-
 -- When entities get destroyed
 script.on_event(defines.events.on_entity_died, function(event)
   if Settings.forcefieldTypes[event.entity.name] ~= nil then

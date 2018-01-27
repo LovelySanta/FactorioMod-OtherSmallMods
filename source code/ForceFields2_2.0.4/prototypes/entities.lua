@@ -8,10 +8,10 @@ addForceField("green", false)
 addForceField("red", true)
 addForceField("purple", false)
 
---addForceFieldGate("blue", false)
---addForceFieldGate("green", false)
---addForceFieldGate("red", true)
---addForceFieldGate("purple", false)
+addForceFieldGate("blue", false)
+addForceFieldGate("green", false)
+addForceFieldGate("red", true)
+addForceFieldGate("purple", false)
 
 
 

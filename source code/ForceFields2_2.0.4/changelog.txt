@@ -1,14 +1,17 @@
 ---------------------------------------------------------------------------------------------------
 Version: 2.0.4
-Date: 26. 01. 2018
+Date: 27. 01. 2018
+  Major Features:
+    - Added Forcefield gates
   Feature:
     - Added Changelog
   Changes:
     - Balancing technology cost to reflect the dificulty/OP-ness
     - GUI has sprite buttons on the direction and wall type
-    - new on_entity_damaged event as released in 0.16.17
+    - New on_entity_damaged event as released in 0.16.17
   Fixes:
     - Removed quick fix from version 2.0.1 as vanilla game fixed it
+    - Fixed the red/green light where not showing when connected to a gate
 ---------------------------------------------------------------------------------------------------
 Version: 2.0.3
 Date: 21. 01. 2018

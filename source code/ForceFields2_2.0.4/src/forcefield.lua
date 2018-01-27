@@ -2,7 +2,7 @@ require 'src/settings'
 require 'src/utilities'
 
 
-Forcefield = {}  -- TODO
+Forcefield = {}
 
 
 function Forcefield:onForcefieldDamaged(damagedEntity)
@@ -62,6 +62,17 @@ function Forcefield:onForcefieldMined(field, playerIndex)
         Emitter:setActive(emitterTable, true)
       end
       self:removeForceFieldID(index, pos.x, pos.y)
+    end
+  end
+end
+
+
+
+function Forcefield:onResearchFinished(research)
+  local recipeNames = Settings.forcefieldTypes
+  for _,effect in pairs(research.effects) do
+    if effect.type == "unlock-recipe" and recipeNames[effect.recipe] ~= nil then
+      research.force.recipes[effect.recipe].enabled = false
     end
   end
 end

@@ -54,6 +54,13 @@ script.on_event(defines.events.on_robot_built_entity, onEntityBuilt)
 
 
 
+-- When research finished
+script.on_event(defines.events.on_research_finished, function(event)
+  Forcefield:onResearchFinished(event.research)
+end)
+
+
+
 -- When entities get damaged (creates a trigger entity)
 script.on_event(defines.events.on_entity_damaged, function(event)
   -- Check if a forcefield is damaged

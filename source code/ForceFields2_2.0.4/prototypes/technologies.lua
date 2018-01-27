@@ -1,4 +1,5 @@
 require 'src/settings'
+require 'prototypes/defines/forcefield-tech-effect'
 
 
 
@@ -22,7 +23,8 @@ data:extend(
         {
           type = "unlock-recipe",
           recipe = Settings.emitterName
-        }
+        },
+        createTechEffect("blue")
       },
       unit =
       {
@@ -48,6 +50,10 @@ data:extend(
         "force-fields",
         "laser",
       },
+      effects =
+      {
+        createTechEffect("green")
+      },
       unit =
       {
         count = 1000,
@@ -71,6 +77,10 @@ data:extend(
       {
         "green-fields",
         "military-3"
+      },
+      effects =
+      {
+        createTechEffect("purple")
       },
       unit =
       {
@@ -97,6 +107,10 @@ data:extend(
       {
         "purple-fields",
         "military-4"
+      },
+      effects =
+      {
+        createTechEffect("red")
       },
       unit =
       {

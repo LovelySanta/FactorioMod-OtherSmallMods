@@ -11,6 +11,7 @@ Gui = {}
 
 Gui.guiElementNames =
 {
+  -- EMITTER GUI --
   -- gui base
   guiFrame = "emitterConfig",
   configTable = "emitterConfigTable",
@@ -53,7 +54,23 @@ Gui.guiElementNames =
   buttonFrame = "buttonsFlow",
   buttonHelp = "emitterHelpButton",
   buttonRemoveUpgrades = "removeAllButton",
-  buttonApplySettings = "applyButton"
+  buttonConfigure = "configureWallButton",
+  buttonApplySettings = "applyButton",
+
+  -- FORCEFIELD GUI --
+  -- gui base
+  configFrame = "fieldConfig",
+  configSlider = "fieldSlider",
+  -- wall table
+  fieldConfigTable = "fieldConfigTable",
+  -- wall table header
+  fieldConfigLabelE = "fieldConfigLabelE",
+  fieldConfigLabelW = "fieldConfigLabelW",
+  fieldConfigLabelG = "fieldConfigLabelG",
+  -- wall table content
+  fieldConfigOptionE = "fieldConfigE",
+  fieldConfigOptionW = "fieldConfigW",
+  fieldConfigOptionG = "fieldConfigG",
 }
 
 
@@ -161,10 +178,10 @@ function Gui:showEmitterGui(emitterTable, playerIndex)
     -- Type of forcefield
     configTable.add({type = "label", name = self.guiElementNames.fieldTypeLabel, caption = "Field type:"})
     local fields = configTable.add({type = "table", name = self.guiElementNames.fieldTypeTable, column_count = 4})
-    local f1 = fields.add({type = "sprite-button", name = self.guiElementNames.fieldTypeOptionB, style = "selectbuttons", sprite = "entity/blue" .. Settings.fieldSuffix})
-    local f2 = fields.add({type = "sprite-button", name = self.guiElementNames.fieldTypeOptionG, style = "selectbuttons", sprite = "entity/green" .. Settings.fieldSuffix})
-    local f3 = fields.add({type = "sprite-button", name = self.guiElementNames.fieldTypeOptionR, style = "selectbuttons", sprite = "entity/red" .. Settings.fieldSuffix})
-    local f4 = fields.add({type = "sprite-button", name = self.guiElementNames.fieldTypeOptionP, style = "selectbuttons", sprite = "entity/purple" .. Settings.fieldSuffix})
+    local f1 = fields.add({type = "sprite-button", name = self.guiElementNames.fieldTypeOptionB, sprite = "item/blue" .. Settings.fieldSuffix, style = "selectbuttons"})
+    local f2 = fields.add({type = "sprite-button", name = self.guiElementNames.fieldTypeOptionG, sprite = "item/green" .. Settings.fieldSuffix, style = "selectbuttons"})
+    local f3 = fields.add({type = "sprite-button", name = self.guiElementNames.fieldTypeOptionR, sprite = "item/red" .. Settings.fieldSuffix, style = "selectbuttons"})
+    local f4 = fields.add({type = "sprite-button", name = self.guiElementNames.fieldTypeOptionP, sprite = "item/purple" .. Settings.fieldSuffix, style = "selectbuttons"})
 
     if emitterTable["type"] == "blue" then
       f1.style = "selectbuttonsselected"
@@ -180,13 +197,13 @@ function Gui:showEmitterGui(emitterTable, playerIndex)
     configTable.add({type = "label", name = self.guiElementNames.distanceLabel, caption = "Emitter distance:"})
     local distance = configTable.add({type = "table", name = self.guiElementNames.distanceTable, column_count = 2})
     distance.add({type = "textfield", name = self.guiElementNames.distanceInput, style = "distancetext"}).text = emitterTable["distance"]
-    distance.add({type = "label", name = self.guiElementNames.distanceMaxInput, caption = "Max: " .. tostring(Settings.emitterDefaultDistance + self:getEmitterBonusDistance(emitterTable)), style = description_title_label})
+    distance.add({type = "label", name = self.guiElementNames.distanceMaxInput, caption = "Max: " .. tostring(Settings.emitterDefaultDistance + emitterTable["distance-upgrades"]), style = description_title_label})
 
     -- Width of forcefield
     configTable.add({type = "label", name = self.guiElementNames.widthLabel, caption = "Emitter width:"})
     local width = configTable.add({type = "table", name = self.guiElementNames.widthTable, column_count = 2})
     width.add({type = "textfield", name = self.guiElementNames.widthInput, style = "distancetext"}).text = emitterTable["width"]
-    width.add({type = "label", name = self.guiElementNames.widthMaxInput, caption = "Max: " .. tostring(Settings.emitterDefaultWidth + self:getEmitterBonusWidth(emitterTable)), style = description_title_label})
+    width.add({type = "label", name = self.guiElementNames.widthMaxInput, caption = "Max: " .. tostring(Settings.emitterDefaultWidth + emitterTable["width-upgrades"] * Settings.widthUpgradeMultiplier), style = description_title_label})
 
     -- Upgrades of emitter
     configTable.add({type = "label", name = self.guiElementNames.upgradesLabel, caption = "Upgrades applied:"})
@@ -206,6 +223,7 @@ function Gui:showEmitterGui(emitterTable, playerIndex)
     local buttonFlow = frame.add({type = "flow", name = self.guiElementNames.buttonFrame, direction = "horizontal"})
     buttonFlow.add({type = "button", name = self.guiElementNames.buttonHelp, caption = "?"})
     buttonFlow.add({type = "button", name = self.guiElementNames.buttonRemoveUpgrades, caption = "Remove all upgrades"})
+    buttonFlow.add({type = "sprite-button", name = self.guiElementNames.buttonConfigure, sprite = "item/iron-gear-wheel", style = "selectbuttons"})
     buttonFlow.add({type = "button", name = self.guiElementNames.buttonApplySettings, caption = "Apply"})
 
     -- Save gui
@@ -218,6 +236,49 @@ function Gui:showEmitterGui(emitterTable, playerIndex)
     return frame
   else
     return nil
+  end
+end
+
+
+
+function Gui:createForcefieldGui(playerIndex, fieldWidth)
+  local player = game.players[playerIndex]
+  local emitterTable = global.forcefields.emitterConfigGuis["I" .. playerIndex][1]
+  local guiCenter = player.gui.center
+
+  if guiCenter and guiCenter[self.guiElementNames.guiFrame] then
+    local fieldOffset = (fieldWidth + 1)/2
+    local frame = guiCenter.add({type = "frame", name = self.guiElementNames.configFrame, caption = game.entity_prototypes[Settings.emitterName].localised_name, direction = "vertical", style = frame_caption_label})
+    local slider = frame.add({type = "scroll-pane", name = self.guiElementNames.configSlider, horizontal_scroll_policy = "auto"})
+    slider.style.maximal_width = math.floor(player.display_resolution.width*2/3)
+    local configTable = frame.add({type ="table", name = self.guiElementNames.fieldConfigTable, column_count = fieldWidth+2})
+
+    -- row header
+    configTable.add({type = "label", name = self.guiElementNames.fieldConfigLabelE, caption = " empty"})
+    -- column buttons - changes all fields at once
+    configTable.add({type = "sprite-button", name = self.guiElementNames.fieldConfigOptionE, sprite = "utility/set_bar_slot", style = "selectbuttons"})
+    for fieldIndex=1, fieldWidth do
+      configTable.add({type = "sprite-button", name = self.guiElementNames.fieldConfigOptionE .. tostring(fieldIndex-fieldOffset), sprite = "utility/pump_cannot_connect_icon"})
+    end
+
+    -- row header
+    configTable.add({type = "label", name = self.guiElementNames.fieldConfigLabelW, caption = "    wall"})
+    -- column buttons - changes all fields at once
+    configTable.add({type = "sprite-button", name = self.guiElementNames.fieldConfigOptionW, sprite = "item/stone-wall", style = "selectbuttons"})
+    for fieldIndex=1, fieldWidth do
+      configTable.add({type = "sprite-button", name = self.guiElementNames.fieldConfigOptionW .. tostring(fieldIndex-fieldOffset), sprite = "utility/pump_cannot_connect_icon"})
+    end
+
+    -- row header
+    configTable.add({type = "label", name = self.guiElementNames.fieldConfigLabelG, caption = "   gate"})
+    -- column buttons - changes all fields at once
+    configTable.add({type = "sprite-button", name = self.guiElementNames.fieldConfigOptionG, sprite = "item/gate", style = "selectbuttons"})
+    for fieldIndex=1, fieldWidth do
+      configTable.add({type = "sprite-button", name = self.guiElementNames.fieldConfigOptionG .. tostring(fieldIndex-fieldOffset), sprite = "utility/pump_cannot_connect_icon"})
+    end
+
+    -- TODO
+
   end
 end
 
@@ -373,12 +434,53 @@ end
 
 
 
+function Gui:handleConfigureButton(event)
+  -- get the width of the emitter, needed for the gui...
+  local player = game.players[event.player_index]
+  local guiCenter = player.gui.center
+  local emitterConfigTable = guiCenter[self.guiElementNames.guiFrame][self.guiElementNames.configTable]
+
+  local width = tonumber(emitterConfigTable[self.guiElementNames.widthTable][self.guiElementNames.widthInput].text)
+  local maxWidth = tonumber(string.sub(emitterConfigTable[self.guiElementNames.widthTable][self.guiElementNames.widthMaxInput].caption, 6))
+  local settingsAreGood = true
+
+  if not width then
+    player.print("New Width is not a valid number.")
+    settingsAreGood = false
+  elseif width > maxWidth then
+    player.print("New Width is larger than the allowed maximum.")
+    settingsAreGood = false
+  elseif width < 1 then
+    player.print("New Width is smaller than the allowed minimum (1).")
+    settingsAreGood = false
+  elseif math.floor(width) ~= width then
+    player.print("New Width is not a valid number (can't have decimals).")
+    settingsAreGood = false
+  elseif (math.floor((width - 1) / 2) * 2) + 1 ~= width then
+    player.print("New Width has to be an odd number.")
+    emitterConfigTable[self.guiElementNames.widthTable][self.guiElementNames.widthInput].text = tostring((math.floor((width - 1) / 2) * 2) + 1)
+    settingsAreGood = false
+  end
+
+  if settingsAreGood then
+    -- Check to make sure its not opened yet
+    if not guiCenter[self.guiElementNames.configFrame] then
+      -- We need to configure the wall/gates for this wall, depending on the current settings in the gui
+      self:createForcefieldGui(event.player_index, width)
+      -- It opened the configGui, now make the emitterGui invisible
+      game.players[event.player_index].gui.center[self.guiElementNames.guiFrame].style.visible = false
+    end
+  end
+end
+
+
+
 function Gui:handleGuiMenuButtons(event)
   local playerIndex = event.element.player_index
   local player = game.players[playerIndex]
   local frame = player.gui.center[self.guiElementNames.guiFrame]
   if frame ~= nil then
-    -- Apply button --TODO
+    -- Apply button
     if event.element.name == self.guiElementNames.buttonApplySettings then
       if self:verifyAndSetFromGui(playerIndex) then
         global.forcefields.emitterConfigGuis["I" .. playerIndex] = nil
@@ -401,6 +503,7 @@ end
 
 Gui.guiButtonHandlers =
 {
+  -- Emitter gui
   [Gui.guiElementNames.directionOptionN] = Gui.handleGuiDirectionButtons,
   [Gui.guiElementNames.directionOptionS] = Gui.handleGuiDirectionButtons,
   [Gui.guiElementNames.directionOptionE] = Gui.handleGuiDirectionButtons,
@@ -416,20 +519,12 @@ Gui.guiButtonHandlers =
 
   [Gui.guiElementNames.buttonHelp] = Gui.handleGuiMenuButtons,
   [Gui.guiElementNames.buttonRemoveUpgrades] = Gui.handleGuiMenuButtons,
+  [Gui.guiElementNames.buttonConfigure] = Gui.handleConfigureButton,
   [Gui.guiElementNames.buttonApplySettings] = Gui.handleGuiMenuButtons
+
+  -- Forcefield gui
+  -- TODO
 }
-
-
-
-function Gui:getEmitterBonusDistance(emitterTable)
-  return emitterTable["distance-upgrades"]
-end
-
-
-
-function Gui:getEmitterBonusWidth(emitterTable)
-  return emitterTable["width-upgrades"] * Settings.widthUpgradeMultiplier
-end
 
 
 

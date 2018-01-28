@@ -45,7 +45,7 @@ function createTechEffect(color)
 
   local recipe = util.table.deepcopy(getForceFieldbaseRecipe())
   recipe.name = color .. fieldSuffix
-  recipe.energy_required = math.floor(Settings.forcefieldTypes[color .. Settings.fieldSuffix]["chargeRate"] * Settings.tickRate * 100)/100
+  recipe.energy_required = math.floor(Settings.forcefieldTypes[recipe.name]["chargeRate"] * Settings.tickRate * 100)/100
   recipe.result = color .. fieldSuffix
 
   data:extend({item, recipe})

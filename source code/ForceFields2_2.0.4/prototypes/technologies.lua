@@ -8,8 +8,8 @@ data:extend(
     {
       type = "technology",
       name = "force-fields",
-      icon = Settings.modName .. "/graphics/blue-forcefields.png",
-      icon_size = 64,
+      icon = Settings.modName .. "/graphics/walls/blue/wall-technology.png",
+      icon_size = 128,
       prerequisites =
       {
         "optics",
@@ -24,7 +24,7 @@ data:extend(
           type = "unlock-recipe",
           recipe = Settings.emitterName
         },
-        createTechEffect("blue")
+        createTechWallEffect("blue")
       },
       unit =
       {
@@ -43,8 +43,8 @@ data:extend(
     {
       type = "technology",
       name = "green-fields",
-      icon = Settings.modName .. "/graphics/green-forcefields.png",
-      icon_size = 64,
+      icon = Settings.modName .. "/graphics/walls/green/wall-technology.png",
+      icon_size = 128,
       prerequisites =
       {
         "force-fields",
@@ -52,7 +52,7 @@ data:extend(
       },
       effects =
       {
-        createTechEffect("green")
+        createTechWallEffect("green")
       },
       unit =
       {
@@ -71,8 +71,8 @@ data:extend(
     {
       type = "technology",
       name = "purple-fields",
-      icon = Settings.modName .. "/graphics/purple-forcefields.png",
-      icon_size = 64,
+      icon = Settings.modName .. "/graphics/walls/purple/wall-technology.png",
+      icon_size = 128,
       prerequisites =
       {
         "green-fields",
@@ -80,7 +80,7 @@ data:extend(
       },
       effects =
       {
-        createTechEffect("purple")
+        createTechWallEffect("purple")
       },
       unit =
       {
@@ -101,8 +101,8 @@ data:extend(
     {
       type = "technology",
       name = "red-fields",
-      icon = Settings.modName .. "/graphics/red-forcefields.png",
-      icon_size = 64,
+      icon = Settings.modName .. "/graphics/walls/red/wall-technology.png",
+      icon_size = 128,
       prerequisites =
       {
         "purple-fields",
@@ -110,7 +110,7 @@ data:extend(
       },
       effects =
       {
-        createTechEffect("red")
+        createTechWallEffect("red")
       },
       unit =
       {

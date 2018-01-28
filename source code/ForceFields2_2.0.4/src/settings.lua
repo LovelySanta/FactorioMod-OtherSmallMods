@@ -32,7 +32,7 @@ Settings.maxFieldDistance = math.max(Settings.emitterMaxDistance, Settings.emitt
 
 -- forcefields settings
 Settings.fieldSuffix = "-forcefield"
-Settings.fieldgateSuffix = "-forcefield-gate"
+Settings.fieldGateSuffix = "-forcefield-gate"
 Settings.defaultFieldSuffix = Settings.fieldSuffix
 
 Settings.defaultFieldType = "blue"
@@ -84,10 +84,10 @@ Settings.forcefieldTypes =
     maxHealth = 300
   }
 }
-Settings.forcefieldTypes["blue" .. Settings.fieldgateSuffix] = Settings.forcefieldTypes["blue" .. Settings.fieldSuffix]
-Settings.forcefieldTypes["green" .. Settings.fieldgateSuffix] = Settings.forcefieldTypes["green" .. Settings.fieldSuffix]
-Settings.forcefieldTypes["purple" .. Settings.fieldgateSuffix] = Settings.forcefieldTypes["purple" .. Settings.fieldSuffix]
-Settings.forcefieldTypes["red" .. Settings.fieldgateSuffix] = Settings.forcefieldTypes["red" .. Settings.fieldSuffix]
+Settings.forcefieldTypes["blue" .. Settings.fieldGateSuffix] = Settings.forcefieldTypes["blue" .. Settings.fieldSuffix]
+Settings.forcefieldTypes["green" .. Settings.fieldGateSuffix] = Settings.forcefieldTypes["green" .. Settings.fieldSuffix]
+Settings.forcefieldTypes["purple" .. Settings.fieldGateSuffix] = Settings.forcefieldTypes["purple" .. Settings.fieldSuffix]
+Settings.forcefieldTypes["red" .. Settings.fieldGateSuffix] = Settings.forcefieldTypes["red" .. Settings.fieldSuffix]
 
 --Settings.fieldEmptySetting = 0
 --Settings.fieldWallSetting = 1

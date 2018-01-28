@@ -3,6 +3,7 @@ require 'prototypes/defines/forcefield-tech-effect'
 
 
 
+-- WALLS
 data:extend(
   {
     {
@@ -127,6 +128,130 @@ data:extend(
       },
       upgrade = true,
       order = "f-f-e"
+    }
+  }
+)
+
+
+
+-- GATE
+data:extend(
+  {
+    {
+      type = "technology",
+      name = "force-field-gates",
+      icon = Settings.modName .. "/graphics/gates/blue/gate-technology.png",
+      icon_size = 128,
+      prerequisites =
+      {
+        "gates",
+        "force-fields"
+      },
+      effects =
+      {
+        createTechGateEffect("blue")
+      },
+      unit =
+      {
+        count = 250,
+        ingredients =
+        {
+          {"science-pack-1", 1},
+          {"science-pack-2", 1},
+        },
+        time = 30,
+
+      },
+      order = "f-f-f"
+    },
+
+    {
+      type = "technology",
+      name = "green-field-gates",
+      icon = Settings.modName .. "/graphics/gates/green/gate-technology.png",
+      icon_size = 128,
+      prerequisites =
+      {
+        "gates",
+        "green-fields"
+      },
+      effects =
+      {
+        createTechGateEffect("green")
+      },
+      unit =
+      {
+        count = 500,
+        ingredients =
+        {
+          {"science-pack-1", 1},
+          {"science-pack-2", 1},
+          {"military-science-pack", 1}
+        },
+        time = 30,
+      },
+      order = "f-f-f"
+    },
+
+    {
+      type = "technology",
+      name = "purple-field-gates",
+      icon = Settings.modName .. "/graphics/gates/purple/gate-technology.png",
+      icon_size = 128,
+      prerequisites =
+      {
+        "gates",
+        "purple-fields"
+      },
+      effects =
+      {
+        createTechGateEffect("purple")
+      },
+      unit =
+      {
+        count = 1000,
+        ingredients =
+        {
+          {"science-pack-1", 1},
+          {"science-pack-2", 1},
+          {"science-pack-3", 1},
+          {"military-science-pack", 1}
+        },
+        time = 30,
+      },
+      upgrade = true,
+      order = "f-f-F"
+    },
+
+    {
+      type = "technology",
+      name = "red-field-gates",
+      icon = Settings.modName .. "/graphics/gates/red/gate-technology.png",
+      icon_size = 128,
+      prerequisites =
+      {
+        "gates",
+        "red-fields"
+      },
+      effects =
+      {
+        createTechGateEffect("red")
+      },
+      unit =
+      {
+        count = 2250,
+        ingredients =
+        {
+          {"science-pack-1", 1},
+          {"science-pack-2", 1},
+          {"science-pack-3", 1},
+          {"military-science-pack", 1},
+          {"high-tech-science-pack", 1}
+        },
+        time = 30,
+      },
+      upgrade = true,
+      order = "f-f-f"
     }
   }
 )

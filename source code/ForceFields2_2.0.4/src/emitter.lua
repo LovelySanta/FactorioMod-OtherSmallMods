@@ -58,9 +58,9 @@ function Emitter:onEmitterBuilt(createdEntity)
     for i=1, maxWidth do
       newEmitter["config"][i-offset] = defaultType
     end
-    --newEmitter["config"][0] = Settings.fieldgateSuffix
-    --newEmitter["config"][1] = Settings.fieldgateSuffix
-    --newEmitter["config"][-1] = Settings.fieldgateSuffix
+    --newEmitter["config"][0] = Settings.fieldGateSuffix
+    --newEmitter["config"][1] = Settings.fieldGateSuffix
+    --newEmitter["config"][-1] = Settings.fieldGateSuffix
   end
 
   global.forcefields.emitters["I" .. global.forcefields.emitterNEI] = newEmitter

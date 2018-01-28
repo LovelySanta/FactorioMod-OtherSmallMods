@@ -801,7 +801,7 @@ end
 function addForceFieldGate(color, maxHealth, sourceAttackReaction)
   local newForceFieldGate = getForceFieldBaseGate()
   local imgDir = Settings.modName .. "/graphics/gates/"
-  newForceFieldGate.name = color .. Settings.fieldgateSuffix
+  newForceFieldGate.name = color .. Settings.fieldGateSuffix
   newForceFieldGate.icon = imgDir .. color .. "/gate-icon.png"
   newForceFieldGate.icon_size = 32
   newForceFieldGate.max_health = Settings.forcefieldTypes[newForceFieldGate.name].maxHealth

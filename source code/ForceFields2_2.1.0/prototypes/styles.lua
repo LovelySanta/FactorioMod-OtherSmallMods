@@ -175,8 +175,8 @@ local selectButtonDimensions =
     right_padding = 3,
     bottom_padding = 3,
     left_padding = 3,
-    minimal_width = 42,
-    minimal_height = 42
+    minimal_width = 41,
+    minimal_height = 41
   }
 data.raw["gui-style"].default["selectbuttons"] = getBaseSelectButtonStyle(false, selectButtonDimensions)
 data.raw["gui-style"].default["selectbuttonsselected"] = getBaseSelectButtonStyle(true, selectButtonDimensions)

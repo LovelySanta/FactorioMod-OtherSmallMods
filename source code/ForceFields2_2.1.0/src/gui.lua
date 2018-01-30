@@ -262,16 +262,8 @@ function Gui:createForcefieldGui(playerIndex, fieldWidth)
     -- Index
     configTable.add{type = "label", name = self.guiElementNames.fieldConfigLabelIndex, caption = "All"}
     configTable.add{type = "label", name = self.guiElementNames.fieldConfigLabelI, caption = ""}
-    local index
     for fieldIndex=1, fieldWidth do
-      if fieldIndex < 10 then
-        index = "0" ..  tostring(fieldIndex)
-      else
-        index = tostring(fieldIndex)
-      end
-
-      local lbl = configTable.add{type = "label", name = self.guiElementNames.fieldConfigLabelI .. index, caption = index}
-      lbl.style.align = "center"
+      configTable.add{type = "label", name = self.guiElementNames.fieldConfigLabelI .. fieldIndex, caption = string.format("%02d", fieldIndex)}
     end
 
 

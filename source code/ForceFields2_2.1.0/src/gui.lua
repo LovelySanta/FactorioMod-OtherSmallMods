@@ -60,19 +60,25 @@ Gui.guiElementNames =
   -- FORCEFIELD GUI --
   -- gui base
   configFrame = "fieldConfig",
-  configSlider = "fieldSlider",
   -- wall table
-  fieldConfigTable = "fieldConfigTable",
-  -- wall table header
-  fieldConfigLabelIndex = "fieldConfigLabelIndex",
-  fieldConfigLabelI = "fieldConfigLabelI",
-  fieldConfigLabelE = "fieldConfigLabelE",
-  fieldConfigLabelW = "fieldConfigLabelW",
-  fieldConfigLabelG = "fieldConfigLabelG",
-  -- wall table content
-  fieldConfigOptionE = "fieldConfigE",
-  fieldConfigOptionW = "fieldConfigW",
-  fieldConfigOptionG = "fieldConfigG",
+  configTable = "fieldConfigTable",
+  -- wall table row header
+  configTableHeader = "fieldConfigTableHeader",
+  configRowOptionLabel = "fieldConfigRowLabel",
+  configRowOptionE = "fieldConfigRowOptionE",
+  configRowOptionW = "fieldConfigRowOptionW",
+  configRowOptionG = "fieldConfigRowOptionG",
+  configRowDescriptionLabel = "fieldConfigRowDescriptionLabel",
+  configRowDescriptionLabelE = "fieldConfigRowDescriptionLabelE",
+  configRowDescriptionLabelW = "fieldConfigRowDescriptionLabelW",
+  configRowDescriptionLabelG = "fieldConfigRowDescriptionLabelG",
+  -- wall table row data
+  configTableSlider = "fieldConfigSlider",
+  configTableData = "fieldConfigTableData",
+  configOptionLabel = "fieldConfigOptionLabel",
+  configOptionE = "fieldConfigE",
+  configOptionW = "fieldConfigW",
+  configOptionG = "fieldConfigG",
 }
 
 
@@ -244,54 +250,53 @@ end
 
 
 function Gui:createForcefieldGui(playerIndex, fieldWidth)
+  fieldWidth = 65
   local player = game.players[playerIndex]
   local emitterTable = global.forcefields.emitterConfigGuis["I" .. playerIndex][1]
   local guiCenter = player.gui.center
 
   if guiCenter and guiCenter[self.guiElementNames.guiFrame] then
-    local fieldOffset = (fieldWidth + 1)/2
+    --local fieldOffset = (fieldWidth + 1)/2
+
     local frame = guiCenter.add{type = "frame", name = self.guiElementNames.configFrame, caption = game.entity_prototypes[Settings.emitterName].localised_name, direction = "vertical", style = frame_caption_label}
-    local slider = frame.add{type = "scroll-pane", name = self.guiElementNames.configSlider, horizontal_scroll_policy = "auto"}
-    slider.style.maximal_width = math.floor(player.display_resolution.width*2/3)
-    local configTable = frame.add{type ="table", name = self.guiElementNames.fieldConfigTable, column_count = fieldWidth+2}
-    for i=1, fieldWidth + 2 do
-      configTable.style.column_alignments[i] = "center"
-    end
-    configTable.style.column_alignments[2] = "center"
 
-    -- Index
-    configTable.add{type = "label", name = self.guiElementNames.fieldConfigLabelIndex, caption = "All"}
-    configTable.add{type = "label", name = self.guiElementNames.fieldConfigLabelI, caption = ""}
+    -- Table for wall config
+    local configTable = frame.add{type = "flow", name = self.guiElementNames.configTableFrame, direction = "horizontal"}
+
+    -- Table row headers
+    local configTableHeader = configTable.add{type = "table", name = self.guiElementNames.configTableHeader, column_count = 2}
+    configTableHeader.style.column_alignments[1] = "center"
+    configTableHeader.style.column_alignments[2] = "right"
+    configTableHeader.add{type = "label", name = self.guiElementNames.configRowOptionLabel, caption = "All"}
+    configTableHeader.add{type = "label", name = self.guiElementNames.configRowDescriptionLabel, caption = ""}
+    configTableHeader.add{type = "sprite-button", name = self.guiElementNames.configRowOptionE, sprite = "utility/set_bar_slot", style = "smallselectbuttons"}
+    configTableHeader.add{type = "label", name = self.guiElementNames.configRowDescriptionLabelE, caption = "   empty   "}
+    configTableHeader.add{type = "sprite-button", name = self.guiElementNames.configRowOptionW, sprite = "item/stone-wall", style = "smallselectbuttons"}
+    configTableHeader.add{type = "label", name = self.guiElementNames.configRowDescriptionLabelW, caption = "wall   "}
+    configTableHeader.add{type = "sprite-button", name = self.guiElementNames.configRowOptionG, sprite = "item/gate", style = "smallselectbuttons"}
+    configTableHeader.add{type = "label", name = self.guiElementNames.configRowDescriptionLabelG, caption = "gate   "}
+
+    -- Table row data
+    local configTableSlider = configTable.add{type = "scroll-pane", name = self.guiElementNames.configTableSlider, horizontal_scroll_policy = "auto", vertical_scroll_policy = "never"}
+    configTableSlider.style.maximal_width = math.floor(player.display_resolution.width/2)
+    local configTableData = configTableSlider.add{type ="table", name = self.guiElementNames.configTableData, column_count = fieldWidth}
     for fieldIndex=1, fieldWidth do
-      configTable.add{type = "label", name = self.guiElementNames.fieldConfigLabelI .. fieldIndex, caption = string.format("%02d", fieldIndex)}
+      configTableData.style.column_alignments[fieldIndex] = "center"
     end
-
-
-    -- column buttons - changes all fields at once
-    configTable.add{type = "sprite-button", name = self.guiElementNames.fieldConfigOptionE, sprite = "utility/set_bar_slot", style = "smallselectbuttons"}
-    -- column text
-    configTable.add{type = "label", name = self.guiElementNames.fieldConfigLabelE, caption = "   empty   "}
     for fieldIndex=1, fieldWidth do
-      configTable.add{type = "sprite-button", name = self.guiElementNames.fieldConfigOptionE .. tostring(fieldIndex-fieldOffset), sprite = "utility/pump_cannot_connect_icon", style = "smallselectbuttons"}
+      configTableData.add{type = "label", name = self.guiElementNames.configOptionLabel .. tostring(fieldIndex), caption = string.format("%02d", fieldIndex)}
     end
-
-    -- column buttons - changes all fields at once
-    configTable.add{type = "sprite-button", name = self.guiElementNames.fieldConfigOptionW, sprite = "item/stone-wall", style = "smallselectbuttons"}
-    -- column text
-    configTable.add{type = "label", name = self.guiElementNames.fieldConfigLabelW, caption = "wall   "}
-
     for fieldIndex=1, fieldWidth do
-      configTable.add{type = "sprite-button", name = self.guiElementNames.fieldConfigOptionW .. tostring(fieldIndex-fieldOffset), sprite = "utility/pump_cannot_connect_icon", style = "smallselectbuttonsselected"}
+      configTableData.add{type = "sprite-button", name = self.guiElementNames.configOptionE .. tostring(fieldIndex), sprite = "utility/pump_cannot_connect_icon", style = "smallselectbuttons"}
     end
-
-    -- column buttons - changes all fields at once
-    configTable.add{type = "sprite-button", name = self.guiElementNames.fieldConfigOptionG, sprite = "item/gate", style = "smallselectbuttons"}
-    -- column text
-    configTable.add{type = "label", name = self.guiElementNames.fieldConfigLabelG, caption = "gate   "}
     for fieldIndex=1, fieldWidth do
-      configTable.add{type = "sprite-button", name = self.guiElementNames.fieldConfigOptionG .. tostring(fieldIndex-fieldOffset), sprite = "utility/pump_cannot_connect_icon", style = "smallselectbuttons"}
+      configTableData.add{type = "sprite-button", name = self.guiElementNames.configOptionW .. tostring(fieldIndex), sprite = "utility/pump_cannot_connect_icon", style = "smallselectbuttonsselected"}
+    end
+    for fieldIndex=1, fieldWidth do
+      configTableData.add{type = "sprite-button", name = self.guiElementNames.configOptionG .. tostring(fieldIndex), sprite = "utility/pump_cannot_connect_icon", style = "smallselectbuttons"}
     end
 
+    -- Buttons
     -- TODO
 
   end

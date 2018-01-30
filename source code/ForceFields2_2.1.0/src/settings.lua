@@ -11,6 +11,10 @@ Settings.modName = "__ForceFields2__"
 -- gui settings
 Settings.configWallIconName = "forcefield-config-tool"
 
+Settings.guiSelectButtonStyle = "selectbuttons"
+Settings.guiSelectButtonSelectedStyle = "selectbuttonsselected"
+Settings.guiSmallSelectButtonStyle = "smallselectbuttons"
+Settings.guiSmallSelectButtonSelectedStyle = "smallselectbuttonsselected"
 
 
 -- builder settings

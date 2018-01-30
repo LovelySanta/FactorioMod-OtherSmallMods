@@ -1,5 +1,7 @@
 require 'util'
 
+require 'src/settings'
+
 
 
 function getBaseItemSlotButtonStyle()
@@ -152,20 +154,20 @@ end
 data.raw["gui-style"].default["noitem"] = getBaseItemSlotButtonStyle()
 
 local advancedCircuit = getBaseItemSlotButtonStyle()
-advancedCircuit.default_graphical_set.monolith_image.filename = "__ForceFields2__/graphics/gui/advanced-circuit-default.png"
+advancedCircuit.default_graphical_set.monolith_image.filename = Settings.modName .. "/graphics/gui/advanced-circuit-default.png"
 advancedCircuit.default_graphical_set.monolith_image.x = 0
-advancedCircuit.hovered_graphical_set.monolith_image.filename = "__ForceFields2__/graphics/gui/advanced-circuit-hover.png"
+advancedCircuit.hovered_graphical_set.monolith_image.filename = Settings.modName .. "/graphics/gui/advanced-circuit-hover.png"
 advancedCircuit.hovered_graphical_set.monolith_image.x = 0
-advancedCircuit.clicked_graphical_set.monolith_image.filename = "__ForceFields2__/graphics/gui/advanced-circuit-hover.png"
+advancedCircuit.clicked_graphical_set.monolith_image.filename = Settings.modName .. "/graphics/gui/advanced-circuit-hover.png"
 advancedCircuit.clicked_graphical_set.monolith_image.x = 0
 data.raw["gui-style"].default["advanced-circuit"] = advancedCircuit
 
 local processingUnit = getBaseItemSlotButtonStyle()
-processingUnit.default_graphical_set.monolith_image.filename = "__ForceFields2__/graphics/gui/processing-unit-default.png"
+processingUnit.default_graphical_set.monolith_image.filename = Settings.modName .. "/graphics/gui/processing-unit-default.png"
 processingUnit.default_graphical_set.monolith_image.x = 0
-processingUnit.hovered_graphical_set.monolith_image.filename = "__ForceFields2__/graphics/gui/processing-unit-hover.png"
+processingUnit.hovered_graphical_set.monolith_image.filename = Settings.modName .. "/graphics/gui/processing-unit-hover.png"
 processingUnit.hovered_graphical_set.monolith_image.x = 0
-processingUnit.clicked_graphical_set.monolith_image.filename = "__ForceFields2__/graphics/gui/processing-unit-hover.png"
+processingUnit.clicked_graphical_set.monolith_image.filename = Settings.modName .. "/graphics/gui/processing-unit-hover.png"
 processingUnit.clicked_graphical_set.monolith_image.x = 0
 data.raw["gui-style"].default["processing-unit"] = processingUnit
 
@@ -179,16 +181,16 @@ local selectButtonDimensions =
     minimal_width = 41,
     minimal_height = 41
   }
-data.raw["gui-style"].default["selectbuttons"] = getBaseSelectButtonStyle(false, selectButtonDimensions)
-data.raw["gui-style"].default["selectbuttonsselected"] = getBaseSelectButtonStyle(true, selectButtonDimensions)
+data.raw["gui-style"].default[Settings.guiSelectButtonStyle] = getBaseSelectButtonStyle(false, selectButtonDimensions)
+data.raw["gui-style"].default[Settings.guiSelectButtonSelectedStyle] = getBaseSelectButtonStyle(true, selectButtonDimensions)
 
 local smallSelectButtonDimensions =
   {
     width = 30,
     height = 30
   }
-data.raw["gui-style"].default["smallselectbuttons"] = getBaseSelectButtonStyle(false, smallSelectButtonDimensions, false)
-data.raw["gui-style"].default["smallselectbuttonsselected"] = getBaseSelectButtonStyle(true, smallSelectButtonDimensions, false)
+data.raw["gui-style"].default[Settings.guiSmallSelectButtonStyle] = getBaseSelectButtonStyle(false, smallSelectButtonDimensions, false)
+data.raw["gui-style"].default[Settings.guiSmallSelectButtonSelectedStyle] = getBaseSelectButtonStyle(true, smallSelectButtonDimensions, false)
 
 -- Text field
 data.raw["gui-style"].default["distancetext"] = getBaseTextfieldStyle()

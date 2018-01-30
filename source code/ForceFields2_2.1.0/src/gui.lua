@@ -60,25 +60,19 @@ Gui.guiElementNames =
   -- FORCEFIELD GUI --
   -- gui base
   configFrame = "fieldConfig",
-  -- wall table
   configTable = "fieldConfigTable",
+
   -- wall table row header
   configTableHeader = "fieldConfigTableHeader",
   configRowOptionLabel = "fieldConfigRowLabel",
-  configRowOptionE = "fieldConfigRowOptionE",
-  configRowOptionW = "fieldConfigRowOptionW",
-  configRowOptionG = "fieldConfigRowOptionG",
+  configRowOption = "fieldConfigRowOption",
   configRowDescriptionLabel = "fieldConfigRowDescriptionLabel",
-  configRowDescriptionLabelE = "fieldConfigRowDescriptionLabelE",
-  configRowDescriptionLabelW = "fieldConfigRowDescriptionLabelW",
-  configRowDescriptionLabelG = "fieldConfigRowDescriptionLabelG",
+
   -- wall table row data
   configTableSlider = "fieldConfigSlider",
   configTableData = "fieldConfigTableData",
   configOptionLabel = "fieldConfigOptionLabel",
-  configOptionE = "fieldConfigE",
-  configOptionW = "fieldConfigW",
-  configOptionG = "fieldConfigG",
+  configOption = "fieldConfig"
 }
 
 
@@ -168,37 +162,37 @@ function Gui:showEmitterGui(emitterTable, playerIndex)
     -- Direction of forcefield
     configTable.add{type = "label", name = self.guiElementNames.directionLabel, caption = "Direction:                       "}
     local directions = configTable.add{type = "table", name = self.guiElementNames.directionTable, column_count = 4}
-    local d1 = directions.add{type = "sprite-button", name = self.guiElementNames.directionOptionN, style = "selectbuttons", sprite = "virtual-signal/signal-N"}
-    local d2 = directions.add{type = "sprite-button", name = self.guiElementNames.directionOptionS, style = "selectbuttons", sprite = "virtual-signal/signal-S"}
-    local d3 = directions.add{type = "sprite-button", name = self.guiElementNames.directionOptionE, style = "selectbuttons", sprite = "virtual-signal/signal-E"}
-    local d4 = directions.add{type = "sprite-button", name = self.guiElementNames.directionOptionW, style = "selectbuttons", sprite = "virtual-signal/signal-W"}
+    local d1 = directions.add{type = "sprite-button", name = self.guiElementNames.directionOptionN, style = Settings.guiSelectButtonStyle, sprite = "virtual-signal/signal-N"}
+    local d2 = directions.add{type = "sprite-button", name = self.guiElementNames.directionOptionS, style = Settings.guiSelectButtonStyle, sprite = "virtual-signal/signal-S"}
+    local d3 = directions.add{type = "sprite-button", name = self.guiElementNames.directionOptionE, style = Settings.guiSelectButtonStyle, sprite = "virtual-signal/signal-E"}
+    local d4 = directions.add{type = "sprite-button", name = self.guiElementNames.directionOptionW, style = Settings.guiSelectButtonStyle, sprite = "virtual-signal/signal-W"}
 
     if emitterTable["direction"] == defines.direction.north then
-      d1.style = "selectbuttonsselected"
+      d1.style = Settings.guiSelectButtonSelectedStyle
     elseif emitterTable["direction"] == defines.direction.south then
-      d2.style = "selectbuttonsselected"
+      d2.style = Settings.guiSelectButtonSelectedStyle
     elseif emitterTable["direction"] == defines.direction.east then
-      d3.style = "selectbuttonsselected"
+      d3.style = Settings.guiSelectButtonSelectedStyle
     elseif emitterTable["direction"] == defines.direction.west then
-      d4.style = "selectbuttonsselected"
+      d4.style = Settings.guiSelectButtonSelectedStyle
     end
 
     -- Type of forcefield
     configTable.add{type = "label", name = self.guiElementNames.fieldTypeLabel, caption = "Field type:"}
     local fields = configTable.add{type = "table", name = self.guiElementNames.fieldTypeTable, column_count = 4}
-    local f1 = fields.add{type = "sprite-button", name = self.guiElementNames.fieldTypeOptionB, sprite = "item/blue" .. Settings.fieldSuffix, style = "selectbuttons"}
-    local f2 = fields.add{type = "sprite-button", name = self.guiElementNames.fieldTypeOptionG, sprite = "item/green" .. Settings.fieldSuffix, style = "selectbuttons"}
-    local f3 = fields.add{type = "sprite-button", name = self.guiElementNames.fieldTypeOptionR, sprite = "item/red" .. Settings.fieldSuffix, style = "selectbuttons"}
-    local f4 = fields.add{type = "sprite-button", name = self.guiElementNames.fieldTypeOptionP, sprite = "item/purple" .. Settings.fieldSuffix, style = "selectbuttons"}
+    local f1 = fields.add{type = "sprite-button", name = self.guiElementNames.fieldTypeOptionB, sprite = "item/blue" .. Settings.fieldSuffix, style = Settings.guiSelectButtonStyle}
+    local f2 = fields.add{type = "sprite-button", name = self.guiElementNames.fieldTypeOptionG, sprite = "item/green" .. Settings.fieldSuffix, style = Settings.guiSelectButtonStyle}
+    local f3 = fields.add{type = "sprite-button", name = self.guiElementNames.fieldTypeOptionR, sprite = "item/red" .. Settings.fieldSuffix, style = Settings.guiSelectButtonStyle}
+    local f4 = fields.add{type = "sprite-button", name = self.guiElementNames.fieldTypeOptionP, sprite = "item/purple" .. Settings.fieldSuffix, style = Settings.guiSelectButtonStyle}
 
     if emitterTable["type"] == "blue" then
-      f1.style = "selectbuttonsselected"
+      f1.style = Settings.guiSelectButtonSelectedStyle
     elseif emitterTable["type"] == "green" then
-      f2.style = "selectbuttonsselected"
+      f2.style = Settings.guiSelectButtonSelectedStyle
     elseif emitterTable["type"] == "red" then
-      f3.style = "selectbuttonsselected"
+      f3.style = Settings.guiSelectButtonSelectedStyle
     elseif emitterTable["type"] == "purple" then
-      f4.style = "selectbuttonsselected"
+      f4.style = Settings.guiSelectButtonSelectedStyle
     end
 
     -- Distance of forcefield
@@ -231,7 +225,7 @@ function Gui:showEmitterGui(emitterTable, playerIndex)
     local buttonFlow = frame.add{type = "flow", name = self.guiElementNames.buttonFrame, direction = "horizontal"}
     buttonFlow.add{type = "button", name = self.guiElementNames.buttonHelp, caption = "?"}
     buttonFlow.add{type = "button", name = self.guiElementNames.buttonRemoveUpgrades, caption = "Remove all upgrades"}
-    buttonFlow.add{type = "sprite-button", name = self.guiElementNames.buttonConfigure, sprite = "entity/" .. Settings.configWallIconName, style = "selectbuttons"}
+    buttonFlow.add{type = "sprite-button", name = self.guiElementNames.buttonConfigure, sprite = "entity/" .. Settings.configWallIconName, style = Settings.guiSelectButtonStyle}
     buttonFlow.add{type = "button", name = self.guiElementNames.buttonApplySettings, caption = "Apply"}
 
     -- Save gui
@@ -250,7 +244,7 @@ end
 
 
 function Gui:createForcefieldGui(playerIndex, fieldWidth)
-  fieldWidth = 65
+  --fieldWidth = 65
   local player = game.players[playerIndex]
   local emitterTable = global.forcefields.emitterConfigGuis["I" .. playerIndex][1]
   local guiCenter = player.gui.center
@@ -269,12 +263,12 @@ function Gui:createForcefieldGui(playerIndex, fieldWidth)
     configTableHeader.style.column_alignments[2] = "right"
     configTableHeader.add{type = "label", name = self.guiElementNames.configRowOptionLabel, caption = "All"}
     configTableHeader.add{type = "label", name = self.guiElementNames.configRowDescriptionLabel, caption = ""}
-    configTableHeader.add{type = "sprite-button", name = self.guiElementNames.configRowOptionE, sprite = "utility/set_bar_slot", style = "smallselectbuttons"}
-    configTableHeader.add{type = "label", name = self.guiElementNames.configRowDescriptionLabelE, caption = "   empty   "}
-    configTableHeader.add{type = "sprite-button", name = self.guiElementNames.configRowOptionW, sprite = "item/stone-wall", style = "smallselectbuttons"}
-    configTableHeader.add{type = "label", name = self.guiElementNames.configRowDescriptionLabelW, caption = "wall   "}
-    configTableHeader.add{type = "sprite-button", name = self.guiElementNames.configRowOptionG, sprite = "item/gate", style = "smallselectbuttons"}
-    configTableHeader.add{type = "label", name = self.guiElementNames.configRowDescriptionLabelG, caption = "gate   "}
+    configTableHeader.add{type = "sprite-button", name = self.guiElementNames.configRowOption .. "E", sprite = "utility/set_bar_slot", style = Settings.guiSmallSelectButtonStyle}
+    configTableHeader.add{type = "label", name = self.guiElementNames.configRowDescriptionLabel .. "E", caption = "   empty   "}
+    configTableHeader.add{type = "sprite-button", name = self.guiElementNames.configRowOption .. "W", sprite = "item/stone-wall", style = Settings.guiSmallSelectButtonStyle}
+    configTableHeader.add{type = "label", name = self.guiElementNames.configRowDescriptionLabel .. "W", caption = "wall   "}
+    configTableHeader.add{type = "sprite-button", name = self.guiElementNames.configRowOption .. "G", sprite = "item/gate", style = Settings.guiSmallSelectButtonStyle}
+    configTableHeader.add{type = "label", name = self.guiElementNames.configRowDescriptionLabel .. "G", caption = "gate   "}
 
     -- Table row data
     local configTableSlider = configTable.add{type = "scroll-pane", name = self.guiElementNames.configTableSlider, horizontal_scroll_policy = "auto", vertical_scroll_policy = "never"}
@@ -287,16 +281,19 @@ function Gui:createForcefieldGui(playerIndex, fieldWidth)
       configTableData.add{type = "label", name = self.guiElementNames.configOptionLabel .. tostring(fieldIndex), caption = string.format("%02d", fieldIndex)}
     end
     for fieldIndex=1, fieldWidth do
-      configTableData.add{type = "sprite-button", name = self.guiElementNames.configOptionE .. tostring(fieldIndex), sprite = "utility/pump_cannot_connect_icon", style = "smallselectbuttons"}
+      configTableData.add{type = "sprite-button", name = self.guiElementNames.configOption .. "E" .. tostring(fieldIndex), sprite = "utility/pump_cannot_connect_icon", style = Settings.guiSmallSelectButtonStyle}
     end
     for fieldIndex=1, fieldWidth do
-      configTableData.add{type = "sprite-button", name = self.guiElementNames.configOptionW .. tostring(fieldIndex), sprite = "utility/pump_cannot_connect_icon", style = "smallselectbuttonsselected"}
+      configTableData.add{type = "sprite-button", name = self.guiElementNames.configOption .. "W" .. tostring(fieldIndex), sprite = "utility/pump_cannot_connect_icon", style = Settings.guiSmallSelectButtonStyle}
     end
     for fieldIndex=1, fieldWidth do
-      configTableData.add{type = "sprite-button", name = self.guiElementNames.configOptionG .. tostring(fieldIndex), sprite = "utility/pump_cannot_connect_icon", style = "smallselectbuttons"}
+      configTableData.add{type = "sprite-button", name = self.guiElementNames.configOption .. "G" .. tostring(fieldIndex), sprite = "utility/pump_cannot_connect_icon", style = Settings.guiSmallSelectButtonStyle}
+    end
+    for fieldIndex = 1, fieldWidth do --TODO: Set selected button
+      configTableData[self.guiElementNames.configOption .. "W" .. tostring(fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
     end
 
-    -- Buttons
+    -- Buttons on the bottom (cancel, save)
     -- TODO
 
   end
@@ -323,11 +320,11 @@ function Gui:handleGuiDirectionButtons(event)
     global.forcefields.emitterConfigGuis["I" .. playerIndex][2] = nameToDirection[event.element.name]
 
     -- Set the buttons accordingly to pressed selection
-    directions[self.guiElementNames.directionOptionN].style = "selectbuttons"
-    directions[self.guiElementNames.directionOptionS].style = "selectbuttons"
-    directions[self.guiElementNames.directionOptionE].style = "selectbuttons"
-    directions[self.guiElementNames.directionOptionW].style = "selectbuttons"
-    directions[event.element.name].style = "selectbuttonsselected"
+    directions[self.guiElementNames.directionOptionN].style = Settings.guiSelectButtonStyle
+    directions[self.guiElementNames.directionOptionS].style = Settings.guiSelectButtonStyle
+    directions[self.guiElementNames.directionOptionE].style = Settings.guiSelectButtonStyle
+    directions[self.guiElementNames.directionOptionW].style = Settings.guiSelectButtonStyle
+    directions[event.element.name].style = Settings.guiSelectButtonSelectedStyle
   end
 end
 
@@ -366,11 +363,11 @@ function Gui:handleGuiFieldTypeButtons(event)
       global.forcefields.emitterConfigGuis["I" .. playerIndex][3] = nameToFieldName[selectedButtonName]
 
       -- Set the buttons accordingly to pressed selection
-      fields[self.guiElementNames.fieldTypeOptionB].style = "selectbuttons"
-      fields[self.guiElementNames.fieldTypeOptionG].style = "selectbuttons"
-      fields[self.guiElementNames.fieldTypeOptionR].style = "selectbuttons"
-      fields[self.guiElementNames.fieldTypeOptionP].style = "selectbuttons"
-      fields[selectedButtonName].style = "selectbuttonsselected"
+      fields[self.guiElementNames.fieldTypeOptionB].style = Settings.guiSelectButtonStyle
+      fields[self.guiElementNames.fieldTypeOptionG].style = Settings.guiSelectButtonStyle
+      fields[self.guiElementNames.fieldTypeOptionR].style = Settings.guiSelectButtonStyle
+      fields[self.guiElementNames.fieldTypeOptionP].style = Settings.guiSelectButtonStyle
+      fields[selectedButtonName].style = Settings.guiSelectButtonSelectedStyle
     else
       player.print("You need to complete the required research before this field type can be used.")
     end
@@ -575,7 +572,6 @@ function Gui:verifyAndSetFromGui(playerIndex)
   local maxWidth
   local newWidthUpgrades
   local newDistanceUpgrades
-  local selectedButtonStyle = "selectbuttonsselected"
   local player = game.players[playerIndex]
   local settingsAreGood = true
   local settingsChanged = false

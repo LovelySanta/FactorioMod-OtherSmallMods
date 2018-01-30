@@ -64,6 +64,8 @@ Gui.guiElementNames =
   -- wall table
   fieldConfigTable = "fieldConfigTable",
   -- wall table header
+  fieldConfigLabelIndex = "fieldConfigLabelIndex",
+  fieldConfigLabelI = "fieldConfigLabelI",
   fieldConfigLabelE = "fieldConfigLabelE",
   fieldConfigLabelW = "fieldConfigLabelW",
   fieldConfigLabelG = "fieldConfigLabelG",
@@ -154,16 +156,16 @@ function Gui:showEmitterGui(emitterTable, playerIndex)
 
   -- Create the gui
   if canOpenGui and guiCenter and guiCenter.emitterConfig == nil then
-    local frame = guiCenter.add({type = "frame", name = self.guiElementNames.guiFrame, caption = game.entity_prototypes[Settings.emitterName].localised_name, direction = "vertical", style = frame_caption_label})
-    local configTable = frame.add({type ="table", name = self.guiElementNames.configTable, column_count = 2})
+    local frame = guiCenter.add{type = "frame", name = self.guiElementNames.guiFrame, caption = game.entity_prototypes[Settings.emitterName].localised_name, direction = "vertical", style = frame_caption_label}
+    local configTable = frame.add{type ="table", name = self.guiElementNames.configTable, column_count = 2}
 
     -- Direction of forcefield
-    configTable.add({type = "label", name = self.guiElementNames.directionLabel, caption = "Direction:                       "})
-    local directions = configTable.add({type = "table", name = self.guiElementNames.directionTable, column_count = 4})
-    local d1 = directions.add({type = "sprite-button", name = self.guiElementNames.directionOptionN, style = "selectbuttons", sprite = "virtual-signal/signal-N"})
-    local d2 = directions.add({type = "sprite-button", name = self.guiElementNames.directionOptionS, style = "selectbuttons", sprite = "virtual-signal/signal-S"})
-    local d3 = directions.add({type = "sprite-button", name = self.guiElementNames.directionOptionE, style = "selectbuttons", sprite = "virtual-signal/signal-E"})
-    local d4 = directions.add({type = "sprite-button", name = self.guiElementNames.directionOptionW, style = "selectbuttons", sprite = "virtual-signal/signal-W"})
+    configTable.add{type = "label", name = self.guiElementNames.directionLabel, caption = "Direction:                       "}
+    local directions = configTable.add{type = "table", name = self.guiElementNames.directionTable, column_count = 4}
+    local d1 = directions.add{type = "sprite-button", name = self.guiElementNames.directionOptionN, style = "selectbuttons", sprite = "virtual-signal/signal-N"}
+    local d2 = directions.add{type = "sprite-button", name = self.guiElementNames.directionOptionS, style = "selectbuttons", sprite = "virtual-signal/signal-S"}
+    local d3 = directions.add{type = "sprite-button", name = self.guiElementNames.directionOptionE, style = "selectbuttons", sprite = "virtual-signal/signal-E"}
+    local d4 = directions.add{type = "sprite-button", name = self.guiElementNames.directionOptionW, style = "selectbuttons", sprite = "virtual-signal/signal-W"}
 
     if emitterTable["direction"] == defines.direction.north then
       d1.style = "selectbuttonsselected"
@@ -176,12 +178,12 @@ function Gui:showEmitterGui(emitterTable, playerIndex)
     end
 
     -- Type of forcefield
-    configTable.add({type = "label", name = self.guiElementNames.fieldTypeLabel, caption = "Field type:"})
-    local fields = configTable.add({type = "table", name = self.guiElementNames.fieldTypeTable, column_count = 4})
-    local f1 = fields.add({type = "sprite-button", name = self.guiElementNames.fieldTypeOptionB, sprite = "item/blue" .. Settings.fieldSuffix, style = "selectbuttons"})
-    local f2 = fields.add({type = "sprite-button", name = self.guiElementNames.fieldTypeOptionG, sprite = "item/green" .. Settings.fieldSuffix, style = "selectbuttons"})
-    local f3 = fields.add({type = "sprite-button", name = self.guiElementNames.fieldTypeOptionR, sprite = "item/red" .. Settings.fieldSuffix, style = "selectbuttons"})
-    local f4 = fields.add({type = "sprite-button", name = self.guiElementNames.fieldTypeOptionP, sprite = "item/purple" .. Settings.fieldSuffix, style = "selectbuttons"})
+    configTable.add{type = "label", name = self.guiElementNames.fieldTypeLabel, caption = "Field type:"}
+    local fields = configTable.add{type = "table", name = self.guiElementNames.fieldTypeTable, column_count = 4}
+    local f1 = fields.add{type = "sprite-button", name = self.guiElementNames.fieldTypeOptionB, sprite = "item/blue" .. Settings.fieldSuffix, style = "selectbuttons"}
+    local f2 = fields.add{type = "sprite-button", name = self.guiElementNames.fieldTypeOptionG, sprite = "item/green" .. Settings.fieldSuffix, style = "selectbuttons"}
+    local f3 = fields.add{type = "sprite-button", name = self.guiElementNames.fieldTypeOptionR, sprite = "item/red" .. Settings.fieldSuffix, style = "selectbuttons"}
+    local f4 = fields.add{type = "sprite-button", name = self.guiElementNames.fieldTypeOptionP, sprite = "item/purple" .. Settings.fieldSuffix, style = "selectbuttons"}
 
     if emitterTable["type"] == "blue" then
       f1.style = "selectbuttonsselected"
@@ -194,37 +196,37 @@ function Gui:showEmitterGui(emitterTable, playerIndex)
     end
 
     -- Distance of forcefield
-    configTable.add({type = "label", name = self.guiElementNames.distanceLabel, caption = "Emitter distance:"})
-    local distance = configTable.add({type = "table", name = self.guiElementNames.distanceTable, column_count = 2})
-    distance.add({type = "textfield", name = self.guiElementNames.distanceInput, style = "distancetext"}).text = emitterTable["distance"]
-    distance.add({type = "label", name = self.guiElementNames.distanceMaxInput, caption = "Max: " .. tostring(Settings.emitterDefaultDistance + emitterTable["distance-upgrades"]), style = description_title_label})
+    configTable.add{type = "label", name = self.guiElementNames.distanceLabel, caption = "Emitter distance:"}
+    local distance = configTable.add{type = "table", name = self.guiElementNames.distanceTable, column_count = 2}
+    distance.add{type = "textfield", name = self.guiElementNames.distanceInput, style = "distancetext"}.text = emitterTable["distance"]
+    distance.add{type = "label", name = self.guiElementNames.distanceMaxInput, caption = "Max: " .. tostring(Settings.emitterDefaultDistance + emitterTable["distance-upgrades"]), style = description_title_label}
 
     -- Width of forcefield
-    configTable.add({type = "label", name = self.guiElementNames.widthLabel, caption = "Emitter width:"})
-    local width = configTable.add({type = "table", name = self.guiElementNames.widthTable, column_count = 2})
-    width.add({type = "textfield", name = self.guiElementNames.widthInput, style = "distancetext"}).text = emitterTable["width"]
-    width.add({type = "label", name = self.guiElementNames.widthMaxInput, caption = "Max: " .. tostring(Settings.emitterDefaultWidth + emitterTable["width-upgrades"] * Settings.widthUpgradeMultiplier), style = description_title_label})
+    configTable.add{type = "label", name = self.guiElementNames.widthLabel, caption = "Emitter width:"}
+    local width = configTable.add{type = "table", name = self.guiElementNames.widthTable, column_count = 2}
+    width.add{type = "textfield", name = self.guiElementNames.widthInput, style = "distancetext"}.text = emitterTable["width"]
+    width.add{type = "label", name = self.guiElementNames.widthMaxInput, caption = "Max: " .. tostring(Settings.emitterDefaultWidth + emitterTable["width-upgrades"] * Settings.widthUpgradeMultiplier), style = description_title_label}
 
     -- Upgrades of emitter
-    configTable.add({type = "label", name = self.guiElementNames.upgradesLabel, caption = "Upgrades applied:"})
-    local upgrades = configTable.add({type = "table", name = self.guiElementNames.upgradesTable, column_count = 2})
+    configTable.add{type = "label", name = self.guiElementNames.upgradesLabel, caption = "Upgrades applied:"}
+    local upgrades = configTable.add{type = "table", name = self.guiElementNames.upgradesTable, column_count = 2}
     if emitterTable["distance-upgrades"] ~= 0 then
-      upgrades.add({type = "button", name = self.guiElementNames.upgradesDistance, caption = "x" .. tostring(emitterTable["distance-upgrades"]), style = "advanced-circuit"})
+      upgrades.add{type = "button", name = self.guiElementNames.upgradesDistance, caption = "x" .. tostring(emitterTable["distance-upgrades"]), style = "advanced-circuit"}
     else
-      upgrades.add({type = "button", name = self.guiElementNames.upgradesDistance, caption = " ", style = "noitem"})
+      upgrades.add{type = "button", name = self.guiElementNames.upgradesDistance, caption = " ", style = "noitem"}
     end
     if emitterTable["width-upgrades"] ~= 0 then
-      upgrades.add({type = "button", name = self.guiElementNames.upgradesWidth, caption = "x" .. tostring(emitterTable["width-upgrades"]), style = "processing-unit"})
+      upgrades.add{type = "button", name = self.guiElementNames.upgradesWidth, caption = "x" .. tostring(emitterTable["width-upgrades"]), style = "processing-unit"}
     else
-      upgrades.add({type = "button", name = self.guiElementNames.upgradesWidth, caption = " ", style = "noitem"})
+      upgrades.add{type = "button", name = self.guiElementNames.upgradesWidth, caption = " ", style = "noitem"}
     end
 
     -- Bottom buttons
-    local buttonFlow = frame.add({type = "flow", name = self.guiElementNames.buttonFrame, direction = "horizontal"})
-    buttonFlow.add({type = "button", name = self.guiElementNames.buttonHelp, caption = "?"})
-    buttonFlow.add({type = "button", name = self.guiElementNames.buttonRemoveUpgrades, caption = "Remove all upgrades"})
-    buttonFlow.add({type = "sprite-button", name = self.guiElementNames.buttonConfigure, sprite = "item/iron-gear-wheel", style = "selectbuttons"})
-    buttonFlow.add({type = "button", name = self.guiElementNames.buttonApplySettings, caption = "Apply"})
+    local buttonFlow = frame.add{type = "flow", name = self.guiElementNames.buttonFrame, direction = "horizontal"}
+    buttonFlow.add{type = "button", name = self.guiElementNames.buttonHelp, caption = "?"}
+    buttonFlow.add{type = "button", name = self.guiElementNames.buttonRemoveUpgrades, caption = "Remove all upgrades"}
+    buttonFlow.add{type = "sprite-button", name = self.guiElementNames.buttonConfigure, sprite = "item/iron-gear-wheel", style = "selectbuttons"}
+    buttonFlow.add{type = "button", name = self.guiElementNames.buttonApplySettings, caption = "Apply"}
 
     -- Save gui
     if global.forcefields.emitterConfigGuis == nil then
@@ -248,33 +250,54 @@ function Gui:createForcefieldGui(playerIndex, fieldWidth)
 
   if guiCenter and guiCenter[self.guiElementNames.guiFrame] then
     local fieldOffset = (fieldWidth + 1)/2
-    local frame = guiCenter.add({type = "frame", name = self.guiElementNames.configFrame, caption = game.entity_prototypes[Settings.emitterName].localised_name, direction = "vertical", style = frame_caption_label})
-    local slider = frame.add({type = "scroll-pane", name = self.guiElementNames.configSlider, horizontal_scroll_policy = "auto"})
+    local frame = guiCenter.add{type = "frame", name = self.guiElementNames.configFrame, caption = game.entity_prototypes[Settings.emitterName].localised_name, direction = "vertical", style = frame_caption_label}
+    local slider = frame.add{type = "scroll-pane", name = self.guiElementNames.configSlider, horizontal_scroll_policy = "auto"}
     slider.style.maximal_width = math.floor(player.display_resolution.width*2/3)
-    local configTable = frame.add({type ="table", name = self.guiElementNames.fieldConfigTable, column_count = fieldWidth+2})
+    local configTable = frame.add{type ="table", name = self.guiElementNames.fieldConfigTable, column_count = fieldWidth+2}
+    for i=1, fieldWidth + 2 do
+      configTable.style.column_alignments[i] = "center"
+    end
+    configTable.style.column_alignments[2] = "center"
 
-    -- row header
-    configTable.add({type = "label", name = self.guiElementNames.fieldConfigLabelE, caption = " empty"})
-    -- column buttons - changes all fields at once
-    configTable.add({type = "sprite-button", name = self.guiElementNames.fieldConfigOptionE, sprite = "utility/set_bar_slot", style = "selectbuttons"})
+    -- Index
+    configTable.add{type = "label", name = self.guiElementNames.fieldConfigLabelIndex, caption = "All"}
+    configTable.add{type = "label", name = self.guiElementNames.fieldConfigLabelI, caption = ""}
+    local index
     for fieldIndex=1, fieldWidth do
-      configTable.add({type = "sprite-button", name = self.guiElementNames.fieldConfigOptionE .. tostring(fieldIndex-fieldOffset), sprite = "utility/pump_cannot_connect_icon"})
+      if fieldIndex < 10 then
+        index = "0" ..  tostring(fieldIndex)
+      else
+        index = tostring(fieldIndex)
+      end
+
+      local lbl = configTable.add{type = "label", name = self.guiElementNames.fieldConfigLabelI .. index, caption = index}
+      lbl.style.align = "center"
     end
 
-    -- row header
-    configTable.add({type = "label", name = self.guiElementNames.fieldConfigLabelW, caption = "    wall"})
+
     -- column buttons - changes all fields at once
-    configTable.add({type = "sprite-button", name = self.guiElementNames.fieldConfigOptionW, sprite = "item/stone-wall", style = "selectbuttons"})
+    configTable.add{type = "sprite-button", name = self.guiElementNames.fieldConfigOptionE, sprite = "utility/set_bar_slot", style = "smallselectbuttons"}
+    -- column text
+    configTable.add{type = "label", name = self.guiElementNames.fieldConfigLabelE, caption = "   empty   "}
     for fieldIndex=1, fieldWidth do
-      configTable.add({type = "sprite-button", name = self.guiElementNames.fieldConfigOptionW .. tostring(fieldIndex-fieldOffset), sprite = "utility/pump_cannot_connect_icon"})
+      configTable.add{type = "sprite-button", name = self.guiElementNames.fieldConfigOptionE .. tostring(fieldIndex-fieldOffset), sprite = "utility/pump_cannot_connect_icon", style = "smallselectbuttons"}
     end
 
-    -- row header
-    configTable.add({type = "label", name = self.guiElementNames.fieldConfigLabelG, caption = "   gate"})
     -- column buttons - changes all fields at once
-    configTable.add({type = "sprite-button", name = self.guiElementNames.fieldConfigOptionG, sprite = "item/gate", style = "selectbuttons"})
+    configTable.add{type = "sprite-button", name = self.guiElementNames.fieldConfigOptionW, sprite = "item/stone-wall", style = "smallselectbuttons"}
+    -- column text
+    configTable.add{type = "label", name = self.guiElementNames.fieldConfigLabelW, caption = "wall   "}
+
     for fieldIndex=1, fieldWidth do
-      configTable.add({type = "sprite-button", name = self.guiElementNames.fieldConfigOptionG .. tostring(fieldIndex-fieldOffset), sprite = "utility/pump_cannot_connect_icon"})
+      configTable.add{type = "sprite-button", name = self.guiElementNames.fieldConfigOptionW .. tostring(fieldIndex-fieldOffset), sprite = "utility/pump_cannot_connect_icon", style = "smallselectbuttonsselected"}
+    end
+
+    -- column buttons - changes all fields at once
+    configTable.add{type = "sprite-button", name = self.guiElementNames.fieldConfigOptionG, sprite = "item/gate", style = "smallselectbuttons"}
+    -- column text
+    configTable.add{type = "label", name = self.guiElementNames.fieldConfigLabelG, caption = "gate   "}
+    for fieldIndex=1, fieldWidth do
+      configTable.add{type = "sprite-button", name = self.guiElementNames.fieldConfigOptionG .. tostring(fieldIndex-fieldOffset), sprite = "utility/pump_cannot_connect_icon", style = "smallselectbuttons"}
     end
 
     -- TODO

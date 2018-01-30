@@ -58,21 +58,27 @@ Gui.guiElementNames =
   buttonApplySettings = "applyButton",
 
   -- FORCEFIELD GUI --
-  -- gui base
+  -- Gui base
   configFrame = "fieldConfig",
   configTableFrame = "fieldConfigTable",
 
-  -- wall table row header
+  -- Wall table row header
   configTableHeader = "fieldConfigTableHeader",
   configRowOptionLabel = "fieldConfigRowLabel",
   configRowOption = "fieldConfigRowOption",
   configRowDescriptionLabel = "fieldConfigRowDescriptionLabel",
 
-  -- wall table row data
+  -- Wall table row data
   configTableSlider = "fieldConfigSlider",
   configTableData = "fieldConfigTableData",
   configOptionLabel = "fieldConfigOptionLabel",
-  configOption = "fieldConfigOption"
+  configOption = "fieldConfigOption",
+
+  -- Bottom buttons
+  configButtonFrame = "fieldConfigButtons",
+  configButtonAlign = "fieldConfigButtonsAlign",
+  configCancelButton = "fieldConfigButtonsCancel",
+  configApplyButton = "fieldConfigButtonsApply",
 }
 
 
@@ -250,7 +256,6 @@ function Gui:createForcefieldGui(playerIndex, fieldWidth)
   local guiCenter = player.gui.center
 
   if guiCenter and guiCenter[self.guiElementNames.guiFrame] then
-    --local fieldOffset = (fieldWidth + 1)/2
 
     local frame = guiCenter.add{type = "frame", name = self.guiElementNames.configFrame, caption = game.entity_prototypes[Settings.emitterName].localised_name, direction = "vertical", style = frame_caption_label}
 
@@ -289,12 +294,29 @@ function Gui:createForcefieldGui(playerIndex, fieldWidth)
     for fieldIndex=1, fieldWidth do
       configTableData.add{type = "sprite-button", name = self.guiElementNames.configOption .. "G" .. tostring(fieldIndex), sprite = "utility/pump_cannot_connect_icon", style = Settings.guiSmallSelectButtonStyle}
     end
-    for fieldIndex = 1, fieldWidth do --TODO: Set selected button
-      configTableData[self.guiElementNames.configOption .. "W" .. tostring(fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
+
+    -- Select the correct setting for each wall
+    local fieldOffset = (fieldWidth + 1)/2
+    local emitterWallConfigTable = emitterTable["config"]
+    for fieldIndex = 1, fieldWidth do
+      local type = emitterWallConfigTable[fieldIndex-fieldOffset]
+      if type == Settings.fieldSuffix then
+        configTableData[self.guiElementNames.configOption .. "W" .. tostring(fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
+      elseif type == Settings.fieldGateSuffix then
+        configTableData[self.guiElementNames.configOption .. "G" .. tostring(fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
+      else
+        configTableData[self.guiElementNames.configOption .. "E" .. tostring(fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
+      end
     end
 
     -- Buttons on the bottom (cancel, save)
     -- TODO
+    local buttonFrame = frame.add{type = "table", name = self.guiElementNames.configButtonFrame, column_count = 3}
+    buttonFrame.style.horizontally_stretchable = true
+    local buttonAlign = buttonFrame.add{type = "flow", name = self.guiElementNames.configButtonAlign, direction = "horizontal"}
+    buttonAlign.style.horizontally_stretchable = true
+    buttonFrame.add{type = "button", name = self.guiElementNames.configCancelButton, caption = "Cancel changes"}
+    buttonFrame.add{type = "button", name = self.guiElementNames.configApplyButton, caption = "Save configuration"}
 
   end
 end
@@ -486,6 +508,8 @@ function Gui:handleConfigureButton(event)
       self:createForcefieldGui(event.player_index, width)
       -- It opened the configGui, now make the emitterGui invisible
       game.players[event.player_index].gui.center[self.guiElementNames.guiFrame].style.visible = false
+    else
+      game.print("TODO: Re-open wall config gui")
     end
   end
 end
@@ -493,7 +517,7 @@ end
 
 
 function Gui:handleGuiMenuButtons(event)
-  local playerIndex = event.element.player_index
+  local playerIndex = event.player_index
   local player = game.players[playerIndex]
   local frame = player.gui.center[self.guiElementNames.guiFrame]
   if frame ~= nil then
@@ -519,6 +543,7 @@ end
 
 
 function Gui:handleGuiConfigWallChange(event)
+  -- TODO
   game.print("pressed a single butt")
 end
 
@@ -527,6 +552,51 @@ end
 function Gui:handleGuiConfigWallRowChange(event)
   -- TODO
   game.print("pressed a row butt")
+end
+
+
+
+function Gui:handleGuiConfigWallClose(event)
+  local playerIndex = event.player_index
+  local guiCenter = game.players[playerIndex].gui.center
+  -- First we need to save the data
+  if event.element.name == self.guiElementNames.configCancelButton then
+    local configTable -- Undo all the changes that has been done
+    if not global.forcefields.emitterConfigGuis["I" .. playerIndex][4] then
+      -- No previous settings, still using the settings from the emitterTable
+      configTable = global.forcefields.emitterConfigGuis["I" .. playerIndex][1]["config"]
+    else
+      configTable = global.forcefields.emitterConfigGuis["I" .. playerIndex][4]
+    end
+
+    local configTableData = guiCenter[self.guiElementNames.configFrame][self.guiElementNames.configTableFrame][self.guiElementNames.configTableSlider][self.guiElementNames.configTableData]
+    local fieldWidth = (#configTableData.children_names)/4
+    local fieldOffset = (fieldWidth + 1)/2
+
+    -- Select the correct setting for each wall
+    for fieldIndex = 1, fieldWidth do
+      -- Default back to not selected
+      configTableData[self.guiElementNames.configOption .. "E" .. tostring(fieldIndex)].style = Settings.guiSmallSelectButtonStyle
+      configTableData[self.guiElementNames.configOption .. "W" .. tostring(fieldIndex)].style = Settings.guiSmallSelectButtonStyle
+      configTableData[self.guiElementNames.configOption .. "G" .. tostring(fieldIndex)].style = Settings.guiSmallSelectButtonStyle
+
+      -- Now select the correct setting
+      local type = configTable[fieldIndex-fieldOffset]
+      if type == Settings.fieldSuffix then
+        configTableData[self.guiElementNames.configOption .. "W" .. tostring(fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
+      elseif type == Settings.fieldGateSuffix then
+        configTableData[self.guiElementNames.configOption .. "G" .. tostring(fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
+      else
+        configTableData[self.guiElementNames.configOption .. "E" .. tostring(fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
+      end
+    end
+  elseif event.element.name == self.guiElementNames.configApplyButton then
+    game.print("TODO")
+  end
+
+  -- Now we need to change the guis back
+  guiCenter[self.guiElementNames.guiFrame].style.visible = true
+  guiCenter[self.guiElementNames.configFrame].style.visible = false
 end
 
 
@@ -553,9 +623,10 @@ Gui.guiButtonHandlers =
   [Gui.guiElementNames.buttonApplySettings] = Gui.handleGuiMenuButtons,
 
   -- Forcefield gui
-  -- TODO
   [Gui.guiElementNames.configOption] = Gui.handleGuiConfigWallChange,
   [Gui.guiElementNames.configRowOption] = Gui.handleGuiConfigWallRowChange,
+  [Gui.guiElementNames.configCancelButton] = Gui.handleGuiConfigWallClose,
+  [Gui.guiElementNames.configApplyButton] = Gui.handleGuiConfigWallClose,
 }
 
 

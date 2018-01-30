@@ -43,6 +43,7 @@ Settings.maxFieldDistance = math.max(Settings.emitterMaxDistance, Settings.emitt
 -- forcefields settings
 Settings.fieldSuffix = "-forcefield"
 Settings.fieldGateSuffix = "-forcefield-gate"
+Settings.fieldEmptySuffix = "-forcefield-empty"
 Settings.defaultFieldSuffix = Settings.fieldSuffix
 
 Settings.defaultFieldType = "blue"

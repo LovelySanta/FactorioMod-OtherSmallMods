@@ -60,7 +60,7 @@ Gui.guiElementNames =
   -- FORCEFIELD GUI --
   -- gui base
   configFrame = "fieldConfig",
-  configTable = "fieldConfigTable",
+  configTableFrame = "fieldConfigTable",
 
   -- wall table row header
   configTableHeader = "fieldConfigTableHeader",
@@ -72,7 +72,7 @@ Gui.guiElementNames =
   configTableSlider = "fieldConfigSlider",
   configTableData = "fieldConfigTableData",
   configOptionLabel = "fieldConfigOptionLabel",
-  configOption = "fieldConfig"
+  configOption = "fieldConfigOption"
 }
 
 
@@ -518,6 +518,19 @@ end
 
 
 
+function Gui:handleGuiConfigWallChange(event)
+  game.print("pressed a single butt")
+end
+
+
+
+function Gui:handleGuiConfigWallRowChange(event)
+  -- TODO
+  game.print("pressed a row butt")
+end
+
+
+
 Gui.guiButtonHandlers =
 {
   -- Emitter gui
@@ -537,10 +550,12 @@ Gui.guiButtonHandlers =
   [Gui.guiElementNames.buttonHelp] = Gui.handleGuiMenuButtons,
   [Gui.guiElementNames.buttonRemoveUpgrades] = Gui.handleGuiMenuButtons,
   [Gui.guiElementNames.buttonConfigure] = Gui.handleConfigureButton,
-  [Gui.guiElementNames.buttonApplySettings] = Gui.handleGuiMenuButtons
+  [Gui.guiElementNames.buttonApplySettings] = Gui.handleGuiMenuButtons,
 
   -- Forcefield gui
   -- TODO
+  [Gui.guiElementNames.configOption] = Gui.handleGuiConfigWallChange,
+  [Gui.guiElementNames.configRowOption] = Gui.handleGuiConfigWallRowChange,
 }
 
 

@@ -145,5 +145,10 @@ end)
 script.on_event(defines.events.on_gui_click, function(event)
   if Gui.guiButtonHandlers[event.element.name] then
     Gui.guiButtonHandlers[event.element.name](Gui, event)
+  -- Check for wall config button pressed
+  elseif string.find(event.element.name, Gui.guiElementNames.configOption) then
+    Gui.guiButtonHandlers[Gui.guiElementNames.configOption](Gui, event)
+  elseif string.find(event.element.name, Gui.guiElementNames.configRowOption) then
+    Gui.guiButtonHandlers[Gui.guiElementNames.configRowOption](Gui, event)
   end
 end)

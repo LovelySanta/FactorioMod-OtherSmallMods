@@ -134,8 +134,6 @@ data:extend(
       width = 32,
       height = 32,
       frame_count = 1,
-      width = 32,
-      height = 32,
       animation_speed = 1,
       line_length = 1,
       scale = 1,
@@ -175,5 +173,23 @@ data:extend(
       }
     },
     action_cooldown = 60
-  }
+  },
+
+  {
+    type = "simple-entity",
+    name = Settings.configWallIconName,
+    icon = Settings.modName .. "/graphics/gui/config-tool.png",
+    icon_size = 32,
+    picture =
+    {
+      filename = Settings.modName .. "/graphics/null.png",
+      priority = "low",
+      width = 32,
+      height = 32,
+      --frame_count = 1,
+      --animation_speed = 1,
+      --line_length = 1,
+      --scale = 1,
+    },
+  },
 })

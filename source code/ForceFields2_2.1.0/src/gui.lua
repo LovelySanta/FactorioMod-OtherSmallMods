@@ -225,7 +225,7 @@ function Gui:showEmitterGui(emitterTable, playerIndex)
     local buttonFlow = frame.add{type = "flow", name = self.guiElementNames.buttonFrame, direction = "horizontal"}
     buttonFlow.add{type = "button", name = self.guiElementNames.buttonHelp, caption = "?"}
     buttonFlow.add{type = "button", name = self.guiElementNames.buttonRemoveUpgrades, caption = "Remove all upgrades"}
-    buttonFlow.add{type = "sprite-button", name = self.guiElementNames.buttonConfigure, sprite = "item/iron-gear-wheel", style = "selectbuttons"}
+    buttonFlow.add{type = "sprite-button", name = self.guiElementNames.buttonConfigure, sprite = "entity/" .. Settings.configWallIconName, style = "selectbuttons"}
     buttonFlow.add{type = "button", name = self.guiElementNames.buttonApplySettings, caption = "Apply"}
 
     -- Save gui

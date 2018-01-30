@@ -7,6 +7,12 @@ Settings = {}
 Settings.modName = "__ForceFields2__"
 
 
+
+-- gui settings
+Settings.configWallIconName = "forcefield-config-tool"
+
+
+
 -- builder settings
 Settings.forcefieldBuildDamageName = "forcefield-build-damage"
 Settings.forcefieldDeathDamageName = "forcefield-death-damage"

@@ -147,6 +147,7 @@ function getBaseTextfieldStyle()
 end
 
 
+
 -- Upgrade button slots
 data.raw["gui-style"].default["noitem"] = getBaseItemSlotButtonStyle()
 

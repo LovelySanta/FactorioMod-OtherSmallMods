@@ -67,71 +67,14 @@ end
 
 
 
-function getBaseSelectButtonStyle(isSelected)
-  if isSelected then
-    -- Button is selected
-    return util.table.deepcopy(
+function getBaseSelectButtonStyle(isSelected, dimensions, scalable)
+  local selectButtonStyle =
     {
       type = "button_style",
       font = "default-button",
       default_font_color={r=1, g=1, b=1},
       align = "center",
-      top_padding = 3,
-      right_padding = 3,
-      bottom_padding = 3,
-      left_padding = 3,
-      minimal_width = 42,
-      minimal_height = 42,
-      default_graphical_set =
-      {
-        type = "composition",
-        filename = "__core__/graphics/gui.png",
-        priority = "extra-high-no-scale",
-        corner_size = {3, 3},
-        position = {0, 16}
-      },
-      hovered_font_color={r=1, g=1, b=1},
-      hovered_graphical_set =
-      {
-        type = "composition",
-        filename = "__core__/graphics/gui.png",
-        priority = "extra-high-no-scale",
-        corner_size = {3, 3},
-        position = {0, 8}
-      },
-      clicked_font_color={r=1, g=1, b=1},
-      clicked_graphical_set =
-      {
-        type = "composition",
-        filename = "__core__/graphics/gui.png",
-        priority = "extra-high-no-scale",
-        corner_size = {3, 3},
-        position = {0, 16}
-      },
-      disabled_font_color={r=0.5, g=0.5, b=0.5},
-      disabled_graphical_set =
-      {
-        type = "composition",
-        filename = "__core__/graphics/gui.png",
-        priority = "extra-high-no-scale",
-        corner_size = {3, 3},
-        position = {0, 0}
-      }
-    })
-  else
-    -- button is not selected
-    return util.table.deepcopy(
-    {
-      type = "button_style",
-      font = "default-button",
-      default_font_color={r=1, g=1, b=1},
-      align = "center",
-      top_padding = 3,
-      right_padding = 3,
-      bottom_padding = 3,
-      left_padding = 3,
-      minimal_width = 42,
-      minimal_height = 42,
+      scalable = scalable,
       default_graphical_set =
       {
         type = "composition",
@@ -167,8 +110,17 @@ function getBaseSelectButtonStyle(isSelected)
         corner_size = {3, 3},
         position = {0, 0}
       }
-    })
+    }
+
+  for k, v in pairs(dimensions) do
+    selectButtonStyle[k] = v
   end
+
+  if isSelected then
+    selectButtonStyle.default_graphical_set.position = {0, 16}
+  end
+
+  return util.table.deepcopy(selectButtonStyle)
 end
 
 
@@ -217,8 +169,25 @@ processingUnit.clicked_graphical_set.monolith_image.x = 0
 data.raw["gui-style"].default["processing-unit"] = processingUnit
 
 -- Select buttons
-data.raw["gui-style"].default["selectbuttons"] = getBaseSelectButtonStyle(false)
-data.raw["gui-style"].default["selectbuttonsselected"] = getBaseSelectButtonStyle(true)
+local selectButtonDimensions =
+  {
+    top_padding = 3,
+    right_padding = 3,
+    bottom_padding = 3,
+    left_padding = 3,
+    minimal_width = 42,
+    minimal_height = 42
+  }
+data.raw["gui-style"].default["selectbuttons"] = getBaseSelectButtonStyle(false, selectButtonDimensions)
+data.raw["gui-style"].default["selectbuttonsselected"] = getBaseSelectButtonStyle(true, selectButtonDimensions)
+
+local smallSelectButtonDimensions =
+  {
+    width = 30,
+    height = 30
+  }
+data.raw["gui-style"].default["smallselectbuttons"] = getBaseSelectButtonStyle(false, smallSelectButtonDimensions, false)
+data.raw["gui-style"].default["smallselectbuttonsselected"] = getBaseSelectButtonStyle(true, smallSelectButtonDimensions, false)
 
 -- Text field
 data.raw["gui-style"].default["distancetext"] = getBaseTextfieldStyle()

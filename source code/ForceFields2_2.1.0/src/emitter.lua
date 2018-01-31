@@ -17,6 +17,9 @@ function Emitter:onEmitterBuilt(createdEntity)
     global.forcefields.emitters = {}
     global.forcefields.emitterNEI = 1 -- NextEmitterIndex
   end
+  local maxWidth = Settings.emitterMaxWidth
+  local offset = (maxWidth + 1)/2
+  local defaultType = Settings.defaultFieldSuffix
 
   -- emitter data
   newEmitter["entity"] = createdEntity
@@ -24,6 +27,9 @@ function Emitter:onEmitterBuilt(createdEntity)
   -- emitter settings
   newEmitter["type"] = Settings.defaultFieldType
   newEmitter["config"] = {}
+  for i=1, maxWidth do
+    newEmitter["config"][i-offset] = defaultType
+  end
   newEmitter["distance"] = Settings.emitterDefaultDistance
   newEmitter["width"] = Settings.emitterDefaultWidth
   newEmitter["direction"] = defines.direction.north
@@ -50,20 +56,9 @@ function Emitter:onEmitterBuilt(createdEntity)
         break
       end
     end
-  else
-    -- If it can't copy old settings, we need to fill it with default values
-    local maxWidth = Settings.emitterMaxWidth
-    local offset = (maxWidth + 1)/2
-    local defaultType = Settings.defaultFieldSuffix
-    for i=1, maxWidth do
-      newEmitter["config"][i-offset] = defaultType
-    end
-    --newEmitter["config"][0] = Settings.fieldGateSuffix
-    --newEmitter["config"][1] = Settings.fieldGateSuffix
-    --newEmitter["config"][-1] = Settings.fieldGateSuffix
   end
 
-  global.forcefields.emitters["I" .. global.forcefields.emitterNEI] = newEmitter
+  global.forcefields.emitters["I" .. global.forcefields.emitterNEI] = util.table.deepcopy(newEmitter)
   global.forcefields.emitterNEI = global.forcefields.emitterNEI + 1
 
   self:setActive(newEmitter, true, true)

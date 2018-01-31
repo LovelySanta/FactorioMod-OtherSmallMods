@@ -12,13 +12,20 @@ end
 
 
 function tablesAreEqual(t1, t2)
-  if type(t1) ~= 'table' or type(t2) ~= 'table' then return a == b end
+  if type(t1) ~= 'table' or type(t2) ~= 'table' then
+    return t1 == t2
+  end
   for k,v in pairs(t1) do
-    if not tablesAreEqual(v, t2[v]) then return false end
+    if not tablesAreEqual(v, t2[k]) then
+      return false
+    end
   end
   for k,v in pairs(t2) do
-    if not tablesAreEqual(v, t1[v]) then return false end
+    if not tablesAreEqual(v, t1[k]) then
+      return false
+    end
   end
+  return true
 end
 
 

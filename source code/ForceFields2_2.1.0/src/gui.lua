@@ -656,7 +656,7 @@ function Gui:handleGuiConfigWallClose(event)
   local configTable -- Undo all the changes that has been done
   if not global.forcefields.emitterConfigGuis["I" .. playerIndex][4] then
     -- No previous settings, still using the settings from the emitterTable
-    configTable = global.forcefields.emitterConfigGuis["I" .. playerIndex][1]["config"]
+    configTable = util.table.deepcopy(global.forcefields.emitterConfigGuis["I" .. playerIndex][1]["config"])
   else
     -- There where settings when opened, lets use these
     configTable = global.forcefields.emitterConfigGuis["I" .. playerIndex][4]

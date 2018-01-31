@@ -846,7 +846,7 @@ function Gui:verifyAndSetFromGui(playerIndex)
         or emitterTable["distance"] ~= newDistance
         or emitterTable["type"] ~= newFieldType
         or emitterTable["direction"] ~= newDirection
-        or emitterTable["config"] ~= newFieldConfig then
+        or not tablesAreEqual(emitterTable["config"], newFieldConfig) then
 
         Forcefield:degradeLinkedFields(emitterTable)
         emitterTable["damaged-fields"] = nil

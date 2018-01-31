@@ -115,8 +115,8 @@ function Forcefield:scanAndBuildFields(emitterTable)
       end
 
       for n=1,incTimes do
-        -- If another emitter (or even this one previously) has built a field at this location, skip trying to build there
-        if fields[index][pos.x] == nil or fields[index][pos.x][pos.y] == nil then
+        -- If another emitter (or even this one previously) has built a field at this location, skip trying to build there, same if we don't have to build here
+        if (fields[index][pos.x] == nil or fields[index][pos.x][pos.y] == nil) and emitterTable["config"][n-fieldConfigOffset] ~= Settings.fieldEmptySuffix then
           -- If that spot has no field, we need to try and build one
           local fieldEntityName = emitterTable["type"] .. emitterTable["config"][n-fieldConfigOffset]
           -- check if we can build the field

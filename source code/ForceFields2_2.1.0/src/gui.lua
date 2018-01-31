@@ -256,7 +256,7 @@ function Gui:createForcefieldGui(playerIndex, fieldWidth)
   local player = game.players[playerIndex]
   local emitterTable = global.forcefields.emitterConfigGuis["I" .. playerIndex][1]
   local guiCenter = player.gui.center
-
+  local configTableSlider
   if guiCenter and guiCenter[self.guiElementNames.guiFrame] then
     if not guiCenter[self.guiElementNames.configFrame] then
       -- If config gui doesn't exist yet we have to make it
@@ -279,38 +279,8 @@ function Gui:createForcefieldGui(playerIndex, fieldWidth)
       configTableHeader.add{type = "label", name = self.guiElementNames.configRowDescriptionLabel .. "G", caption = "gate   "}
 
       -- Table row data
-      local configTableSlider = configTable.add{type = "scroll-pane", name = self.guiElementNames.configTableSlider, horizontal_scroll_policy = "auto", vertical_scroll_policy = "never"}
+      configTableSlider = configTable.add{type = "scroll-pane", name = self.guiElementNames.configTableSlider, horizontal_scroll_policy = "auto", vertical_scroll_policy = "never"}
       configTableSlider.style.maximal_width = math.floor(player.display_resolution.width/2)
-      local configTableData = configTableSlider.add{type ="table", name = self.guiElementNames.configTableData, column_count = fieldWidth}
-      for fieldIndex=1, fieldWidth do
-        configTableData.style.column_alignments[fieldIndex] = "center"
-      end
-      for fieldIndex=1, fieldWidth do
-        configTableData.add{type = "label", name = self.guiElementNames.configOptionLabel ..string.format("%02d", fieldIndex), caption = string.format("%02d", fieldIndex)}
-      end
-      for fieldIndex=1, fieldWidth do
-        configTableData.add{type = "sprite-button", name = self.guiElementNames.configOption .. "E" .. string.format("%02d", fieldIndex), sprite = "utility/pump_cannot_connect_icon", style = Settings.guiSmallSelectButtonStyle}
-      end
-      for fieldIndex=1, fieldWidth do
-        configTableData.add{type = "sprite-button", name = self.guiElementNames.configOption .. "W" .. string.format("%02d", fieldIndex), sprite = "utility/pump_cannot_connect_icon", style = Settings.guiSmallSelectButtonStyle}
-      end
-      for fieldIndex=1, fieldWidth do
-        configTableData.add{type = "sprite-button", name = self.guiElementNames.configOption .. "G" .. string.format("%02d", fieldIndex), sprite = "utility/pump_cannot_connect_icon", style = Settings.guiSmallSelectButtonStyle}
-      end
-
-      -- Select the correct setting for each wall
-      local fieldOffset = (fieldWidth + 1)/2
-      local emitterWallConfigTable = emitterTable["config"]
-      for fieldIndex = 1, fieldWidth do
-        local type = emitterWallConfigTable[fieldIndex-fieldOffset]
-        if type == Settings.fieldSuffix then
-          configTableData[self.guiElementNames.configOption .. "W" .. string.format("%02d", fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
-        elseif type == Settings.fieldGateSuffix then
-          configTableData[self.guiElementNames.configOption .. "G" .. string.format("%02d", fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
-        else
-          configTableData[self.guiElementNames.configOption .. "E" .. string.format("%02d", fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
-        end
-      end
 
       -- Buttons on the bottom (cancel, save)
       local buttonFrame = frame.add{type = "table", name = self.guiElementNames.configButtonFrame, column_count = 3}
@@ -320,7 +290,42 @@ function Gui:createForcefieldGui(playerIndex, fieldWidth)
       buttonFrame.add{type = "button", name = self.guiElementNames.configCancelButton, caption = "Cancel changes"}
       buttonFrame.add{type = "button", name = self.guiElementNames.configApplyButton, caption = "Save configuration"}
     else -- gui already exist, now we have to recreate it if needed
-      game.print("TODO: Re-open wall config gui")
+      local frame = guiCenter[self.guiElementNames.configFrame]
+      frame.style.visible = true
+      configTableSlider = frame[self.guiElementNames.configTableFrame][self.guiElementNames.configTableSlider]
+      -- recreate the gui
+      configTableSlider[self.guiElementNames.configTableData].destroy()
+    end
+
+    local configTableData = configTableSlider.add{type ="table", name = self.guiElementNames.configTableData, column_count = fieldWidth}
+    for fieldIndex=1, fieldWidth do
+      configTableData.style.column_alignments[fieldIndex] = "center"
+    end
+    for fieldIndex=1, fieldWidth do
+      configTableData.add{type = "label", name = self.guiElementNames.configOptionLabel ..string.format("%02d", fieldIndex), caption = string.format("%02d", fieldIndex)}
+    end
+    for fieldIndex=1, fieldWidth do
+      configTableData.add{type = "sprite-button", name = self.guiElementNames.configOption .. "E" .. string.format("%02d", fieldIndex), sprite = "utility/pump_cannot_connect_icon", style = Settings.guiSmallSelectButtonStyle}
+    end
+    for fieldIndex=1, fieldWidth do
+      configTableData.add{type = "sprite-button", name = self.guiElementNames.configOption .. "W" .. string.format("%02d", fieldIndex), sprite = "utility/pump_cannot_connect_icon", style = Settings.guiSmallSelectButtonStyle}
+    end
+    for fieldIndex=1, fieldWidth do
+      configTableData.add{type = "sprite-button", name = self.guiElementNames.configOption .. "G" .. string.format("%02d", fieldIndex), sprite = "utility/pump_cannot_connect_icon", style = Settings.guiSmallSelectButtonStyle}
+    end
+
+    -- Select the correct setting for each wall
+    local fieldOffset = (fieldWidth + 1)/2
+    local emitterWallConfigTable = emitterTable["config"]
+    for fieldIndex = 1, fieldWidth do
+      local type = emitterWallConfigTable[fieldIndex-fieldOffset]
+      if type == Settings.fieldSuffix then
+        configTableData[self.guiElementNames.configOption .. "W" .. string.format("%02d", fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
+      elseif type == Settings.fieldGateSuffix then
+        configTableData[self.guiElementNames.configOption .. "G" .. string.format("%02d", fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
+      else
+        configTableData[self.guiElementNames.configOption .. "E" .. string.format("%02d", fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
+      end
     end
   end
 end

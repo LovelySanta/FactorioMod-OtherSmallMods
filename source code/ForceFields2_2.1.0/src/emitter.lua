@@ -297,9 +297,9 @@ function Emitter:updateTick()
     shouldKeepTicking = true
     for k,v in pairs(global.forcefields.degradingFields) do
       -- TODO change v[entity] in config change + add position and surface
-      if not v["fieldEntity"] and v["entity"] then
-        v["fieldEntity"] = v["entity"]
-      end
+      --if not v["fieldEntity"] and v["entity"] then
+      --  v["fieldEntity"] = v["entity"]
+      --end
       if v["fieldEntity"].valid then
         v["fieldEntity"].health = v["fieldEntity"].health - (Settings.forcefieldTypes[v["fieldEntity"].name]["degradeRate"] * Settings.tickRate)
         if v["fieldEntity"].health == 0 then
@@ -320,7 +320,7 @@ function Emitter:updateTick()
     local searchDamagedPos = global.forcefields.searchDamagedPos
     shouldKeepTicking = true
     -- for each damages position
-    for index,xs in pairs (global.forcefields.searchDamagedPos) do
+    for index,xs in pairs (searchDamagedPos) do
       local surface = game.surfaces[index]
 
       -- for each sy location in each sx location

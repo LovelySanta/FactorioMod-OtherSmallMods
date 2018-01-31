@@ -286,16 +286,16 @@ function Gui:createForcefieldGui(playerIndex, fieldWidth)
         configTableData.style.column_alignments[fieldIndex] = "center"
       end
       for fieldIndex=1, fieldWidth do
-        configTableData.add{type = "label", name = self.guiElementNames.configOptionLabel .. tostring(fieldIndex), caption = string.format("%02d", fieldIndex)}
+        configTableData.add{type = "label", name = self.guiElementNames.configOptionLabel ..string.format("%02d", fieldIndex), caption = string.format("%02d", fieldIndex)}
       end
       for fieldIndex=1, fieldWidth do
-        configTableData.add{type = "sprite-button", name = self.guiElementNames.configOption .. "E" .. tostring(fieldIndex), sprite = "utility/pump_cannot_connect_icon", style = Settings.guiSmallSelectButtonStyle}
+        configTableData.add{type = "sprite-button", name = self.guiElementNames.configOption .. "E" .. string.format("%02d", fieldIndex), sprite = "utility/pump_cannot_connect_icon", style = Settings.guiSmallSelectButtonStyle}
       end
       for fieldIndex=1, fieldWidth do
-        configTableData.add{type = "sprite-button", name = self.guiElementNames.configOption .. "W" .. tostring(fieldIndex), sprite = "utility/pump_cannot_connect_icon", style = Settings.guiSmallSelectButtonStyle}
+        configTableData.add{type = "sprite-button", name = self.guiElementNames.configOption .. "W" .. string.format("%02d", fieldIndex), sprite = "utility/pump_cannot_connect_icon", style = Settings.guiSmallSelectButtonStyle}
       end
       for fieldIndex=1, fieldWidth do
-        configTableData.add{type = "sprite-button", name = self.guiElementNames.configOption .. "G" .. tostring(fieldIndex), sprite = "utility/pump_cannot_connect_icon", style = Settings.guiSmallSelectButtonStyle}
+        configTableData.add{type = "sprite-button", name = self.guiElementNames.configOption .. "G" .. string.format("%02d", fieldIndex), sprite = "utility/pump_cannot_connect_icon", style = Settings.guiSmallSelectButtonStyle}
       end
 
       -- Select the correct setting for each wall
@@ -304,11 +304,11 @@ function Gui:createForcefieldGui(playerIndex, fieldWidth)
       for fieldIndex = 1, fieldWidth do
         local type = emitterWallConfigTable[fieldIndex-fieldOffset]
         if type == Settings.fieldSuffix then
-          configTableData[self.guiElementNames.configOption .. "W" .. tostring(fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
+          configTableData[self.guiElementNames.configOption .. "W" .. string.format("%02d", fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
         elseif type == Settings.fieldGateSuffix then
-          configTableData[self.guiElementNames.configOption .. "G" .. tostring(fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
+          configTableData[self.guiElementNames.configOption .. "G" .. string.format("%02d", fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
         else
-          configTableData[self.guiElementNames.configOption .. "E" .. tostring(fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
+          configTableData[self.guiElementNames.configOption .. "E" .. string.format("%02d", fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
         end
       end
 
@@ -548,15 +548,92 @@ end
 
 
 function Gui:handleGuiConfigWallChange(event)
-  -- TODO
-  game.print("pressed a single butt")
+  -- Get the button info
+  local buttonId = string.sub(event.element.name, -3)
+  local fieldConfig = string.sub(buttonId,1,1)
+  local fieldIndex = string.sub(buttonId, -2)
+
+  -- If its a gate, check if we have the required research
+  if fieldConfig == "G" then
+    local playerIndex = event.player_index
+    local player = game.players[playerIndex]
+    local force = player.force
+    local fieldType
+    if global.forcefields.emitterConfigGuis["I" .. playerIndex][3] ~= nil then
+      fieldType = global.forcefields.emitterConfigGuis["I" .. playerIndex][3]
+    else
+      fieldType = global.forcefields.emitterConfigGuis["I" .. playerIndex][1]["type"]
+    end
+
+    if fieldType == "blue" and not force.technologies["force-field-gates"].researched
+      or fieldType == "green" and not force.technologies["green-field-gates"].researched
+      or fieldType == "purple" and not force.technologies["purple-field-gates"].researched
+      or fieldType == "red" and not force.technologies["red-field-gates"].researched then
+      player.print("You need to complete the required research before gates of this field type can be used.")
+      return
+    end
+  end
+
+  -- Change to new selection
+  local configTableData = event.element.parent
+  configTableData[self.guiElementNames.configOption .. "E" .. fieldIndex].style = Settings.guiSmallSelectButtonStyle
+  configTableData[self.guiElementNames.configOption .. "W" .. fieldIndex].style = Settings.guiSmallSelectButtonStyle
+  configTableData[self.guiElementNames.configOption .. "G" .. fieldIndex].style = Settings.guiSmallSelectButtonStyle
+  configTableData[self.guiElementNames.configOption .. fieldConfig .. fieldIndex].style = Settings.guiSmallSelectButtonSelectedStyle
 end
 
 
 
 function Gui:handleGuiConfigWallRowChange(event)
-  -- TODO
-  game.print("pressed a row butt")
+  -- Select the correct styles for each row
+  local playerIndex = event.player_index
+  local fieldConfig = string.sub(event.element.name, -1)
+  local StyleE, styleW, styleG
+
+  if fieldConfig == "E" then
+    styleE = Settings.guiSmallSelectButtonSelectedStyle
+    styleW = Settings.guiSmallSelectButtonStyle
+    styleG = Settings.guiSmallSelectButtonStyle
+
+  elseif fieldConfig == "G" then
+    -- If its a gate, check if we have the required research
+    local player = game.players[playerIndex]
+    local force = player.force
+    local fieldType
+    if global.forcefields.emitterConfigGuis["I" .. playerIndex][3] ~= nil then
+      fieldType = global.forcefields.emitterConfigGuis["I" .. playerIndex][3]
+    else
+      fieldType = global.forcefields.emitterConfigGuis["I" .. playerIndex][1]["type"]
+    end
+
+    if fieldType == "blue" and not force.technologies["force-field-gates"].researched
+      or fieldType == "green" and not force.technologies["green-field-gates"].researched
+      or fieldType == "purple" and not force.technologies["purple-field-gates"].researched
+      or fieldType == "red" and not force.technologies["red-field-gates"].researched then
+      player.print("You need to complete the required research before gates of this field type can be used.")
+      return
+    end
+
+    styleE = Settings.guiSmallSelectButtonStyle
+    styleW = Settings.guiSmallSelectButtonStyle
+    styleG = Settings.guiSmallSelectButtonSelectedStyle
+
+  else -- default == "W"
+    styleE = Settings.guiSmallSelectButtonStyle
+    styleW = Settings.guiSmallSelectButtonSelectedStyle
+    styleG = Settings.guiSmallSelectButtonStyle
+  end
+
+  -- Now change all the buttons
+  local guiCenter = game.players[playerIndex].gui.center
+  local emitterConfigTable = guiCenter[self.guiElementNames.guiFrame][self.guiElementNames.configTable]
+  local fieldWidth = tonumber(emitterConfigTable[self.guiElementNames.widthTable][self.guiElementNames.widthInput].text)
+  local configTableData = guiCenter[self.guiElementNames.configFrame][self.guiElementNames.configTableFrame][self.guiElementNames.configTableSlider][self.guiElementNames.configTableData]
+  for fieldIndex = 1, fieldWidth do
+    configTableData[self.guiElementNames.configOption .. "E" .. string.format("%02d", fieldIndex)].style = styleE
+    configTableData[self.guiElementNames.configOption .. "W" .. string.format("%02d", fieldIndex)].style = styleW
+    configTableData[self.guiElementNames.configOption .. "G" .. string.format("%02d", fieldIndex)].style = styleG
+  end
 end
 
 
@@ -585,27 +662,27 @@ function Gui:handleGuiConfigWallClose(event)
     -- Redo the the correct setting for each wall
     for fieldIndex = 1, fieldWidth do
       -- Default back to not selected
-      configTableData[self.guiElementNames.configOption .. "E" .. tostring(fieldIndex)].style = Settings.guiSmallSelectButtonStyle
-      configTableData[self.guiElementNames.configOption .. "W" .. tostring(fieldIndex)].style = Settings.guiSmallSelectButtonStyle
-      configTableData[self.guiElementNames.configOption .. "G" .. tostring(fieldIndex)].style = Settings.guiSmallSelectButtonStyle
+      configTableData[self.guiElementNames.configOption .. "E" .. string.format("%02d", fieldIndex)].style = Settings.guiSmallSelectButtonStyle
+      configTableData[self.guiElementNames.configOption .. "W" .. string.format("%02d", fieldIndex)].style = Settings.guiSmallSelectButtonStyle
+      configTableData[self.guiElementNames.configOption .. "G" .. string.format("%02d", fieldIndex)].style = Settings.guiSmallSelectButtonStyle
 
       -- Now select the correct setting
       local type = configTable[fieldIndex-fieldOffset]
       if type == Settings.fieldSuffix then
-        configTableData[self.guiElementNames.configOption .. "W" .. tostring(fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
+        configTableData[self.guiElementNames.configOption .. "W" .. string.format("%02d", fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
       elseif type == Settings.fieldGateSuffix then
-        configTableData[self.guiElementNames.configOption .. "G" .. tostring(fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
+        configTableData[self.guiElementNames.configOption .. "G" .. string.format("%02d", fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
       else
-        configTableData[self.guiElementNames.configOption .. "E" .. tostring(fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
+        configTableData[self.guiElementNames.configOption .. "E" .. string.format("%02d", fieldIndex)].style = Settings.guiSmallSelectButtonSelectedStyle
       end
     end
 
   elseif event.element.name == self.guiElementNames.configApplyButton then
     -- Extract info out of the gui
     for fieldIndex = 1, fieldWidth do
-      if configTableData[self.guiElementNames.configOption .. "W" .. tostring(fieldIndex)].style.name == Settings.guiSmallSelectButtonSelectedStyle then
+      if configTableData[self.guiElementNames.configOption .. "W" .. string.format("%02d", fieldIndex)].style.name == Settings.guiSmallSelectButtonSelectedStyle then
         configTable[fieldIndex-fieldOffset] = Settings.fieldSuffix
-      elseif configTableData[self.guiElementNames.configOption .. "G" .. tostring(fieldIndex)].style.name == Settings.guiSmallSelectButtonSelectedStyle then
+      elseif configTableData[self.guiElementNames.configOption .. "G" .. string.format("%02d", fieldIndex)].style.name == Settings.guiSmallSelectButtonSelectedStyle then
         configTable[fieldIndex-fieldOffset] = Settings.fieldGateSuffix
       else
         configTable[fieldIndex-fieldOffset] = Settings.fieldEmptySuffix

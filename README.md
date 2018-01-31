@@ -10,7 +10,7 @@
 
 #### Force Fields
 * Description: Adds multiple types of electric powered, self healing walls to keep the biters out.
-* Latest version: 2.0.3
+* Latest version: 2.1.0
 
 #### Land Mover
 * Description: A mod that removes the recipe of landfill. Use land mover instead: dig a hole, get the land, place it elsewhere
@@ -21,6 +21,17 @@
 * Latest version: 0.1.3
 
 # Changelog
+#### Force Fields [v2.1.0]
+* Added Forcefield gates
+* Added ability to disable wall sections
+* Added changelog
+* Balancing technology cost to reflect the dificulty/OP-ness
+* GUI has sprite buttons on the direction and wall type
+* New on_entity_damaged event as released in 0.16.17
+* Removed quick fix from version 2.0.1 as vanilla game fixed it
+* Fixed the red/green light where not showing when connected to a gate
+
+-----
 #### Land Mover [v0.1.5]
 * Added ingame changelog
 * Factorio version 0.16.17: new on_player_built_tile event

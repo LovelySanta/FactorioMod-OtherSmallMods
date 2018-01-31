@@ -1,10 +1,11 @@
 ---------------------------------------------------------------------------------------------------
-Version: 2.0.4
-Date: 27. 01. 2018
+Version: 2.1.0
+Date: 01. 02. 2018
   Major Features:
     - Added Forcefield gates
   Feature:
-    - Added Changelog
+    - Added changelog
+    - Added ability to disable wall sections
   Changes:
     - Balancing technology cost to reflect the dificulty/OP-ness
     - GUI has sprite buttons on the direction and wall type

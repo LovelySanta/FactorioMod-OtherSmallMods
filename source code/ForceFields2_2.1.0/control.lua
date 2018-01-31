@@ -113,7 +113,7 @@ script.on_event(defines.events.on_canceled_deconstruction, function(event)
     local emitterTable = Emitter:findEmitter(event.entity)
     if emitterTable ~= nil then
       emitterTable["disabled"] = false
-      Forcefield:setActive(emitterTable, true)
+      Emitter:setActive(emitterTable, true)
     end
   end
 end)

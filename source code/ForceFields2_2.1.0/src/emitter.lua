@@ -367,7 +367,7 @@ end
 
 function Emitter:removeActiveEmitterID(activeEmitterID)
   -- Returns true if the global.forcefields.activeEmitters table isn't empty
-  if global.forcefields.activeEmitters ~= nil then
+  if global.forcefields.activeEmitters ~= nil and global.forcefields.activeEmitters[activeEmitterID] ~= nil then
     table.remove(global.forcefields.activeEmitters, activeEmitterID)
     if #global.forcefields.activeEmitters == 0 then
       global.forcefields.activeEmitters = nil

@@ -1,0 +1,49 @@
+---------------------------------------------------------------------------------------------------
+Version: 2.1.0
+Date: 01. 02. 2018
+  Major Features:
+    - Added Forcefield gates
+  Feature:
+    - Added changelog
+    - Added ability to disable wall sections
+  Changes:
+    - Balancing technology cost to reflect the dificulty/OP-ness
+    - GUI has sprite buttons on the direction and wall type
+    - New on_entity_damaged event as released in 0.16.17
+  Fixes:
+    - Removed quick fix from version 2.0.1 as vanilla game fixed it
+    - Fixed the red/green light where not showing when connected to a gate
+---------------------------------------------------------------------------------------------------
+Version: 2.0.3
+Date: 21. 01. 2018
+  Fixes:
+    - Bugfix crash resulting from a typo in previous release
+    - Small optimalisations around the code (part 2)
+---------------------------------------------------------------------------------------------------
+Version: 2.0.2
+Date: 21. 01. 2018
+  Fixes:
+    - Disabled deconstruction planning of the fields
+    - Bugfix selection of direction W not visible (but it was working)
+    - Bugfix huge UPS drop on decay of the fields
+    - Small optimalisations around the code (part 1)
+---------------------------------------------------------------------------------------------------
+Version: 2.0.1
+Date: 20. 01. 2018
+  Feature:
+    - Added ability to copy/paste emitter settings (as you do with other buildings)
+  Fixes:
+    - Deleted debug message when adding upgrades
+    - Bugfix error trying to access global values
+    - Bugfix purple wall not dealing damage upon destruction
+    - Bugfix fields did not do any damage when unable to rebuild
+    - Quick fix on crash trying to index nil value (bug report made)
+---------------------------------------------------------------------------------------------------
+Version: 2.0.0 - First public release
+Date: 19. 01. 2018
+  Major Features:
+    - Initial updated release
+  Features:
+    - Ability to open the GUI without the need of the tool
+    - Ability to close the GUI without applying the settings (press E/esc)
+    - Emitter not calculated in accumulator charge on the electricity field

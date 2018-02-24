@@ -8,10 +8,12 @@ landfillTechnology.icon = "__LandMover__/graphics/landmover_tech.png"
 landfillTechnology.icon_size = 128
 
 -- Disable the landfill recipe effect
-for index, effect in pairs(landfillTechnology.effects) do
-  if effect.type == "unlock-recipe" and effect.recipe == "landfill" then
-    table.remove(landfillTechnology.effects, index)
-    break
+if settings.startup["LM-disable-landfill-recipe"].value then
+  for index, effect in pairs(landfillTechnology.effects) do
+    if effect.type == "unlock-recipe" and effect.recipe == "landfill" then
+      table.remove(landfillTechnology.effects, index)
+      break
+    end
   end
 end
 

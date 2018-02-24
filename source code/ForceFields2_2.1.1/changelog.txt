@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.1.1
+Date: 24. 02. 2018
+  Changes:
+    - Emitters don't build a default wall when placed
+  Fixes:
+    - Bugfix wall not degrading when changing settings too fast
+---------------------------------------------------------------------------------------------------
 Version: 2.1.0
 Date: 01. 02. 2018
   Major Features:

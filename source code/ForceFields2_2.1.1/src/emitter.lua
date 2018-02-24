@@ -18,27 +18,27 @@ function Emitter:onEmitterBuilt(createdEntity)
     global.forcefields.emitterNEI = 1 -- NextEmitterIndex
   end
   local maxWidth = Settings.emitterMaxWidth
-  local offset = (maxWidth + 1)/2
+  local widthOffset = (maxWidth + 1)/2
   local defaultType = Settings.defaultFieldSuffix
 
   -- emitter data
-  newEmitter["entity"] = createdEntity
   newEmitter["emitter-NEI"] = "I" .. global.forcefields.emitterNEI
+  newEmitter["entity"] = createdEntity
   -- emitter settings
   newEmitter["type"] = Settings.defaultFieldType
   newEmitter["config"] = {}
   for i=1, maxWidth do
-    newEmitter["config"][i-offset] = defaultType
+    newEmitter["config"][i-widthOffset] = defaultType
   end
   newEmitter["distance"] = Settings.emitterDefaultDistance
   newEmitter["width"] = Settings.emitterDefaultWidth
-  newEmitter["direction"] = defines.direction.north
+  newEmitter["direction"] = Settings.defaultFieldDirection
   newEmitter["width-upgrades"] = 0
   newEmitter["distance-upgrades"] = 0
   -- emitter state
   newEmitter["active"] = false
-  newEmitter["disabled"] = false
-  newEmitter["build-scan"] = true
+  newEmitter["disabled"] = true
+  newEmitter["build-scan"] = true -- set active for looking to build new fields
   newEmitter["build-tick"] = 0
   newEmitter["generating-fields"] = nil
   newEmitter["damaged-fields"] = nil
@@ -47,8 +47,9 @@ function Emitter:onEmitterBuilt(createdEntity)
   if global.forcefields.killedEmitters ~= nil then
     for k,killedEmitter in pairs(global.forcefields.killedEmitters) do
       if killedEmitter["surface"] == surface and killedEmitter["position"].x == createdEntity.position.x and killedEmitter["position"].y == createdEntity.position.y then
+        newEmitter["disabled"] = killedEmitter["disabled"]
         newEmitter["type"] = killedEmitter["type"]
-        newEmitter["config"] = killedEmitter["config"]
+        newEmitter["config"] = util.table.deepcopy(killedEmitter["config"])
         newEmitter["distance"] = killedEmitter["distance"]
         newEmitter["width"] = killedEmitter["width"]
         newEmitter["direction"] = killedEmitter["direction"]
@@ -111,6 +112,11 @@ function Emitter:onEntitySettingsPasted(event)
   local sourceEmitterTable = self:findEmitter(event.source)
   local destinationEmitterTable = self:findEmitter(event.destination)
 
+  if sourceEmitterTable["disabled"] == true then
+    player.print("You cannot paste settings from a disabled emitter. Please reconfigure that one first.")
+    return
+  end
+
   -- Check distance upgrades
   if destinationEmitterTable["distance-upgrades"] ~= sourceEmitterTable["distance-upgrades"] then
     if destinationEmitterTable["distance-upgrades"] < sourceEmitterTable["distance-upgrades"] then
@@ -138,7 +144,8 @@ function Emitter:onEntitySettingsPasted(event)
   local hasEnoughUpgrades = true
   local maxWidth = Settings.emitterDefaultWidth + (destinationEmitterTable["width-upgrades"] * Settings.widthUpgradeMultiplier)
   local maxDistance = Settings.emitterDefaultDistance + destinationEmitterTable["distance-upgrades"]
-  if destinationEmitterTable["distance"] ~= sourceEmitterTable["distance"]
+  if destinationEmitterTable["disabled"] ~= false
+    or destinationEmitterTable["distance"] ~= sourceEmitterTable["distance"]
     or destinationEmitterTable["width"] ~= sourceEmitterTable["width"]
     or destinationEmitterTable["type"] ~= sourceEmitterTable["type"]
     or destinationEmitterTable["direction"] ~= sourceEmitterTable["direction"]
@@ -160,16 +167,18 @@ function Emitter:onEntitySettingsPasted(event)
     else
       destinationEmitterTable["distance"] = sourceEmitterTable["distance"]
     end
+
     destinationEmitterTable["type"] = sourceEmitterTable["type"]
     destinationEmitterTable["direction"] = sourceEmitterTable["direction"]
     destinationEmitterTable["config"] = util.table.deepcopy(sourceEmitterTable["config"])
-
     destinationEmitterTable["generating-fields"] = nil
-    Emitter:setActive(destinationEmitterTable, true)
+    destinationEmitterTable["disabled"] = sourceEmitterTable["disabled"]
 
     if not hasEnoughUpgrades then
-    player.print("Could not paste all settings becose you don't have enough upgrades for it.")
+      player.print("Could not paste all settings becose you don't have enough upgrades for it.")
     end
+
+    self:setActive(destinationEmitterTable, true, false)
   end
 end
 
@@ -379,8 +388,8 @@ end
 
 
 
-function Emitter:removeKilledEmitter(index)
-  table.remove(global.forcefields.killedEmitters, index)
+function Emitter:removeKilledEmitter(killedEmittersIndex)
+  table.remove(global.forcefields.killedEmitters, killedEmittersIndex)
   if #global.forcefields.killedEmitters == 0 then
     global.forcefields.killedEmitters = nil
   end
@@ -393,6 +402,7 @@ function Emitter:storeKilledEmitter(emitterTable)
   if global.forcefields.killedEmitters == nil then
     global.forcefields.killedEmitters = {}
   end
+  newKilledEmitter["disabled"] = emitterTable["disabled"]
   newKilledEmitter["surface"] = emitterTable["entity"].surface
   newKilledEmitter["position"] = emitterTable["entity"].position
   newKilledEmitter["width"] = emitterTable["width"]

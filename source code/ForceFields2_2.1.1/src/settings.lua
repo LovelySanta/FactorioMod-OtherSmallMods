@@ -47,6 +47,7 @@ Settings.fieldEmptySuffix = "-forcefield-empty"
 Settings.defaultFieldSuffix = Settings.fieldSuffix
 
 Settings.defaultFieldType = "blue"
+Settings.defaultFieldDirection = defines.direction.north
 Settings.forcefieldTypes =
 {
   ["blue" .. Settings.fieldSuffix] =

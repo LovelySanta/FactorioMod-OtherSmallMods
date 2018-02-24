@@ -778,6 +778,9 @@ function Gui:verifyAndSetFromGui(playerIndex)
     -- Direction of the forcefield
     if global.forcefields.emitterConfigGuis["I" .. playerIndex][2] ~= nil then
       newDirection = global.forcefields.emitterConfigGuis["I" .. playerIndex][2]
+    elseif emitterTable["direction"] == nil then
+      player.print("No wall direction selected.")
+      settingsAreGood = false
     else
       newDirection = emitterTable["direction"]
     end
@@ -785,6 +788,9 @@ function Gui:verifyAndSetFromGui(playerIndex)
     -- Type of forcefield
     if global.forcefields.emitterConfigGuis["I" .. playerIndex][3] ~= nil then
       newFieldType = global.forcefields.emitterConfigGuis["I" .. playerIndex][3]
+    elseif emitterTable["type"] == nil then
+      player.print("No wall type selected.")
+      settingsAreGood = false
     else
       newFieldType = emitterTable["type"]
     end
@@ -841,19 +847,22 @@ function Gui:verifyAndSetFromGui(playerIndex)
     if global.forcefields.emitterConfigGuis["I" .. playerIndex][4] ~= nil then
       newFieldConfig = global.forcefields.emitterConfigGuis["I" .. playerIndex][4]
     else
-      newFieldConfig = emitterTable["config"]
+      newFieldConfig = util.table.deepcopy(emitterTable["config"])
     end
 
     -- If settings are all checked and correct, we can update the emitterTable
     if settingsAreGood then
       -- If any changes on the forcefield, we need to rebuild it
-      if emitterTable["width"] ~= newWidth
+      if emitterTable["disabled"] == true
+        or emitterTable["width"] ~= newWidth
         or emitterTable["distance"] ~= newDistance
         or emitterTable["type"] ~= newFieldType
         or emitterTable["direction"] ~= newDirection
         or not tablesAreEqual(emitterTable["config"], newFieldConfig) then
 
         Forcefield:degradeLinkedFields(emitterTable)
+
+        emitterTable["disabled"] = false
         emitterTable["damaged-fields"] = nil
         emitterTable["width"] = newWidth
         emitterTable["distance"] = newDistance
@@ -861,7 +870,8 @@ function Gui:verifyAndSetFromGui(playerIndex)
         emitterTable["config"] = newFieldConfig
         emitterTable["direction"] = newDirection
         emitterTable["generating-fields"] = nil
-        Emitter:setActive(emitterTable, true)
+
+        Emitter:setActive(emitterTable, true, false)
       end
 
       -- If the upgrades changed we have to update that too, but no need to rebuild
@@ -870,8 +880,10 @@ function Gui:verifyAndSetFromGui(playerIndex)
 
       -- Return true to close the UI
       return true
+    else
+      -- Not closing UI yet (settingsAreGood == false)
+      return false
     end
-    -- Not closing UI yet (settingsAreGood == false)
   else
     -- Invalid entity, close this UI
     return true

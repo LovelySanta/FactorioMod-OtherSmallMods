@@ -7,7 +7,6 @@ require 'lib/bugzilla/phase-cycler'
 
 require 'lib/death-ui'
 require 'lib/deathscream'
-require 'lib/corpse-flare'
 
 
 
@@ -20,7 +19,6 @@ script.on_init(function(_)
   Boss:Init()
 
   DeathUI:Init()
-  CorpseFlare:Init()
 end)
 
 
@@ -73,14 +71,6 @@ end)
 script.on_event(defines.events.on_entity_died, function(event)
   Boss:OnEntityDied(event)
   DespawnPenalty:OnEntityDied(event)
-end)
-
-
-
--- called every time a player died
-script.on_event(defines.events.on_pre_player_died, function(event)
-  -- check for corpse flare
-  CorpseFlare:OnPrePlayerDied(event.player_index)
 end)
 
 

@@ -575,108 +575,199 @@ end
 --############################################################################--
 --##########   Projectiles                                          ##########--
 --############################################################################--
-local function make_projectile(pro_app, pro_dmg)
-data:extend({
-  {
-    type = "beam",
-    name = pro_app.name.."-"..pro_app.type.."-beam",
-    flags = {"not-on-map"},
-    width = 0.5,
-    damage_interval = pro_dmg.cooldown,
-    action =
+local function make_beam(beam_app, beam_dmg)
+  data:extend({
     {
-      type = "direct",
-      action_delivery =
+      type = "beam",
+      name = beam_app.name.."-"..beam_app.type.."-beam",
+      flags = {"not-on-map"},
+      width = 0.5,
+      damage_interval = beam_dmg.cooldown,
+      action =
       {
-        type = "instant",
-        target_effects =
+        type = "direct",
+        action_delivery =
         {
+          type = "instant",
+          target_effects =
           {
-            type = "damage",
-            damage = { amount = pro_dmg.damage, type = "electric"}
+            {
+              type = "damage",
+              damage = { amount = beam_dmg.damage, type = "electric"}
+            }
           }
         }
-      }
-    },
-    head =
-    {
-      filename = "__base__/graphics/entity/beam/beam-head.png",
-      line_length = 16,
-      width = 45,
-      height = 39,
-      frame_count = 16,
-      animation_speed = 0.5,
-      blend_mode = "additive-soft",
-    },
-    tail =
-    {
-      filename = "__base__/graphics/entity/beam/beam-tail.png",
-      line_length = 16,
-      width = 45,
-      height = 39,
-      frame_count = 16,
-      blend_mode = "additive-soft",
-    },
-    body =
-    {
+      },
+      head =
       {
-        filename = "__base__/graphics/entity/beam/beam-body-1.png",
+        filename = "__base__/graphics/entity/beam/beam-head.png",
+        line_length = 16,
+        width = 45,
+        height = 39,
+        frame_count = 16,
+        animation_speed = 0.5,
+        blend_mode = "additive-soft",
+      },
+      tail =
+      {
+        filename = "__base__/graphics/entity/beam/beam-tail.png",
         line_length = 16,
         width = 45,
         height = 39,
         frame_count = 16,
         blend_mode = "additive-soft",
       },
+      body =
       {
-        filename = "__base__/graphics/entity/beam/beam-body-2.png",
-        line_length = 16,
-        width = 45,
-        height = 39,
-        frame_count = 16,
-        blend_mode = "additive-soft",
+        {
+          filename = "__base__/graphics/entity/beam/beam-body-1.png",
+          line_length = 16,
+          width = 45,
+          height = 39,
+          frame_count = 16,
+          blend_mode = "additive-soft",
+        },
+        {
+          filename = "__base__/graphics/entity/beam/beam-body-2.png",
+          line_length = 16,
+          width = 45,
+          height = 39,
+          frame_count = 16,
+          blend_mode = "additive-soft",
+        },
+        {
+          filename = "__base__/graphics/entity/beam/beam-body-3.png",
+          line_length = 16,
+          width = 45,
+          height = 39,
+          frame_count = 16,
+          blend_mode = "additive-soft",
+        },
+        {
+          filename = "__base__/graphics/entity/beam/beam-body-4.png",
+          line_length = 16,
+          width = 45,
+          height = 39,
+          frame_count = 16,
+          blend_mode = "additive-soft",
+        },
+        {
+          filename = "__base__/graphics/entity/beam/beam-body-5.png",
+          line_length = 16,
+          width = 45,
+          height = 39,
+          frame_count = 16,
+          blend_mode = "additive-soft",
+        },
+        {
+          filename = "__base__/graphics/entity/beam/beam-body-6.png",
+          line_length = 16,
+          width = 45,
+          height = 39,
+          frame_count = 16,
+          blend_mode = "additive-soft",
+        },
       },
+      working_sound =
       {
-        filename = "__base__/graphics/entity/beam/beam-body-3.png",
-        line_length = 16,
-        width = 45,
-        height = 39,
-        frame_count = 16,
-        blend_mode = "additive-soft",
-      },
-      {
-        filename = "__base__/graphics/entity/beam/beam-body-4.png",
-        line_length = 16,
-        width = 45,
-        height = 39,
-        frame_count = 16,
-        blend_mode = "additive-soft",
-      },
-      {
-        filename = "__base__/graphics/entity/beam/beam-body-5.png",
-        line_length = 16,
-        width = 45,
-        height = 39,
-        frame_count = 16,
-        blend_mode = "additive-soft",
-      },
-      {
-        filename = "__base__/graphics/entity/beam/beam-body-6.png",
-        line_length = 16,
-        width = 45,
-        height = 39,
-        frame_count = 16,
-        blend_mode = "additive-soft",
-      },
-    },
-    working_sound =
-    {
-      {
-        filename = "__base__/sound/fight/electric-beam.ogg",
-        volume = 0.7
+        {
+          filename = "__base__/sound/fight/electric-beam.ogg",
+          volume = 0.7
+        }
       }
     }
-  }
-})
+  })
+end
+
+local function make_projectile(pro_app, pro_dmg)
+  data:extend({
+    {
+      type = "projectile",
+      name = pro_dmg.projectile,
+      flags = {"not-on-map"},
+      acceleration = 0.005,
+      action =
+      {
+        {
+          type = "direct",
+          action_delivery =
+          {
+            type = "instant",
+            target_effects =
+            {
+              {
+                type = "play-sound",
+                sound =
+                {
+                  {
+                    filename = "__base__/sound/creatures/projectile-acid-burn-1.ogg",
+                    volume = 0.8
+                  },
+                  {
+                    filename = "__base__/sound/creatures/projectile-acid-burn-2.ogg",
+                    volume = 0.8
+                  },
+                  {
+                    filename = "__base__/sound/creatures/projectile-acid-burn-long-1.ogg",
+                    volume = 0.8
+                  },
+                  {
+                    filename = "__base__/sound/creatures/projectile-acid-burn-long-2.ogg",
+                    volume = 0.8
+                  }
+                }
+              },
+              {
+                type = "create-entity",
+                entity_name = "medium-explosion"
+              },
+              {
+                type = "create-entity",
+                entity_name = "small-scorchmark",
+                check_buildability = true
+              }
+            }
+          }
+        },
+        {
+          type = "area",
+          radius = pro_dmg.damage_radius,
+          action_delivery =
+          {
+            type = "instant",
+            target_effects =
+            {
+              {
+              type = "damage",
+              damage = {amount = pro_dmg.damage, type = "explosion"}
+              },
+              {
+              type = "create-entity",
+              entity_name = "explosion"
+              }
+            }
+          }
+        }
+      },
+      light = {intensity = 0.5, size = 4},
+      animation =
+      {
+        filename = "__base__/graphics/entity/grenade/grenade.png",
+        frame_count = 1,
+        width = 24,
+        height = 24,
+        priority = "high"
+      },
+      shadow =
+      {
+        filename = "__base__/graphics/entity/grenade/grenade-shadow.png",
+        frame_count = 1,
+        width = 24,
+        height = 24,
+        priority = "high"
+      }
+    }
+  })
 end
 
 --############################################################################--
@@ -703,6 +794,10 @@ local function make_attack_parameter(data_app, data_dmg)
       }
     }
   elseif data_app.type == "spitter" then
+    if data.raw["projectile"] and (not data.raw["projectile"][data_dmg.projectile]) then
+      make_projectile(data_app, data_dmg)
+    end
+    
     data_dmg.ammo =
     {
         category = "biological",

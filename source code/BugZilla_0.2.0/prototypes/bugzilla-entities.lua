@@ -24,7 +24,9 @@ bugzilla_biter =
       creation_distance = nil,
       damage_modifier = nil,
       warmup = nil,
+      projectile = nil,
       damage = 550,
+      damage_radius = nil,
       volume = .8,
     },
     resistance = {
@@ -65,8 +67,9 @@ bugzilla_biter =
         creation_distance = 1.9,
         damage_modifier=5,
         warmup = 30,
-        projectile = "acid-projectile-purple", --TODO
-        damage = 550, -- need to be for projectile
+        projectile = "bugzilla-spitter-projectile",
+        damage = 10, -- 550
+        damage_radius = 6.5,
         volume = .8,
       },
       resistance = {

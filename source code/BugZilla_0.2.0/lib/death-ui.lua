@@ -9,6 +9,7 @@ DeathUI = {}
 
 DeathUI.bossNames = {
   ["bugzilla-biter"] = "BugZilla Biter",
+  ["bugzilla-spitter"] = "BugZilla Spitter"
 }
 
 

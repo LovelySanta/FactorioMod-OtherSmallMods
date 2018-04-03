@@ -3,9 +3,11 @@ Boss = {}
 
 Boss.types = {
   [1] = "bugzilla-biter",
+  [2] = "bugzilla-spitter",
 }
 Boss.displayNames = {
-  [1] = "BugZilla Biter"
+  [1] = "BugZilla Biter",
+  [2] = "BugZilla Spitter",
 }
 
 Boss.messages = {}
@@ -328,21 +330,33 @@ end
 
 
 function Boss.GetSpawnAmounts(self)
+  local killScore = global.BZ_boss.killScore
+
   local spawns = {}
 
   -- We only have one type yet
   --local spawnBiters = {type = self.types[1], amount = 2}
   --table.insert(spawns, spawnBiters)
 
-  local killScore = global.BZ_boss.killScore
+  local typeIndex = 1
+  while self.types[typeIndex] do
+    local amount = 0
 
-  local amount = Math:Round(math.sqrt((2*killScore+3)/5+1/2))
-  if amount < 1 then
-    amount = 1
+    local value = ((2*killScore)/(typeIndex*typeIndex)+3)/5 - 2*(typeIndex-1) + 1/2
+    if value > 0 then
+      amount = Math:Round(math.sqrt(value))
+      game.print(amount)
+    end
+
+    if amount > 0 then
+      local spawnBiters = {type = self.types[typeIndex], amount = amount}
+      table.insert(spawns, spawnBiters)
+    else
+      return spawns -- No need to look further, other types will be 0 as well
+    end
+
+    typeIndex = typeIndex + 1
   end
-
-  local spawnBiters = {type = self.types[1], amount = amount}
-  table.insert(spawns, spawnBiters)
 
   return spawns
 end
@@ -388,7 +402,7 @@ function Boss.SpawnReward(self, bossIndex)
     end
 
     -- Now lets cap the chest
-    chest_inventory.setbar(0)
+    chest_inventory.setbar(1)
   end
 end
 

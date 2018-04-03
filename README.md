@@ -1,26 +1,47 @@
 # Current (released) mods
-#### BugZilla
+#### [BugZilla](https://mods.factorio.com/mod/BugZilla)
 * Description: The goal is to prepaire a base in a limited amount of time, afther that, one big happy bug come and walk your base over. It's your task to survive, rebuild, defeat! And most of all: Having fun with friends.
 * Latest version: 0.1.1
 
-#### Expensive Cliffs
+#### [Corpse Flare](https://mods.factorio.com/mod/CorpseFlare)
+* Description: When you die with an emergency flare in your inventory, you'll set it off with your dying breath. The advantage of this is that you can find your body faster.
+* Latest version: 0.1.0
+
+#### [Expensive Cliffs](https://mods.factorio.com/mod/ExpensiveCliffs)
 * Description: Cliffs are though to play with, for the die-hards I made them even thougher...
 *We put a stick in the cliffside, rap 500 explosive arround it with some wires, soak it in some acid, and have a nuke to set it off.*
 * Latest version: 0.1.1
 
-#### Force Fields
+#### [Force Fields](https://mods.factorio.com/mod/ForceFields2)
 * Description: Adds multiple types of electric powered, self healing walls to keep the biters out.
 * Latest version: 2.1.0
 
-#### Land Mover
+#### [Land Mover](https://mods.factorio.com/mod/LandMover)
 * Description: A mod that removes the recipe of landfill. Use land mover instead: dig a hole, get the land, place it elsewhere
 * Latest version: 0.1.5
 
-#### Santa's Nixie Tube Display
+#### [Santa's Nixie Tube Display](https://mods.factorio.com/mod/SantasNixieTubeDisplay)
 * Description: Mod that adds some nixie tubes from the nixie tube mod, in exchange for some extra UPS
 * Latest version: 0.1.3
 
 # Changelog
+#### Corpse Flare [v0.1.0]
+* Initial release as it was part of the BugZilla mod
+
+-----
+#### Land Mover [v0.1.6]
+* Added setting to re-enable landfill recipe
+
+-----
+#### Expensive Cliffs [v0.1.2]
+* Made the thougher cliff settings disableable through startup setting
+
+-----
+#### Force Fields [v2.1.1]
+* Emitters don't build a default wall when placed
+* Bugfix wall not degrading when changing settings too fast
+
+-----
 #### Force Fields [v2.1.0]
 * Added Forcefield gates
 * Added ability to disable wall sections

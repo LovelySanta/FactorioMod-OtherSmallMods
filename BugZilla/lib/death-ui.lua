@@ -133,6 +133,34 @@ function DeathUI.OnConfigurationChanged(self)
     end
   end
 
+  if guiData.Version == "2" then
+    guiData.Version = "3"
+
+    for playerIndex,_ in pairs(game.players) do
+      local gui = game.players[playerIndex].gui.top
+
+      -- Destroy the old UI
+      if gui.BZ_gui_flow and gui.BZ_gui_flow.BZ_gui_buttonFrame and gui.BZ_gui_flow.BZ_gui_buttonFrame.valid then
+        local buttons = gui.BZ_gui_flow.BZ_gui_buttonFrame
+        buttons.clear()
+        
+        buttons.add{
+          type = "sprite-button",
+          name = "BZ_gui_buttonDeaths",
+          sprite = "death-skull",
+          style = "icon_button"
+        }
+        buttons.add{
+          type = "sprite-button",
+          name = "BZ_gui_buttonBiterstats",
+          sprite = "entity/bugzilla-biter",
+          style = "icon_button"
+        }
+      end
+    end
+  end
+
+
   -- All players are added, now sync the data and redraw all UI's
   global.BZ_gui = guiData
   self:UpdateAllLabels()
@@ -218,7 +246,7 @@ function DeathUI.InitPlayer(self, playerIndex)
     buttons.add{
       type = "sprite-button",
       name = "BZ_gui_buttonDeaths",
-      sprite = "item/death-skull",
+      sprite = "death-skull",
       style = "icon_button"
     }
     buttons.add{

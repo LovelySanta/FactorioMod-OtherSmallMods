@@ -1,13 +1,10 @@
 data:extend({
   {
-    type = "item",
+    type = "sprite",
     name = "death-skull",
-    icon = "__BugZilla__/graphics/icons/death-skull.png",
-    icon_size = 256,
-    scale = 1,
-    flags = {},
-    subgroup = "tool",
-    order = "z[death]-z[skull]",
-    stack_size = 1
+    filename = "__BugZilla__/graphics/sprites/death-skull.png",
+    priority = "extra-high",
+    width = 256,
+    height = 256,
   },
 })

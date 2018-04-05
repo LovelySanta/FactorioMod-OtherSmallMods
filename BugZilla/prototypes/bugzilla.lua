@@ -5,8 +5,7 @@ require ("prototypes/bugzilla-builder")
 --############################################################################--
 --##########   BugZilla Biter                                       ##########--
 --############################################################################--
-require ("prototypes/fart-cloud") -- Used by bugzilla-biter
-require ("prototypes/pile-of-poop") -- Used by bugzilla-biter
+require ("prototypes/fart-cloud")
 BugzillaBuilder:make_alien(bugzilla_biter)
 
 --############################################################################--

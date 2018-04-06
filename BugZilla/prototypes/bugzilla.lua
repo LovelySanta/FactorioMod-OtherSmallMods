@@ -11,4 +11,5 @@ BugzillaBuilder:make_alien(bugzilla_biter)
 --############################################################################--
 --##########   BugZilla Spitter                                     ##########--
 --############################################################################--
+require ("prototypes/deadly-landmine")
 BugzillaBuilder:make_alien(bugzilla_spitter)

@@ -71,6 +71,12 @@ function DespawnPenalty:CreateNewPenalty(entityData)
       position = entityData.position,
       force = entityData.force,
     }
+  elseif entityData.name == "bugzilla-spitter" then
+    entityData.surface.create_entity{
+      name = "deadly-landmine",
+      position = entityData.position,
+      force = entityData.force,
+    }
   end
 
   -- save new data

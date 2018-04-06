@@ -1,7 +1,7 @@
 
 DespawnPenalty = {}
 
-function DespawnPenalty.Init(self)
+function DespawnPenalty:Init()
   if not global.BZ_despawnPenalty then
     global.BZ_despawnPenalty = self:InitGlobalData()
   end
@@ -9,7 +9,7 @@ end
 
 
 
-function DespawnPenalty.OnConfigurationChanged(self)
+function DespawnPenalty:OnConfigurationChanged()
   if not global.BZ_despawnPenalty then
     global.BZ_despawnPenalty = self:InitGlobalData()
   end
@@ -17,7 +17,7 @@ end
 
 
 
-function DespawnPenalty.OnSecond(self)
+function DespawnPenalty:OnSecond()
   local penaltyData = global.BZ_despawnPenalty
   if penaltyData.entityCount > 0 and (game.tick % penaltyData.fartUpdateRate) == 0 then
 
@@ -36,7 +36,7 @@ end
 
 
 
-function DespawnPenalty.OnEntityDied(self, event)
+function DespawnPenalty:OnEntityDied(event)
   local penaltyData = global.BZ_despawnPenalty
   local entity = event.entity
 
@@ -61,7 +61,7 @@ end
 
 
 
-function DespawnPenalty.CreateNewPenalty(self, entityData)
+function DespawnPenalty:CreateNewPenalty(entityData)
   local penaltyData = global.BZ_despawnPenalty
 
   if entityData.name == "bugzilla-biter" then
@@ -79,7 +79,7 @@ end
 
 
 
-function DespawnPenalty.InitGlobalData(self)
+function DespawnPenalty:InitGlobalData()
   local penaltyData = {
     -- meta data
     Name = 'BZ_despawnPenalty',

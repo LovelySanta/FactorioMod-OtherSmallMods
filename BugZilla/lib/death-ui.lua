@@ -14,7 +14,7 @@ DeathUI.bossNames = {
 
 
 
-function DeathUI.Init(self)
+function DeathUI:Init()
   if not global.BZ_gui then
     self:InitGlobalData()
   end
@@ -22,7 +22,7 @@ end
 
 
 
-function DeathUI.OnConfigurationChanged(self)
+function DeathUI:OnConfigurationChanged()
   local guiData = global.BZ_gui
 
   if not guiData then
@@ -143,7 +143,7 @@ function DeathUI.OnConfigurationChanged(self)
       if gui.BZ_gui_flow and gui.BZ_gui_flow.BZ_gui_buttonFrame and gui.BZ_gui_flow.BZ_gui_buttonFrame.valid then
         local buttons = gui.BZ_gui_flow.BZ_gui_buttonFrame
         buttons.clear()
-        
+
         buttons.add{
           type = "sprite-button",
           name = "BZ_gui_buttonDeaths",
@@ -168,14 +168,14 @@ end
 
 
 
-function DeathUI.OnNewPlayerCreated(self, playerIndex)
+function DeathUI:OnNewPlayerCreated(playerIndex)
   self:InitPlayer(playerIndex)
   self:UpdateAllLabels()
 end
 
 
 
-function DeathUI.OnClick(self, event)
+function DeathUI:OnClick(event)
   local playerIndex = event.player_index
   local guiState = global.BZ_gui.guiState[playerIndex]
   if event.element.name == "BZ_gui_buttonDeaths" then
@@ -202,7 +202,7 @@ end
 
 
 
-function DeathUI.InitGlobalData(self)
+function DeathUI:InitGlobalData()
   global.BZ_gui = {}
   global.BZ_gui.Name = "BZ_gui"
   global.BZ_gui.Version = "2"
@@ -219,7 +219,7 @@ end
 
 
 
-function DeathUI.InitPlayer(self, playerIndex)
+function DeathUI:InitPlayer(playerIndex)
   -- init deaths
   if not global.BZ_gui.deaths[playerIndex] then
     global.BZ_gui.deaths[playerIndex] = 0
@@ -287,7 +287,7 @@ end
 
 
 
-function DeathUI.AddDeath(self, playerIndex)
+function DeathUI:AddDeath(playerIndex)
   local guiData = global.BZ_gui
 
   -- Add death
@@ -321,7 +321,7 @@ end
 
 
 
-function DeathUI.UpdateAllLabels(self)
+function DeathUI:UpdateAllLabels()
   for playerIndex, _ in pairs(game.players) do
     self:UpdateLabel(playerIndex)
   end
@@ -329,7 +329,7 @@ end
 
 
 
-function DeathUI.UpdateLabel(self, playerIndex)
+function DeathUI:UpdateLabel(playerIndex)
   -- GUI state will determin what to draw
   local guiState = global.BZ_gui.guiState[playerIndex]
 
@@ -420,7 +420,7 @@ end
 
 
 
-function DeathUI.GetDeathsLabelText(self, playerIndex)
+function DeathUI:GetDeathsLabelText(playerIndex)
   -- Either single line or multi line string depending on GUI state
   if global.BZ_gui.guiState[playerIndex].deathDetailsVisible then
     local deathsRank = "†\n"
@@ -450,7 +450,7 @@ end
 
 
 
-function DeathUI.GetBugzillaLabelText(self)
+function DeathUI:GetBugzillaLabelText()
   local bugzillaName = "Score: \n"
   local bugzillaScore = global.BZ_boss.killScore .. "\n"
 

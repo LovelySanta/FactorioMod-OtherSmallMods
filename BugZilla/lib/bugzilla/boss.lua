@@ -41,7 +41,7 @@ Boss.reward = {
 
 
 
-function Boss.Init(self)
+function Boss:Init()
   game.forces.enemy.ai_controllable = false -- Make sure Boss don't spawn a spawner
 
   if not global.BZ_boss then
@@ -53,7 +53,7 @@ end
 
 
 
-function Boss.OnConfigurationChanged(self)
+function Boss:OnConfigurationChanged()
   local bossData = global.BZ_boss
 
   if not bossData.Version then
@@ -102,7 +102,7 @@ end
 
 
 
-function Boss.InitGlobalData(self)
+function Boss:InitGlobalData()
   local kills = {}
   for _,bossName in pairs(self.types) do
     kills[bossName] = {}
@@ -126,7 +126,7 @@ end
 
 
 
-function Boss.InitChatToFile(self)
+function Boss:InitChatToFile()
   -- If mod ChatToFile is in the modlist, we can print this out too
   if remote.interfaces.ChatToFile and remote.interfaces.ChatToFile.remoteAddDisplayName then
     for k,type in pairs(self.types) do
@@ -137,7 +137,7 @@ end
 
 
 
-function Boss.OnSecond(self)
+function Boss:OnSecond()
   if self:IsAlive() then
     local entities = global.BZ_boss.entities
     for bossIndex, bossData in pairs(entities) do
@@ -151,7 +151,7 @@ end
 
 
 
-function Boss.Spawn(self)
+function Boss:Spawn()
   local bossEntities = global.BZ_boss.entities
   local bossEntityCount = global.BZ_boss.entityCount
 
@@ -181,7 +181,7 @@ end
 
 
 
-function Boss.Despawn(self)
+function Boss:Despawn()
   local bossEntities = global.BZ_boss.entities
   local bossEntityCount = global.BZ_boss.entityCount
   local bossKillScore = global.BZ_boss.killScore
@@ -240,7 +240,7 @@ end
 
 
 
-function Boss.OnEntityDied(self, event)
+function Boss:OnEntityDied(event)
   -- Check if the boss died
   if self:CheckBossDied(event) then
     local bossEntities = global.BZ_boss.entities
@@ -307,7 +307,7 @@ end
 
 
 
-function Boss.CreateNewBoss(self, boss_type)
+function Boss:CreateNewBoss(boss_type)
   local bossEntity = {}
 
   bossEntity.bossEntity = game.surfaces['nauvis'].create_entity{
@@ -329,7 +329,7 @@ end
 
 
 
-function Boss.GetSpawnAmounts(self)
+function Boss:GetSpawnAmounts()
   local killScore = global.BZ_boss.killScore
 
   local spawns = {}
@@ -363,7 +363,7 @@ end
 
 
 
-function Boss.SpawnReward(self, bossIndex)
+function Boss:SpawnReward(bossIndex)
   local bossEntity = global.BZ_boss.entities[bossIndex].bossEntity
   local chest = 'steel-chest'
   local chest_entity = bossEntity.surface.create_entity{
@@ -408,10 +408,10 @@ end
 
 
 
-function Boss.GetSpawnMessage(self)
+function Boss:GetSpawnMessage()
   return self.messages.spawn_messages[math.random(#self.messages.spawn_messages)]
 end
-function Boss.GetKillMessage(self)
+function Boss:GetKillMessage()
   return self.messages.kill_messages[math.random(#self.messages.kill_messages)]
 end
 function Boss.GetDespawnMessage(self)
@@ -420,7 +420,7 @@ end
 
 
 
-function Boss.IsAlive(_)
+function Boss:IsAlive()
   if global.BZ_boss.entityCount > 0 then
     return true
   end
@@ -429,7 +429,7 @@ end
 
 
 
-function Boss.CheckBossDied(self, event)
+function Boss:CheckBossDied(event)
   local EntityName = event.entity.name
   for _, BossName in pairs (self.types) do
     if EntityName == BossName then
@@ -441,7 +441,7 @@ end
 
 
 
-function Boss.CreateBossSpawnPosition(self, entityName, entityForce)
+function Boss:CreateBossSpawnPosition(entityName, entityForce)
   local iter = 0
   local try = 0
   local radius, angle, spawn
@@ -469,7 +469,7 @@ end
 
 
 
-function Boss.CreateRewardSpawnPosition(self, entityName, entityForce, position)
+function Boss:CreateRewardSpawnPosition(entityName, entityForce, position)
   local iter = 0 -- TODO why not 0?
   local try = 0
   local radius, angle, spawn
@@ -497,7 +497,7 @@ end
 
 
 
-function Boss.CheckCollision(_, entityName, entityForce, entityPosition)
+function Boss:CheckCollision(entityName, entityForce, entityPosition)
   return game.surfaces['nauvis'].can_place_entity{
     name = entityName,
     position = entityPosition,
@@ -507,7 +507,7 @@ end
 
 
 
-function Boss.FartCloudBehaviour(self, bossIndex)
+function Boss:FartCloudBehaviour(bossIndex)
   local bossData = global.BZ_boss.entities[bossIndex]
   local bossEntity = bossData.bossEntity
   local fartEntity = bossData.fartEntity
@@ -580,7 +580,7 @@ end
 
 
 
-function Boss.GetFartPosition(self, bossEntity)
+function Boss:GetFartPosition(bossEntity)
   local orientation = bossEntity.orientation
   local offset = game.entity_prototypes[bossEntity.name].selection_box.left_top
   return {

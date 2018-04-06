@@ -1,9 +1,9 @@
 
 Deathscream = {}
 
-function Deathscream.CreateScream(self, playerIndex)
+function Deathscream:CreateScream(playerIndex)
   local player = game.players[playerIndex]
-  
+
   player.force.play_sound{
     path = "deathscream",
     position = player.position,

@@ -1,6 +1,6 @@
 Math = {} --luacheck: allow defined top
 
-function Math.Init(self)
+function Math:Init()
 	local seed_gen = game.create_random_generator() -- uses map string to seed_gen
 
 	-- get seed_gen ready
@@ -20,13 +20,13 @@ end
 
 
 
-function Math.Lerp(self, startVal, endVal, t)
+function Math:Lerp(startVal, endVal, t)
   return (startVal + ((endVal - startVal) * t))
 end
 
 
 
-function Math.Clamp(self, val, minVal, maxVal)
+function Math:Clamp(val, minVal, maxVal)
   if val <= minVal then
     return minVal
   elseif val >= maxVal then
@@ -38,7 +38,7 @@ end
 
 
 
-function Math.Round(self, number)
+function Math:Round(number)
   if number >= 0 then
     return math.floor(number + .5)
   else

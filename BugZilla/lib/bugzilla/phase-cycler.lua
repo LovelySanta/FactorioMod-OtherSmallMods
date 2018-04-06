@@ -30,7 +30,7 @@ PhaseCycler.nightBrightness = 0
 
 
 
-function PhaseCycler.Init(self)
+function PhaseCycler:Init()
 
   -- Init the world
   game.map_settings.pollution.enabled = true
@@ -60,7 +60,7 @@ end
 
 
 
-function PhaseCycler.InitGlobalData(self)
+function PhaseCycler:InitGlobalData()
   local data = {
     -- meta data
     Name = 'BZ_data',
@@ -89,7 +89,7 @@ end
 
 
 
-function PhaseCycler.OnSettingsChanged(self, event)
+function PhaseCycler:OnSettingsChanged(event)
   if event.setting_type == "runtime-global" then
     -- MessageAll(game.players[event.player_index].name .. " changed setting " .. event.setting)
 
@@ -110,7 +110,7 @@ end
 
 
 
-function PhaseCycler.OnChunkGenerated(self, event)
+function PhaseCycler:OnChunkGenerated(event)
   local surface = event.surface
   if surface == game.surfaces['nauvis'] then
     for key, entity in pairs(surface.find_entities_filtered({area=event.area, force= "enemy"})) do
@@ -121,7 +121,7 @@ end
 
 
 
-function PhaseCycler.OnSecond(self)
+function PhaseCycler:OnSecond()
   local currentState = global.BZ_data.currentState
   global.BZ_data.previousState = DeepCopy(currentState)
 
@@ -144,7 +144,7 @@ end
 
 
 
-function PhaseCycler.GoToNextPhase(self)
+function PhaseCycler:GoToNextPhase()
   -- game.print("BugZilla.lib.bugzilla.phaseCycler.lua: switching phases!")
   local currentState = global.BZ_data.currentState
 
@@ -198,7 +198,7 @@ end
 
 
 
-function PhaseCycler.SetBrightness(_, brightness)
+function PhaseCycler:SetBrightness(brightness)
   -- game.print("brightness: " .. brightness)
   -- Lerp between day (0.5 = noon) and night (0.0 = midnight)
   game.surfaces.nauvis.daytime = Math:Lerp(0.42, 0.25, brightness)

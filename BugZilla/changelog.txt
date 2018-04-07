@@ -1,4 +1,14 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.2.0
+Date: 7. 4. 2018
+  Major Features:
+    - Added BugZilla Spitter as addition to the BugZilla Biter
+  Changes:
+    - Removed corpse flare as its released as seperate mod now
+    - Deathscream is now a LuaSurface::play_sound() as released in 0.16.0
+  Bugfixes:
+    - Fixed deathskull sprite not longer an item, but defined as a sprite
+---------------------------------------------------------------------------------------------------
 Version: 0.1.1
 Date: 15. 1. 2018
   Bugfixes:
@@ -6,8 +16,8 @@ Date: 15. 1. 2018
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.0
 Date: 17. 12. 2017
-  Major Features:
-    - 0.16 updated release
+  Features:
+    - 0.16 release
   Minor Features:
     - Added sprite buttons to open/close the UI
     - Split the UI into two blocks: death UI and kill statistics
@@ -61,7 +71,7 @@ Date: 17. 11. 2017
 ---------------------------------------------------------------------------------------------------
 Version: 0.0.3
 Date: 14. 11. 2017
-  Major Features:
+  Features:
     - 0.15 stable release
   Minor Features:
     - Added fart sound (!fart1 soundeffect from ShredGuy99's twitch stream)
@@ -88,5 +98,8 @@ Date: 7. 11. 2018
     - Day/Night cycle control (thanks to choumiko)
     - Biter prototype interface (thanks to Arch666Angel)
   Minor Features:
-  - Different warning sentences so you don't get borred every attack
-  - on_runtime settings changeable
+    - Different warning sentences so you don't get borred every attack
+    - on_runtime settings changeable
+---------------------------------------------------------------------------------------------------
+Version: 0.0.0 - Unreleased prototype
+Date: 7. 11. 2018

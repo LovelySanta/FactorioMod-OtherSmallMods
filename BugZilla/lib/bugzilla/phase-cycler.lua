@@ -1,3 +1,5 @@
+require "lib/utilities/generic"
+
 -- Class that controls the behavior of the surface:
   -- control the darkness
   -- control the time (related to darkness)

@@ -1,5 +1,14 @@
+require "lib/utilities/generic"
+--require "util"
 
 DespawnPenalty = {}
+
+DespawnPenalty.penalties = {
+  ["bugzilla-biter"] = "pile-of-poop",
+  ["bugzilla-spitter"] = "deadly-mine",
+}
+
+
 
 function DespawnPenalty:Init()
   if not global.BZ_despawnPenalty then
@@ -13,15 +22,34 @@ function DespawnPenalty:OnConfigurationChanged()
   if not global.BZ_despawnPenalty then
     global.BZ_despawnPenalty = self:InitGlobalData()
   end
+
+  if global.BZ_despawnPenalty.Version == '1' then
+    global.BZ_despawnPenalty.Version = '2'
+
+    local entities = DeepCopy(global.BZ_despawnPenalty.entities)
+    global.BZ_despawnPenalty.entities = {
+      ["pile-of-poop"] = DeepCopy(entities),
+      ["deadly-mine"] = {},
+    }
+
+    local entityCount = global.BZ_despawnPenalty.entityCount
+    global.BZ_despawnPenalty.entityCount = {
+      ["pile-of-poop"] = entityCount,
+      ["deadly-mine"] = 0,
+    }
+
+  end
 end
 
 
 
 function DespawnPenalty:OnSecond()
   local penaltyData = global.BZ_despawnPenalty
-  if penaltyData.entityCount > 0 and (game.tick % penaltyData.fartUpdateRate) == 0 then
 
-    for _, entity in pairs(penaltyData.entities) do
+  -- pile of poops creating fart clouds
+  if penaltyData.entityCount["pile-of-poop"] > 0 and (game.tick % penaltyData.fartUpdateRate) == 0 then
+
+    for _, entity in pairs(penaltyData.entities["pile-of-poop"]) do
       if entity and entity.valid and entity.health > 0 then
         entity.surface.create_entity{
           name = "fart-cloud",
@@ -40,14 +68,14 @@ function DespawnPenalty:OnEntityDied(event)
   local penaltyData = global.BZ_despawnPenalty
   local entity = event.entity
 
-  if penaltyData.entityCount > 0 and entity and entity.name == "pile-of-poop" then
+  if penaltyData.entityCount[event.entity.name] and penaltyData.entityCount[event.entity.name] > 0 then
     -- find the index of this entityData
-    for poopIndex, poopEntity in pairs(penaltyData.entities) do
-      if entity == poopEntity then
+    for penaltyIndex, penaltyEntity in pairs(penaltyData.entities[entity.name]) do
+      if entity == penaltyEntity then
         -- swap out this entity with last entity to keep all entities correctly
-        penaltyData.entities[poopIndex] = penaltyData.entities[penaltyData.entityCount]
-        penaltyData.entities[penaltyData.entityCount] = nil
-        penaltyData.entityCount = penaltyData.entityCount - 1
+        penaltyData.entities[entity.name][penaltyIndex] = penaltyData.entities[entity.name][penaltyData.entityCount[entity.name]]
+        penaltyData.entities[entity.name][penaltyData.entityCount[entity.name]] = nil
+        penaltyData.entityCount[entity.name] = penaltyData.entityCount[entity.name] - 1
 
         -- Safe data
         global.BZ_despawnPenalty = penaltyData
@@ -64,16 +92,16 @@ end
 function DespawnPenalty:CreateNewPenalty(entityData)
   local penaltyData = global.BZ_despawnPenalty
 
-  if entityData.name == "bugzilla-biter" then
-    penaltyData.entityCount = penaltyData.entityCount + 1
-    penaltyData.entities[penaltyData.entityCount] = entityData.surface.create_entity{
-      name = "pile-of-poop",
-      position = entityData.position,
-      force = entityData.force,
-    }
-  elseif entityData.name == "bugzilla-spitter" then
-    entityData.surface.create_entity{
-      name = "deadly-landmine",
+  if self.penalties[entityData.name] then
+    local penaltyName = self.penalties[entityData.name]
+
+    -- increment index
+    local penaltyIndex = penaltyData.entityCount[penaltyName] + 1
+    penaltyData.entityCount[penaltyName] = penaltyIndex
+
+    -- create penalty entity
+    penaltyData.entities[penaltyName][penaltyIndex] = entityData.surface.create_entity{
+      name = penaltyName,
       position = entityData.position,
       force = entityData.force,
     }
@@ -89,10 +117,16 @@ function DespawnPenalty:InitGlobalData()
   local penaltyData = {
     -- meta data
     Name = 'BZ_despawnPenalty',
-    Version = '1',
+    Version = '2',
 
-    entities = {},
-    entityCount = 0,
+    entities = {
+      ["pile-of-poop"] = {},
+      ["deadly-mine"] = {},
+    },
+    entityCount = {
+      ["pile-of-poop"] = 0,
+      ["deadly-mine"] = 0,
+    },
 
     fartUpdateRate = 60 * (5 - 2),
   }

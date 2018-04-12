@@ -68,14 +68,14 @@ bugzilla_biter =
         damage_modifier=5,
         warmup = 30,
         projectile = "bugzilla-spitter-projectile",
-        damage = 10, -- 550
+        damage = 100,
         damage_radius = 6.5,
         volume = .8,
       },
       resistance = {
         {type = "physical", decrease = 10, percent = 85},
         {type = "fire", decrease = 30, percent = 85},
-        {type = "explosion", decrease = 30, percent = 85},
+        {type = "explosion", decrease = 35, percent = 85},
         {type = "laser", decrease = 20, percent = 85},
         {type = "toxic-gas", decrease = 100, percent = 100}
       },

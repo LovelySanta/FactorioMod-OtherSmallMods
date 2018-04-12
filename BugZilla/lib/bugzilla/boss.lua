@@ -1,3 +1,4 @@
+require "lib/utilities/generic"
 
 Boss = {}
 
@@ -142,8 +143,12 @@ function Boss:OnSecond()
     local entities = global.BZ_boss.entities
     for bossIndex, bossData in pairs(entities) do
       local bossEntity = bossData.bossEntity
-      if bossEntity and bossEntity.valid and bossEntity.name == self.types[1] then -- bugzilla-biter
-        self:FartCloudBehaviour(bossIndex)
+      if bossEntity and bossEntity.valid then
+        if bossEntity.name == self.types[1] then -- bugzilla-biter
+          self:FartCloudBehaviour(bossIndex)
+        elseif bossEntity.name == self.types[2] then -- bugzilla-spitter
+          self:FartCloudBehaviour(bossIndex) -- for now we leave it like a biter coz landmines aren't fully working yet
+        end
       end
     end
   end
@@ -345,7 +350,6 @@ function Boss:GetSpawnAmounts()
     local value = ((2*killScore)/(typeIndex*typeIndex)+3)/5 - 2*(typeIndex-1) + 1/2
     if value > 0 then
       amount = Math:Round(math.sqrt(value))
-      game.print(amount)
     end
 
     if amount > 0 then
@@ -507,6 +511,37 @@ end
 
 
 
+function Boss:getAggroEntityCount(surface, aggroArea, threshold)
+  local entities = surface.count_entities_filtered{
+    area = area,
+    type = 'transport-belt',
+    limit = threshold
+  }
+  entities = entities + surface.count_entities_filtered{
+    area = area,
+    type = 'splitter',
+    limit = threshold
+  }
+  entities = entities + 4 * surface.count_entities_filtered{
+    area = area,
+    type = 'land-mine',
+    limit = Math:Round(threshold / 4)
+  }
+  entities = entities + .5 * surface.count_entities_filtered{
+    area = area,
+    type = 'ammo-turret',
+    limit = threshold * 2
+  }
+  entities = entities + 2 * surface.count_entities_filtered{
+    area = area,
+    type = 'tree',
+    limit = Math:Round(threshold / 2)
+  }
+  return entities
+end
+
+
+
 function Boss:FartCloudBehaviour(bossIndex)
   local bossData = global.BZ_boss.entities[bossIndex]
   local bossEntity = bossData.bossEntity
@@ -523,31 +558,7 @@ function Boss:FartCloudBehaviour(bossIndex)
       left_top = {pos.x-5, pos.y-5},
       right_bottom = {pos.x+5, pos.y+5}
     }
-    local entities = surface.count_entities_filtered{
-      area = area,
-      type = 'transport-belt',
-      limit = threshold
-    }
-    entities = entities + surface.count_entities_filtered{
-      area = area,
-      type = 'splitter',
-      limit = threshold
-    }
-    entities = entities + 4 * surface.count_entities_filtered{
-      area = area,
-      type = 'land-mine',
-      limit = Math:Round(threshold / 4)
-    }
-    entities = entities + .5 * surface.count_entities_filtered{
-      area = area,
-      type = 'ammo-turret',
-      limit = threshold * 2
-    }
-    entities = entities + 2 * surface.count_entities_filtered{
-      area = area,
-      type = 'tree',
-      limit = Math:Round(threshold / 2)
-    }
+    local entities = self:getAggroEntityCount(surface, area, threshold)
 
     if (entities >= threshold and fartEntityTimer > 1) or fartEntityTimer > 15 then
       fartEntity = surface.create_entity{

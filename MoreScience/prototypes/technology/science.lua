@@ -13,7 +13,7 @@ removeRecipeUnlock("oil-processing", "chemical-plant")
 data:extend({
   {
     type = "technology",
-    name = "basic-science-research",
+    name = "basic-science-research-1",
     icon = "__MoreScience__/graphics/science-symbol.png",
     icon_size = 2000,
     prerequisites = {
@@ -52,10 +52,11 @@ data:extend({
     order = "c-a"
   },
 })
+
 -- add prerequisites on the technology
 removePrerequisiteTechnology("electric-energy-distribution-1", "electronics")
 removePrerequisiteTechnology("electric-energy-distribution-1", "steel-processing")
-addPrerequisiteTechnology("electric-energy-distribution-1", "basic-science-research")
+addPrerequisiteTechnology("electric-energy-distribution-1", "basic-science-research-1")
 
 
 
@@ -69,7 +70,7 @@ data:extend({
     icon = "__MoreScience__/graphics/science-symbol.png",
     icon_size = 2000,
     prerequisites = {
-      "basic-science-research",
+      "basic-science-research-1",
       "fluid-handling",
     },
     effects =
@@ -106,3 +107,61 @@ data:extend({
 -- Fix research tree for bottling-research
 removePrerequisiteTechnology("research-speed-1", "electronics")
 addPrerequisiteTechnology("research-speed-1", "bottling-research")
+
+
+
+--------------------------------------------------------------------------------
+----- Basic science pack 3                                                 -----
+--------------------------------------------------------------------------------
+
+-- remove recipe unlock from other technologies
+removeRecipeUnlock("advanced-electronics", "science-pack-3")
+
+-- create research for recipes
+data:extend({
+  {
+    type = "technology",
+    name = "basic-science-research-2",
+    icon = "__MoreScience__/graphics/science-symbol.png",
+    icon_size = 2000,
+    prerequisites = {
+      "basic-science-research-1",
+      "plastics",
+    },
+    effects =
+    {
+      {
+        type = "unlock-recipe",
+        recipe = "basic-science-fluid-3"
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "science-pack-3"
+      },
+    },
+    unit =
+    {
+      count = 75,
+      ingredients = {
+        {"science-pack-1", 1},
+        {"science-pack-2", 3},
+        {"basic-automation-science-pack", 5},
+      },
+      time = 5
+    },
+    order = "a-d-c"
+  },
+})
+addPrerequisiteTechnology("electric-engine", "basic-science-research-2")
+addScienceIngredient("electric-engine", 1, "science-pack-3")
+
+addScienceIngredient("robotics", 1, "science-pack-3")
+addScienceIngredient("flying", 1, "science-pack-3")
+addScienceIngredient("construction-robotics", 1, "science-pack-3")
+addScienceIngredient("logistic-robotics", 1, "science-pack-3")
+
+addScienceIngredient("railway", 1, "science-pack-3")
+addScienceIngredient("automated-rail-transportation", 1, "science-pack-3")
+addScienceIngredient("rail-signals", 1, "science-pack-3")
+addScienceIngredient("fluid-wagon", 1, "science-pack-3")
+addScienceIngredient("logistics-2", 1, "science-pack-3")

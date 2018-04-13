@@ -10,7 +10,7 @@ addPrerequisiteTechnology("stone-walls", "military")
 --------------------------------------------------------------------------------
 ----- Military-2                                                           -----
 --------------------------------------------------------------------------------
-addPrerequisiteTechnology("military-2", "basic-science-research")
+addPrerequisiteTechnology("military-2", "basic-science-research-1")
 addPrerequisiteTechnology("bullet-damage-2", "military-2")
 addPrerequisiteTechnology("bullet-speed-2", "military-2")
 addPrerequisiteTechnology("gun-turret-damage-1", "military-2")
@@ -30,7 +30,7 @@ data:extend({
     icon = "__MoreScience__/graphics/science-symbol.png",
     icon_size = 2000,
     prerequisites = {
-      "basic-science-research",
+      "basic-science-research-1",
       "turrets",
       "military-2",
     },

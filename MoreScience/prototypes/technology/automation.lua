@@ -58,7 +58,7 @@ data:extend({
     icon = "__MoreScience__/graphics/science-symbol.png",
     icon_size = 2000,
     prerequisites = {
-      "basic-science-research",
+      "basic-science-research-1",
     },
     effects =
     {
@@ -88,9 +88,14 @@ data:extend({
 -- add prerequisites on the technology
 addPrerequisiteTechnology("advanced-material-processing", "basic-automation-science-research")
 addScienceIngredient("advanced-material-processing", 1, "basic-automation-science-pack")
+addScienceIngredient("advanced-material-processing-2", 1, "basic-automation-science-pack")
 
 addPrerequisiteTechnology("engine", "basic-automation-science-research")
 addScienceIngredient("engine", 1, "basic-automation-science-pack")
+addScienceIngredient("electric-engine", 1, "basic-automation-science-pack")
+addScienceIngredient("robotics", 1, "basic-automation-science-pack")
+--addScienceIngredient("flying", 1, "basic-automation-science-pack")
+addScienceIngredient("logistic-system", 1, "basic-automation-science-pack")
 
 addPrerequisiteTechnology("circuit-network", "basic-automation-science-research")
 addScienceIngredient("circuit-network", 1, "basic-automation-science-pack")

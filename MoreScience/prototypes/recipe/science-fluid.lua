@@ -5,7 +5,7 @@ data:extend({
     name = "purified-water",
     subgroup = "science-fluid",
     category = "chemistry",
-    icon = "__base__/graphics/icons/solid-fuel-from-heavy-oil.png",
+    icon = "__MoreScience__/graphics/fluids/fluid-00.png",
     icon_size = 32,
     energy_required = 2,
     enabled = false,
@@ -71,6 +71,31 @@ data:extend({
 
   {
     type = "recipe",
+    name = "basic-science-fluid-3",
+    subgroup = "science-fluid",
+    category = "chemistry",
+    energy_required = 5,
+    enabled = false,
+    ingredients =
+    {
+      {type="fluid", name="basic-science-fluid-2", amount=100},
+      {type="fluid", name="purified-water", amount=50},
+      {type="item", name="advanced-circuit", amount=5}
+    },
+    results =
+    {
+      {type="fluid", name= "basic-science-fluid-3", amount = 50}
+    },
+    crafting_machine_tint =
+    {
+      primary = {r = 0.331, g = 0.075, b = 0.510, a = 0.000}, -- #54138200
+      secondary = {r = 0.589, g = 0.540, b = 0.615, a = 0.361}, -- #96899c5c
+      tertiary = {r = 0.469, g = 0.145, b = 0.695, a = 0.000}, -- #7724b100
+    },
+  },
+
+  {
+    type = "recipe",
     name = "basic-automation-science-fluid",
     subgroup = "science-fluid",
     category = "chemistry",
@@ -103,9 +128,9 @@ data:extend({
     enabled = false,
     ingredients =
     {
-      {type="fluid", name="basic-automation-science-fluid", amount=100},
+      {type="fluid", name="basic-science-fluid-3", amount=100},
       {type="fluid", name="purified-water", amount=50},
-      {type="item", name="engine-unit", amount=5}
+      {type="item", name="electric-engine-unit", amount=5}
     },
     results =
     {

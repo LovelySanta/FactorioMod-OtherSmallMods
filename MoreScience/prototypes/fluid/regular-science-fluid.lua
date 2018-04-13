@@ -34,4 +34,4 @@ createScienceFluid("basic-science-fluid-1", "b", 14, {r=191./255, g=19./255, b=1
 createScienceFluid("basic-science-fluid-2", "b", 3, {r=63./255, g=187./255, b=63./255}, {r=0.5, g=0.5, b=0.5})
 
 -- basic science fluid 3
-createScienceFluid("basic-science-fluid-3", "b", 3, {r=63./255, g=187./255, b=63./255}, {r=0.5, g=0.5, b=0.5})
+createScienceFluid("basic-science-fluid-3", "b", 8, {r=63./255, g=187./255, b=63./255}, {r=0.5, g=0.5, b=0.5})

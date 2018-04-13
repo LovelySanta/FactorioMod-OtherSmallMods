@@ -3,7 +3,7 @@ data:extend({
   {
     type = "item",
     name = "sand",
-    icon = "__base__/graphics/icons/steel-plate.png", --placeholder
+    icon = "__MoreScience__/graphics/resources/sand.png",
     icon_size = 32,
     flags = {"goes-to-main-inventory"},
     subgroup = "raw-material",
@@ -14,7 +14,7 @@ data:extend({
   {
     type = "item",
     name = "glass",
-    icon = "__base__/graphics/icons/steel-plate.png", --placeholder
+    icon = "__MoreScience__/graphics/resources/glass.png",
     icon_size = 32,
     flags = {"goes-to-main-inventory"},
     subgroup = "raw-material",
@@ -25,7 +25,7 @@ data:extend({
   {
     type = "item",
     name = "cork",
-    icon = "__MoreScience__/graphics/cork.png",
+    icon = "__MoreScience__/graphics/resources/cork.png",
     icon_size = 128,
     flags = {"goes-to-main-inventory"},
     subgroup = "raw-material",

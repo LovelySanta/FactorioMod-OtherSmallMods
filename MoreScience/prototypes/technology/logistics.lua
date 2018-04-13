@@ -3,7 +3,7 @@ require "lib/utilities/prototyping"
 --------------------------------------------------------------------------------
 ----- Landfill:                                                            -----
 --------------------------------------------------------------------------------
-addPrerequisiteTechnology("landfill", "basic-science-research")
+addPrerequisiteTechnology("landfill", "basic-science-research-1")
 
 
 
@@ -65,7 +65,11 @@ data:extend({
     name = "basic-logistics-science-research",
     icon = "__MoreScience__/graphics/science-symbol.png",
     icon_size = 2000,
-    prerequisites = {"basic-automation-science-research", "engine"},
+    prerequisites =
+    {
+      "basic-science-research-2",
+      "electric-engine",
+    },
     effects =
     {
       {
@@ -84,7 +88,7 @@ data:extend({
       {
         {"science-pack-1", 1},
         {"science-pack-2", 3},
-        {"basic-automation-science-pack", 5},
+        {"science-pack-3", 5},
       },
       time = 30
     },
@@ -103,6 +107,11 @@ addScienceIngredient("railway", 1, "basic-logistics-science-pack")
 addScienceIngredient("automated-rail-transportation", 1, "basic-logistics-science-pack")
 addScienceIngredient("rail-signals", 1, "basic-logistics-science-pack")
 addScienceIngredient("fluid-wagon", 1, "basic-logistics-science-pack")
+
+addScienceIngredient("flying", 1, "basic-logistics-science-pack")
+addScienceIngredient("construction-robotics", 1, "basic-logistics-science-pack")
+addScienceIngredient("logistic-robotics", 1, "basic-logistics-science-pack")
+addScienceIngredient("logistic-system", 1, "basic-logistics-science-pack")
 
 addPrerequisiteTechnology("braking-force-1", "logistics-2")
 addScienceIngredient("braking-force-1", 1, "basic-logistics-science-pack")

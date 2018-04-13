@@ -22,7 +22,7 @@ alterSciencePack("science-pack-1", "basic-science-pack-1", "b", 14)
 -- basic science pack-2
 alterSciencePack("science-pack-2", "basic-science-pack-2", "b", 3)
 -- basic science pack 3
-alterSciencePack("science-pack-3", "basic-science-pack-3", "b", 7)
+alterSciencePack("science-pack-3", "basic-science-pack-3", "b", 8)
 
 -- advanced science pack 1
 alterSciencePack("production-science-pack", "advanced-science-pack-1", "c", 10)

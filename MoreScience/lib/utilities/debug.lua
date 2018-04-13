@@ -56,7 +56,7 @@ function Debug:reseachAllTechnologies()
   researchTechnology("electronics")
   researchTechnology("automation-2")
   researchTechnology("steel-processing")
-  researchTechnology("basic-science-research")
+  researchTechnology("basic-science-research-1")
 
   researchTechnology("fluid-handling")
   researchTechnology("bottling-research")
@@ -87,6 +87,8 @@ function Debug:reseachAllTechnologies()
   researchTechnology("shotgun-shell-speed-2")
   researchTechnology("shotgun-shell-speed-3")
 
+
+
 --------------------------------------------------------------------------------
 ----- Establishing main production                                         -----
 --------------------------------------------------------------------------------
@@ -104,12 +106,28 @@ function Debug:reseachAllTechnologies()
 
   -- Automation: optional research
   researchTechnology("advanced-material-processing")
+  researchTechnology("engine")
 
-
+  -- Science: research blue science
+  researchTechnology("basic-science-research-2")
 
   -- Science: research pink science
-  researchTechnology("engine")
+  researchTechnology("electric-engine")
   researchTechnology("basic-logistics-science-research")
+
+  -- Logistics: train network
+  researchTechnology("railway")
+  researchTechnology("automated-rail-transportation")
+  researchTechnology("rail-signals")
+  researchTechnology("fluid-wagon")
+  researchTechnology("logistics-2")
+
+  -- Logistics: robot network
+  researchTechnology("robotics")
+  researchTechnology("flying")
+  researchTechnology("construction-robotics")
+  researchTechnology("logistic-robotics")
+
 
 
 end

@@ -20,7 +20,7 @@ data:extend({
     normal =
     {
       enabled = false,
-      energy_required = 2.8,
+      energy_required = 7,
       ingredients = {{"sand", 2}},
       result = "glass"
     },

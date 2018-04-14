@@ -2,6 +2,7 @@
 Debug = {}
 
 Debug.enabled = true
+Debug.returnValue = 3
 
 function Debug:reseachAllTechnologies()
   force = game.forces["player"]
@@ -46,10 +47,14 @@ function Debug:reseachAllTechnologies()
   researchTechnology("optics")
   researchTechnology("toolbelt")
 
+  if self.returnValue == 1 then
+    return
+  end
+
 
 
 --------------------------------------------------------------------------------
------ Advancing to basic defence and automation of basic science           -----
+----- Advancing to basic defence and automation of basic (green) science   -----
 --------------------------------------------------------------------------------
 
   -- Science: research green science (and bottling)
@@ -77,6 +82,9 @@ function Debug:reseachAllTechnologies()
   researchTechnology("military-2")
   researchTechnology("gates")
 
+  -- Military: optional research
+  researchTechnology("flammables")
+
   -- Military: bonusses
   researchTechnology("bullet-damage-2")
   researchTechnology("bullet-speed-2")
@@ -87,10 +95,44 @@ function Debug:reseachAllTechnologies()
   researchTechnology("shotgun-shell-speed-2")
   researchTechnology("shotgun-shell-speed-3")
 
+  if self.returnValue == 2 then
+    return
+  end
+
 
 
 --------------------------------------------------------------------------------
------ Establishing main production                                         -----
+----- Establishing beter defence systems (gray science)                    -----
+--------------------------------------------------------------------------------
+
+  -- Science: research gray science
+  researchTechnology("basic-military-science-research")
+
+  -- Military: advanced defence systems
+  researchTechnology("flamethrower")
+
+
+  -- Military: bonusses
+  researchTechnology("bullet-damage-3")
+  researchTechnology("bullet-damage-4")
+  researchTechnology("bullet-speed-4")
+  researchTechnology("gun-turret-damage-3")
+  researchTechnology("gun-turret-damage-4")
+  researchTechnology("shotgun-shell-damage-3")
+  researchTechnology("shotgun-shell-damage-4")
+  researchTechnology("shotgun-shell-speed-4")
+  researchTechnology("grenade-damage-1")
+  researchTechnology("grenade-damage-2")
+  researchTechnology("grenade-damage-3")
+
+  if self.returnValue == 3 then
+    return
+  end
+
+
+
+--------------------------------------------------------------------------------
+----- Get automation to the next level (orange/blue science)               -----
 --------------------------------------------------------------------------------
 
   -- Science: research orange science
@@ -106,12 +148,12 @@ function Debug:reseachAllTechnologies()
 
   -- Automation: optional research
   researchTechnology("advanced-material-processing")
-  researchTechnology("engine")
 
   -- Science: research blue science
   researchTechnology("basic-science-research-2")
 
   -- Science: research pink science
+  researchTechnology("engine")
   researchTechnology("electric-engine")
   researchTechnology("basic-logistics-science-research")
 
@@ -128,6 +170,11 @@ function Debug:reseachAllTechnologies()
   researchTechnology("construction-robotics")
   researchTechnology("logistic-robotics")
 
+  if self.returnValue == 4 then
+    return
+  end
 
 
+
+  return
 end

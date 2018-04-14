@@ -32,6 +32,17 @@ data.raw["recipe"]["science-pack-2"].energy_required = 5
 
 
 
+-- basic science pack 3
+data.raw["recipe"]["military-science-pack"].category = "crafting-with-fluid"
+data.raw["recipe"]["military-science-pack"].ingredients =
+{
+  {"empty-bottle", 1},
+  {type="fluid", name="basic-military-science-fluid", amount=10},
+}
+data.raw["recipe"]["science-pack-2"].energy_required = 5
+
+
+
 -- basic automation science pack
 data:extend({
   {

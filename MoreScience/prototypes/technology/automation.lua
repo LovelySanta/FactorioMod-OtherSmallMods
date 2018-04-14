@@ -106,3 +106,5 @@ addScienceIngredient("plastics", 1, "basic-automation-science-pack")
 addScienceIngredient("advanced-electronics", 1, "basic-automation-science-pack")
 addScienceIngredient("sulfur-processing", 1, "basic-automation-science-pack")
 addScienceIngredient("battery", 1, "basic-automation-science-pack")
+
+addScienceIngredient("laser", 1, "basic-automation-science-pack")

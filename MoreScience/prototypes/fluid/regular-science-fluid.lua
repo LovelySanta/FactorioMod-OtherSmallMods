@@ -35,3 +35,6 @@ createScienceFluid("basic-science-fluid-2", "b", 3, {r=63./255, g=187./255, b=63
 
 -- basic science fluid 3
 createScienceFluid("basic-science-fluid-3", "b", 8, {r=63./255, g=187./255, b=63./255}, {r=0.5, g=0.5, b=0.5})
+
+-- basic military science fluid
+createScienceFluid("basic-military-science-fluid", "f", 9, {r=63./255, g=187./255, b=63./255}, {r=0.5, g=0.5, b=0.5})

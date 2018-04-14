@@ -54,6 +54,9 @@ data:extend({
 })
 
 -- add prerequisites on the technology
+removePrerequisiteTechnology("research-speed-1", "electronics")
+addPrerequisiteTechnology("research-speed-2", "basic-science-research-1")
+
 removePrerequisiteTechnology("electric-energy-distribution-1", "electronics")
 removePrerequisiteTechnology("electric-energy-distribution-1", "steel-processing")
 addPrerequisiteTechnology("electric-energy-distribution-1", "basic-science-research-1")
@@ -77,10 +80,6 @@ data:extend({
     {
       {
         type = "unlock-recipe",
-        recipe = "purified-water"
-      },
-      {
-        type = "unlock-recipe",
         recipe = "glass"
       },
       {
@@ -90,6 +89,10 @@ data:extend({
       {
         type = "unlock-recipe",
         recipe = "empty-bottle"
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "purified-water"
       },
     },
     unit =
@@ -105,8 +108,7 @@ data:extend({
   },
 })
 -- Fix research tree for bottling-research
-removePrerequisiteTechnology("research-speed-1", "electronics")
-addPrerequisiteTechnology("research-speed-1", "bottling-research")
+addPrerequisiteTechnology("research-speed-2", "bottling-research")
 
 
 
@@ -152,9 +154,11 @@ data:extend({
     order = "a-d-c"
   },
 })
+-- add prerequisites on the technology
+addPrerequisiteTechnology("research-speed-3", "basic-science-research-2")
+
 addPrerequisiteTechnology("electric-engine", "basic-science-research-2")
 addScienceIngredient("electric-engine", 1, "science-pack-3")
-
 addScienceIngredient("robotics", 1, "science-pack-3")
 addScienceIngredient("flying", 1, "science-pack-3")
 addScienceIngredient("construction-robotics", 1, "science-pack-3")

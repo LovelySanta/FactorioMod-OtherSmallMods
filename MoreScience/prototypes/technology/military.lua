@@ -8,16 +8,19 @@ addPrerequisiteTechnology("stone-walls", "military")
 
 
 --------------------------------------------------------------------------------
------ Military-2                                                           -----
+----- Military-2: require green science                                    -----
 --------------------------------------------------------------------------------
+-- add science dependency
 addPrerequisiteTechnology("military-2", "basic-science-research-1")
+
+-- bonusses requiring green science now require military-2
 addPrerequisiteTechnology("bullet-damage-2", "military-2")
 addPrerequisiteTechnology("bullet-speed-2", "military-2")
 addPrerequisiteTechnology("gun-turret-damage-1", "military-2")
 
 
 --------------------------------------------------------------------------------
------ Basic military science pack                                          -----
+----- Basic military science pack (gray science)                           -----
 --------------------------------------------------------------------------------
 -- remove recipe unlock from other technologies
 removeRecipeUnlock("military-2", "military-science-pack")
@@ -38,6 +41,10 @@ data:extend({
     {
       {
         type = "unlock-recipe",
+        recipe = "basic-military-science-fluid"
+      },
+      {
+        type = "unlock-recipe",
         recipe = "military-science-pack"
       },
     },
@@ -46,11 +53,10 @@ data:extend({
       count = 30,
       ingredients = {
         {"science-pack-1", 2},
-        {"science-pack-2", 2},
+        {"science-pack-2", 3},
       },
       time = 5
     },
-    upgrade = false,
     order = "c-a"
   },
 })
@@ -67,17 +73,33 @@ addPrerequisiteTechnology("laser-turrets", "basic-military-science-research")
 removePrerequisiteTechnology("flamethrower", "military-2")
 addPrerequisiteTechnology("flamethrower", "basic-military-science-research")
 
-removePrerequisiteTechnology("land-mine", "military-2")
-addPrerequisiteTechnology("land-mine", "basic-military-science-research")
-
 removePrerequisiteTechnology("combat-robotics", "military-2")
 addPrerequisiteTechnology("combat-robotics", "basic-military-science-research")
 
 removePrerequisiteTechnology("rocketry", "military-2")
 addPrerequisiteTechnology("rocketry", "basic-military-science-research")
 
---removePrerequisiteTechnology("military-3", "military-2")
-addPrerequisiteTechnology("military-3", "basic-military-science-research")
+removePrerequisiteTechnology("explosives", "military-2")
+addPrerequisiteTechnology("explosives", "basic-military-science-research")
 
 removePrerequisiteTechnology("grenade-damage-1", "military-2")
 addPrerequisiteTechnology("grenade-damage-1", "basic-military-science-research")
+
+--removePrerequisiteTechnology("military-3", "military-2")
+addPrerequisiteTechnology("military-3", "basic-military-science-research")
+
+
+
+--------------------------------------------------------------------------------
+----- Military-3: require blue science                                     -----
+--------------------------------------------------------------------------------
+-- add science dependency
+addPrerequisiteTechnology("military-3", "basic-science-research-2")
+
+-- bonusses requiring blue science now require military-3
+addPrerequisiteTechnology("bullet-damage-5", "military-3")
+addPrerequisiteTechnology("bullet-speed-5", "military-3")
+addPrerequisiteTechnology("gun-turret-damage-5", "military-3")
+addPrerequisiteTechnology("shotgun-shell-damage-5", "military-3")
+addPrerequisiteTechnology("shotgun-shell-speed-5", "military-3")
+addPrerequisiteTechnology("grenade-damage-4", "military-3")

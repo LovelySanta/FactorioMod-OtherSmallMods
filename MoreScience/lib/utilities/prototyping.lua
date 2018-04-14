@@ -15,10 +15,12 @@ end
 
 
 function addPrerequisiteTechnology(technologyName, prerequisiteToAdd)
-  if data.raw["technology"][technologyName] and not data.raw["technology"][technologyName].prerequisites then
-    data.raw["technology"][technologyName].prerequisites = {}
+  if data.raw["technology"][technologyName] then
+    if not data.raw["technology"][technologyName].prerequisites then
+      data.raw["technology"][technologyName].prerequisites = {}
+    end
+    table.insert(data.raw["technology"][technologyName].prerequisites, prerequisiteToAdd)
   end
-  table.insert(data.raw["technology"][technologyName].prerequisites, prerequisiteToAdd)
 end
 
 
@@ -40,10 +42,28 @@ end
 
 
 function addRecipeUnlock(technologyName, recipeToAdd)
-  if data.raw["technology"][technologyName] and not data.raw["technology"][technologyName].effects then
-    data.raw["technology"][technologyName].effects = {}
+  if data.raw["technology"][technologyName] then
+    if not data.raw["technology"][technologyName].effects then
+      data.raw["technology"][technologyName].effects = {}
+    end
+    table.insert(data.raw["technology"][technologyName].effects, {type = "unlock-recipe", recipe = recipeToAdd})
   end
-  table.insert(data.raw["technology"][technologyName].effects, {type = "unlock-recipe", recipe = recipeToAdd})
+end
+
+
+
+function removeScienceIngredient(technologyName, sciencePackName)
+  if data.raw["technology"][technologyName] and data.raw["technology"][technologyName].unit.ingredients then
+    for index, ingredient in pairs(data.raw["technology"][technologyName].unit.ingredients) do
+      if ingredient[1] == sciencePackName then
+        table.remove(data.raw["technology"][technologyName].unit.ingredients, index)
+        if #data.raw["technology"][technologyName].unit.ingredients == 0 then
+          data.raw["technology"][technologyName].unit.ingredients = nil
+        end
+        break
+      end
+    end
+  end
 end
 
 

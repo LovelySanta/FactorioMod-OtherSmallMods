@@ -86,20 +86,20 @@ data:extend({
 })
 
 -- add prerequisites on the technology
+addPrerequisiteTechnology("research-speed-3", "basic-automation-science-research")
+removeScienceIngredient("research-speed-3", "science-pack-3")
+addScienceIngredient("research-speed-3", 1, "basic-automation-science-pack")
+addScienceIngredient("research-speed-4", 1, "basic-automation-science-pack")
+
 addPrerequisiteTechnology("advanced-material-processing", "basic-automation-science-research")
 addScienceIngredient("advanced-material-processing", 1, "basic-automation-science-pack")
 addScienceIngredient("advanced-material-processing-2", 1, "basic-automation-science-pack")
-
-addPrerequisiteTechnology("engine", "basic-automation-science-research")
-addScienceIngredient("engine", 1, "basic-automation-science-pack")
-addScienceIngredient("electric-engine", 1, "basic-automation-science-pack")
-addScienceIngredient("robotics", 1, "basic-automation-science-pack")
---addScienceIngredient("flying", 1, "basic-automation-science-pack")
-addScienceIngredient("logistic-system", 1, "basic-automation-science-pack")
+addScienceIngredient("laser", 1, "basic-automation-science-pack")
 
 addPrerequisiteTechnology("circuit-network", "basic-automation-science-research")
 addScienceIngredient("circuit-network", 1, "basic-automation-science-pack")
 
+-- oil processing
 addPrerequisiteTechnology("oil-processing", "basic-automation-science-research")
 addScienceIngredient("oil-processing", 1, "basic-automation-science-pack")
 addScienceIngredient("plastics", 1, "basic-automation-science-pack")
@@ -107,4 +107,29 @@ addScienceIngredient("advanced-electronics", 1, "basic-automation-science-pack")
 addScienceIngredient("sulfur-processing", 1, "basic-automation-science-pack")
 addScienceIngredient("battery", 1, "basic-automation-science-pack")
 
-addScienceIngredient("laser", 1, "basic-automation-science-pack")
+-- modules
+addScienceIngredient("modules", 1, "basic-automation-science-pack")
+addScienceIngredient("speed-module", 1, "basic-automation-science-pack")
+addScienceIngredient("speed-module-2", 1, "basic-automation-science-pack")
+addScienceIngredient("speed-module-3", 1, "basic-automation-science-pack")
+addScienceIngredient("productivity-module", 1, "basic-automation-science-pack")
+addScienceIngredient("productivity-module-2", 1, "basic-automation-science-pack")
+addScienceIngredient("productivity-module-3", 1, "basic-automation-science-pack")
+addScienceIngredient("effectivity-module", 1, "basic-automation-science-pack")
+addScienceIngredient("effectivity-module-2", 1, "basic-automation-science-pack")
+addScienceIngredient("effectivity-module-3", 1, "basic-automation-science-pack")
+
+-- logistics
+addPrerequisiteTechnology("engine", "basic-automation-science-research")
+addScienceIngredient("engine", 1, "basic-automation-science-pack")
+addScienceIngredient("electric-engine", 1, "basic-automation-science-pack")
+addScienceIngredient("robotics", 1, "basic-automation-science-pack")
+--addScienceIngredient("flying", 1, "basic-automation-science-pack")
+addScienceIngredient("logistic-system", 1, "basic-automation-science-pack")
+
+-- mining productivity
+addScienceIngredient("mining-productivity-1", 1, "basic-automation-science-pack")
+addScienceIngredient("mining-productivity-4", 1, "basic-automation-science-pack")
+addScienceIngredient("mining-productivity-8", 1, "basic-automation-science-pack")
+addScienceIngredient("mining-productivity-12", 1, "basic-automation-science-pack")
+--addScienceIngredient("mining-productivity-16", 1, "basic-automation-science-pack")

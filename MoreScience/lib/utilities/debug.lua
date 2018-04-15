@@ -2,7 +2,7 @@
 Debug = {}
 
 Debug.enabled = true
-Debug.returnValue = 4
+Debug.returnValue = 5
 
 function Debug:reseachAllTechnologies()
   force = game.forces["player"]
@@ -128,7 +128,7 @@ function Debug:reseachAllTechnologies()
 
 
 --------------------------------------------------------------------------------
------ Get specific automation research (orange science)               -----
+----- Get specific automation research (orange science)                    -----
 --------------------------------------------------------------------------------
 
   -- Science: research orange science
@@ -156,35 +156,72 @@ function Debug:reseachAllTechnologies()
   -- Automation: bonusses
   researchTechnology("mining-productivity-1")
 
+  -- Military: beter armor
+  researchTechnology("modular-armor")
+  researchTechnology("night-vision-equipment")
+
   -- Military: advanced defence systems
   researchTechnology("flammables")
   researchTechnology("flamethrower")
-  researchTechnology("laser")
-  researchTechnology("laser-turrets")
   researchTechnology("explosives")
   researchTechnology("land-mine")
   researchTechnology("rocketry")
 
   -- Military: optional research
+  researchTechnology("laser")
   researchTechnology("cliff-explosives")
 
   -- Military: bonusses
   researchTechnology("flamethrower-damage-1")
   researchTechnology("flamethrower-damage-2")
-  researchTechnology("laser-turret-damage-1")
-  researchTechnology("laser-turret-damage-2")
-  researchTechnology("laser-turret-speed-1")
-  researchTechnology("laser-turret-speed-2")
   researchTechnology("rocket-damage-1")
   researchTechnology("rocket-damage-2")
   researchTechnology("rocket-speed-1")
   researchTechnology("rocket-speed-2")
 
-
-
   if self.returnValue == 4 then
     return
   end
+
+
+
+--------------------------------------------------------------------------------
+----- Get beter power source (light blue science)                          -----
+--------------------------------------------------------------------------------
+
+  -- Science: research light blue science
+  researchTechnology("basic-power-science-research")
+
+  -- Power: solar energy
+  researchTechnology("solar-energy")
+  researchTechnology("electric-energy-accumulators-1")
+
+  -- Power: optional research
+  researchTechnology("effectivity-module")
+
+  -- Military: electricity powered defence
+  researchTechnology("laser-turrets")
+
+  -- Military: armor upgrades
+  researchTechnology("solar-panel-equipment")
+  researchTechnology("battery-equipment")
+  researchTechnology("energy-shield-equipment")
+
+  -- Military: bonusses
+  researchTechnology("laser-turret-damage-1")
+  researchTechnology("laser-turret-damage-2")
+  researchTechnology("laser-turret-speed-1")
+  researchTechnology("laser-turret-speed-2")
+
+  if self.returnValue == 5 then
+    return
+  end
+
+
+
+--------------------------------------------------------------------------------
+----- Get beter technology research (blue science)                         -----
+--------------------------------------------------------------------------------
 
   -- Science: research blue science
   researchTechnology("basic-science-research-2")

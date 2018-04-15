@@ -22,6 +22,7 @@ require(recipePath .. "science-pack")
 -- technology
 technologyPath = "prototypes/technology/"
 require(technologyPath .. "science")
-require(technologyPath .. "automation")
-require(technologyPath .. "logistics")
 require(technologyPath .. "military")
+require(technologyPath .. "automation")
+require(technologyPath .. "power")
+require(technologyPath .. "logistics")

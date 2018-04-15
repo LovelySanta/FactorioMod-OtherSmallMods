@@ -62,6 +62,25 @@ data:extend({
 
 
 
+-- basic automation science pack
+data:extend({
+  {
+    type = "recipe",
+    name = "basic-power-science-pack",
+    category = "crafting-with-fluid",
+    energy_required = 5,
+    ingredients =
+    {
+      {"empty-bottle", 1},
+      {type="fluid", name="basic-power-science-fluid", amount=10},
+    },
+    result = "basic-power-science-pack",
+    enabled = false
+  },
+})
+
+
+
 -- basic logistics science pack
 data:extend({
   {

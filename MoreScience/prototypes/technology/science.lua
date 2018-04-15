@@ -157,6 +157,7 @@ data:extend({
 -- add prerequisites on the technology
 addPrerequisiteTechnology("research-speed-4", "basic-science-research-2")
 
+-- logistics network
 addPrerequisiteTechnology("electric-engine", "basic-science-research-2")
 addScienceIngredient("electric-engine", 1, "science-pack-3")
 addScienceIngredient("robotics", 1, "science-pack-3")
@@ -164,15 +165,18 @@ addScienceIngredient("flying", 1, "science-pack-3")
 addScienceIngredient("construction-robotics", 1, "science-pack-3")
 addScienceIngredient("logistic-robotics", 1, "science-pack-3")
 
+-- train network
 addScienceIngredient("railway", 1, "science-pack-3")
 addScienceIngredient("automated-rail-transportation", 1, "science-pack-3")
 addScienceIngredient("rail-signals", 1, "science-pack-3")
 addScienceIngredient("fluid-wagon", 1, "science-pack-3")
 addScienceIngredient("logistics-2", 1, "science-pack-3")
 
+-- automation
 addPrerequisiteTechnology("advanced-material-processing-2", "basic-science-research-2")
 addPrerequisiteTechnology("advanced-oil-processing", "basic-science-research-2")
 addPrerequisiteTechnology("advanced-electronics-2", "basic-science-research-2")
 addPrerequisiteTechnology("electric-energy-distribution-2", "basic-science-research-2")
 
+-- automation bonusses
 addPrerequisiteTechnology("mining-productivity-4", "basic-science-research-2")

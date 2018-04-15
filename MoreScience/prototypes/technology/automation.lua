@@ -115,9 +115,10 @@ addScienceIngredient("speed-module-3", 1, "basic-automation-science-pack")
 addScienceIngredient("productivity-module", 1, "basic-automation-science-pack")
 addScienceIngredient("productivity-module-2", 1, "basic-automation-science-pack")
 addScienceIngredient("productivity-module-3", 1, "basic-automation-science-pack")
-addScienceIngredient("effectivity-module", 1, "basic-automation-science-pack")
-addScienceIngredient("effectivity-module-2", 1, "basic-automation-science-pack")
-addScienceIngredient("effectivity-module-3", 1, "basic-automation-science-pack")
+
+-- armor equipment
+addScienceIngredient("modular-armor", 1, "basic-automation-science-pack")
+addScienceIngredient("night-vision-equipment", 1, "basic-automation-science-pack")
 
 -- logistics
 addPrerequisiteTechnology("engine", "basic-automation-science-research")

@@ -32,5 +32,8 @@ createScienceFluid("purified-water", "a", 0, {r=191./255, g=19./255, b=19./255},
 -- automation science fluid
 createScienceFluid("basic-automation-science-fluid", "e", 15, {r=191./255, g=19./255, b=19./255}, {r=0.5, g=0.5, b=0.5})
 
+-- power science fluid
+createScienceFluid("basic-power-science-fluid", "e", 5, {r=191./255, g=19./255, b=19./255}, {r=0.5, g=0.5, b=0.5})
+
 -- automation science fluid
 createScienceFluid("basic-logistics-science-fluid", "e", 13, {r=191./255, g=19./255, b=19./255}, {r=0.5, g=0.5, b=0.5})

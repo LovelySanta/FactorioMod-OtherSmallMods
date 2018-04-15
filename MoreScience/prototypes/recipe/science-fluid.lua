@@ -26,6 +26,8 @@ data:extend({
     },
   },
 
+
+
   {
     type = "recipe",
     name = "basic-science-fluid-1",
@@ -43,6 +45,8 @@ data:extend({
     },
     enabled = false,
   },
+
+
 
   {
     type = "recipe",
@@ -68,6 +72,8 @@ data:extend({
       tertiary = {r = 0.469, g = 0.145, b = 0.695, a = 0.000}, -- #7724b100
     },
   },
+
+
 
   {
     type = "recipe",
@@ -95,6 +101,8 @@ data:extend({
     },
   },
 
+
+
   {
     type = "recipe",
     name = "basic-science-fluid-3",
@@ -119,6 +127,8 @@ data:extend({
       tertiary = {r = 0.469, g = 0.145, b = 0.695, a = 0.000}, -- #7724b100
     },
   },
+
+
 
   {
     type = "recipe",
@@ -145,6 +155,35 @@ data:extend({
     },
   },
 
+
+
+  {
+    type = "recipe",
+    name = "basic-power-science-fluid",
+    subgroup = "science-fluid",
+    category = "chemistry",
+    energy_required = 10,
+    enabled = false,
+    ingredients =
+    {
+      {type="fluid", name="basic-automation-science-fluid", amount=100},
+      {type="fluid", name="purified-water", amount=50},
+      {type="item", name="battery", amount=25},
+    },
+    results =
+    {
+      {type="fluid", name= "basic-power-science-fluid", amount = 50},
+    },
+    crafting_machine_tint =
+    {
+      primary = {r = 0.331, g = 0.075, b = 0.510, a = 0.000}, -- #54138200
+      secondary = {r = 0.589, g = 0.540, b = 0.615, a = 0.361}, -- #96899c5c
+      tertiary = {r = 0.469, g = 0.145, b = 0.695, a = 0.000}, -- #7724b100
+    },
+  },
+
+
+
   {
     type = "recipe",
     name = "basic-logistics-science-fluid",
@@ -169,4 +208,7 @@ data:extend({
       tertiary = {r = 0.469, g = 0.145, b = 0.695, a = 0.000}, -- #7724b100
     },
   },
+
+
+  
 })

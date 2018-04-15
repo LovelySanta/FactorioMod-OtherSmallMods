@@ -25,5 +25,8 @@ end
 -- automation science pack
 addSciencePack("basic-automation-science-pack", "e", 15)
 
+-- power science pack
+addSciencePack("basic-power-science-pack", "e", 5)
+
 -- logistics science pack
 addSciencePack("basic-logistics-science-pack", "e", 13)

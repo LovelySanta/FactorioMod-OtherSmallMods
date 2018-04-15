@@ -96,6 +96,12 @@ addPrerequisiteTechnology("military-3", "basic-military-science-research")
 -- add science dependency
 addPrerequisiteTechnology("military-3", "basic-science-research-2")
 
+-- armor equipment
+addPrerequisiteTechnology("energy-shield-equipment", "military-3")
+addPrerequisiteTechnology("personal-laser-defense-equipment", "military-3")
+addPrerequisiteTechnology("discharge-defense-equipment", "military-3")
+addPrerequisiteTechnology("power-armor", "military-3")
+
 -- bonusses requiring blue science now require military-3
 addPrerequisiteTechnology("bullet-damage-5", "military-3")
 addPrerequisiteTechnology("bullet-speed-5", "military-3")

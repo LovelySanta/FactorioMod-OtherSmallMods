@@ -2,7 +2,7 @@
 Debug = {}
 
 Debug.enabled = true
-Debug.returnValue = 5
+Debug.returnValue = 6
 
 function Debug:reseachAllTechnologies()
   force = game.forces["player"]
@@ -78,9 +78,11 @@ function Debug:reseachAllTechnologies()
   researchTechnology("landfill")
 
   -- Military: basic defence systems
-  researchTechnology("heavy-armor")
   researchTechnology("military-2")
   researchTechnology("gates")
+
+  -- Military: Armor upgrades
+  researchTechnology("heavy-armor")
 
   -- Military: optional research
   researchTechnology("flammables")
@@ -229,8 +231,80 @@ function Debug:reseachAllTechnologies()
   -- Science: bonusses
   researchTechnology("research-speed-4")
 
-  -- Science: research pink science
+  -- Automation: advance automation process
+  researchTechnology("advanced-oil-processing")
+
+  -- Automation: optional research
+  researchTechnology("advanced-material-processing-2")
+  researchTechnology("advanced-electronics-2")
   researchTechnology("electric-engine")
+  researchTechnology("flying")
+  researchTechnology("speed-module-2")
+  researchTechnology("productivity-module-2")
+
+  -- Automation: bonusses
+  researchTechnology("mining-productivity-4")
+
+  -- Power network: beter power
+  researchTechnology("electric-energy-distribution-2")
+  researchTechnology("nuclear-power")
+  researchTechnology("effectivity-module-2")
+
+  -- Military: extra defence systems
+  researchTechnology("flying")
+  researchTechnology("combat-robotics")
+  researchTechnology("military-3")
+  researchTechnology("explosive-rocketry")
+  researchTechnology("combat-robotics-2")
+
+  -- Military: armor upgrades
+  researchTechnology("battery-mk2-equipment")
+  researchTechnology("exoskeleton-equipment")
+  researchTechnology("power-armor")
+  researchTechnology("energy-shield-mk2-equipment")
+  researchTechnology("personal-laser-defense-equipment")
+  researchTechnology("discharge-defense-equipment")
+
+  -- Military: bonusses
+  researchTechnology("bullet-damage-5")
+  researchTechnology("bullet-speed-5")
+  researchTechnology("gun-turret-damage-5")
+  researchTechnology("shotgun-shell-damage-5")
+  researchTechnology("shotgun-shell-speed-5")
+  researchTechnology("grenade-damage-4")
+  researchTechnology("grenade-damage-5")
+  researchTechnology("flamethrower-damage-3")
+  researchTechnology("flamethrower-damage-4")
+  researchTechnology("rocket-damage-3")
+  researchTechnology("rocket-damage-4")
+  researchTechnology("rocket-damage-5")
+  researchTechnology("rocket-speed-3")
+  researchTechnology("rocket-speed-4")
+  researchTechnology("rocket-speed-5")
+  researchTechnology("laser-turret-damage-3")
+  researchTechnology("laser-turret-damage-4")
+  researchTechnology("laser-turret-speed-3")
+  researchTechnology("laser-turret-speed-4")
+  researchTechnology("combat-robot-damage-1")
+  researchTechnology("combat-robot-damage-2")
+  researchTechnology("combat-robot-damage-3")
+  researchTechnology("combat-robot-damage-4")
+  researchTechnology("follower-robot-count-1")
+  researchTechnology("follower-robot-count-2")
+  researchTechnology("follower-robot-count-3")
+  researchTechnology("follower-robot-count-4")
+
+  if self.returnValue == 6 then
+    return
+  end
+
+
+
+--------------------------------------------------------------------------------
+----- Get beter logistic technology (pink science)                         -----
+--------------------------------------------------------------------------------
+
+  -- Science: research pink science
   researchTechnology("basic-logistics-science-research")
 
   -- Logistics: train network
@@ -242,7 +316,6 @@ function Debug:reseachAllTechnologies()
 
   -- Logistics: robot network
   researchTechnology("robotics")
-  researchTechnology("flying")
   researchTechnology("construction-robotics")
   researchTechnology("logistic-robotics")
 

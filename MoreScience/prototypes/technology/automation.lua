@@ -102,8 +102,12 @@ addScienceIngredient("circuit-network", 1, "basic-automation-science-pack")
 -- oil processing
 addPrerequisiteTechnology("oil-processing", "basic-automation-science-research")
 addScienceIngredient("oil-processing", 1, "basic-automation-science-pack")
+addScienceIngredient("advanced-oil-processing", 1, "basic-automation-science-pack")
+addScienceIngredient("coal-liquefaction", 1, "basic-automation-science-pack")
+
 addScienceIngredient("plastics", 1, "basic-automation-science-pack")
 addScienceIngredient("advanced-electronics", 1, "basic-automation-science-pack")
+addScienceIngredient("advanced-electronics-2", 1, "basic-automation-science-pack")
 addScienceIngredient("sulfur-processing", 1, "basic-automation-science-pack")
 addScienceIngredient("battery", 1, "basic-automation-science-pack")
 

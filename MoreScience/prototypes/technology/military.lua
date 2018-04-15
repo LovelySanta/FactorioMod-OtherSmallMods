@@ -13,6 +13,9 @@ addPrerequisiteTechnology("stone-walls", "military")
 -- add science dependency
 addPrerequisiteTechnology("military-2", "basic-science-research-1")
 
+-- add other dependencies on military-2
+addPrerequisiteTechnology("modular-armor", "military-2")
+
 -- bonusses requiring green science now require military-2
 addPrerequisiteTechnology("bullet-damage-2", "military-2")
 addPrerequisiteTechnology("bullet-speed-2", "military-2")
@@ -69,22 +72,16 @@ addPrerequisiteTechnology("shotgun-shell-speed-4", "basic-military-science-resea
 -- requiring military science instead of military-2
 removePrerequisiteTechnology("laser-turrets", "military-2")
 addPrerequisiteTechnology("laser-turrets", "basic-military-science-research")
-
 removePrerequisiteTechnology("flamethrower", "military-2")
 addPrerequisiteTechnology("flamethrower", "basic-military-science-research")
-
 removePrerequisiteTechnology("combat-robotics", "military-2")
 addPrerequisiteTechnology("combat-robotics", "basic-military-science-research")
-
 removePrerequisiteTechnology("rocketry", "military-2")
 addPrerequisiteTechnology("rocketry", "basic-military-science-research")
-
 removePrerequisiteTechnology("explosives", "military-2")
 addPrerequisiteTechnology("explosives", "basic-military-science-research")
-
 removePrerequisiteTechnology("grenade-damage-1", "military-2")
 addPrerequisiteTechnology("grenade-damage-1", "basic-military-science-research")
-
 --removePrerequisiteTechnology("military-3", "military-2")
 addPrerequisiteTechnology("military-3", "basic-military-science-research")
 
@@ -97,7 +94,7 @@ addPrerequisiteTechnology("military-3", "basic-military-science-research")
 addPrerequisiteTechnology("military-3", "basic-science-research-2")
 
 -- armor equipment
-addPrerequisiteTechnology("energy-shield-equipment", "military-3")
+addPrerequisiteTechnology("energy-shield-mk2-equipment", "military-3")
 addPrerequisiteTechnology("personal-laser-defense-equipment", "military-3")
 addPrerequisiteTechnology("discharge-defense-equipment", "military-3")
 addPrerequisiteTechnology("power-armor", "military-3")
@@ -114,3 +111,6 @@ addPrerequisiteTechnology("laser-turret-damage-3", "military-3")
 addPrerequisiteTechnology("laser-turret-speed-3", "military-3")
 addPrerequisiteTechnology("rocket-damage-3", "military-3")
 addPrerequisiteTechnology("rocket-speed-3", "military-3")
+
+addPrerequisiteTechnology("combat-robot-damage-3", "combat-robotics-2")
+addPrerequisiteTechnology("follower-robot-count-3", "combat-robotics-2")

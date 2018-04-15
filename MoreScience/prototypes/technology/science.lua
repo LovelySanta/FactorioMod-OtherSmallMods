@@ -178,5 +178,8 @@ addPrerequisiteTechnology("advanced-oil-processing", "basic-science-research-2")
 addPrerequisiteTechnology("advanced-electronics-2", "basic-science-research-2")
 addPrerequisiteTechnology("electric-energy-distribution-2", "basic-science-research-2")
 
+-- power
+addPrerequisiteTechnology("nuclear-power", "basic-science-research-2")
+
 -- automation bonusses
 addPrerequisiteTechnology("mining-productivity-4", "basic-science-research-2")

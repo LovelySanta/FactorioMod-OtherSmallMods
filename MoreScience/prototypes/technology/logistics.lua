@@ -100,6 +100,7 @@ data:extend({
 addPrerequisiteTechnology("logistics-2", "basic-logistics-science-research")
 addScienceIngredient("logistics-2", 1, "basic-logistics-science-pack")
 addScienceIngredient("automobilism", 1, "basic-logistics-science-pack")
+addScienceIngredient("tanks", 1, "basic-logistics-science-pack")
 
 removePrerequisiteTechnology("railway", "logistics-2")
 addPrerequisiteTechnology("railway", "basic-logistics-science-research")
@@ -108,7 +109,8 @@ addScienceIngredient("automated-rail-transportation", 1, "basic-logistics-scienc
 addScienceIngredient("rail-signals", 1, "basic-logistics-science-pack")
 addScienceIngredient("fluid-wagon", 1, "basic-logistics-science-pack")
 
-addScienceIngredient("flying", 1, "basic-logistics-science-pack")
+addScienceIngredient("robotics", 1, "basic-logistics-science-pack")
+--addScienceIngredient("flying", 1, "basic-logistics-science-pack")
 addScienceIngredient("construction-robotics", 1, "basic-logistics-science-pack")
 addScienceIngredient("logistic-robotics", 1, "basic-logistics-science-pack")
 addScienceIngredient("logistic-system", 1, "basic-logistics-science-pack")

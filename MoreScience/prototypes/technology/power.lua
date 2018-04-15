@@ -42,11 +42,15 @@ data:extend({
 
 -- add prerequisites on the technology
 
--- solar power
+-- power
+addPrerequisiteTechnology("electric-energy-distribution-2", "basic-power-science-research")
+addScienceIngredient("electric-energy-distribution-2", 1, "basic-power-science-pack")
 addPrerequisiteTechnology("electric-energy-accumulators-1", "basic-power-science-research")
 addScienceIngredient("electric-energy-accumulators-1", 1, "basic-power-science-pack")
 addPrerequisiteTechnology("solar-energy", "basic-power-science-research")
 addScienceIngredient("solar-energy", 1, "basic-power-science-pack")
+addPrerequisiteTechnology("nuclear-power", "basic-power-science-research")
+addScienceIngredient("nuclear-power", 1, "basic-power-science-pack")
 
 -- power modules
 addPrerequisiteTechnology("effectivity-module", "basic-power-science-research")
@@ -62,25 +66,27 @@ addScienceIngredient("laser-turrets", 1, "basic-power-science-pack")
 addPrerequisiteTechnology("solar-panel-equipment", "solar-energy")
 addScienceIngredient("solar-panel-equipment", 1, "basic-power-science-pack")
 addScienceIngredient("fusion-reactor-equipment", 1, "basic-power-science-pack")
-
 addPrerequisiteTechnology("battery-equipment", "basic-power-science-research")
 addScienceIngredient("battery-equipment", 1, "basic-power-science-pack")
-addPrerequisiteTechnology("battery-mk2-equipment", "basic-power-science-research")
 addScienceIngredient("battery-mk2-equipment", 1, "basic-power-science-pack")
-
 addScienceIngredient("personal-laser-defense-equipment", 1, "basic-power-science-pack")
 addScienceIngredient("discharge-defense-equipment", 1, "basic-power-science-pack")
-
 addPrerequisiteTechnology("energy-shield-equipment", "basic-power-science-research")
 addScienceIngredient("energy-shield-equipment", 1, "basic-power-science-pack")
 addScienceIngredient("energy-shield-mk2-equipment", 1, "basic-power-science-pack")
 
--- nuclear power
-addPrerequisiteTechnology("nuclear-power", "basic-power-science-research")
-addScienceIngredient("nuclear-power", 1, "basic-power-science-pack")
-
 -- bonusses
 addScienceIngredient("laser-turret-damage-1", 1, "basic-power-science-pack")
 addScienceIngredient("laser-turret-damage-2", 1, "basic-power-science-pack")
+addScienceIngredient("laser-turret-damage-3", 1, "basic-power-science-pack")
+addScienceIngredient("laser-turret-damage-4", 1, "basic-power-science-pack")
+addScienceIngredient("laser-turret-damage-5", 1, "basic-power-science-pack")
+addScienceIngredient("laser-turret-damage-6", 1, "basic-power-science-pack")
+addScienceIngredient("laser-turret-damage-7", 1, "basic-power-science-pack")
 addScienceIngredient("laser-turret-speed-1", 1, "basic-power-science-pack")
 addScienceIngredient("laser-turret-speed-2", 1, "basic-power-science-pack")
+addScienceIngredient("laser-turret-speed-3", 1, "basic-power-science-pack")
+addScienceIngredient("laser-turret-speed-4", 1, "basic-power-science-pack")
+addScienceIngredient("laser-turret-speed-5", 1, "basic-power-science-pack")
+addScienceIngredient("laser-turret-speed-6", 1, "basic-power-science-pack")
+addScienceIngredient("laser-turret-speed-7", 1, "basic-power-science-pack")

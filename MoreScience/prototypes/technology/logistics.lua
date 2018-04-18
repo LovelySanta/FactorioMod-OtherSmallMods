@@ -98,10 +98,12 @@ data:extend({
 
 -- add prerequisites on the technology
 addPrerequisiteTechnology("logistics-2", "basic-logistics-science-research")
-addScienceIngredient("logistics-2", 1, "basic-logistics-science-pack")
 addScienceIngredient("automobilism", 1, "basic-logistics-science-pack")
 addScienceIngredient("tanks", 1, "basic-logistics-science-pack")
+addScienceIngredient("logistics-2", 1, "basic-logistics-science-pack")
+addScienceIngredient("stack-inserter", 1, "basic-logistics-science-pack")
 
+-- train network
 removePrerequisiteTechnology("railway", "logistics-2")
 addPrerequisiteTechnology("railway", "basic-logistics-science-research")
 addScienceIngredient("railway", 1, "basic-logistics-science-pack")
@@ -109,11 +111,38 @@ addScienceIngredient("automated-rail-transportation", 1, "basic-logistics-scienc
 addScienceIngredient("rail-signals", 1, "basic-logistics-science-pack")
 addScienceIngredient("fluid-wagon", 1, "basic-logistics-science-pack")
 
+-- robot network
 addScienceIngredient("robotics", 1, "basic-logistics-science-pack")
 --addScienceIngredient("flying", 1, "basic-logistics-science-pack")
 addScienceIngredient("construction-robotics", 1, "basic-logistics-science-pack")
 addScienceIngredient("logistic-robotics", 1, "basic-logistics-science-pack")
 addScienceIngredient("logistic-system", 1, "basic-logistics-science-pack")
 
+-- inserters bonus
+addScienceIngredient("inserter-capacity-bonus-1", 1, "basic-logistics-science-pack")
+addScienceIngredient("inserter-capacity-bonus-2", 1, "basic-logistics-science-pack")
+addScienceIngredient("inserter-capacity-bonus-3", 1, "basic-logistics-science-pack")
+addScienceIngredient("inserter-capacity-bonus-4", 1, "basic-logistics-science-pack")
+addScienceIngredient("inserter-capacity-bonus-5", 1, "basic-logistics-science-pack")
+addScienceIngredient("inserter-capacity-bonus-6", 1, "basic-logistics-science-pack")
+addScienceIngredient("inserter-capacity-bonus-7", 1, "basic-logistics-science-pack")
+
+-- train bonus
 addPrerequisiteTechnology("braking-force-1", "logistics-2")
 addScienceIngredient("braking-force-1", 1, "basic-logistics-science-pack")
+addScienceIngredient("braking-force-2", 1, "basic-logistics-science-pack")
+addScienceIngredient("braking-force-3", 1, "basic-logistics-science-pack")
+addScienceIngredient("braking-force-4", 1, "basic-logistics-science-pack")
+addScienceIngredient("braking-force-5", 1, "basic-logistics-science-pack")
+addScienceIngredient("braking-force-6", 1, "basic-logistics-science-pack")
+addScienceIngredient("braking-force-7", 1, "basic-logistics-science-pack")
+
+-- robot bonus
+addScienceIngredient("worker-robots-storage-1", 1, "basic-logistics-science-pack")
+addScienceIngredient("worker-robots-storage-2", 1, "basic-logistics-science-pack")
+addScienceIngredient("worker-robots-storage-3", 1, "basic-logistics-science-pack")
+addScienceIngredient("worker-robots-speed-1", 1, "basic-logistics-science-pack")
+addScienceIngredient("worker-robots-speed-2", 1, "basic-logistics-science-pack")
+addScienceIngredient("worker-robots-speed-3", 1, "basic-logistics-science-pack")
+addScienceIngredient("worker-robots-speed-4", 1, "basic-logistics-science-pack")
+addScienceIngredient("worker-robots-speed-5", 1, "basic-logistics-science-pack")

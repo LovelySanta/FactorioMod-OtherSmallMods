@@ -2,7 +2,7 @@
 Debug = {}
 
 Debug.enabled = true
-Debug.returnValue = 6
+Debug.returnValue = 7
 
 function Debug:reseachAllTechnologies()
   force = game.forces["player"]
@@ -307,17 +307,46 @@ function Debug:reseachAllTechnologies()
   -- Science: research pink science
   researchTechnology("basic-logistics-science-research")
 
+  -- Logistics: Inserters
+  researchTechnology("logistics-2")
+  researchTechnology("stack-inserter")
+
   -- Logistics: train network
   researchTechnology("railway")
   researchTechnology("automated-rail-transportation")
   researchTechnology("rail-signals")
   researchTechnology("fluid-wagon")
-  researchTechnology("logistics-2")
 
   -- Logistics: robot network
   researchTechnology("robotics")
   researchTechnology("construction-robotics")
   researchTechnology("logistic-robotics")
+
+  -- Military: tanks
+  researchTechnology("automobilism")
+  researchTechnology("tanks")
+
+  -- Logistics: bonusses
+  researchTechnology("inserter-capacity-bonus-1")
+  researchTechnology("inserter-capacity-bonus-2")
+  researchTechnology("inserter-capacity-bonus-3")
+  researchTechnology("braking-force-1")
+  researchTechnology("braking-force-2")
+  researchTechnology("worker-robots-storage-1")
+  researchTechnology("worker-robots-speed-1")
+  researchTechnology("worker-robots-speed-2")
+
+  -- Military: bonusses
+  researchTechnology("cannon-shell-damage-1")
+  researchTechnology("cannon-shell-damage-2")
+  researchTechnology("cannon-shell-damage-3")
+  researchTechnology("cannon-shell-speed-1")
+  researchTechnology("cannon-shell-speed-2")
+  researchTechnology("cannon-shell-speed-3")
+
+  if self.returnValue == 7 then
+    return
+  end
 
   return
 end

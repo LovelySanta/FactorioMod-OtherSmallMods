@@ -124,13 +124,23 @@ addScienceIngredient("productivity-module-3", 1, "basic-automation-science-pack"
 addScienceIngredient("modular-armor", 1, "basic-automation-science-pack")
 addScienceIngredient("night-vision-equipment", 1, "basic-automation-science-pack")
 
--- logistics
+-- robot network
 addPrerequisiteTechnology("engine", "basic-automation-science-research")
 addScienceIngredient("engine", 1, "basic-automation-science-pack")
 addScienceIngredient("electric-engine", 1, "basic-automation-science-pack")
 addScienceIngredient("robotics", 1, "basic-automation-science-pack")
 --addScienceIngredient("flying", 1, "basic-automation-science-pack")
 addScienceIngredient("logistic-system", 1, "basic-automation-science-pack")
+
+-- inserter bonus
+addScienceIngredient("stack-inserter", 1, "basic-automation-science-pack")
+addScienceIngredient("inserter-capacity-bonus-1", 1, "basic-automation-science-pack")
+addScienceIngredient("inserter-capacity-bonus-2", 1, "basic-automation-science-pack")
+addScienceIngredient("inserter-capacity-bonus-3", 1, "basic-automation-science-pack")
+addScienceIngredient("inserter-capacity-bonus-4", 1, "basic-automation-science-pack")
+addScienceIngredient("inserter-capacity-bonus-5", 1, "basic-automation-science-pack")
+addScienceIngredient("inserter-capacity-bonus-6", 1, "basic-automation-science-pack")
+addScienceIngredient("inserter-capacity-bonus-7", 1, "basic-automation-science-pack")
 
 -- mining productivity
 addScienceIngredient("mining-productivity-1", 1, "basic-automation-science-pack")

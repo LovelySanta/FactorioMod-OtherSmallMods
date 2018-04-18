@@ -172,6 +172,9 @@ addScienceIngredient("rail-signals", 1, "science-pack-3")
 addScienceIngredient("fluid-wagon", 1, "science-pack-3")
 addScienceIngredient("logistics-2", 1, "science-pack-3")
 
+-- vehicles
+addScienceIngredient("automobilism", 1, "science-pack-3")
+
 -- automation
 addPrerequisiteTechnology("advanced-material-processing-2", "basic-science-research-2")
 addPrerequisiteTechnology("advanced-oil-processing", "basic-science-research-2")

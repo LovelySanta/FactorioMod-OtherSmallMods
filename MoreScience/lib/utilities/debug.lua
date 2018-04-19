@@ -322,6 +322,17 @@ function Debug:reseachAllTechnologies()
   researchTechnology("construction-robotics")
   researchTechnology("logistic-robotics")
 
+  -- Logistics inventory managing
+  researchTechnology("character-logistic-slots-1")
+  researchTechnology("character-logistic-slots-2")
+  researchTechnology("character-logistic-slots-3")
+  researchTechnology("character-logistic-trash-slots-1")
+  researchTechnology("character-logistic-trash-slots-2")
+  researchTechnology("auto-character-logistic-trash-slots")
+
+  -- Military: armor upgrades
+  researchTechnology("personal-roboport-equipment")
+
   -- Military: tanks
   researchTechnology("automobilism")
   researchTechnology("tanks")
@@ -348,5 +359,26 @@ function Debug:reseachAllTechnologies()
     return
   end
 
-  return
+
+
+--------------------------------------------------------------------------------
+----- Get beter technology research (purple science)                       -----
+--------------------------------------------------------------------------------
+
+  if self.returnValue == 8 then
+    return
+  end
+
+
+
+--------------------------------------------------------------------------------
+----- Get beter technology research (yellow science)                       -----
+--------------------------------------------------------------------------------
+
+  if self.returnValue == 9 then
+    return
+  end
+
+
+
 end

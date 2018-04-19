@@ -111,6 +111,10 @@ addScienceIngredient("advanced-electronics-2", 1, "basic-automation-science-pack
 addScienceIngredient("sulfur-processing", 1, "basic-automation-science-pack")
 addScienceIngredient("battery", 1, "basic-automation-science-pack")
 
+-- train network
+addScienceIngredient("automated-rail-transportation", 1, "basic-automation-science-pack")
+addScienceIngredient("rail-signals", 1, "basic-automation-science-pack")
+
 -- modules
 addScienceIngredient("modules", 1, "basic-automation-science-pack")
 addScienceIngredient("speed-module", 1, "basic-automation-science-pack")
@@ -131,6 +135,18 @@ addScienceIngredient("electric-engine", 1, "basic-automation-science-pack")
 addScienceIngredient("robotics", 1, "basic-automation-science-pack")
 --addScienceIngredient("flying", 1, "basic-automation-science-pack")
 addScienceIngredient("logistic-system", 1, "basic-automation-science-pack")
+
+addScienceIngredient("character-logistic-slots-1", 1, "basic-automation-science-pack")
+addScienceIngredient("character-logistic-slots-2", 1, "basic-automation-science-pack")
+addScienceIngredient("character-logistic-slots-3", 1, "basic-automation-science-pack")
+addScienceIngredient("character-logistic-slots-4", 1, "basic-automation-science-pack")
+addScienceIngredient("character-logistic-slots-5", 1, "basic-automation-science-pack")
+addScienceIngredient("character-logistic-slots-6", 1, "basic-automation-science-pack")
+addScienceIngredient("character-logistic-trash-slots-1", 1, "basic-automation-science-pack")
+addScienceIngredient("character-logistic-trash-slots-2", 1, "basic-automation-science-pack")
+addScienceIngredient("auto-character-logistic-trash-slots", 1, "basic-automation-science-pack")
+addScienceIngredient("personal-roboport-equipment", 1, "basic-automation-science-pack")
+addScienceIngredient("personal-roboport-equipment-2", 1, "basic-automation-science-pack")
 
 -- inserter bonus
 addScienceIngredient("stack-inserter", 1, "basic-automation-science-pack")

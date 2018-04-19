@@ -114,7 +114,7 @@ data:extend({
     {
       {type="fluid", name="basic-science-fluid-2", amount=100},
       {type="fluid", name="purified-water", amount=50},
-      {type="item", name="advanced-circuit", amount=5},
+      {type="item", name="advanced-circuit", amount=10},
     },
     results =
     {
@@ -210,5 +210,5 @@ data:extend({
   },
 
 
-  
+
 })

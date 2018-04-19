@@ -74,6 +74,8 @@ addScienceIngredient("discharge-defense-equipment", 1, "basic-power-science-pack
 addPrerequisiteTechnology("energy-shield-equipment", "basic-power-science-research")
 addScienceIngredient("energy-shield-equipment", 1, "basic-power-science-pack")
 addScienceIngredient("energy-shield-mk2-equipment", 1, "basic-power-science-pack")
+addScienceIngredient("personal-roboport-equipment", 1, "basic-power-science-pack")
+addScienceIngredient("personal-roboport-equipment-2", 1, "basic-power-science-pack")
 
 -- bonusses
 addScienceIngredient("laser-turret-damage-1", 1, "basic-power-science-pack")

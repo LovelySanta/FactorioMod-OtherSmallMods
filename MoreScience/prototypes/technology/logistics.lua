@@ -118,6 +118,18 @@ addScienceIngredient("construction-robotics", 1, "basic-logistics-science-pack")
 addScienceIngredient("logistic-robotics", 1, "basic-logistics-science-pack")
 addScienceIngredient("logistic-system", 1, "basic-logistics-science-pack")
 
+addScienceIngredient("character-logistic-slots-1", 1, "basic-logistics-science-pack")
+addScienceIngredient("character-logistic-slots-2", 1, "basic-logistics-science-pack")
+addScienceIngredient("character-logistic-slots-3", 1, "basic-logistics-science-pack")
+addScienceIngredient("character-logistic-slots-4", 1, "basic-logistics-science-pack")
+addScienceIngredient("character-logistic-slots-5", 1, "basic-logistics-science-pack")
+addScienceIngredient("character-logistic-slots-6", 1, "basic-logistics-science-pack")
+addScienceIngredient("character-logistic-trash-slots-1", 1, "basic-logistics-science-pack")
+addScienceIngredient("character-logistic-trash-slots-2", 1, "basic-logistics-science-pack")
+addScienceIngredient("auto-character-logistic-trash-slots", 1, "basic-logistics-science-pack")
+addScienceIngredient("personal-roboport-equipment", 1, "basic-logistics-science-pack")
+addScienceIngredient("personal-roboport-equipment-2", 1, "basic-logistics-science-pack")
+
 -- inserters bonus
 addScienceIngredient("inserter-capacity-bonus-1", 1, "basic-logistics-science-pack")
 addScienceIngredient("inserter-capacity-bonus-2", 1, "basic-logistics-science-pack")

@@ -51,6 +51,8 @@ addPrerequisiteTechnology("solar-energy", "basic-power-science-research")
 addScienceIngredient("solar-energy", 1, "basic-power-science-pack")
 addPrerequisiteTechnology("nuclear-power", "basic-power-science-research")
 addScienceIngredient("nuclear-power", 1, "basic-power-science-pack")
+addScienceIngredient("nuclear-fuel-reprocessing", 1, "basic-power-science-pack")
+addScienceIngredient("kovarex-enrichment-process", 1, "basic-power-science-pack")
 
 -- power modules
 addPrerequisiteTechnology("effectivity-module", "basic-power-science-research")

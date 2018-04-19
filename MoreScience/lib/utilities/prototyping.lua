@@ -19,6 +19,12 @@ function addPrerequisiteTechnology(technologyName, prerequisiteToAdd)
     if not data.raw["technology"][technologyName].prerequisites then
       data.raw["technology"][technologyName].prerequisites = {}
     end
+    for index, prerequisite in pairs(data.raw["technology"][technologyName].prerequisites) do
+      if prerequisite == prerequisiteToAdd then
+        log("WARNING: Tried adding prerequisite \'" .. prerequisiteToAdd .. "\' to \'" .. technologyName .. "\' which was already present.")
+        return
+      end
+    end
     table.insert(data.raw["technology"][technologyName].prerequisites, prerequisiteToAdd)
   end
 end
@@ -77,7 +83,7 @@ function addScienceIngredient(technologyName, sciencePackAmount, sciencePackName
   if data.raw["technology"][technologyName] and data.raw["technology"][technologyName].unit.ingredients then
     for index, ingredient in pairs(data.raw["technology"][technologyName].unit.ingredients) do
       if ingredient[1] == sciencePackName then
-        log("WARNING: Tried adding \'" .. sciencePackName .. "\' to \'" .. technologyName .. "\' which was already present. Increased amount instead.")
+        log("WARNING: Tried adding ingredient \'" .. sciencePackName .. "\' to \'" .. technologyName .. "\' which was already present. Increased amount instead.")
         data.raw["technology"][technologyName].unit.ingredients[index][2] = ingredient[2] + sciencePackAmount
         return
       end

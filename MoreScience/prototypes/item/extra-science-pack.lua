@@ -23,10 +23,8 @@ local function addSciencePack(name, order, potionNumber)
 end
 
 -- automation science pack
-addSciencePack("basic-automation-science-pack", "e", 15)
-
+addSciencePack("basic-automation-science-pack", "d2", 15)
 -- power science pack
-addSciencePack("basic-power-science-pack", "e", 5)
-
+addSciencePack("basic-power-science-pack", "d3", 5)
 -- logistics science pack
-addSciencePack("basic-logistics-science-pack", "e", 13)
+addSciencePack("basic-logistics-science-pack", "d4", 13)

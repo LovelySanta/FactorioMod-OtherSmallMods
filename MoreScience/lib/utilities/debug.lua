@@ -2,7 +2,7 @@
 Debug = {}
 
 Debug.enabled = true
-Debug.returnValue = 7
+Debug.returnValue = 8
 
 function Debug:reseachAllTechnologies()
   force = game.forces["player"]
@@ -222,7 +222,7 @@ function Debug:reseachAllTechnologies()
 
 
 --------------------------------------------------------------------------------
------ Get beter technology research (blue science)                         -----
+----- Get more basic technology research (blue science)                         -----
 --------------------------------------------------------------------------------
 
   -- Science: research blue science
@@ -301,7 +301,7 @@ function Debug:reseachAllTechnologies()
 
 
 --------------------------------------------------------------------------------
------ Get beter logistic technology (pink science)                         -----
+----- Get specific logistic technology (pink science)                         -----
 --------------------------------------------------------------------------------
 
   -- Science: research pink science
@@ -362,8 +362,35 @@ function Debug:reseachAllTechnologies()
 
 
 --------------------------------------------------------------------------------
------ Get beter technology research (purple science)                       -----
+----- Get advanced technology research (purple science)                    -----
 --------------------------------------------------------------------------------
+
+  -- Science: research purple science
+  researchTechnology("advanced-science-research-1")
+
+  -- Science: bonusses
+  researchTechnology("research-speed-5")
+
+  -- Automation
+  --researchTechnology("automation-3")
+  --researchTechnology("logistics-3")
+
+  -- Automation: optional research
+  researchTechnology("coal-liquefaction")
+  researchTechnology("productivity-module-3")
+
+  -- Automation: bonusses
+  --researchTechnology("mining-productivity-8")
+
+  -- Logistics: bonusses
+  researchTechnology("braking-force-3")
+  researchTechnology("braking-force-4")
+  researchTechnology("braking-force-5")
+
+  -- Power network
+  --researchTechnology("nuclear-fuel-reprocessing")
+
+
 
   if self.returnValue == 8 then
     return
@@ -372,7 +399,7 @@ function Debug:reseachAllTechnologies()
 
 
 --------------------------------------------------------------------------------
------ Get beter technology research (yellow science)                       -----
+----- Get more advanced technology research (yellow science)               -----
 --------------------------------------------------------------------------------
 
   if self.returnValue == 9 then

@@ -4,8 +4,7 @@ require "prototypes/categories/science-subgroups"
 
 -- fluids
 fluidPath = "prototypes/fluid/"
-require(fluidPath .. "regular-science-fluid")
-require(fluidPath .. "extra-science-fluid")
+require(fluidPath .. "science-fluid")
 
 -- items
 itemPath = "prototypes/item/"

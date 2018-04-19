@@ -18,19 +18,19 @@ end
 
 
 -- basic science pack-1
-alterSciencePack("science-pack-1", "basic-science-pack-1", "b", 14)
+alterSciencePack("science-pack-1", "basic-science-pack-1", "b1", 14)
 -- basic science pack-2
-alterSciencePack("science-pack-2", "basic-science-pack-2", "b", 3)
+alterSciencePack("science-pack-2", "basic-science-pack-2", "b2", 3)
 -- basic science pack 3
-alterSciencePack("science-pack-3", "basic-science-pack-3", "b", 8)
+alterSciencePack("science-pack-3", "basic-science-pack-3", "b3", 8)
 
 -- advanced science pack 1
-alterSciencePack("production-science-pack", "advanced-science-pack-1", "c", 10)
+alterSciencePack("production-science-pack", "advanced-science-pack-1", "c1", 10)
 -- advanced science pack 2
-alterSciencePack("high-tech-science-pack", "advanced-science-pack-2", "c", 2)
+alterSciencePack("high-tech-science-pack", "advanced-science-pack-2", "c2", 2)
 
--- space science pack
-alterSciencePack("space-science-pack", "extreme-science-pack", "d", 1)
+-- extreme science pack
+alterSciencePack("space-science-pack", "extreme-science-pack", "e", 1)
 
 -- military science pack 1
-alterSciencePack("military-science-pack", "military-science-pack-1", "f", 9)
+alterSciencePack("military-science-pack", "military-science-pack-1", "d1", 9)

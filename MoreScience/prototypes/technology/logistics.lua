@@ -98,9 +98,11 @@ data:extend({
 
 -- add prerequisites on the technology
 addPrerequisiteTechnology("logistics-2", "basic-logistics-science-research")
+addScienceIngredient("logistics-2", 1, "basic-logistics-science-pack")
+addScienceIngredient("logistics-3", 1, "basic-logistics-science-pack")
+addPrerequisiteTechnology("logistics-3", "basic-logistics-science-research")
 addScienceIngredient("automobilism", 1, "basic-logistics-science-pack")
 addScienceIngredient("tanks", 1, "basic-logistics-science-pack")
-addScienceIngredient("logistics-2", 1, "basic-logistics-science-pack")
 addScienceIngredient("stack-inserter", 1, "basic-logistics-science-pack")
 
 -- train network

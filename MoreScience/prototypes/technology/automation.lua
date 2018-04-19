@@ -90,7 +90,11 @@ addPrerequisiteTechnology("research-speed-3", "basic-automation-science-research
 removeScienceIngredient("research-speed-3", "science-pack-3")
 addScienceIngredient("research-speed-3", 1, "basic-automation-science-pack")
 addScienceIngredient("research-speed-4", 1, "basic-automation-science-pack")
+addScienceIngredient("research-speed-5", 1, "basic-automation-science-pack")
+addScienceIngredient("research-speed-6", 1, "basic-automation-science-pack")
 
+addPrerequisiteTechnology("automation-3", "basic-automation-science-research")
+addScienceIngredient("automation-3", 1, "basic-automation-science-pack")
 addPrerequisiteTechnology("advanced-material-processing", "basic-automation-science-research")
 addScienceIngredient("advanced-material-processing", 1, "basic-automation-science-pack")
 addScienceIngredient("advanced-material-processing-2", 1, "basic-automation-science-pack")

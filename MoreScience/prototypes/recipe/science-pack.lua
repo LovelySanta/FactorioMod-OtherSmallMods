@@ -28,7 +28,7 @@ data.raw["recipe"]["science-pack-3"].ingredients =
   {"empty-bottle", 1},
   {type="fluid", name="basic-science-fluid-3", amount=10},
 }
-data.raw["recipe"]["science-pack-2"].energy_required = 5
+data.raw["recipe"]["science-pack-3"].energy_required = 5
 
 
 
@@ -39,7 +39,18 @@ data.raw["recipe"]["military-science-pack"].ingredients =
   {"empty-bottle", 1},
   {type="fluid", name="basic-military-science-fluid", amount=10},
 }
-data.raw["recipe"]["science-pack-2"].energy_required = 5
+data.raw["recipe"]["military-science-pack"].energy_required = 5
+
+
+
+-- advanced science pack 1
+data.raw["recipe"]["production-science-pack"].category = "crafting-with-fluid"
+data.raw["recipe"]["production-science-pack"].ingredients =
+{
+  {"empty-bottle", 1},
+  {type="fluid", name="advanced-science-fluid-1", amount=10},
+}
+data.raw["recipe"]["production-science-pack"].energy_required = 5
 
 
 
@@ -62,7 +73,7 @@ data:extend({
 
 
 
--- basic automation science pack
+-- basic power science pack
 data:extend({
   {
     type = "recipe",

@@ -77,6 +77,60 @@ data:extend({
 
   {
     type = "recipe",
+    name = "basic-science-fluid-3",
+    subgroup = "science-fluid",
+    category = "chemistry",
+    energy_required = 5,
+    enabled = false,
+    ingredients =
+    {
+      {type="fluid", name="basic-science-fluid-2", amount=100},
+      {type="fluid", name="purified-water", amount=50},
+      {type="item", name="advanced-circuit", amount=10},
+    },
+    results =
+    {
+      {type="fluid", name= "basic-science-fluid-3", amount = 50},
+    },
+    crafting_machine_tint =
+    {
+      primary = {r = 0.331, g = 0.075, b = 0.510, a = 0.000}, -- #54138200
+      secondary = {r = 0.589, g = 0.540, b = 0.615, a = 0.361}, -- #96899c5c
+      tertiary = {r = 0.469, g = 0.145, b = 0.695, a = 0.000}, -- #7724b100
+    },
+  },
+
+
+
+  {
+    type = "recipe",
+    name = "advanced-science-fluid-1",
+    subgroup = "science-fluid",
+    category = "chemistry",
+    energy_required = 40,
+    enabled = false,
+    ingredients =
+    {
+      {type="fluid", name="basic-science-fluid-3", amount=100},
+      {type="fluid", name="purified-water", amount=50},
+      {type="item", name="electric-furnace", amount=5},
+    },
+    results =
+    {
+      {type="fluid", name= "advanced-science-fluid-1", amount = 50},
+    },
+    crafting_machine_tint =
+    {
+      primary = {r = 0.331, g = 0.075, b = 0.510, a = 0.000}, -- #54138200
+      secondary = {r = 0.589, g = 0.540, b = 0.615, a = 0.361}, -- #96899c5c
+      tertiary = {r = 0.469, g = 0.145, b = 0.695, a = 0.000}, -- #7724b100
+    },
+  },
+
+
+
+  {
+    type = "recipe",
     name = "basic-military-science-fluid",
     subgroup = "science-fluid",
     category = "chemistry",
@@ -92,33 +146,6 @@ data:extend({
     results =
     {
       {type="fluid", name= "basic-military-science-fluid", amount = 50},
-    },
-    crafting_machine_tint =
-    {
-      primary = {r = 0.331, g = 0.075, b = 0.510, a = 0.000}, -- #54138200
-      secondary = {r = 0.589, g = 0.540, b = 0.615, a = 0.361}, -- #96899c5c
-      tertiary = {r = 0.469, g = 0.145, b = 0.695, a = 0.000}, -- #7724b100
-    },
-  },
-
-
-
-  {
-    type = "recipe",
-    name = "basic-science-fluid-3",
-    subgroup = "science-fluid",
-    category = "chemistry",
-    energy_required = 5,
-    enabled = false,
-    ingredients =
-    {
-      {type="fluid", name="basic-science-fluid-2", amount=100},
-      {type="fluid", name="purified-water", amount=50},
-      {type="item", name="advanced-circuit", amount=10},
-    },
-    results =
-    {
-      {type="fluid", name= "basic-science-fluid-3", amount = 50},
     },
     crafting_machine_tint =
     {

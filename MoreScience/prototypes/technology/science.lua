@@ -25,19 +25,19 @@ data:extend({
     {
       {
         type = "unlock-recipe",
-        recipe = "basic-science-fluid-1"
+        recipe = "basic-science-fluid-1",
       },
       {
         type = "unlock-recipe",
-        recipe = "basic-science-fluid-2"
+        recipe = "basic-science-fluid-2",
       },
       {
         type = "unlock-recipe",
-        recipe = "science-pack-2"
+        recipe = "science-pack-2",
       },
       {
         type = "unlock-recipe",
-        recipe = "chemical-plant"
+        recipe = "chemical-plant",
       },
     },
     unit =
@@ -80,19 +80,19 @@ data:extend({
     {
       {
         type = "unlock-recipe",
-        recipe = "glass"
+        recipe = "glass",
       },
       {
         type = "unlock-recipe",
-        recipe = "cork"
+        recipe = "cork",
       },
       {
         type = "unlock-recipe",
-        recipe = "empty-bottle"
+        recipe = "empty-bottle",
       },
       {
         type = "unlock-recipe",
-        recipe = "purified-water"
+        recipe = "purified-water",
       },
     },
     unit =
@@ -107,6 +107,7 @@ data:extend({
     order = "c-a"
   },
 })
+
 -- Fix research tree for bottling-research
 addPrerequisiteTechnology("research-speed-2", "bottling-research")
 
@@ -128,17 +129,17 @@ data:extend({
     icon_size = 2000,
     prerequisites = {
       "basic-science-research-1",
-      "plastics",
+      "advanced-electronics",
     },
     effects =
     {
       {
         type = "unlock-recipe",
-        recipe = "basic-science-fluid-3"
+        recipe = "basic-science-fluid-3",
       },
       {
         type = "unlock-recipe",
-        recipe = "science-pack-3"
+        recipe = "science-pack-3",
       },
     },
     unit =
@@ -154,8 +155,10 @@ data:extend({
     order = "a-d-c"
   },
 })
+
 -- add prerequisites on the technology
 addPrerequisiteTechnology("research-speed-4", "basic-science-research-2")
+addPrerequisiteTechnology("battery-mk2-equipment", "advanced-electronics-2")
 
 -- logistics network
 addPrerequisiteTechnology("electric-engine", "basic-science-research-2")
@@ -181,8 +184,69 @@ addPrerequisiteTechnology("advanced-oil-processing", "basic-science-research-2")
 addPrerequisiteTechnology("advanced-electronics-2", "basic-science-research-2")
 addPrerequisiteTechnology("electric-energy-distribution-2", "basic-science-research-2")
 
+-- automation: modules
+addPrerequisiteTechnology("speed-module-2", "basic-science-research-2")
+addPrerequisiteTechnology("productivity-module-2", "basic-science-research-2")
+addPrerequisiteTechnology("effectivity-module-2", "basic-science-research-2")
+
 -- power
 addPrerequisiteTechnology("nuclear-power", "basic-science-research-2")
 
 -- automation bonusses
 addPrerequisiteTechnology("mining-productivity-4", "basic-science-research-2")
+
+
+
+--------------------------------------------------------------------------------
+----- Advanced science pack 1                                              -----
+--------------------------------------------------------------------------------
+
+-- remove recipe unlock from other technologies
+removeRecipeUnlock("advanced-material-processing-2", "production-science-pack")
+
+-- create research for recipes
+data:extend({
+  {
+    type = "technology",
+    name = "advanced-science-research-1",
+    icon = "__MoreScience__/graphics/science-symbol.png",
+    icon_size = 2000,
+    prerequisites = {
+      "basic-science-research-2",
+      "advanced-material-processing-2",
+    },
+    effects =
+    {
+      {
+        type = "unlock-recipe",
+        recipe = "advanced-science-fluid-1",
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "production-science-pack",
+      },
+    },
+    unit =
+    {
+      count = 300,
+      ingredients = {
+        {"science-pack-1", 1},
+        {"science-pack-2", 3},
+        {"science-pack-3", 5},
+        {"basic-automation-science-pack", 7},
+      },
+      time = 5
+    },
+    order = "a-d-c"
+  },
+})
+
+-- add prerequisites on the technology
+addPrerequisiteTechnology("research-speed-5", "advanced-science-research-1")
+
+-- automation
+addPrerequisiteTechnology("automation-3", "advanced-science-research-1")
+addPrerequisiteTechnology("coal-liquefaction", "advanced-science-research-1")
+
+-- automation: modules
+addPrerequisiteTechnology("productivity-module-3", "advanced-science-research-1")

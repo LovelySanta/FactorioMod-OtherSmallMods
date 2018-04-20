@@ -252,6 +252,7 @@ addPrerequisiteTechnology("coal-liquefaction", "advanced-science-research-1")
 addPrerequisiteTechnology("productivity-module-3", "advanced-science-research-1")
 
 -- logistics network
+addPrerequisiteTechnology("logistic-system", "advanced-science-research-1")
 addPrerequisiteTechnology("worker-robots-storage-2", "advanced-science-research-1")
 addPrerequisiteTechnology("worker-robots-speed-3", "advanced-science-research-1")
 addPrerequisiteTechnology("character-logistic-slots-4", "advanced-science-research-1")
@@ -264,3 +265,89 @@ addPrerequisiteTechnology("mining-productivity-8", "advanced-science-research-1"
 
 -- logistics bonusses
 addPrerequisiteTechnology("inserter-capacity-bonus-4", "advanced-science-research-1")
+
+
+
+--------------------------------------------------------------------------------
+----- Advanced science pack 1                                              -----
+--------------------------------------------------------------------------------
+
+-- remove recipe unlock from other technologies
+removeRecipeUnlock("advanced-electronics-2", "high-tech-science-pack")
+
+-- create research for recipes
+data:extend({
+  {
+    type = "technology",
+    name = "advanced-science-research-2",
+    icon = "__MoreScience__/graphics/science-symbol.png",
+    icon_size = 2000,
+    prerequisites = {
+      "basic-science-research-2",
+      "advanced-electronics-2",
+    },
+    effects =
+    {
+      {
+        type = "unlock-recipe",
+        recipe = "advanced-science-fluid-2",
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "high-tech-science-pack",
+      },
+    },
+    unit =
+    {
+      count = 500,
+      ingredients = {
+        {"science-pack-1", 1},
+        {"science-pack-2", 3},
+        {"science-pack-3", 5},
+        {"basic-automation-science-pack", 7},
+      },
+      time = 5
+    },
+    order = "a-d-c"
+  },
+})
+
+-- add prerequisites on the technology
+addPrerequisiteTechnology("research-speed-6", "advanced-science-research-2")
+
+-- automation: modules
+addPrerequisiteTechnology("speed-module-3", "advanced-science-research-2")
+addPrerequisiteTechnology("effectivity-module-3", "advanced-science-research-2")
+addPrerequisiteTechnology("effect-transmission", "advanced-science-research-2")
+
+-- logistics network
+addPrerequisiteTechnology("logistic-system", "advanced-science-research-2")
+addPrerequisiteTechnology("worker-robots-storage-3", "advanced-science-research-2")
+addPrerequisiteTechnology("worker-robots-speed-5", "advanced-science-research-2")
+addPrerequisiteTechnology("character-logistic-slots-6", "advanced-science-research-2")
+
+-- power
+addPrerequisiteTechnology("kovarex-enrichment-process", "advanced-science-research-2")
+
+-- automation bonusses
+addPrerequisiteTechnology("mining-productivity-12", "advanced-science-research-2")
+
+-- logistics bonusses
+addPrerequisiteTechnology("inserter-capacity-bonus-7", "advanced-science-research-2")
+addPrerequisiteTechnology("braking-force-6", "advanced-science-research-2")
+
+
+
+--------------------------------------------------------------------------------
+----- Extreme science pack                                                 -----
+--------------------------------------------------------------------------------
+
+-- edit research ingredient
+addScienceIngredient("rocket-silo", 1, "basic-automation-science-pack")
+addScienceIngredient("rocket-silo", 1, "basic-logistics-science-pack")
+addScienceIngredient("rocket-silo", 1, "basic-power-science-pack")
+
+-- add prerequisites
+addPrerequisiteTechnology("rocket-silo", "solar-energy")
+addPrerequisiteTechnology("rocket-silo", "electric-energy-accumulators-1")
+addPrerequisiteTechnology("rocket-silo", "basic-logistics-science-research")

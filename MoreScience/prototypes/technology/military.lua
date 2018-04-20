@@ -114,3 +114,35 @@ addPrerequisiteTechnology("rocket-speed-3", "military-3")
 
 addPrerequisiteTechnology("combat-robot-damage-3", "combat-robotics-2")
 addPrerequisiteTechnology("follower-robot-count-3", "combat-robotics-2")
+
+
+
+--------------------------------------------------------------------------------
+----- Military-4: require yellow science                                   -----
+--------------------------------------------------------------------------------
+-- add science dependency
+addPrerequisiteTechnology("military-4", "advanced-science-research-2")
+-- add other dependencies
+addPrerequisiteTechnology("military-4", "explosives")
+
+-- armor equipment
+addPrerequisiteTechnology("fusion-reactor-equipment", "military-4")
+addPrerequisiteTechnology("personal-roboport-equipment-2", "military-4")
+addPrerequisiteTechnology("power-armor-2", "military-4")
+
+-- bonusses requiring yellow science now require military-4
+addPrerequisiteTechnology("bullet-damage-6", "military-4")
+addPrerequisiteTechnology("bullet-speed-6", "military-4")
+addPrerequisiteTechnology("gun-turret-damage-6", "military-4")
+addPrerequisiteTechnology("shotgun-shell-damage-6", "military-4")
+addPrerequisiteTechnology("shotgun-shell-speed-6", "military-4")
+addPrerequisiteTechnology("grenade-damage-6", "military-4")
+addPrerequisiteTechnology("flamethrower-damage-5", "military-4")
+addPrerequisiteTechnology("laser-turret-damage-5", "military-4")
+addPrerequisiteTechnology("laser-turret-speed-5", "military-4")
+addPrerequisiteTechnology("rocket-damage-6", "military-4")
+addPrerequisiteTechnology("rocket-speed-6", "military-4")
+addPrerequisiteTechnology("cannon-shell-damage-4", "military-4")
+addPrerequisiteTechnology("cannon-shell-speed-4", "military-4")
+
+addPrerequisiteTechnology("combat-robot-damage-5", "combat-robotics-3")

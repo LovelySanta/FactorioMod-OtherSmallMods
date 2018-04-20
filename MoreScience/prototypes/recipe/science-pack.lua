@@ -54,6 +54,17 @@ data.raw["recipe"]["production-science-pack"].energy_required = 5
 
 
 
+-- advanced science pack 2
+data.raw["recipe"]["high-tech-science-pack"].category = "crafting-with-fluid"
+data.raw["recipe"]["high-tech-science-pack"].ingredients =
+{
+  {"empty-bottle", 1},
+  {type="fluid", name="advanced-science-fluid-2", amount=10},
+}
+data.raw["recipe"]["high-tech-science-pack"].energy_required = 5
+
+
+
 -- basic automation science pack
 data:extend({
   {

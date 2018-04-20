@@ -2,7 +2,7 @@
 Debug = {}
 
 Debug.enabled = true
-Debug.returnValue = 8
+Debug.returnValue = 9
 
 function Debug:reseachAllTechnologies()
   force = game.forces["player"]
@@ -379,12 +379,12 @@ function Debug:reseachAllTechnologies()
   researchTechnology("coal-liquefaction")
   researchTechnology("productivity-module-3")
 
-  -- Automation: bonusses
-  researchTechnology("mining-productivity-8")
-
   -- Logistics: inventory management
   researchTechnology("character-logistic-slots-4")
   researchTechnology("character-logistic-slots-5")
+
+  -- Automation: bonusses
+  researchTechnology("mining-productivity-8")
 
   -- Logistics: bonusses
   researchTechnology("inserter-capacity-bonus-4")
@@ -400,8 +400,6 @@ function Debug:reseachAllTechnologies()
   -- Power network
   researchTechnology("nuclear-fuel-reprocessing")
 
-
-
   if self.returnValue == 8 then
     return
   end
@@ -411,6 +409,75 @@ function Debug:reseachAllTechnologies()
 --------------------------------------------------------------------------------
 ----- Get more advanced technology research (yellow science)               -----
 --------------------------------------------------------------------------------
+
+  -- Science: research yellow science
+  researchTechnology("advanced-science-research-2")
+
+  -- Science: bonusses
+  researchTechnology("research-speed-6")
+
+  -- Automation: bonusses
+  researchTechnology("speed-module-3")
+  researchTechnology("effectivity-module-3")
+  researchTechnology("effect-transmission")
+
+  -- Logistics: robot network
+  researchTechnology("logistic-system")
+
+  -- Logistics: inventory management
+  researchTechnology("character-logistic-slots-6")
+
+  -- Power
+  researchTechnology("kovarex-enrichment-process")
+
+  -- Military: extra defence systems
+  researchTechnology("military-4")
+  researchTechnology("combat-robotics-3")
+  researchTechnology("uranium-ammo")
+  researchTechnology("atomic-bomb")
+  researchTechnology("artillery")
+
+  -- Military: armor upgrades
+  researchTechnology("fusion-reactor-equipment")
+  researchTechnology("personal-roboport-equipment-2")
+  researchTechnology("power-armor-2")
+
+  -- Automation: bonusses
+  researchTechnology("mining-productivity-12")
+
+  -- Logistics: bonusses
+  researchTechnology("inserter-capacity-bonus-7")
+  researchTechnology("braking-force-6")
+  researchTechnology("braking-force-7")
+  researchTechnology("worker-robots-storage-3")
+  researchTechnology("worker-robots-speed-5")
+
+  -- Military: bonusses
+  researchTechnology("bullet-damage-6")
+  researchTechnology("bullet-speed-6")
+  researchTechnology("gun-turret-damage-6")
+  researchTechnology("shotgun-shell-damage-6")
+  researchTechnology("shotgun-shell-speed-6")
+  researchTechnology("grenade-damage-6")
+  researchTechnology("flamethrower-damage-5")
+  researchTechnology("flamethrower-damage-6")
+  researchTechnology("rocket-damage-6")
+  researchTechnology("rocket-speed-6")
+  researchTechnology("rocket-speed-7")
+  researchTechnology("laser-turret-damage-5")
+  researchTechnology("laser-turret-damage-6")
+  researchTechnology("laser-turret-damage-7")
+  researchTechnology("laser-turret-speed-5")
+  researchTechnology("laser-turret-speed-6")
+  researchTechnology("laser-turret-speed-7")
+  researchTechnology("combat-robot-damage-5")
+  researchTechnology("follower-robot-count-5")
+  researchTechnology("follower-robot-count-6")
+  researchTechnology("cannon-shell-damage-4")
+  researchTechnology("cannon-shell-damage-5")
+  researchTechnology("cannon-shell-speed-4")
+  researchTechnology("cannon-shell-speed-5")
+
 
   if self.returnValue == 9 then
     return

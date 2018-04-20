@@ -372,23 +372,33 @@ function Debug:reseachAllTechnologies()
   researchTechnology("research-speed-5")
 
   -- Automation
-  --researchTechnology("automation-3")
-  --researchTechnology("logistics-3")
+  researchTechnology("automation-3")
+  researchTechnology("logistics-3")
 
   -- Automation: optional research
   researchTechnology("coal-liquefaction")
   researchTechnology("productivity-module-3")
 
   -- Automation: bonusses
-  --researchTechnology("mining-productivity-8")
+  researchTechnology("mining-productivity-8")
+
+  -- Logistics: inventory management
+  researchTechnology("character-logistic-slots-4")
+  researchTechnology("character-logistic-slots-5")
 
   -- Logistics: bonusses
+  researchTechnology("inserter-capacity-bonus-4")
+  researchTechnology("inserter-capacity-bonus-5")
+  researchTechnology("inserter-capacity-bonus-6")
   researchTechnology("braking-force-3")
   researchTechnology("braking-force-4")
   researchTechnology("braking-force-5")
+  researchTechnology("worker-robots-storage-2")
+  researchTechnology("worker-robots-speed-3")
+  researchTechnology("worker-robots-speed-4")
 
   -- Power network
-  --researchTechnology("nuclear-fuel-reprocessing")
+  researchTechnology("nuclear-fuel-reprocessing")
 
 
 

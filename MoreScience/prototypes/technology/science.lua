@@ -250,3 +250,17 @@ addPrerequisiteTechnology("coal-liquefaction", "advanced-science-research-1")
 
 -- automation: modules
 addPrerequisiteTechnology("productivity-module-3", "advanced-science-research-1")
+
+-- logistics network
+addPrerequisiteTechnology("worker-robots-storage-2", "advanced-science-research-1")
+addPrerequisiteTechnology("worker-robots-speed-3", "advanced-science-research-1")
+addPrerequisiteTechnology("character-logistic-slots-4", "advanced-science-research-1")
+
+-- power
+addPrerequisiteTechnology("nuclear-fuel-reprocessing", "advanced-science-research-1")
+
+-- automation bonusses
+addPrerequisiteTechnology("mining-productivity-8", "advanced-science-research-1")
+
+-- logistics bonusses
+addPrerequisiteTechnology("inserter-capacity-bonus-4", "advanced-science-research-1")

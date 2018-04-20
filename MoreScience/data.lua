@@ -1,6 +1,6 @@
 
 -- categories
-require "prototypes/categories/science-subgroups"
+require "prototypes/categories/science-subgroup"
 
 -- fluids
 fluidPath = "prototypes/fluid/"
@@ -10,13 +10,14 @@ require(fluidPath .. "science-fluid")
 itemPath = "prototypes/item/"
 require(itemPath .. "empty-bottle")
 require(itemPath .. "regular-science-pack")
-require(itemPath .. "extra-science-pack")
+require(itemPath .. "infused-science-pack")
 
 -- recipes
 recipePath = "prototypes/recipe/"
 require(recipePath .. "empty-bottle")
 require(recipePath .. "science-fluid")
-require(recipePath .. "science-pack")
+require(recipePath .. "regular-science-pack")
+require(recipePath .. "infused-science-pack")
 
 -- technology
 technologyPath = "prototypes/technology/"

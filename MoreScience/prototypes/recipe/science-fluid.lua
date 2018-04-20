@@ -265,4 +265,21 @@ data:extend({
 
 
 
+  {
+    type = "recipe",
+    name = "extreme-science-fluid",
+    subgroup = "science-fluid",
+    category = "crafting-with-fluid",
+    energy_required = 10,
+    ingredients =
+    {
+      {"space-science-pack", 10},
+      {"steel-axe", 1},
+    },
+    results =
+    {
+      {type="fluid", name= "extreme-science-fluid", amount = 100},
+    },
+    enabled = false,
+  },
 })

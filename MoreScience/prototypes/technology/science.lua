@@ -1,5 +1,9 @@
 require "lib/utilities/prototyping"
 
+local scienceResearch = {}
+scienceResearch.icon = "__MoreScience__/graphics/science-symbol.png"
+scienceResearch.icon_size = 2000
+
 --------------------------------------------------------------------------------
 ----- Basic science pack 2                                                 -----
 --------------------------------------------------------------------------------
@@ -14,9 +18,10 @@ data:extend({
   {
     type = "technology",
     name = "basic-science-research-1",
-    icon = "__MoreScience__/graphics/science-symbol.png",
-    icon_size = 2000,
-    prerequisites = {
+    icon = scienceResearch.icon,
+    icon_size = scienceResearch.icon_size,
+    prerequisites =
+    {
       "automation-2",
       "logistics",
       "steel-processing",
@@ -43,7 +48,8 @@ data:extend({
     unit =
     {
       count = 30,
-      ingredients = {
+      ingredients =
+      {
         {"science-pack-1", 2},
       },
       time = 5
@@ -70,9 +76,10 @@ data:extend({
   {
     type = "technology",
     name = "bottling-research",
-    icon = "__MoreScience__/graphics/science-symbol.png",
-    icon_size = 2000,
-    prerequisites = {
+    icon = scienceResearch.icon,
+    icon_size = scienceResearch.icon_size,
+    prerequisites =
+    {
       "basic-science-research-1",
       "fluid-handling",
     },
@@ -98,7 +105,8 @@ data:extend({
     unit =
     {
       count = 30,
-      ingredients = {
+      ingredients =
+      {
         {"science-pack-1", 2},
       },
       time = 5
@@ -125,9 +133,10 @@ data:extend({
   {
     type = "technology",
     name = "basic-science-research-2",
-    icon = "__MoreScience__/graphics/science-symbol.png",
-    icon_size = 2000,
-    prerequisites = {
+    icon = scienceResearch.icon,
+    icon_size = scienceResearch.icon_size,
+    prerequisites =
+    {
       "basic-science-research-1",
       "advanced-electronics",
     },
@@ -145,7 +154,8 @@ data:extend({
     unit =
     {
       count = 75,
-      ingredients = {
+      ingredients =
+      {
         {"science-pack-1", 1},
         {"science-pack-2", 3},
         {"basic-automation-science-pack", 5},
@@ -209,9 +219,10 @@ data:extend({
   {
     type = "technology",
     name = "advanced-science-research-1",
-    icon = "__MoreScience__/graphics/science-symbol.png",
-    icon_size = 2000,
-    prerequisites = {
+    icon = scienceResearch.icon,
+    icon_size = scienceResearch.icon_size,
+    prerequisites =
+    {
       "basic-science-research-2",
       "advanced-material-processing-2",
     },
@@ -229,7 +240,8 @@ data:extend({
     unit =
     {
       count = 300,
-      ingredients = {
+      ingredients =
+      {
         {"science-pack-1", 1},
         {"science-pack-2", 3},
         {"science-pack-3", 5},
@@ -280,9 +292,10 @@ data:extend({
   {
     type = "technology",
     name = "advanced-science-research-2",
-    icon = "__MoreScience__/graphics/science-symbol.png",
-    icon_size = 2000,
-    prerequisites = {
+    icon = scienceResearch.icon,
+    icon_size = scienceResearch.icon_size,
+    prerequisites =
+    {
       "basic-science-research-2",
       "advanced-electronics-2",
     },
@@ -300,7 +313,8 @@ data:extend({
     unit =
     {
       count = 500,
-      ingredients = {
+      ingredients =
+      {
         {"science-pack-1", 1},
         {"science-pack-2", 3},
         {"science-pack-3", 5},
@@ -351,3 +365,92 @@ addScienceIngredient("rocket-silo", 1, "basic-power-science-pack")
 addPrerequisiteTechnology("rocket-silo", "solar-energy")
 addPrerequisiteTechnology("rocket-silo", "electric-energy-accumulators-1")
 addPrerequisiteTechnology("rocket-silo", "basic-logistics-science-research")
+
+
+
+--------------------------------------------------------------------------------
+----- Infused science packs                                                -----
+--------------------------------------------------------------------------------
+
+-- create research for recipes
+data:extend({
+  {
+    type = "technology",
+    name = "infinite-science-research",
+    icon = scienceResearch.icon,
+    icon_size = scienceResearch.icon_size,
+    prerequisites =
+    {
+      "rocket-silo",
+    },
+    effects =
+    {
+      {
+        type = "unlock-recipe",
+        recipe = "extreme-science-fluid",
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "infused-basic-science-pack-1",
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "infused-basic-science-pack-2",
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "infused-basic-science-pack-3",
+      },
+
+      {
+        type = "unlock-recipe",
+        recipe = "infused-advanced-science-pack-1",
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "infused-advanced-science-pack-2",
+      },
+
+      {
+        type = "unlock-recipe",
+        recipe = "infused-extreme-science-pack",
+      },
+
+      {
+        type = "unlock-recipe",
+        recipe = "infused-basic-military-science-pack",
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "infused-basic-automation-science-pack",
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "infused-basic-power-science-pack",
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "infused-basic-logistics-science-pack",
+      },
+    },
+    unit =
+    {
+      count = 1000,
+      ingredients =
+      {
+        {"science-pack-1", 1},
+        {"science-pack-2", 1},
+        {"science-pack-3", 1},
+        {"military-science-pack", 1},
+        {"production-science-pack", 1},
+        {"high-tech-science-pack", 1},
+        {"space-science-pack", 1},
+        {"basic-automation-science-pack", 1},
+        {"basic-logistics-science-pack", 1},
+        {"basic-power-science-pack", 1},
+      },
+      time = 120
+    },
+    order = "a-d-c"
+  },
+})

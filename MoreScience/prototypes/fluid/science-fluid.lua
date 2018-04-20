@@ -41,6 +41,9 @@ createScienceFluid("advanced-science-fluid-1", "c1", 10, {r=63./255, g=187./255,
 -- advanced science fluid 2
 createScienceFluid("advanced-science-fluid-2", "c2", 2, {r=63./255, g=187./255, b=63./255}, {r=0.5, g=0.5, b=0.5})
 
+-- extreme science fluid
+createScienceFluid("extreme-science-fluid", "e", 1, {r=191./255, g=19./255, b=19./255}, {r=0.5, g=0.5, b=0.5})
+
 -- basic military science fluid
 createScienceFluid("basic-military-science-fluid", "d1", 9, {r=63./255, g=187./255, b=63./255}, {r=0.5, g=0.5, b=0.5})
 -- automation science fluid

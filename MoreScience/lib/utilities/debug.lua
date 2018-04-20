@@ -2,7 +2,7 @@
 Debug = {}
 
 Debug.enabled = true
-Debug.returnValue = 9
+Debug.returnValue = 10
 
 function Debug:reseachAllTechnologies()
   force = game.forces["player"]
@@ -416,10 +416,13 @@ function Debug:reseachAllTechnologies()
   -- Science: bonusses
   researchTechnology("research-speed-6")
 
-  -- Automation: bonusses
+  -- Automation: modules
   researchTechnology("speed-module-3")
   researchTechnology("effectivity-module-3")
   researchTechnology("effect-transmission")
+
+  -- Automation: optional research
+  researchTechnology("rocket-silo")
 
   -- Logistics: robot network
   researchTechnology("logistic-system")
@@ -483,6 +486,16 @@ function Debug:reseachAllTechnologies()
     return
   end
 
+--------------------------------------------------------------------------------
+----- Infinite science research                                            -----
+--------------------------------------------------------------------------------
+
+  -- Science: research tehcnology
+  researchTechnology("infinite-science-research")
+
+  if self.returnValue == 10 then
+    return
+  end
 
 
 end

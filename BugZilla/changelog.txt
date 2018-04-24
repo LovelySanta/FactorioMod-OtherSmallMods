@@ -3,6 +3,11 @@ Version: 0.2.1
 Date: 24. 4. 2018
   Changes:
     - Implemented on_nth_tick optimalisation
+  Balancing:
+    - Lowered BugZilla Spitter resistance, now the same as the biter
+    - Lowered BugZilla Spitter health to 200,000 (before: 250,000)
+    - Lowered BugZilla Spitter damage to 50 (before: 100)
+    - Increased BugZilla Spitter healing rate to 0.02 (before: 0.01)
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.0
 Date: 7. 4. 2018

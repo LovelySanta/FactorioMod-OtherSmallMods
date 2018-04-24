@@ -11,6 +11,32 @@ Boss.displayNames = {
   [2] = "BugZilla Spitter",
 }
 
+Boss.score = {
+  ["killScore"] = {
+    [Boss.types[1]] = 1,
+    [Boss.types[2]] = 1,
+  },
+  ["despawnScore"] = {
+    [Boss.types[1]] = -1,
+    [Boss.types[2]] = -3,
+  }
+}
+
+Boss.reward = {
+  {name='science-pack-1', count=300},
+  {name='science-pack-2', count=250},
+  {name='military-science-pack', count=200},
+  {name='science-pack-3', count=150},
+  {name='production-science-pack', count=150},
+  {name='high-tech-science-pack', count=100},
+  {name='space-science-pack', count=100}
+}
+Boss.rewardAmount = {
+  [Boss.types[1]] = 1,
+  [Boss.types[2]] = 3,
+}
+
+
 Boss.messages = {}
 Boss.messages.spawn_messages = {
   "BugZilla is prepairing an attack, being prepared would be advised.",
@@ -28,16 +54,6 @@ Boss.messages.despawn_messages = {
   "BugZilla is gone, let's hope \'it\' stays away...",
   "BugZilla was bored and walked away... Let's keep it away!",
   "You blinked with your eyes and before you knew BugZilla retreated."
-}
-
-Boss.reward = {
-  {name='science-pack-1', count=300},
-  {name='science-pack-2', count=250},
-  {name='military-science-pack', count=200},
-  {name='science-pack-3', count=150},
-  {name='production-science-pack', count=150},
-  {name='high-tech-science-pack', count=100},
-  {name='space-science-pack', count=100}
 }
 
 
@@ -220,7 +236,7 @@ function Boss:Despawn()
 
     bossEntities[bossEntityCount] = nil
     bossEntityCount = bossEntityCount - 1
-    bossKillScore = bossKillScore - 1
+    bossKillScore = bossKillScore + self.score["despawnScore"][bossEntity.name]
 
     bossKillCount[entityData.name].total = bossKillCount[entityData.name].total + 1
   end
@@ -271,7 +287,7 @@ function Boss:OnEntityDied(event)
         end
         bossEntities[bossEntityCount] = nil
         bossEntityCount = bossEntityCount - 1
-        bossKillScore = bossKillScore + 1
+        bossKillScore = bossKillScore + self.score["killScore"][bossEntity.name]
         bossKillCount[bossEntity.name].total = bossKillCount[bossEntity.name].total + 1
         bossKillCount[bossEntity.name].killed = bossKillCount[bossEntity.name].killed + 1
 
@@ -380,29 +396,35 @@ function Boss:SpawnReward(bossIndex)
   local chest_inventory = chest_entity.get_inventory(defines.inventory.chest)
 
   if chest_inventory and chest_inventory.valid then
-    local reward_index = math.random(#self.reward)
-    local reward = self.reward[reward_index]
-    local amount = chest_inventory.insert(reward)
-    local prev_amount = 0
+    for _ = 1, self.rewardAmount[bossEntity.name], 1 do
+      local reward_index = math.random(#self.reward)
+      local reward = self.reward[reward_index]
+      local amount = chest_inventory.insert(reward)
+      local prev_amount = 0
 
-    -- Try to insert
-    while amount == 0 do
-      if reward_index == #reward_index then
-        reward_index = 1
-      else
-        reward_index = reward_index + 1
+      -- Try to insert
+      local reward_index_initial = reward_index
+      while amount == 0 do
+        if reward_index == #reward_index then
+          reward_index = 1
+        else
+          reward_index = reward_index + 1
+        end
+        amount = chest_inventory.insert(reward)
+        if reward_index == reward_index_initial then
+          break
+        end
       end
-      amount = chest_inventory.insert(reward)
-    end
 
-    -- Add more if reward is more than one stack, till finished or chest full
-    while amount < reward.count and amount ~= prev_amount do
-      reward_extra = {name=reward.name, count=reward.count-amount}
-      amount_added = chest_inventory.insert(reward_extra)
-      if amount_added == 0 then
-        break
+      -- Add more if reward is more than one stack, till finished or chest full
+      while amount < reward.count and amount ~= prev_amount do
+        reward_extra = {name=reward.name, count=reward.count-amount}
+        amount_added = chest_inventory.insert(reward_extra)
+        if amount_added == 0 then
+          break
+        end
+        amount = amount + amount_added
       end
-      amount = amount + amount_added
     end
 
     -- Now lets cap the chest

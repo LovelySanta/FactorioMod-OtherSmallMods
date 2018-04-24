@@ -8,6 +8,9 @@ Date: 24. 4. 2018
     - Lowered BugZilla Spitter health to 200,000 (before: 250,000)
     - Lowered BugZilla Spitter damage to 50 (before: 100)
     - Increased BugZilla Spitter healing rate to 0.02 (before: 0.01)
+    - Despawning BugZilla Spitter will give greater penalty to the score
+  Bugfixes:
+    - Fixed BugZilla Spitter was not dropping beter reward then the biter
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.0
 Date: 7. 4. 2018

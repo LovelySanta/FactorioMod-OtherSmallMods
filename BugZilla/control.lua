@@ -49,13 +49,11 @@ end)
 
 
 
--- called once per in-game tick
-script.on_event(defines.events.on_tick, function(event)
-  if game.tick % 60 == 0 then -- each second
-    PhaseCycler:OnSecond()
-    Boss:OnSecond()
-    DespawnPenalty:OnSecond()
-  end
+-- called once per 60 in-game ticks
+script.on_nth_tick(60,function(event)
+  PhaseCycler:OnSecond()
+  Boss:OnSecond()
+  DespawnPenalty:OnSecond()
 end)
 
 

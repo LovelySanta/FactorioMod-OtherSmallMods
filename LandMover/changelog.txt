@@ -1,21 +1,26 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.7
+Date: 24. 04. 2018
+  Bugfixes:
+    - Fixed that recipes wouldn't unlock when adding mod to an existing world
+---------------------------------------------------------------------------------------------------
 Version: 0.1.6
-Date: 24. 02. 2017
+Date: 24. 02. 2018
   Feature:
     - Added setting to enable the landfill recipe
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.5
-Date: 22. 01. 2017
+Date: 22. 01. 2018
   Feature:
     - Added changelogs
-  Fixes:
+  Bugfixes:
     - Updated to Factorio version 0.16.17: new on_player_built_tile event
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.4
-Date: 13. 01. 2017
+Date: 13. 01. 2018
   Feature:
     - Compatible with Dectorio now
-  Fixes:
+  Bugfixes:
     - Fixed research tree so landfill research is only altered
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.3
@@ -28,7 +33,7 @@ Date: 18. 10. 2017
   Changes:
     - Changed stack size to 100 to match the stack size of landfill
     - Changed recipe to use an actual shovel (+ added shovel entity)
-  Fixes:
+  Bugfixes:
     - Bugfix entity sprite size not correctly
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.1 - First public release

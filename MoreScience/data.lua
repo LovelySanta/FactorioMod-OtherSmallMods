@@ -1,6 +1,8 @@
 
 -- categories
-require "prototypes/categories/science-subgroup"
+categoryPath = "prototypes/categories/"
+require(categoryPath .. "science-group")
+require(categoryPath .. "science-subgroup")
 
 -- fluids
 fluidPath = "prototypes/fluid/"

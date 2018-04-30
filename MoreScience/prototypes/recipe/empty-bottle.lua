@@ -2,6 +2,20 @@
 data:extend({
   {
     type = "recipe",
+    name = "sand",
+    energy_required = 10,
+    category = "advanced-crafting",
+    ingredients =
+    {
+      {"stone", 2}
+    },
+    result = "sand",
+    result_count = 4,
+    enabled = false,
+  },
+
+  {
+    type = "recipe",
     name = "cork",
     energy_required = nil,
     ingredients =

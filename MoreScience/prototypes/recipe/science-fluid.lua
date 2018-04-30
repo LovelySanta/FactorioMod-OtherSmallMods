@@ -3,7 +3,7 @@ data:extend({
   {
     type = "recipe",
     name = "purified-water",
-    subgroup = "science-fluid",
+    subgroup = "science-bottling",
     category = "chemistry",
     icon = "__MoreScience__/graphics/fluids/fluid-00.png",
     icon_size = 32,
@@ -247,7 +247,7 @@ data:extend({
     enabled = false,
     ingredients =
     {
-      {type="fluid", name="basic-science-fluid-3", amount=100},
+      {type="fluid", name="basic-automation-science-fluid", amount=100},
       {type="fluid", name="purified-water", amount=50},
       {type="item", name="electric-engine-unit", amount=5},
     },

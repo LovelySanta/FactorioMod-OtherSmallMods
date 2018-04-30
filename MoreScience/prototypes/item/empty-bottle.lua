@@ -6,8 +6,8 @@ data:extend({
     icon = "__MoreScience__/graphics/resources/sand.png",
     icon_size = 32,
     flags = {"goes-to-main-inventory"},
-    subgroup = "raw-material",
-    order = "e[sand]",
+    subgroup = "science-bottling",
+    order = "b[sand]",
     stack_size = 100
   },
 
@@ -17,8 +17,8 @@ data:extend({
     icon = "__MoreScience__/graphics/resources/glass.png",
     icon_size = 32,
     flags = {"goes-to-main-inventory"},
-    subgroup = "raw-material",
-    order = "e[glass]",
+    subgroup = "science-bottling",
+    order = "c[glass]",
     stack_size = 50
   },
 
@@ -28,8 +28,8 @@ data:extend({
     icon = "__MoreScience__/graphics/resources/cork.png",
     icon_size = 128,
     flags = {"goes-to-main-inventory"},
-    subgroup = "raw-material",
-    order = "e[cork]",
+    subgroup = "science-bottling",
+    order = "d[cork]",
     stack_size = 50
   },
 
@@ -39,8 +39,8 @@ data:extend({
     icon = "__MoreScience__/graphics/potions/set-01/potion-00.png",
     icon_size = 32,
     flags = {"goes-to-main-inventory"},
-    subgroup = "science-pack",
-    order = "z-MoreScience-a[empty-bottle]",
+    subgroup = "science-bottling",
+    order = "d[empty-bottle]",
     stack_size = 50,
   },
 })

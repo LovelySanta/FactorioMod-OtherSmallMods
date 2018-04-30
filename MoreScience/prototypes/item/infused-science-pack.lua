@@ -40,7 +40,7 @@ addSciencePack("infused-advanced-science-pack-2", "high-tech-science-pack", "b2"
 addSciencePack("infused-extreme-science-pack", "space-science-pack", "d", 1)
 
 -- infused military science pack 1
-addSciencePack("infused-basic-military-science-pack", "basic-military-science-pack", "c1", 9)
+addSciencePack("infused-basic-military-science-pack", "military-science-pack", "c1", 9)
 -- infused automation science pack
 addSciencePack("infused-basic-automation-science-pack", "basic-automation-science-pack", "c2", 15)
 -- infused power science pack

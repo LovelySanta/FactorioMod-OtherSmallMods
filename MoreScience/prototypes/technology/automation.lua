@@ -100,6 +100,12 @@ addScienceIngredient("advanced-material-processing", 1, "basic-automation-scienc
 addScienceIngredient("advanced-material-processing-2", 1, "basic-automation-science-pack")
 addScienceIngredient("laser", 1, "basic-automation-science-pack")
 
+-- nuclear
+addScienceIngredient("nuclear-power", 1, "basic-automation-science-pack")
+addScienceIngredient("nuclear-fuel-reprocessing", 1, "basic-automation-science-pack")
+addScienceIngredient("kovarex-enrichment-process", 1, "basic-automation-science-pack")
+
+
 addPrerequisiteTechnology("circuit-network", "basic-automation-science-research")
 addScienceIngredient("circuit-network", 1, "basic-automation-science-pack")
 
@@ -167,4 +173,17 @@ addScienceIngredient("mining-productivity-1", 1, "basic-automation-science-pack"
 addScienceIngredient("mining-productivity-4", 1, "basic-automation-science-pack")
 addScienceIngredient("mining-productivity-8", 1, "basic-automation-science-pack")
 addScienceIngredient("mining-productivity-12", 1, "basic-automation-science-pack")
---addScienceIngredient("mining-productivity-16", 1, "basic-automation-science-pack")
+addScienceIngredient("mining-productivity-16", 1, "basic-automation-science-pack")
+
+-- military
+addScienceIngredient("bullet-damage-7", 1, "basic-automation-science-pack")
+addScienceIngredient("gun-turret-damage-7", 1, "basic-automation-science-pack")
+addScienceIngredient("shotgun-shell-damage-7", 1, "basic-automation-science-pack")
+--addScienceIngredient("grenade-damage-7", 1, "basic-automation-science-pack")
+addScienceIngredient("flamethrower-damage-7", 1, "basic-automation-science-pack")
+addScienceIngredient("laser-turret-damage-8", 1, "basic-automation-science-pack")
+addScienceIngredient("rocket-damage-7", 1, "basic-automation-science-pack")
+addScienceIngredient("cannon-shell-damage-6", 1, "basic-automation-science-pack")
+addScienceIngredient("combat-robot-damage-6", 1, "basic-automation-science-pack")
+addScienceIngredient("artillery-shell-range-1", 1, "basic-automation-science-pack")
+addScienceIngredient("artillery-shell-speed-1", 1, "basic-automation-science-pack")

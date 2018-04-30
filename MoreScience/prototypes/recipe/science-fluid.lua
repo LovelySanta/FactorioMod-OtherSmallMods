@@ -140,7 +140,7 @@ data:extend({
     {
       {type="fluid", name="basic-science-fluid-3", amount=100},
       {type="fluid", name="purified-water", amount=50},
-      {type="item", name="processing-unit", amount=5},
+      {type="item", name="processing-unit", amount=15},
     },
     results =
     {

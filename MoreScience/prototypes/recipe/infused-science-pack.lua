@@ -86,7 +86,7 @@ data:extend({
   {
     type = "recipe",
     name = "infused-extreme-science-pack",
-    subgroup = "science-pack",
+    subgroup = "infused-science-pack",
     category = "chemistry",
     energy_required = 5,
     enabled = false,

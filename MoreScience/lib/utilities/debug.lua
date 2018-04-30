@@ -493,6 +493,17 @@ function Debug:reseachAllTechnologies()
   -- Science: research tehcnology
   researchTechnology("infinite-science-research")
 
+  -- Unlock other science packs
+  researchTechnology("infused-basic-science-research-1")
+  researchTechnology("infused-basic-science-research-2")
+  researchTechnology("infused-basic-science-research-3")
+  researchTechnology("infused-advanced-science-research-1")
+  researchTechnology("infused-advanced-science-research-2")
+  researchTechnology("infused-basic-military-science-research")
+  researchTechnology("infused-basic-automation-science-research")
+  researchTechnology("infused-basic-logistics-science-research")
+  researchTechnology("infused-basic-power-science-research")
+
   if self.returnValue == 10 then
     return
   end

@@ -278,6 +278,9 @@ addPrerequisiteTechnology("mining-productivity-8", "advanced-science-research-1"
 -- logistics bonusses
 addPrerequisiteTechnology("inserter-capacity-bonus-4", "advanced-science-research-1")
 
+-- military bonusses
+addScienceIngredient("grenade-damage-7", 1, "production-science-pack")
+
 
 
 --------------------------------------------------------------------------------
@@ -391,46 +394,7 @@ data:extend({
       },
       {
         type = "unlock-recipe",
-        recipe = "infused-basic-science-pack-1",
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "infused-basic-science-pack-2",
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "infused-basic-science-pack-3",
-      },
-
-      {
-        type = "unlock-recipe",
-        recipe = "infused-advanced-science-pack-1",
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "infused-advanced-science-pack-2",
-      },
-
-      {
-        type = "unlock-recipe",
         recipe = "infused-extreme-science-pack",
-      },
-
-      {
-        type = "unlock-recipe",
-        recipe = "infused-basic-military-science-pack",
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "infused-basic-automation-science-pack",
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "infused-basic-power-science-pack",
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "infused-basic-logistics-science-pack",
       },
     },
     unit =

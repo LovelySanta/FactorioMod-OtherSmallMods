@@ -6,8 +6,8 @@ data:extend({
     icon = "__MoreScience__/graphics/resources/sand.png",
     icon_size = 32,
     flags = {"goes-to-main-inventory"},
-    subgroup = "science-bottling",
-    order = "b[sand]",
+    subgroup = "science-raw-material",
+    order = "z-MoreScience-z[sand]",
     stack_size = 100
   },
 

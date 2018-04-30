@@ -73,8 +73,9 @@ function Debug:reseachAllTechnologies()
   -- Power network: beter power poles
   researchTechnology("electric-energy-distribution-1")
 
-  -- Logistics: fluid storage, landfill
+  -- Logistics: fluid storage, science barreling, landfill
   researchTechnology("fluid-handling-2")
+  researchTechnology("fluid-handling-3")
   researchTechnology("landfill")
 
   -- Military: basic defence systems

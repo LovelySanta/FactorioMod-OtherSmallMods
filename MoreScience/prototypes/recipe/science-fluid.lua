@@ -3,7 +3,7 @@ data:extend({
   {
     type = "recipe",
     name = "purified-water",
-    subgroup = "science-bottling",
+    subgroup = "science-raw-material",
     category = "chemistry",
     icon = "__MoreScience__/graphics/fluids/fluid-00.png",
     icon_size = 32,

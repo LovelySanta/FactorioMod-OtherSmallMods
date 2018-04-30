@@ -24,7 +24,11 @@ data:extend({
     name = "fluid-handling-2",
     icon_size = 128,
     icon = "__base__/graphics/technology/fluid-handling.png",
-    prerequisites = {"fluid-handling"},
+    prerequisites =
+    {
+      "fluid-handling",
+      "basic-science-research-1",
+    },
     effects =
     {
       {
@@ -52,7 +56,31 @@ data:extend({
 removePrerequisiteTechnology("fluid-wagon", "fluid-handling")
 addPrerequisiteTechnology("fluid-wagon", "fluid-handling-2")
 
-
+-- create research for recipes
+data:extend({
+  {
+    type = "technology",
+    name = "fluid-handling-3",
+    icon_size = 128,
+    icon = "__base__/graphics/technology/fluid-handling.png",
+    prerequisites =
+    {
+      "fluid-handling-2",
+    },
+    effects = nil,
+    unit =
+    {
+      count = 75,
+      ingredients =
+      {
+        {"science-pack-1", 1},
+        {"science-pack-2", 1},
+      },
+      time = 45
+    },
+    order = "d-a-a"
+  },
+})
 
 --------------------------------------------------------------------------------
 ----- Basic logistics science research                                     -----

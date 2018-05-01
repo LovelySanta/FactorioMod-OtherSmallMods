@@ -1,0 +1,20 @@
+---------------------------------------------------------------------------------------------------
+Version: 0.1.1
+Date: 1. 5. 2018
+  Minor Features:
+    - Added burner lab to conduct early game research
+  Changes:
+    - Fluid handling 2 now only require red science
+  Fixes:
+    - Fixed could not conduct science as there was no lab
+    - Fixed shotgun shell damage and speed 2 wheren't depending on green science research
+---------------------------------------------------------------------------------------------------
+Version: 0.1.0 - Pre-release
+Date: 1. 5. 2018
+  Major Features:
+    - Initial test release
+    - Basic and infused science packs
+    - Science fluids
+  Minor Features:
+    - Science barreling
+    - Only unlock new research that can be done

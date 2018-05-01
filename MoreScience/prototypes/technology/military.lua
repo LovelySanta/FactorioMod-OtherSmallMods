@@ -20,6 +20,8 @@ addPrerequisiteTechnology("modular-armor", "military-2")
 addPrerequisiteTechnology("bullet-damage-2", "military-2")
 addPrerequisiteTechnology("bullet-speed-2", "military-2")
 addPrerequisiteTechnology("gun-turret-damage-1", "military-2")
+addPrerequisiteTechnology("shotgun-shell-damage-2", "military-2")
+addPrerequisiteTechnology("shotgun-shell-speed-2", "military-2")
 
 
 --------------------------------------------------------------------------------

@@ -6,7 +6,7 @@
 data.raw["recipe"]["science-pack-1"].ingredients =
 {
   {"copper-plate", 2},
-  {"iron-gear-wheel", 2},
+  {"iron-gear-wheel", 1},
   --{type="fluid", name="lubricant", amount=40},
 }
 data.raw["recipe"]["science-pack-1"].energy_required = 1

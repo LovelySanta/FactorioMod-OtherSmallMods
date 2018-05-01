@@ -44,6 +44,10 @@ data:extend({
         type = "unlock-recipe",
         recipe = "chemical-plant",
       },
+      {
+        type = "unlock-recipe",
+        recipe = "purified-water",
+      },
     },
     unit =
     {
@@ -61,7 +65,10 @@ data:extend({
 
 -- add prerequisites on the technology
 removePrerequisiteTechnology("research-speed-1", "electronics")
-addPrerequisiteTechnology("research-speed-2", "basic-science-research-1")
+addPrerequisiteTechnology("research-speed-1", "basic-science-research-1")
+removeScienceIngredient("research-speed-1", "science-pack-2")
+
+addPrerequisiteTechnology("toolbelt", "basic-science-research-1")
 
 removePrerequisiteTechnology("electric-energy-distribution-1", "electronics")
 removePrerequisiteTechnology("electric-energy-distribution-1", "steel-processing")
@@ -101,10 +108,6 @@ data:extend({
         type = "unlock-recipe",
         recipe = "empty-bottle",
       },
-      {
-        type = "unlock-recipe",
-        recipe = "purified-water",
-      },
     },
     unit =
     {
@@ -122,6 +125,8 @@ data:extend({
 
 -- Fix research tree for bottling-research
 addPrerequisiteTechnology("research-speed-2", "bottling-research")
+
+
 
 
 
@@ -400,6 +405,10 @@ data:extend({
         type = "unlock-recipe",
         recipe = "infused-extreme-science-pack",
       },
+      {
+        type = "unlock-recipe",
+        recipe = "lab-mk2",
+      },
     },
     unit =
     {
@@ -419,6 +428,9 @@ data:extend({
       },
       time = 120
     },
-    order = "a-d-c"
+    order = data.raw["technology"]["rocket-silo"].order
   },
 })
+
+-- add prerequisites
+addPrerequisiteTechnology("infinite-science-research", "fusion-reactor-equipment")

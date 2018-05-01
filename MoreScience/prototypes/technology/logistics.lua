@@ -95,7 +95,7 @@ data:extend({
     icon_size = 2000,
     prerequisites =
     {
-      "basic-science-research-2",
+      --"basic-science-research-2",
       "electric-engine",
     },
     effects =
@@ -115,8 +115,10 @@ data:extend({
       ingredients =
       {
         {"science-pack-1", 1},
-        {"science-pack-2", 3},
-        {"science-pack-3", 5},
+        {"science-pack-2", 2},
+        {"science-pack-3", 3},
+        {"basic-automation-science-pack", 4},
+        {"basic-power-science-pack", 5},
       },
       time = 30
     },

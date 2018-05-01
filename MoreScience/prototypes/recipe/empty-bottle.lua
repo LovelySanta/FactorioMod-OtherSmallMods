@@ -3,7 +3,7 @@ data:extend({
   {
     type = "recipe",
     name = "sand",
-    energy_required = 10,
+    energy_required = 25,
     category = "advanced-crafting",
     ingredients =
     {
@@ -17,7 +17,7 @@ data:extend({
   {
     type = "recipe",
     name = "cork",
-    energy_required = nil,
+    energy_required = 1,
     ingredients =
     {
       {"wood", 2}

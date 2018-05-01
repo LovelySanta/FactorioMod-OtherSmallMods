@@ -7,7 +7,7 @@ data:extend({
     category = "chemistry",
     icon = "__MoreScience__/graphics/fluids/fluid-00.png",
     icon_size = 32,
-    energy_required = 2,
+    energy_required = 5,
     enabled = false,
     ingredients =
     {
@@ -247,7 +247,7 @@ data:extend({
     enabled = false,
     ingredients =
     {
-      {type="fluid", name="basic-automation-science-fluid", amount=100},
+      {type="fluid", name="basic-power-science-fluid", amount=100},
       {type="fluid", name="purified-water", amount=50},
       {type="item", name="electric-engine-unit", amount=5},
     },

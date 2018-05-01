@@ -26,7 +26,7 @@ local infusedScienceResearch = {
   ["basic-power-science-pack"] = "infused-basic-power-science-research",
 }
 
-local function addInfusedSciencePack(basicScienceName)
+local function addInfusedSciencePack(basicScienceName, order)
   data:extend({
     {
       type = "technology",
@@ -50,7 +50,7 @@ local function addInfusedSciencePack(basicScienceName)
         time = 60
       },
       upgrade = false,
-      order = "c-a"
+      order = data.raw["technology"]["infinite-science-research"].order .. "-" .. order
     },
   })
 
@@ -58,16 +58,16 @@ local function addInfusedSciencePack(basicScienceName)
   addRecipeUnlock(infusedScienceResearch[basicScienceName], infusedSciencePackName[basicScienceName])
 end
 
-addInfusedSciencePack("science-pack-1")
-addInfusedSciencePack("science-pack-2")
-addInfusedSciencePack("science-pack-3")
-addInfusedSciencePack("production-science-pack")
-addInfusedSciencePack("high-tech-science-pack")
+addInfusedSciencePack("science-pack-1", "a1")
+addInfusedSciencePack("science-pack-2", "a2")
+addInfusedSciencePack("science-pack-3", "a3")
+addInfusedSciencePack("production-science-pack", "b1")
+addInfusedSciencePack("high-tech-science-pack", "b2")
 
-addInfusedSciencePack("military-science-pack")
-addInfusedSciencePack("basic-automation-science-pack")
-addInfusedSciencePack("basic-logistics-science-pack")
-addInfusedSciencePack("basic-power-science-pack")
+addInfusedSciencePack("military-science-pack", "c1")
+addInfusedSciencePack("basic-automation-science-pack", "c2")
+addInfusedSciencePack("basic-power-science-pack", "c3")
+addInfusedSciencePack("basic-logistics-science-pack", "c4")
 
 --------------------------------------------------------------------------------
 ----- Infinite science research                                            -----

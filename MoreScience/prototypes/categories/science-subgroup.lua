@@ -11,7 +11,7 @@ scienceRawMaterial.order = scienceRawMaterial.order .. "-a-a"
 -- science bottling subgroup
 local scienceBottling = util.table.deepcopy(data.raw["item-subgroup"]["science-pack"])
 scienceBottling.name = "science-bottling"
-scienceBottling.order = scienceBottling.order .. "-a-a"
+scienceBottling.order = scienceBottling.order .. "-a-b"
 
 -- science fluid subgroup
 local scienceFluid = util.table.deepcopy(data.raw["item-subgroup"]["science-pack"])

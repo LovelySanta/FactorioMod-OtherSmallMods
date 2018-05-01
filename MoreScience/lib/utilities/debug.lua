@@ -1,7 +1,7 @@
 
 Debug = {}
 
-Debug.enabled = true
+Debug.enabled = false
 Debug.returnValue = 10
 
 function Debug:reseachAllTechnologies()

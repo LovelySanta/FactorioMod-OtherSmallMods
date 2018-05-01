@@ -7,6 +7,7 @@ require "lib/utilities/prototyping"
 -- disable the recipes
 data.raw["recipe"]["inserter"].enabled = false
 data.raw["recipe"]["transport-belt"].enabled = false
+--data.raw["recipe"]["electric-mining-drill"].enabled = false
 
 -- create research for recipes
 data:extend({
@@ -25,6 +26,10 @@ data:extend({
         type = "unlock-recipe",
         recipe = "transport-belt"
       },
+      --{
+      --  type = "unlock-recipe",
+      --  recipe = "electric-mining-drill"
+      --},
     },
     prerequisites = nil,
     unit =

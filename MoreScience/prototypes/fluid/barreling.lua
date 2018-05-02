@@ -20,6 +20,30 @@ if data.raw["recipe"]["empty-purified-water-barrel"] then
 end
 
 --------------------------------------------------------------------------------
+----- Oil fluids                                                           -----
+--------------------------------------------------------------------------------
+for _,oilFluid in pairs({
+  "crude-oil",
+  "petroleum-gas",
+  "light-oil",
+  "heavy-oil",
+  "lubricant",
+  "sulfuric-acid",
+}) do
+  -- Filling barrel recipe
+  if data.raw["recipe"]["fill-"..oilFluid.."-barrel"] then
+    removeRecipeUnlock("fluid-handling", "fill-"..oilFluid.."-barrel")
+    addRecipeUnlock("fluid-handling-2", "fill-"..oilFluid.."-barrel")
+  end
+
+  -- Empty barrel recipe
+  if data.raw["recipe"]["empty-"..oilFluid.."-barrel"] then
+    removeRecipeUnlock("fluid-handling", "empty-"..oilFluid.."-barrel")
+    addRecipeUnlock("fluid-handling-2", "empty-"..oilFluid.."-barrel")
+  end
+end
+
+--------------------------------------------------------------------------------
 ----- Science fluids                                                       -----
 --------------------------------------------------------------------------------
 for _,scienceFluid in pairs({

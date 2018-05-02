@@ -3,8 +3,11 @@ require "lib/utilities/prototyping"
 --------------------------------------------------------------------------------
 ----- Military                                                             -----
 --------------------------------------------------------------------------------
+disableRecipe("light-armor")
+addRecipeUnlock("military", "light-armor")
 addPrerequisiteTechnology("turrets", "military")
 addPrerequisiteTechnology("stone-walls", "military")
+
 
 
 --------------------------------------------------------------------------------

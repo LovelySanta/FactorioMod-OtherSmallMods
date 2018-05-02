@@ -15,7 +15,13 @@ addPrerequisiteTechnology("landfill", "basic-science-research-1")
 disableRecipe("pipe-to-ground")
 
 -- remove recipe unlock
-removeRecipeUnlock("fluid-handling", "storage-tank")
+--removeRecipeUnlock("fluid-handling", "storage-tank")
+addRecipeUnlock("fluid-handling", "pipe-to-ground")
+
+-- add prerequisites
+addPrerequisiteTechnology("oil-processing", "fluid-handling")
+
+
 
 -- create research for recipes
 data:extend({
@@ -27,26 +33,28 @@ data:extend({
     prerequisites =
     {
       "fluid-handling",
-      "basic-science-research-1",
+      --"basic-science-research-1",
+      "oil-processing"
     },
-    effects =
-    {
-      {
-        type = "unlock-recipe",
-        recipe = "storage-tank"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "pipe-to-ground"
-      },
-    },
+    effects = nil, -- data-final-fixes.lua --> adding oil barreling
+    --{
+      --{
+      --  type = "unlock-recipe",
+      --  recipe = "storage-tank"
+      --},
+      --{
+      --  type = "unlock-recipe",
+      --  recipe = "pipe-to-ground"
+      --},
+    --},
     unit =
     {
       count = 150,
       ingredients =
       {
-        {"science-pack-1", 2},
-        --{"science-pack-2", 1},
+        {"science-pack-1", 1},
+        {"science-pack-2", 1},
+        {"basic-automation-science-pack", 1},
       },
       time = 60
     },
@@ -55,6 +63,8 @@ data:extend({
 })
 removePrerequisiteTechnology("fluid-wagon", "fluid-handling")
 addPrerequisiteTechnology("fluid-wagon", "fluid-handling-2")
+
+
 
 -- create research for recipes
 data:extend({
@@ -67,16 +77,17 @@ data:extend({
     {
       "fluid-handling-2",
     },
-    effects = nil,
+    effects = nil, -- data-final-fixes.lua --> adding science barreling
     unit =
     {
-      count = 75,
+      count = 300,
       ingredients =
       {
         {"science-pack-1", 1},
         {"science-pack-2", 1},
+        {"basic-automation-science-pack", 1},
       },
-      time = 45
+      time = 60
     },
     order = "d-a-a"
   },

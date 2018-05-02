@@ -8,7 +8,7 @@ scienceResearch.icon_size = 2000
 ----- Basic science pack 2                                                 -----
 --------------------------------------------------------------------------------
 -- disable the recipe
-data.raw["recipe"]["science-pack-2"].enabled = false
+disableRecipe("science-pack-2")
 
 -- remove recipe unlock from other technologies
 removeRecipeUnlock("oil-processing", "chemical-plant")

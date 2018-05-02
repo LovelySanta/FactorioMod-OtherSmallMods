@@ -12,7 +12,7 @@ addPrerequisiteTechnology("landfill", "basic-science-research-1")
 --------------------------------------------------------------------------------
 
 -- disable the recipes
-data.raw["recipe"]["pipe-to-ground"].enabled = false
+disableRecipe("pipe-to-ground")
 
 -- remove recipe unlock
 removeRecipeUnlock("fluid-handling", "storage-tank")

@@ -91,3 +91,15 @@ function addScienceIngredient(technologyName, sciencePackAmount, sciencePackName
     table.insert(data.raw["technology"][technologyName].unit.ingredients, {sciencePackName, sciencePackAmount})
   end
 end
+
+
+
+function disableRecipe(recipe)
+   if not data.raw.recipe[recipe] then return end
+   if data.raw["recipe"][recipe].normal then
+      data.raw["recipe"][recipe].normal.enabled = false
+      data.raw["recipe"][recipe].expensive.enabled = false
+   else
+      data.raw["recipe"][recipe].enabled = false
+   end
+end

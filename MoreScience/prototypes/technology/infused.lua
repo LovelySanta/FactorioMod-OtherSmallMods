@@ -74,8 +74,6 @@ addInfusedSciencePack("basic-logistics-science-pack", "c4")
 --------------------------------------------------------------------------------
 
 local function changeToInfusedSciencePack(technologyName)
-
-
   if data.raw["technology"][technologyName] and data.raw["technology"][technologyName].unit then
     local ingredients = {}
     for index,ingredient in pairs(data.raw["technology"][technologyName].unit.ingredients) do

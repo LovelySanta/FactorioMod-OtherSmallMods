@@ -1,4 +1,12 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.2
+Date: 2. 5. 2018
+  Changes:
+    - Fluid handling 2 requires oil processing, moved recipes unlock to Fluid handling 1
+  Fixes:
+    - Fixed disabling recipes wasn't working correctly
+    - Fixed mod not checking if it existed before in on_configuration_changed
+---------------------------------------------------------------------------------------------------
 Version: 0.1.1
 Date: 1. 5. 2018
   Minor Features:

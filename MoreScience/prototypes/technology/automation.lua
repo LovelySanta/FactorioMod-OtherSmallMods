@@ -7,7 +7,6 @@ require "lib/utilities/prototyping"
 -- disable the recipes
 disableRecipe("inserter")
 disableRecipe("transport-belt")
-disableRecipe("pipe")
 disableRecipe("electric-mining-drill")
 disableRecipe("lab")
 
@@ -27,10 +26,6 @@ data:extend({
       {
         type = "unlock-recipe",
         recipe = "transport-belt"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "pipe"
       },
       {
         type = "unlock-recipe",

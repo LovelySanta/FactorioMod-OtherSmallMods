@@ -60,8 +60,6 @@ script.on_configuration_changed(function(data)
               force.technologies["basic-logistics-science-research"].researched = true
             end
           end
-
-          force.reset_technology_effects()
         end
 
         global.modVersion = 1
@@ -74,15 +72,17 @@ script.on_configuration_changed(function(data)
             if force.technologies["fluid-handling"].researched then
               force.technologies["fluid-handling-2"].researched = true
             end
-            force.reset_technology_effects()
           end
 
           global.modVersion = 1
           log("Updating mod to version 1 finished.")
         end
       end
-      
+
       -- No need to look further, we found our mod already
+      for _, force in pairs(game.forces) do
+        force.reset_technology_effects()
+      end
       break
     end
   end

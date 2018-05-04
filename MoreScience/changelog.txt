@@ -1,4 +1,14 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.4
+Date: 3. 5. 2018
+  Features:
+    - Fluid colors and barreling match there icon color up to advanced science
+  Changes:
+    - Trains now only require up to basic automation science packs instead of basic logistics science packs.
+  Fixes:
+    - Burner lab and lab mk2 entities had no local english translation
+    - Lab item and entity local translation mismatches
+---------------------------------------------------------------------------------------------------
 Version: 0.1.3
 Date: 3. 5. 2018
   Fixes:

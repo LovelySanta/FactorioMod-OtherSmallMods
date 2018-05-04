@@ -188,6 +188,7 @@ addScienceIngredient("construction-robotics", 1, "science-pack-3")
 addScienceIngredient("logistic-robotics", 1, "science-pack-3")
 
 -- train network
+addPrerequisiteTechnology("railway", "basic-science-research-2")
 addScienceIngredient("railway", 1, "science-pack-3")
 addScienceIngredient("automated-rail-transportation", 1, "science-pack-3")
 addScienceIngredient("rail-signals", 1, "science-pack-3")

@@ -132,6 +132,7 @@ addScienceIngredient("sulfur-processing", 1, "basic-automation-science-pack")
 addScienceIngredient("battery", 1, "basic-automation-science-pack")
 
 -- train network
+addScienceIngredient("railway", 1, "basic-automation-science-pack")
 addScienceIngredient("automated-rail-transportation", 1, "basic-automation-science-pack")
 addScienceIngredient("rail-signals", 1, "basic-automation-science-pack")
 

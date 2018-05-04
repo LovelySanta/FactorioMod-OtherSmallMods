@@ -148,11 +148,13 @@ addScienceIngredient("stack-inserter", 1, "basic-logistics-science-pack")
 
 -- train network
 removePrerequisiteTechnology("railway", "logistics-2")
-addPrerequisiteTechnology("railway", "basic-logistics-science-research")
-addScienceIngredient("railway", 1, "basic-logistics-science-pack")
-addScienceIngredient("automated-rail-transportation", 1, "basic-logistics-science-pack")
+--addPrerequisiteTechnology("railway", "basic-logistics-science-research")
+--addScienceIngredient("railway", 1, "basic-logistics-science-pack")
+--addScienceIngredient("automated-rail-transportation", 1, "basic-logistics-science-pack")
+addPrerequisiteTechnology("rail-signals", "basic-logistics-science-research")
 addScienceIngredient("rail-signals", 1, "basic-logistics-science-pack")
 addScienceIngredient("fluid-wagon", 1, "basic-logistics-science-pack")
+addPrerequisiteTechnology("fluid-wagon", "basic-logistics-science-research")
 
 -- robot network
 addScienceIngredient("robotics", 1, "basic-logistics-science-pack")

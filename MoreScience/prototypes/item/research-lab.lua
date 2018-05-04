@@ -1,6 +1,5 @@
 
 data.raw["item"]["lab"].subgroup = "science-bottling"
-data.raw["item"]["lab"].localised_name = {"item-name.lab-mk1", {[1] = "item-name.lab"}}
 
 --------------------------------------------------------------------------------
 ----- Burner lab                                                           -----
@@ -20,9 +19,14 @@ labMK2.localised_name = {"item-name.lab-mk2", {[1] = "item-name.lab"}}
 labMK2.order = labMK2.order .. "-mk2"
 labMK2.place_result = "lab-mk2"
 
-
-
+--------------------------------------------------------------------------------
+----- Lab MK1 - base game lab                                              -----
+--------------------------------------------------------------------------------
+data.raw["item"]["lab"].localised_name = {"item-name.lab-mk1", {[1] = "item-name.lab"}}
 data.raw["item"]["lab"].order = data.raw["item"]["lab"].order  .. "-mk1"
+
+
+
 data:extend({
   labBurner,
   labMK2,

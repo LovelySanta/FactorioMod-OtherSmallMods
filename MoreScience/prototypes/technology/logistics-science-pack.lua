@@ -145,6 +145,7 @@ addPrerequisiteTechnology("logistics-3", "basic-logistics-science-research")
 addScienceIngredient("automobilism", 1, "basic-logistics-science-pack")
 addScienceIngredient("tanks", 1, "basic-logistics-science-pack")
 addScienceIngredient("stack-inserter", 1, "basic-logistics-science-pack")
+addPrerequisiteTechnology("rocket-silo", "basic-logistics-science-research")
 
 -- train network
 removePrerequisiteTechnology("railway", "logistics-2")

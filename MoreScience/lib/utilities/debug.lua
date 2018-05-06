@@ -1,8 +1,8 @@
 
 Debug = {}
 
-Debug.enabled = false
-Debug.returnValue = 10
+Debug.enabled = true
+Debug.returnValue = 9
 
 function Debug:reseachAllTechnologies()
   force = game.forces["player"]
@@ -422,9 +422,6 @@ function Debug:reseachAllTechnologies()
   researchTechnology("effectivity-module-3")
   researchTechnology("effect-transmission")
 
-  -- Automation: optional research
-  researchTechnology("rocket-silo")
-
   -- Logistics: robot network
   researchTechnology("logistic-system")
 
@@ -492,6 +489,7 @@ function Debug:reseachAllTechnologies()
 --------------------------------------------------------------------------------
 
   -- Science: research tehcnology
+  researchTechnology("rocket-silo")
   researchTechnology("infinite-science-research")
 
   -- Unlock other science packs

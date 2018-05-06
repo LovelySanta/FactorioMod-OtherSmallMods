@@ -374,11 +374,6 @@ addScienceIngredient("rocket-silo", 1, "basic-automation-science-pack")
 addScienceIngredient("rocket-silo", 1, "basic-logistics-science-pack")
 addScienceIngredient("rocket-silo", 1, "basic-power-science-pack")
 
--- add prerequisites
-addPrerequisiteTechnology("rocket-silo", "solar-energy")
-addPrerequisiteTechnology("rocket-silo", "electric-energy-accumulators-1")
-addPrerequisiteTechnology("rocket-silo", "basic-logistics-science-research")
-
 
 
 --------------------------------------------------------------------------------
@@ -434,4 +429,4 @@ data:extend({
 })
 
 -- add prerequisites
-addPrerequisiteTechnology("infinite-science-research", "fusion-reactor-equipment")
+--addPrerequisiteTechnology("infinite-science-research", "fusion-reactor-equipment")

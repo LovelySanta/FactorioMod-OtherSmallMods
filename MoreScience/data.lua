@@ -29,9 +29,9 @@ require(recipePath .. "research-lab")
 
 -- technology
 technologyPath = "prototypes/technology/"
-require(technologyPath .. "science")
-require(technologyPath .. "military")
-require(technologyPath .. "automation")
-require(technologyPath .. "power")
-require(technologyPath .. "logistics")
-require(technologyPath .. "infused")
+require(technologyPath .. "regular-science-packs")
+require(technologyPath .. "military-science-pack")
+require(technologyPath .. "automation-science-pack")
+require(technologyPath .. "power-science-pack")
+require(technologyPath .. "logistics-science-pack")
+require(technologyPath .. "infused-science-packs")

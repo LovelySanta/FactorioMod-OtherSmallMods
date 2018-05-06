@@ -5,7 +5,7 @@ data:extend({
     name = "purified-water",
     subgroup = "science-raw-material",
     category = "chemistry",
-    icon = "__MoreScience__/graphics/fluids/fluid-00.png",
+    icon = "__MoreScience__/graphics/fluid/fluid-00.png",
     icon_size = 32,
     energy_required = 5,
     enabled = false,

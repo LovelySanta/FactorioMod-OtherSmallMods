@@ -3,17 +3,17 @@ require "util"
 -- science pack subgroup
 data.raw["item-subgroup"]["science-pack"].group = "science"
 
--- science bottling subgroup
+-- science bottling
 local scienceRawMaterial = util.table.deepcopy(data.raw["item-subgroup"]["science-pack"])
 scienceRawMaterial.name = "science-raw-material"
 scienceRawMaterial.order = scienceRawMaterial.order .. "-a-a"
 
--- science bottling subgroup
+-- science bottling
 local scienceBottling = util.table.deepcopy(data.raw["item-subgroup"]["science-pack"])
 scienceBottling.name = "science-bottling"
 scienceBottling.order = scienceBottling.order .. "-a-b"
 
--- science fluid subgroup
+-- science fluid
 local scienceFluid = util.table.deepcopy(data.raw["item-subgroup"]["science-pack"])
 scienceFluid.name = "science-fluid"
 scienceFluid.order = scienceFluid.order .. "-b-a"
@@ -28,19 +28,37 @@ local scienceBarrelEmpty = util.table.deepcopy(data.raw["item-subgroup"]["scienc
 scienceBarrelEmpty.name = "science-barrel-empty"
 scienceBarrelEmpty.order = scienceBarrelEmpty.order .. "-b-c"
 
--- infused science pack subgroup
+-- infused science pack
 local infusedSciencePack = util.table.deepcopy(data.raw["item-subgroup"]["science-pack"])
 infusedSciencePack.name = "infused-science-pack"
-infusedSciencePack.order = infusedSciencePack.order .. "-c-b"
+infusedSciencePack.order = infusedSciencePack.order .. "-c-a"
+
+-- rocket parts
+local rocketParts = util.table.deepcopy(data.raw["item-subgroup"]["science-pack"])
+rocketParts.name = "rocket-parts"
+rocketParts.order = rocketParts.order .. "-c-b"
+
+-- rocket assembly
+local rocketAssembly = util.table.deepcopy(data.raw["item-subgroup"]["science-pack"])
+rocketAssembly.name = "rocket-assembly"
+rocketAssembly.order = rocketAssembly.order .. "-c-c"
 
 -- science pack subgroup
 data.raw["item-subgroup"]["science-pack"].order = data.raw["item-subgroup"]["science-pack"].order .. "-c-a"
 
+
+
 data:extend({
   scienceRawMaterial,
   scienceBottling,
+
   scienceFluid,
   scienceBarrelFill,
   scienceBarrelEmpty,
+
+  -- sciencePack, -- vanilla
   infusedSciencePack,
+
+  rocketParts,
+  rocketAssembly,
 })

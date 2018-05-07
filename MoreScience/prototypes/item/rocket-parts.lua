@@ -8,7 +8,7 @@ local function createRocketPart(name, order)
     icon = "__MoreScience__/graphics/rocket/" .. name .. ".png",
     icon_size = 32,
     flags = {"goes-to-main-inventory"},
-    subgroup = "raw-material",
+    subgroup = "rocket-parts",
     order = "a[rocket-part]-a[" .. order .. "]-a[" .. name .. "]",
     stack_size = 100
   }
@@ -27,3 +27,7 @@ createRocketPart("fusion-reactor", "c")
 
 createRocketPart("shield-array", "d1")
 createRocketPart("laser-array", "d2")
+
+
+-- satellite is also a rocket part
+data.raw["item"]["satellite"].subgroup = "rocket-parts"

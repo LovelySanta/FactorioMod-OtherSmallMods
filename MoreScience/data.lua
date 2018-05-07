@@ -19,6 +19,7 @@ require(itemPath .. "regular-science-pack")
 require(itemPath .. "infused-science-pack")
 require(itemPath .. "research-lab")
 require(itemPath .. "rocket-parts")
+require(itemPath .. "rocket-assembly")
 
 -- recipes
 recipePath = "prototypes/recipe/"

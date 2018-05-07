@@ -158,6 +158,7 @@ addScienceIngredient("fluid-wagon", 1, "basic-logistics-science-pack")
 addPrerequisiteTechnology("fluid-wagon", "basic-logistics-science-research")
 
 -- robot network
+addPrerequisiteTechnology("robotics", "basic-logistics-science-research")
 addScienceIngredient("robotics", 1, "basic-logistics-science-pack")
 --addScienceIngredient("flying", 1, "basic-logistics-science-pack")
 addScienceIngredient("construction-robotics", 1, "basic-logistics-science-pack")

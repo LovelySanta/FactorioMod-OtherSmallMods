@@ -2,7 +2,7 @@
 Debug = {}
 
 Debug.enabled = true
-Debug.returnValue = 9
+Debug.returnValue = 10
 
 function Debug:reseachAllTechnologies()
   force = game.forces["player"]
@@ -43,9 +43,8 @@ function Debug:reseachAllTechnologies()
   researchTechnology("shotgun-shell-damage-1")
   researchTechnology("shotgun-shell-speed-1")
 
-  -- Character management: light and inventory
+  -- Character management: light
   researchTechnology("optics")
-  researchTechnology("toolbelt")
 
   if self.returnValue == 1 then
     return
@@ -70,12 +69,13 @@ function Debug:reseachAllTechnologies()
   researchTechnology("research-speed-1")
   researchTechnology("research-speed-2")
 
+  -- Character managment: inventory
+  researchTechnology("toolbelt")
+
   -- Power network: beter power poles
   researchTechnology("electric-energy-distribution-1")
 
-  -- Logistics: fluid storage, science barreling, landfill
-  researchTechnology("fluid-handling-2")
-  researchTechnology("fluid-handling-3")
+  -- Logistics: landfill
   researchTechnology("landfill")
 
   -- Military: basic defence systems
@@ -158,6 +158,10 @@ function Debug:reseachAllTechnologies()
 
   -- Automation: bonusses
   researchTechnology("mining-productivity-1")
+
+  -- Logistics: barreling
+  researchTechnology("fluid-handling-2")
+  researchTechnology("fluid-handling-3")
 
   -- Military: beter armor
   researchTechnology("modular-armor")
@@ -246,6 +250,10 @@ function Debug:reseachAllTechnologies()
   -- Automation: bonusses
   researchTechnology("mining-productivity-4")
 
+  -- Logistics: trains
+  researchTechnology("railway")
+  researchTechnology("automated-rail-transportation")
+
   -- Power network: beter power
   researchTechnology("electric-energy-distribution-2")
   researchTechnology("nuclear-power")
@@ -313,8 +321,6 @@ function Debug:reseachAllTechnologies()
   researchTechnology("stack-inserter")
 
   -- Logistics: train network
-  researchTechnology("railway")
-  researchTechnology("automated-rail-transportation")
   researchTechnology("rail-signals")
   researchTechnology("fluid-wagon")
 
@@ -488,11 +494,16 @@ function Debug:reseachAllTechnologies()
 ----- Infinite science research                                            -----
 --------------------------------------------------------------------------------
 
-  -- Science: research tehcnology
+  -- Science: research technology
+  researchTechnology("rocket")
+  researchTechnology("hull-component")
+  researchTechnology("ion-thruster")
+  researchTechnology("fusion-reactor")
+  researchTechnology("shield-array")
   researchTechnology("rocket-silo")
-  researchTechnology("infinite-science-research")
 
-  -- Unlock other science packs
+  -- Science: research infinite science
+  researchTechnology("infinite-science-research")
   researchTechnology("infused-basic-science-research-1")
   researchTechnology("infused-basic-science-research-2")
   researchTechnology("infused-basic-science-research-3")

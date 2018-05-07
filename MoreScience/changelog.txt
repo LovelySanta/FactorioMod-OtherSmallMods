@@ -1,4 +1,16 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.5
+Date: 7. 5. 2018
+  Major Features:
+    - Added rocket science research
+  Minor Features:
+    - Rocket recipe is now visible in the crafting menu
+  Changes:
+    - Now rocket require more rocket-specific parts (thanks Arch666angel for the graphics)
+    - Extra research required to unlock the rocket silo
+  Fixes:
+    - Fixed robotics research wasn't depending on logistics science research (but required the pack anyway)
+---------------------------------------------------------------------------------------------------
 Version: 0.1.4
 Date: 5. 5. 2018
   Features:

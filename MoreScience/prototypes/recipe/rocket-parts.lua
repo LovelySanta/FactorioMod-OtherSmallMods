@@ -90,6 +90,7 @@ local laserArray =
   result = "laser-array"
 }
 
+-- Rocket MK1 calculation:
 data:extend({    --      amount:   lds    rcu    rf
   hullComponent, --      30        25     1      0
 

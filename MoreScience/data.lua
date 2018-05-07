@@ -7,6 +7,7 @@ require(categoryPath .. "science-subgroup")
 -- entities
 entityPath = "prototypes/entity/"
 require(entityPath .. "research-lab")
+require(entityPath .. "rocket-assembly")
 
 -- fluids
 fluidPath = "prototypes/fluid/"
@@ -29,6 +30,7 @@ require(recipePath .. "regular-science-pack")
 require(recipePath .. "infused-science-pack")
 require(recipePath .. "research-lab")
 require(recipePath .. "rocket-parts")
+require(recipePath .. "rocket-assembly")
 
 -- technology
 technologyPath = "prototypes/technology/"

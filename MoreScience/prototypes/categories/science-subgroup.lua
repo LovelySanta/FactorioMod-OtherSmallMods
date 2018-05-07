@@ -31,17 +31,17 @@ scienceBarrelEmpty.order = scienceBarrelEmpty.order .. "-b-c"
 -- infused science pack
 local infusedSciencePack = util.table.deepcopy(data.raw["item-subgroup"]["science-pack"])
 infusedSciencePack.name = "infused-science-pack"
-infusedSciencePack.order = infusedSciencePack.order .. "-c-a"
+infusedSciencePack.order = infusedSciencePack.order .. "-c-b"
 
 -- rocket parts
 local rocketParts = util.table.deepcopy(data.raw["item-subgroup"]["science-pack"])
 rocketParts.name = "rocket-parts"
-rocketParts.order = rocketParts.order .. "-c-b"
+rocketParts.order = rocketParts.order .. "-d-a"
 
 -- rocket assembly
 local rocketAssembly = util.table.deepcopy(data.raw["item-subgroup"]["science-pack"])
 rocketAssembly.name = "rocket-assembly"
-rocketAssembly.order = rocketAssembly.order .. "-c-c"
+rocketAssembly.order = rocketAssembly.order .. "-d-b"
 
 -- science pack subgroup
 data.raw["item-subgroup"]["science-pack"].order = data.raw["item-subgroup"]["science-pack"].order .. "-c-a"

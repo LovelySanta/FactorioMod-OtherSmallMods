@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.6
+Date: 8. 5. 2018
+  Changes:
+    - Barreling recipes are moved from data-final-fixes.lua to data-updates.lua
+  Modding:
+    - Added some mod compatibility with bobrevamp mod
+---------------------------------------------------------------------------------------------------
 Version: 0.1.5
 Date: 7. 5. 2018
   Major Features:

@@ -385,6 +385,7 @@ function Debug:reseachAllTechnologies()
   -- Automation: optional research
   researchTechnology("coal-liquefaction")
   researchTechnology("productivity-module-3")
+  researchTechnology("wood-plantation")
 
   -- Logistics: inventory management
   researchTechnology("character-logistic-slots-4")

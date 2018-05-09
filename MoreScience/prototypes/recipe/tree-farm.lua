@@ -7,7 +7,7 @@ local seedExtractor =
   type = "recipe",
   name = "seed-extractor",
   energy_required = data.raw["assembling-machine"]["chemical-plant"].energy_required,
-  enabled = true,
+  enabled = false,
   ingredients =
   {
     {"chemical-plant", 1},
@@ -27,7 +27,7 @@ local woodPlantation  =
   type = "recipe",
   name = "wood-plantation",
   energy_required = seedExtractor.energy_required,
-  enabled = true,
+  enabled = false,
   ingredients = {
     {"assembling-machine-3", 1},
     {"sand", data.raw["item"]["sand"].stack_size},
@@ -42,12 +42,12 @@ local woodPlantation  =
 --------------------------------------------------------------------------------
 ----- tree                                                                 -----
 --------------------------------------------------------------------------------
-local tree =
+local organicTree =
 {
   type = "recipe",
   name = "organic-tree",
   energy_required = 60 * 5,
-  enabled = true,
+  enabled = false,
   category = "wood-plantation",
   ingredients =
   {
@@ -67,10 +67,10 @@ local treeSeed =
   name = "tree-seed",
   localised_name = util.table.deepcopy(data.raw["item"]["tree-seed"].localised_name),
   energy_required = 60,
-  enabled = true,
+  enabled = false,
   category = "seed-extractor",
   ingredients = {
-    {tree.result, 1},
+    {organicTree.result, 1},
   },
   result = "tree-seed",
   result_count = 5,
@@ -105,7 +105,7 @@ data:extend({
   seedExtractor,
   woodPlantation,
 
-  tree,
+  organicTree,
   treeSeed,
   treeSeedCreator,
 })

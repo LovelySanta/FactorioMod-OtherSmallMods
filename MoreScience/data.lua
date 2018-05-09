@@ -3,11 +3,13 @@
 categoryPath = "prototypes/categories/"
 require(categoryPath .. "science-group")
 require(categoryPath .. "science-subgroup")
+require(categoryPath .. "tree-farm")
 
 -- entities
 entityPath = "prototypes/entity/"
 require(entityPath .. "research-lab")
 require(entityPath .. "rocket-assembly")
+require(entityPath .. "tree-farm")
 
 -- fluids
 fluidPath = "prototypes/fluid/"
@@ -21,6 +23,7 @@ require(itemPath .. "infused-science-pack")
 require(itemPath .. "research-lab")
 require(itemPath .. "rocket-parts")
 require(itemPath .. "rocket-assembly")
+require(itemPath .. "tree-farm")
 
 -- recipes
 recipePath = "prototypes/recipe/"
@@ -31,6 +34,7 @@ require(recipePath .. "infused-science-pack")
 require(recipePath .. "research-lab")
 require(recipePath .. "rocket-parts")
 require(recipePath .. "rocket-assembly")
+require(recipePath .. "tree-farm")
 
 -- technology
 technologyPath = "prototypes/technology/"

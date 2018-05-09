@@ -7,7 +7,7 @@ end
 local function alterSciencePack(oldName, newName, order, potionNumber)
   sciencePack = data.raw["tool"][oldName]
 
-  sciencePack.icon = "__MoreScience__/graphics/potion/set-01/potion-" .. numberToString(potionNumber) .. ".png"
+  sciencePack.icon = "__MoreScience__/graphics/icons/potion/set-01/potion-" .. numberToString(potionNumber) .. ".png"
   sciencePack.icon_size = 32
 
   sciencePack.subgroup = "science-pack"
@@ -23,7 +23,7 @@ local function addSciencePack(name, order, potionNumber)
       type = "tool",
       name = name,
       localised_description = {"item-description.science-pack"},
-      icon = "__MoreScience__/graphics/potion/set-01/potion-" .. numberToString(potionNumber) .. ".png",
+      icon = "__MoreScience__/graphics/icons/potion/set-01/potion-" .. numberToString(potionNumber) .. ".png",
       icon_size = 32,
       flags = {"goes-to-main-inventory"},
       subgroup = "science-pack",

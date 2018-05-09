@@ -3,7 +3,7 @@ data:extend({
   {
     type = "item",
     name = "sand",
-    icon = "__MoreScience__/graphics/resources/sand.png",
+    icon = "__MoreScience__/graphics/icons/sand.png",
     icon_size = 32,
     flags = {"goes-to-main-inventory"},
     subgroup = "science-raw-material",
@@ -14,7 +14,7 @@ data:extend({
   {
     type = "item",
     name = "glass",
-    icon = "__MoreScience__/graphics/resources/glass.png",
+    icon = "__MoreScience__/graphics/icons/glass.png",
     icon_size = 32,
     flags = {"goes-to-main-inventory"},
     subgroup = "science-bottling",
@@ -25,7 +25,7 @@ data:extend({
   {
     type = "item",
     name = "cork",
-    icon = "__MoreScience__/graphics/resources/cork.png",
+    icon = "__MoreScience__/graphics/icons/cork.png",
     icon_size = 128,
     flags = {"goes-to-main-inventory"},
     subgroup = "science-bottling",
@@ -36,7 +36,7 @@ data:extend({
   {
     type = "item",
     name = "empty-bottle",
-    icon = "__MoreScience__/graphics/potion/set-01/potion-00.png",
+    icon = "__MoreScience__/graphics/icons/potion/set-01/potion-00.png",
     icon_size = 32,
     flags = {"goes-to-main-inventory"},
     subgroup = "science-bottling",

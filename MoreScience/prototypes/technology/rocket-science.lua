@@ -6,7 +6,7 @@ local function addRocketScienceTechnology(name, prerequisites)
     {
       type = "technology",
       name = name,
-      icon = "__MoreScience__/graphics/rocket/" .. name .. "-tech.png",
+      icon = "__MoreScience__/graphics/technology/" .. name .. "-tech.png",
       icon_size = 128,
       effects =
       {

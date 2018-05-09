@@ -1,7 +1,7 @@
 require "lib/utilities/prototyping"
 
 local scienceResearch = {}
-scienceResearch.icon = "__MoreScience__/graphics/science-symbol.png"
+scienceResearch.icon = "__MoreScience__/graphics/technology/science-symbol.png"
 scienceResearch.icon_size = 2000
 
 --------------------------------------------------------------------------------

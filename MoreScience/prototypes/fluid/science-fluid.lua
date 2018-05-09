@@ -8,7 +8,7 @@ local function createScienceFluid(fluidName, order, fluidNumber, baseColor, flow
     {
       type = "fluid",
       name = fluidName,
-      icon = "__MoreScience__/graphics/fluid/fluid-" .. numberToString(fluidNumber) .. ".png",
+      icon = "__MoreScience__/graphics/icons/fluid/fluid-" .. numberToString(fluidNumber) .. ".png",
       icon_size = 32,
 
       base_color = -- color used for barrel and indicators

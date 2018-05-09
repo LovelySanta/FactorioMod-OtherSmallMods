@@ -5,7 +5,7 @@ local function createRocketPart(name, order)
   {
     type = "item",
     name = name,
-    icon = "__MoreScience__/graphics/rocket/" .. name .. ".png",
+    icon = "__MoreScience__/graphics/icons/" .. name .. ".png",
     icon_size = 32,
     flags = {"goes-to-main-inventory"},
     subgroup = "rocket-parts",

@@ -102,7 +102,7 @@ data:extend({
   {
     type = "technology",
     name = "basic-logistics-science-research",
-    icon = "__MoreScience__/graphics/science-symbol.png",
+    icon = "__MoreScience__/graphics/technology/science-symbol.png",
     icon_size = 2000,
     prerequisites =
     {

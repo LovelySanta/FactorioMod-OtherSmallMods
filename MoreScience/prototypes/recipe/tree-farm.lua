@@ -1,5 +1,24 @@
 
 --------------------------------------------------------------------------------
+----- hand-saw                                                             -----
+--------------------------------------------------------------------------------
+local handSaw =
+{
+  type = "recipe",
+  name = "hand-saw",
+  energy_required = data.raw["recipe"]["steel-axe"].energy_required,
+  enabled = false,
+  ingredients =
+  {
+    {"steel-plate", 2},
+    {"iron-stick", 1},
+  },
+  result = "hand-saw",
+}
+
+
+
+--------------------------------------------------------------------------------
 ----- seed-extractor                                                       -----
 --------------------------------------------------------------------------------
 local seedExtractor =
@@ -11,7 +30,7 @@ local seedExtractor =
   ingredients =
   {
     {"chemical-plant", 1},
-    {"iron-axe", data.raw["mining-tool"]["iron-axe"].stack_size / 2},
+    {handSaw.name, 1},
     {"raw-wood", data.raw["item"]["raw-wood"].stack_size / 2},
   },
   result = "seed-extractor",
@@ -33,7 +52,7 @@ local woodPlantation  =
     {"sand", data.raw["item"]["sand"].stack_size},
     {"landfill", data.raw["item"]["sand"].stack_size},
     {"raw-wood", data.raw["item"]["raw-wood"].stack_size},
-    {"steel-axe", data.raw["mining-tool"]["steel-axe"].stack_size},
+    {handSaw.name, data.raw["item"]["hand-saw"].stack_size},
   },
   result = "wood-plantation",
 }
@@ -78,6 +97,7 @@ local treeSeed =
 }
 
 
+
 local treeSeedCreator =
 {
   type = "recipe",
@@ -115,7 +135,7 @@ local rawWoodProduction =
   category = "advanced-crafting",
   ingredients = {
     {organicTree.result, 1},
-    {"steel-axe", 1},
+    {handSaw.name, 1},
   },
   result = "raw-wood",
   result_count = 25
@@ -123,6 +143,8 @@ local rawWoodProduction =
 
 
 data:extend({
+  handSaw,
+
   seedExtractor,
   treeSeedCreator,
   treeSeed,

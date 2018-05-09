@@ -2,6 +2,23 @@ require 'util'
 local treefarmSubgroup = "treefarm"
 
 --------------------------------------------------------------------------------
+----- hand-saw                                                             -----
+--------------------------------------------------------------------------------
+local handSaw =
+{
+  type = "item",
+  name = "hand-saw",
+  icon = "__MoreScience__/graphics/icons/hand-saw.png",
+  icon_size = 512,
+  flags = {"goes-to-main-inventory"},
+  subgroup = "tool",
+  order = "a[mining]-c[hand-saw]",
+  stack_size = 20
+}
+
+
+
+--------------------------------------------------------------------------------
 ----- seed-extractor                                                       -----
 --------------------------------------------------------------------------------
 local seedExtractor = util.table.deepcopy(data.raw["item"]["pumpjack"])
@@ -66,6 +83,8 @@ data.raw["item"]["raw-wood"].order = "c[wood]-g[raw-wood]"
 
 
 data:extend({
+  handSaw,
+
   seedExtractor,
   woodPlantation,
 

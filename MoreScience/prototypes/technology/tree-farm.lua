@@ -13,6 +13,10 @@ woodPlantation.effects =
 {
   {
     type = "unlock-recipe",
+    recipe = "hand-saw",
+  },
+  {
+    type = "unlock-recipe",
     recipe = "seed-extractor",
   },
   {

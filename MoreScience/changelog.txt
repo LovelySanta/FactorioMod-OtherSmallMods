@@ -1,12 +1,13 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.6
-Date: 8. 5. 2018
-  Changes:
-    - Barreling recipes are moved from data-final-fixes.lua to data-updates.lua
+Date: 9. 5. 2018
+  Features:
+    - Added wood plantation for automatic wood production
   Fixes:
     - Fixed picking up a burner lab or lab mk2 would return a lab mk1 instead
   Modding:
     - Added some mod compatibility with bobrevamp mod
+    - Barreling recipes are moved from data-final-fixes.lua to data-updates.lua
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.5
 Date: 7. 5. 2018

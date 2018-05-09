@@ -3,6 +3,8 @@ Version: 0.1.6
 Date: 8. 5. 2018
   Changes:
     - Barreling recipes are moved from data-final-fixes.lua to data-updates.lua
+  Fixes:
+    - Fixed picking up a burner lab or lab mk2 would return a lab mk1 instead
   Modding:
     - Added some mod compatibility with bobrevamp mod
 ---------------------------------------------------------------------------------------------------

@@ -1,8 +1,11 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.6
 Date: 9. 5. 2018
+  Major Features:
+    - First release
   Features:
     - Added wood plantation for automatic wood production
+    - Added readme
   Fixes:
     - Fixed picking up a burner lab or lab mk2 would return a lab mk1 instead
   Modding:

@@ -58,6 +58,13 @@ treeSeed.subgroup = treefarmSubgroup
 
 
 
+--------------------------------------------------------------------------------
+----- raw-wood                                                             -----
+--------------------------------------------------------------------------------
+data.raw["item"]["raw-wood"].subgroup = treefarmSubgroup
+data.raw["item"]["raw-wood"].order = "c[wood]-g[raw-wood]"
+
+
 data:extend({
   seedExtractor,
   woodPlantation,

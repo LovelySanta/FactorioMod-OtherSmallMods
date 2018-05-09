@@ -31,6 +31,7 @@ local woodPlantation  =
   ingredients = {
     {"assembling-machine-3", 1},
     {"sand", data.raw["item"]["sand"].stack_size},
+    {"landfill", data.raw["item"]["sand"].stack_size},
     {"raw-wood", data.raw["item"]["raw-wood"].stack_size},
     {"steel-axe", data.raw["mining-tool"]["steel-axe"].stack_size},
   },
@@ -95,17 +96,39 @@ local treeSeedCreator =
   results =
   {
     {type="item", name="sand", amount = 5},
-    {type="item", name=treeSeed.result, amount = 1, probability = .001},
+    {type="item", name=treeSeed.result, amount = 1, probability = .025},
   },
 }
 
 
 
+--------------------------------------------------------------------------------
+----- tree-seed                                                            -----
+--------------------------------------------------------------------------------
+local rawWoodProduction =
+{
+  type = "recipe",
+  name = "raw-wood-creator",
+  localised_name = {"item-name.raw-wood"},
+  energy_required = organicTree.energy_required * 2,
+  enabled = false,
+  category = "advanced-crafting",
+  ingredients = {
+    {organicTree.result, 1},
+    {"steel-axe", 1},
+  },
+  result = "raw-wood",
+  result_count = 25
+}
+
+
 data:extend({
   seedExtractor,
-  woodPlantation,
-
-  organicTree,
-  treeSeed,
   treeSeedCreator,
+  treeSeed,
+
+  woodPlantation,
+  organicTree,
+
+  rawWoodProduction,
 })

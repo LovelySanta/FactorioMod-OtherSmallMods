@@ -31,6 +31,10 @@ woodPlantation.effects =
     type = "unlock-recipe",
     recipe = "organic-tree",
   },
+  {
+    type = "unlock-recipe",
+    recipe = "raw-wood-creator",
+  }
 }
 woodPlantation.unit.count = woodPlantation.unit.count * 2
 

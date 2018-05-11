@@ -236,7 +236,7 @@ function Boss:Despawn()
 
     bossEntities[bossEntityCount] = nil
     bossEntityCount = bossEntityCount - 1
-    bossKillScore = bossKillScore + self.score["despawnScore"][bossEntity.name]
+    bossKillScore = bossKillScore + self.score["despawnScore"][entityData.name]
 
     bossKillCount[entityData.name].total = bossKillCount[entityData.name].total + 1
   end

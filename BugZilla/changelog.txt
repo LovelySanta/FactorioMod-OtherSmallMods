@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.2.2
+Date: 11. 5. 2018
+  Fixes:
+    - Fixed indexing invalid entity when despawning
+---------------------------------------------------------------------------------------------------
 Version: 0.2.1
 Date: 24. 4. 2018
   Changes:
@@ -9,7 +14,7 @@ Date: 24. 4. 2018
     - Lowered BugZilla Spitter damage to 50 (before: 100)
     - Increased BugZilla Spitter healing rate to 0.02 (before: 0.01)
     - Despawning BugZilla Spitter will give greater penalty to the score
-  Bugfixes:
+  Fixes:
     - Fixed BugZilla Spitter was not dropping beter reward then the biter
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.0
@@ -19,12 +24,12 @@ Date: 7. 4. 2018
   Changes:
     - Removed corpse flare as its released as seperate mod now
     - Deathscream is now a LuaSurface::play_sound() as released in 0.16.0
-  Bugfixes:
+  Fixes:
     - Fixed deathskull sprite not longer an item, but defined as a sprite
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.1
 Date: 15. 1. 2018
-  Bugfixes:
+  Fixes:
     - Fixed chatToFile death message not showing name of entity correctly
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.0
@@ -36,7 +41,7 @@ Date: 17. 12. 2017
     - Split the UI into two blocks: death UI and kill statistics
   Changes:
     - Biter immune to belt movement
-  Bugfixes:
+  Fixes:
     - Fixed typo in player killed bug message
     - Update on the biter prototype engine with vision on adding next tier bug (soon TM)
 ---------------------------------------------------------------------------------------------------
@@ -45,7 +50,7 @@ Date: 9. 12. 2017
   Minor Features:
     - Added flare cloud sprite instead of a pink cloud
     - Added BugZilla score in the UI
-  Bugfixes:
+  Fixes:
     - Fixed that poop name was missing in the english translation
     - Fixed that poop wasn't spawning fart clouds
     - Fixed that flare item and icon name was missing in english translation
@@ -66,7 +71,7 @@ Date: 3. 12. 2017
 ---------------------------------------------------------------------------------------------------
 Version: 0.0.5
 Date: 19. 11. 2017
-  Bugfixes:
+  Fixes:
     - Fixed that cycle would change every time an entity died
     - Fixed that BugZilla wouldn't despawn correctly when multiple spawned
 ---------------------------------------------------------------------------------------------------
@@ -90,7 +95,7 @@ Date: 14. 11. 2017
     - Added fart sound (!fart1 soundeffect from ShredGuy99's twitch stream)
   Changes:
     - From this point on, there will be backwards compatibility support
-  Bugfixes:
+  Fixes:
     - Fixed desync resulting from different game states
     - Fixed crash as result of damagiing an entity with already 0 healty
     - Fixed position of fart damage attached to the wrong entity
@@ -101,7 +106,7 @@ Date: 14. 11. 2017
     - Added loot (some science packs at random, may be handy early game)
   Changes:
     - Added poison fart cloud to counteracting defence with belts (bug)
-  Bugfixes:
+  Fixes:
     - Biter will spawn more randomly
 ---------------------------------------------------------------------------------------------------
 Version: 0.0.1 - Pre-release

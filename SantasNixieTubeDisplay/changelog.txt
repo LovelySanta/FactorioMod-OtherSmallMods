@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.4
-Date: 13. 01. 2018
+Date: 16. 5. 2018
   Changes:
     - Soft coded technology ingredients (compatibility with MoreScience mod by lovely_santa)
     - Updated prototype coding for feature release

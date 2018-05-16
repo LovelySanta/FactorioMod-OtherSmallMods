@@ -131,7 +131,7 @@ local function displayValueString(entity, vs)
     if vs and #vs > spriteCount then
       displayValueString(nextDigit, vs:sub(1,-(spriteCount+1)))
     else
-      displayValueString(nextDigit)
+      displayValueString(nextDigit) -- Set next digit to 'off'
     end
   end
 

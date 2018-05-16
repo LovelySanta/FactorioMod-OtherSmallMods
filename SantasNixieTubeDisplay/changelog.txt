@@ -1,0 +1,26 @@
+---------------------------------------------------------------------------------------------------
+Version: 0.1.4
+Date: 13. 01. 2018
+  Changes:
+    - Soft coded technology ingredients (compatibility with MoreScience mod by lovely_santa)
+    - Updated prototype coding for feature release
+---------------------------------------------------------------------------------------------------
+Version: 0.1.3
+Date: 17. 12. 2017
+  Features:
+    - Hiding arrows of the combinator on detailed view
+---------------------------------------------------------------------------------------------------
+Version: 0.1.2
+Date: 14. 12. 2017
+  Features:
+    - Updated to base game 0.16 (0.16.2)
+---------------------------------------------------------------------------------------------------
+Version: 0.1.1
+Date: 28. 9. 2017
+  Fixes:
+    - Fixed positioning of arrows on small nixie display
+---------------------------------------------------------------------------------------------------
+Version: 0.1.0 - First public release
+Date: 30. 7. 2017
+  Major Features:
+    - Initial release of regular and small nixies

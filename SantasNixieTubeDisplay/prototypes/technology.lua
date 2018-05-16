@@ -1,3 +1,5 @@
+require 'util'
+
 data:extend({
   {
     type = "technology",
@@ -5,12 +7,9 @@ data:extend({
     icon = "__SantasNixieTubeDisplay__/graphics/nixie-technology-icon.png",
     icon_size = 32,
     unit = {
-      count=20,
-      time=10,
-      ingredients = {
-        {"science-pack-1", 1},
-        {"science-pack-2", 1}
-      }
+      count = 2 * util.table.deepcopy(data.raw["technology"]["circuit-network"].unit.count),
+      time = util.table.deepcopy(data.raw["technology"]["circuit-network"].unit.time),
+      ingredients = util.table.deepcopy(data.raw["technology"]["circuit-network"].unit.ingredients),
     },
     prerequisites = {
       "circuit-network"

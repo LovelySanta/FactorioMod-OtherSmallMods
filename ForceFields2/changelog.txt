@@ -1,21 +1,26 @@
 ---------------------------------------------------------------------------------------------------
-Version: 2.1.1
-Date: 14. 04. 2018
+Version: 2.1.3
+Date: 16. 5. 2018
+  Fixes:
+    - Fixed changelog wasn't showing ingame
+---------------------------------------------------------------------------------------------------
+Version: 2.1.2
+Date: 14. 4. 2018
   Fixes:
     - Bugfix api call to invalid entity
 ---------------------------------------------------------------------------------------------------
 Version: 2.1.1
-Date: 24. 02. 2018
+Date: 24. 2. 2018
   Changes:
     - Emitters don't build a default wall when placed
   Fixes:
     - Bugfix wall not degrading when changing settings too fast
 ---------------------------------------------------------------------------------------------------
 Version: 2.1.0
-Date: 01. 02. 2018
+Date: 1. 2. 2018
   Major Features:
     - Added Forcefield gates
-  Feature:
+  Features:
     - Added changelog
     - Added ability to disable wall sections
   Changes:
@@ -27,13 +32,13 @@ Date: 01. 02. 2018
     - Fixed the red/green light where not showing when connected to a gate
 ---------------------------------------------------------------------------------------------------
 Version: 2.0.3
-Date: 21. 01. 2018
+Date: 21. 1. 2018
   Fixes:
     - Bugfix crash resulting from a typo in previous release
     - Small optimalisations around the code (part 2)
 ---------------------------------------------------------------------------------------------------
 Version: 2.0.2
-Date: 21. 01. 2018
+Date: 21. 1. 2018
   Fixes:
     - Disabled deconstruction planning of the fields
     - Bugfix selection of direction W not visible (but it was working)
@@ -41,8 +46,8 @@ Date: 21. 01. 2018
     - Small optimalisations around the code (part 1)
 ---------------------------------------------------------------------------------------------------
 Version: 2.0.1
-Date: 20. 01. 2018
-  Feature:
+Date: 20. 1. 2018
+  Features:
     - Added ability to copy/paste emitter settings (as you do with other buildings)
   Fixes:
     - Deleted debug message when adding upgrades
@@ -52,7 +57,7 @@ Date: 20. 01. 2018
     - Quick fix on crash trying to index nil value (bug report made)
 ---------------------------------------------------------------------------------------------------
 Version: 2.0.0 - First public release
-Date: 19. 01. 2018
+Date: 19. 1. 2018
   Major Features:
     - Initial updated release
   Features:

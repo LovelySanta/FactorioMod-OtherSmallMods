@@ -1,0 +1,4 @@
+Version: 0.1.0 - Initial release
+Date: 22. 5. 2018
+  Major Features:
+    - Initial release: Changed name of ore, brick, furnace and path.

@@ -1,0 +1,9 @@
+{
+	"name": "RockThatStone",
+	"version": "0.1.0",
+	"title": "Rock that Stone!",
+	"author": "lovely_santa",
+	"description": "Changes the names of stone to rocks, make sure to check out Rock N Rage over at https://www.twitch.tv/rock_n_rage !",
+	"factorio_version":"0.16",
+	"dependencies": ["base >= 0.16.0"]
+}

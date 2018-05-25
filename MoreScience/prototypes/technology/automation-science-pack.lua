@@ -133,8 +133,8 @@ addScienceIngredient("battery", 1, "basic-automation-science-pack")
 
 -- train network
 addScienceIngredient("railway", 1, "basic-automation-science-pack")
-addScienceIngredient("automated-rail-transportation", 1, "basic-automation-science-pack")
-addScienceIngredient("rail-signals", 1, "basic-automation-science-pack")
+addScienceIngredient("automated-rail-transportation", 2, "basic-automation-science-pack")
+addScienceIngredient("rail-signals", 3, "basic-automation-science-pack")
 
 -- modules
 addScienceIngredient("modules", 1, "basic-automation-science-pack")

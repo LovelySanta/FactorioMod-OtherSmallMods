@@ -33,7 +33,7 @@ data:extend({
     prerequisites =
     {
       "fluid-handling",
-      --"basic-science-research-1",
+      "basic-science-research-2",
       "oil-processing"
     },
     effects = nil, -- data-final-fixes.lua --> adding oil barreling
@@ -54,6 +54,7 @@ data:extend({
       {
         {"science-pack-1", 1},
         {"science-pack-2", 1},
+        {"science-pack-3", 1},
         {"basic-automation-science-pack", 1},
       },
       time = 60
@@ -76,6 +77,7 @@ data:extend({
     prerequisites =
     {
       "fluid-handling-2",
+      "basic-logistics-science-research",
     },
     effects = nil, -- data-final-fixes.lua --> adding science barreling
     unit =
@@ -85,7 +87,8 @@ data:extend({
       {
         {"science-pack-1", 1},
         {"science-pack-2", 1},
-        {"basic-automation-science-pack", 1},
+        {"science-pack-3", 1},
+        {"basic-logistics-science-pack", 1},
       },
       time = 60
     },
@@ -152,8 +155,8 @@ removePrerequisiteTechnology("railway", "logistics-2")
 --addPrerequisiteTechnology("railway", "basic-logistics-science-research")
 --addScienceIngredient("railway", 1, "basic-logistics-science-pack")
 --addScienceIngredient("automated-rail-transportation", 1, "basic-logistics-science-pack")
-addPrerequisiteTechnology("rail-signals", "basic-logistics-science-research")
-addScienceIngredient("rail-signals", 1, "basic-logistics-science-pack")
+--addPrerequisiteTechnology("rail-signals", "basic-logistics-science-research")
+--addScienceIngredient("rail-signals", 1, "basic-logistics-science-pack")
 addScienceIngredient("fluid-wagon", 1, "basic-logistics-science-pack")
 addPrerequisiteTechnology("fluid-wagon", "basic-logistics-science-research")
 

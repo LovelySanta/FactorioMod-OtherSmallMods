@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.7
+Date: 25. 5. 2018
+  Balancing:
+    - Railway research made easier (now not requiring oil processing, since oil might be far away)
+---------------------------------------------------------------------------------------------------
 Version: 0.1.6
 Date: 9. 5. 2018
   Major Features:

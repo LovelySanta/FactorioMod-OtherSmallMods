@@ -1,7 +1,7 @@
 
 Debug = {}
 
-Debug.enabled = true
+Debug.enabled = false
 Debug.returnValue = 10
 
 function Debug:reseachAllTechnologies()
@@ -159,9 +159,10 @@ function Debug:reseachAllTechnologies()
   -- Automation: bonusses
   researchTechnology("mining-productivity-1")
 
-  -- Logistics: barreling
-  researchTechnology("fluid-handling-2")
-  researchTechnology("fluid-handling-3")
+  -- Logistics: trains
+  researchTechnology("railway")
+  researchTechnology("automated-rail-transportation")
+  researchTechnology("rail-signals")
 
   -- Military: beter armor
   researchTechnology("modular-armor")
@@ -250,9 +251,8 @@ function Debug:reseachAllTechnologies()
   -- Automation: bonusses
   researchTechnology("mining-productivity-4")
 
-  -- Logistics: trains
-  researchTechnology("railway")
-  researchTechnology("automated-rail-transportation")
+  -- Logistics: barreling
+  researchTechnology("fluid-handling-2")
 
   -- Power network: beter power
   researchTechnology("electric-energy-distribution-2")
@@ -321,8 +321,10 @@ function Debug:reseachAllTechnologies()
   researchTechnology("stack-inserter")
 
   -- Logistics: train network
-  researchTechnology("rail-signals")
   researchTechnology("fluid-wagon")
+
+  -- Logistics: barreling
+  researchTechnology("fluid-handling-3")
 
   -- Logistics: robot network
   researchTechnology("robotics")
@@ -512,8 +514,8 @@ function Debug:reseachAllTechnologies()
   researchTechnology("infused-advanced-science-research-2")
   researchTechnology("infused-basic-military-science-research")
   researchTechnology("infused-basic-automation-science-research")
-  researchTechnology("infused-basic-logistics-science-research")
   researchTechnology("infused-basic-power-science-research")
+  researchTechnology("infused-basic-logistics-science-research")
 
   if self.returnValue == 10 then
     return

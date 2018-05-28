@@ -4,6 +4,7 @@ Date: 28. 5. 2018
   Changes:
     - Updated infused science research so the technology tree doesn't look so messy
   Fixes:
+    - Debug options where enabled, so all research was done when starting a new map
     - Fixed order of science pack so technology tree isn't so mixed up
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.7

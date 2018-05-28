@@ -26,7 +26,11 @@
 
 #### [More Science](https://github.com/LovelySanta/FactorioMods/tree/master/MoreScience)
 * Description: Changes the science pack recipes, take it to the next level. Just so it isn't always the same boring vanilla recipes...
-* Latest version: [0.1.6](https://mods.factorio.com/mod/MoreScience)
+* Latest version: [0.1.8](https://mods.factorio.com/mod/MoreScience)
+
+#### [RockThatStone](https://github.com/LovelySanta/FactorioMods/tree/master/RockThatStone)
+* Description: Changes the names of stone to rocks.
+* Latest version: [0.1.0](https://mods.factorio.com/mod/RockThatStone)
 
 #### [Santa's Nixie Tube Display](https://github.com/LovelySanta/FactorioMods/tree/master/SantasNixieTubeDisplay)
 * Description: Mod that adds some nixie tubes from the nixie tube mod, in exchange for some extra UPS

@@ -192,7 +192,6 @@ addScienceIngredient("logistic-robotics", 1, "science-pack-3")
 --addScienceIngredient("railway", 1, "science-pack-3")
 --addScienceIngredient("automated-rail-transportation", 1, "science-pack-3")
 --addScienceIngredient("rail-signals", 1, "science-pack-3")
-addPrerequisiteTechnology("fluid-wagon", "basic-logistics-science-research")
 addScienceIngredient("fluid-wagon", 1, "science-pack-3")
 addScienceIngredient("logistics-2", 1, "science-pack-3")
 

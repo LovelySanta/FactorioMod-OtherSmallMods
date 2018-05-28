@@ -1,6 +1,8 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.8
 Date: 28. 5. 2018
+  Changes:
+    - Updated infused science research so the technology tree doesn't look so messy
   Fixes:
     - Fixed order of science pack so technology tree isn't so mixed up
 ---------------------------------------------------------------------------------------------------

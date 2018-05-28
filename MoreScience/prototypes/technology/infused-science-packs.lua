@@ -25,20 +25,60 @@ local infusedScienceResearch = {
   ["basic-logistics-science-pack"] = "infused-basic-logistics-science-research",
   ["basic-power-science-pack"] = "infused-basic-power-science-research",
 }
+local infusedSciencePrerequisite = {
+  ["science-pack-1"] =
+  {
+    "infinite-science-research"
+  },
+  ["science-pack-2"] =
+  {
+    infusedScienceResearch["science-pack-1"]
+  },
+  ["science-pack-3"] =
+  {
+    infusedScienceResearch["science-pack-2"]
+  },
+  ["production-science-pack"] =
+  {
+    infusedScienceResearch["science-pack-3"]
+  },
+  ["high-tech-science-pack"] =
+  {
+    infusedScienceResearch["science-pack-3"]
+  },
+  ["space-science-pack"] =
+  {
+    infusedScienceResearch["production-science-pack"],
+    infusedScienceResearch["high-tech-science-pack"],
+  },
+  ["military-science-pack"] =
+  {
+    infusedScienceResearch["science-pack-2"]
+  },
+  ["basic-automation-science-pack"] =
+  {
+    infusedScienceResearch["science-pack-2"]
+  },
+  ["basic-logistics-science-pack"] =
+  {
+    infusedScienceResearch["basic-power-science-pack"]
+  },
+  ["basic-power-science-pack"] =
+  {
+    infusedScienceResearch["basic-automation-science-pack"]
+  },
+}
 
 local function addInfusedSciencePack(basicScienceName, order)
   data:extend({
     {
       type = "technology",
-      name = infusedScienceResearch[basicScienceName],
+      name = util.table.deepcopy(infusedScienceResearch[basicScienceName]),
       localised_name = {"technology-name.infuse-research"},
       localised_description = {"technology-description.infuse-research"},
       icon = "__MoreScience__/graphics/technology/science-symbol.png",
       icon_size = 2000,
-      prerequisites =
-      {
-        "infinite-science-research",
-      },
+      prerequisites = util.table.deepcopy(infusedSciencePrerequisite[basicScienceName]),
       effects = nil,
       unit =
       {
@@ -73,18 +113,21 @@ addInfusedSciencePack("basic-logistics-science-pack", "c4")
 ----- Infinite science research                                            -----
 --------------------------------------------------------------------------------
 
-local function changeToInfusedSciencePack(technologyName)
-  if data.raw["technology"][technologyName] and data.raw["technology"][technologyName].unit then
-    local ingredients = {}
-    for index,ingredient in pairs(data.raw["technology"][technologyName].unit.ingredients) do
-      if infusedSciencePackName[ingredient[1]] then
-        -- Update the science pack
-        data.raw["technology"][technologyName].unit.ingredients[index] = {infusedSciencePackName[ingredient[1]], ingredient[2]}
-
-        -- Also add prerequisite
-        if not (ingredient[1] == "space-science-pack") then
-          addPrerequisiteTechnology(technologyName, infusedScienceResearch[ingredient[1]])
+local function changeToInfusedSciencePack(technologyName, prerequisitesToAdd)
+  if data.raw["technology"][technologyName] then
+    -- Update the science pack ingredients
+    if data.raw["technology"][technologyName].unit then
+      for index,ingredient in pairs(data.raw["technology"][technologyName].unit.ingredients) do
+        if infusedSciencePackName[ingredient[1]] then
+          data.raw["technology"][technologyName].unit.ingredients[index] = {infusedSciencePackName[ingredient[1]], ingredient[2]}
         end
+      end
+    end
+
+    -- Add prerequisites
+    if prerequisitesToAdd then
+      for _,basicScienceName in pairs(prerequisitesToAdd) do
+        addPrerequisiteTechnology(technologyName, infusedScienceResearch[basicScienceName])
       end
     end
   end
@@ -92,28 +135,28 @@ end
 
 
 -- Worker robot
-changeToInfusedSciencePack("worker-robots-speed-6")
+changeToInfusedSciencePack("worker-robots-speed-6", {"production-science-pack","high-tech-science-pack","basic-logistics-science-pack"})
 -- Mining productivity
-changeToInfusedSciencePack("mining-productivity-16")
+changeToInfusedSciencePack("mining-productivity-16", {"production-science-pack","high-tech-science-pack","basic-power-science-pack"})
 
 -- Shells
-changeToInfusedSciencePack("shotgun-shell-damage-7")
-changeToInfusedSciencePack("cannon-shell-damage-6")
+changeToInfusedSciencePack("shotgun-shell-damage-7", {"military-science-pack","high-tech-science-pack","basic-automation-science-pack"})
+changeToInfusedSciencePack("cannon-shell-damage-6", {"military-science-pack","high-tech-science-pack","basic-automation-science-pack"})
 -- Grenade damgage
-changeToInfusedSciencePack("grenade-damage-7")
+changeToInfusedSciencePack("grenade-damage-7", {"military-science-pack","production-science-pack","high-tech-science-pack"})
 -- Rocket damgage
-changeToInfusedSciencePack("rocket-damage-7")
+changeToInfusedSciencePack("rocket-damage-7", {"military-science-pack","high-tech-science-pack","basic-automation-science-pack"})
 -- Combat robotics
-changeToInfusedSciencePack("combat-robot-damage-6")
-changeToInfusedSciencePack("follower-robot-count-7")
+changeToInfusedSciencePack("combat-robot-damage-6", {"military-science-pack","high-tech-science-pack","basic-automation-science-pack"})
+changeToInfusedSciencePack("follower-robot-count-7", {"military-science-pack","production-science-pack","high-tech-science-pack"})
 
 -- Gun turret
-changeToInfusedSciencePack("bullet-damage-7")
-changeToInfusedSciencePack("gun-turret-damage-7")
+changeToInfusedSciencePack("bullet-damage-7", {"military-science-pack","high-tech-science-pack","basic-automation-science-pack"})
+changeToInfusedSciencePack("gun-turret-damage-7", {"military-science-pack","high-tech-science-pack","basic-automation-science-pack"})
 -- Flamethrower
-changeToInfusedSciencePack("flamethrower-damage-7")
+changeToInfusedSciencePack("flamethrower-damage-7", {"military-science-pack","high-tech-science-pack","basic-automation-science-pack"})
 -- Laser turret
-changeToInfusedSciencePack("laser-turret-damage-8")
+changeToInfusedSciencePack("laser-turret-damage-8", {"military-science-pack","high-tech-science-pack","basic-power-science-pack"})
 -- Artillery turret
-changeToInfusedSciencePack("artillery-shell-range-1")
-changeToInfusedSciencePack("artillery-shell-speed-1")
+changeToInfusedSciencePack("artillery-shell-range-1", {"military-science-pack","high-tech-science-pack","basic-automation-science-pack"})
+changeToInfusedSciencePack("artillery-shell-speed-1", {"military-science-pack","high-tech-science-pack","basic-automation-science-pack"})

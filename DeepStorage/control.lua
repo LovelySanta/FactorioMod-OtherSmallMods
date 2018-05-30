@@ -1,12 +1,12 @@
 
 require 'lib/utilities/debug'
-require 'src/chestInventory'
+require 'src/chestManager'
 
 
 
 -- on tick
-local function onTick(event)
-  -- TODO
+local function onTick()
+  ChestManager:onTick()
 end
 
 
@@ -15,7 +15,7 @@ end
 local function onConstructionEntity(event)
   log(event.created_entity.name)
   if event.created_entity and event.created_entity.valid and event.created_entity.name == Settings.storageChestName then
-    ChestInventory:onChestCreated(event.created_entity)
+    ChestManager:onChestCreated(event.created_entity)
   end
 end
 
@@ -55,7 +55,7 @@ script.on_event(defines.events.on_tick, onTick)
 -- on load game for first time
 script.on_init(function()
   Debug:onInit()
-  ChestInventory:onInit()
+  ChestManager:onInit()
 end)
 
 -- on player created

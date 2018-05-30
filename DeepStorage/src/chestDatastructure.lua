@@ -38,6 +38,7 @@ function ChestDatastructure:addNewChestData(inventoryEntity, monitorEntity)
   {
     ["inventoryEntity"] = inventoryEntity,
     ["monitorEntity"] = monitorEntity,
+    ["contents"] = nil, -- empty
   }
 
   -- add container to the loop
@@ -157,18 +158,59 @@ end
 
 function ChestDatastructure:updateNextChest()
   if self.chestData["nextChest"] then
-    -- Get reference of the chest
+    -- Get reference of the chest and make next reference ready
     local chestToUpdate = deepcopy(self.chestData["nextChest"])
     self.chestData["nextChest"] = deepcopy(self.chestData[chestToUpdate["surfaceIndex"]][chestToUpdate["surfacePosY"]][chestToUpdate["surfacePosX"]]["nextChest"])
 
+    -- Update chestData
     local surfaceIndex = chestToUpdate["surfaceIndex"]
     local surfacePosX  = chestToUpdate["surfacePosX"]
     local surfacePosY  = chestToUpdate["surfacePosY"]
-
-
-    chestToUpdate = deepcopy(self.chestData["nextChest"])
-    chestToUpdate = self.chestData[chestToUpdate["surfaceIndex"]][chestToUpdate["surfacePosY"]][chestToUpdate["surfacePosX"]]["prevChest"]
     game.print("Updating chest on surface " .. surfaceIndex .. " located at (" .. surfacePosX .. "," .. surfacePosY .. ").")
+
+    local function getSingleItemInfo(inventory)
+      local contents = inventory.get_contents()
+      if tableIsEmpty(contents) then
+        return {["name"] = nil, ["count"] = 0, ["stacksize"] = 0}
+      end
+
+      local contentsCount = -1
+      local contentsName = nil
+      for itemName, itemCount in pairs(contents) do
+        if itemCount > contentsCount then
+          contentsCount = itemCount
+          contentsName = itemName
+        end
+      end
+      log(game.item_prototypes[contentsName].stack_size)
+      return {["name"] = contentsName, ["count"] = contentsCount, ["stacksize"] = game.item_prototypes[contentsName].stack_size}
+    end
+    local chestData = self.chestData[surfaceIndex][surfacePosY][surfacePosX]
+    local chestInventory = chestData["inventoryEntity"].get_inventory(defines.inventory.car_trunk)
+    local chestContents = getSingleItemInfo(chestInventory)
+    local chestBehaviour = chestData["monitorEntity"].get_or_create_control_behavior()
+
+    -- Check content
+    if not chestData["contents"] then
+      -- there was no previous content registered
+      if chestContents.name and chestContents.count > 0 then
+        -- now there is contents
+        chestData["contents"] = deepcopy(chestContents)
+
+        -- set the filters
+        for inventoryIndex = 1, #chestInventory, 1 do
+          chestInventory.set_filter(inventoryIndex, chestContents.name)
+        end
+
+        -- output signal on the monitor
+        chestBehaviour.parameters = {parameters = {{index = 1, signal = {type = "item", name = chestData["contents"].name}, count = chestData["contents"].count}}}
+      end
+    else
+      -- there was content registered
+      -- TODO
+    end
+
+
 
   end
 end

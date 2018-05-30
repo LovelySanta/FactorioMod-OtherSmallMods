@@ -26,6 +26,12 @@ end
 
 
 
+local function onMarkedForDeconstruction(event)
+  -- TODO
+end
+
+
+
 local function onDeconstructionEntity(event)
   if event.entity.name == Settings.storageMonitorName then
     ChestManager:onChestDeconstruction(event.entity)
@@ -34,9 +40,7 @@ end
 
 
 
-local function onMarkedForDeconstruction(event)
-  -- TODO
-end
+
 
 
 

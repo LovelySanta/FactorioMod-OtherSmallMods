@@ -31,6 +31,10 @@ function Debug:onPlayerCreated(playerIndex)
       quickbar.insert(Settings.storageItemName)
       quickbar.insert("steel-chest")
 
+      -- add inserters
+      quickbar.insert("burner-inserter")
+      quickbar.insert("coal")
+
       -- add wires
       quickbar.insert("red-wire")
       quickbar.insert("green-wire")

@@ -86,8 +86,9 @@ deepStorageMonitor.selection_box = deepcopy(data.raw["container"]["steel-chest"]
 deepStorageMonitor.collision_box = nil
 deepStorageMonitor.collision_mask = nil
 
-deepStorageChest.max_health = 2 * data.raw["container"]["steel-chest"].max_health
-deepStorageChest.resistances = deepcopy(data.raw["container"]["steel-chest"].resistances)
+deepStorageMonitor.max_health = deepStorageChest.max_health
+deepStorageMonitor.resistances = deepcopy(deepStorageChest.resistances)
+deepStorageMonitor.item_slot_count = 1
 
 deepStorageMonitor.sprites = oneToFourWay{
   filename = "__core__/graphics/empty.png",
@@ -112,6 +113,8 @@ deepStorageMonitor.circuit_wire_connection_points = oneToFourWay{
     },
 }
 deepStorageMonitor.circuit_wire_max_distance = deepcopy(data.raw["container"]["steel-chest"].circuit_wire_max_distance)
+
+
 
 data:extend({
   -- item

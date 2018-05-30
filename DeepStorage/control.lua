@@ -13,7 +13,6 @@ end
 
 -- on entity created
 local function onConstructionEntity(event)
-  log(event.created_entity.name)
   if event.created_entity and event.created_entity.valid and event.created_entity.name == Settings.storageChestName then
     ChestManager:onChestCreated(event.created_entity)
   end
@@ -28,7 +27,9 @@ end
 
 
 local function onDeconstructionEntity(event)
-  -- TODO
+  if event.entity.name == Settings.storageMonitorName then
+    ChestManager:onChestDeconstruction(event.entity)
+  end
 end
 
 

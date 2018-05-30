@@ -1,0 +1,9 @@
+{
+	"name": "DeepStorage",
+	"version": "0.1.0",
+	"title": "Deep storage",
+	"author": "lovely_santa",
+	"description": "Adds a new chest that only stores 1 item type, but stores infinite (well.. not realy infinite).",
+	"factorio_version":"0.16",
+	"dependencies": ["base >= 0.16.45"]
+}

@@ -1,0 +1,64 @@
+
+require 'lib/utilities/debug'
+require 'src/chestInventory'
+
+
+
+-- on tick
+local function onTick(event)
+  -- TODO
+end
+
+
+
+-- on entity created
+local function onConstructionEntity(event)
+  log(event.created_entity.name)
+  if event.created_entity and event.created_entity.valid and event.created_entity.name == Settings.storageChestName then
+    ChestInventory:onChestCreated(event.created_entity)
+  end
+end
+
+
+
+local function onEntityDestroyed(event)
+  -- TODO
+end
+
+
+
+local function onDeconstructionEntity(event)
+  -- TODO
+end
+
+
+
+local function onMarkedForDeconstruction(event)
+  -- TODO
+end
+
+
+
+script.on_event(defines.events.on_built_entity, onConstructionEntity)
+script.on_event(defines.events.on_robot_built_entity, onConstructionEntity)
+
+script.on_event(defines.events.on_marked_for_deconstruction, onMarkedForDeconstruction)
+script.on_event(defines.events.on_pre_player_mined_item, onDeconstructionEntity)
+script.on_event(defines.events.on_robot_pre_mined, onDeconstructionEntity)
+
+script.on_event(defines.events.on_entity_died, onEntityDestroyed)
+
+script.on_event(defines.events.on_tick, onTick)
+
+
+
+-- on load game for first time
+script.on_init(function()
+  Debug:onInit()
+  ChestInventory:onInit()
+end)
+
+-- on player created
+script.on_event(defines.events.on_player_created, function(event)
+  Debug:onPlayerCreated(event.player_index)
+end)

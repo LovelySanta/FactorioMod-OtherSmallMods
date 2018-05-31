@@ -229,6 +229,12 @@ function ChestDatastructure:updateChest(surfaceIndex, surfacePosX, surfacePosY)
 
       -- output signal on the monitor
       chestBehaviour.parameters = {parameters = {{index = 1, signal = {type = "item", name = chestData["contents"].name}, count = chestData["contents"].count}}}
+
+    else -- chest is empty
+
+      -- Update parameters (to not allow pasting constant combinators onto it)
+      chestBehaviour.parameters = nil
+
     end
 
   else -- there was content registered

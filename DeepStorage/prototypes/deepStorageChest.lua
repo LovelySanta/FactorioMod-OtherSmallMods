@@ -9,6 +9,8 @@ require 'lib/utilities/util'
 local deepStorageItem = deepcopy(data.raw["item"]["steel-chest"])
 
 deepStorageItem.name = Settings.storageItemName
+deepStorageItem.localised_name = {"item-name." .. Settings.storageItemName}
+
 deepStorageItem.icon = "__DeepStorage__/graphics/icons/smart-chest.png"
 deepStorageItem.icon_size = 32
 deepStorageItem.order = stringSplit(deepStorageItem.order, "-")[1] .. "-d[" .. deepStorageItem.name .. "]"
@@ -23,6 +25,8 @@ deepStorageItem.place_result = Settings.storageChestName
 local deepStorageChest = deepcopy(data.raw["car"]["car"])
 
 deepStorageChest.name = Settings.storageChestName
+deepStorageChest.localised_name = deepcopy(deepStorageItem.localised_name)
+
 deepStorageChest.icon = deepStorageItem.icon
 deepStorageChest.icon_size = deepStorageItem.icon_size
 deepStorageChest.flags = {"placeable-neutral", "player-creation", "not-rotatable", "not-on-map"}
@@ -74,12 +78,15 @@ deepStorageChest.equipment_grid = nil
 local deepStorageMonitor = deepcopy(data.raw["constant-combinator"]["constant-combinator"])
 
 deepStorageMonitor.name = Settings.storageMonitorName
+deepStorageMonitor.localised_name = deepcopy(deepStorageChest.localised_name)
+
 deepStorageMonitor.icon = deepStorageItem.icon
 deepStorageMonitor.icon_size = deepStorageItem.icon_size
 deepStorageMonitor.flags = {"placeable-neutral", "player-creation", "not-rotatable", "placeable-off-grid"}
 deepStorageMonitor.order = deepStorageItem.order
 
 deepStorageMonitor.minable = deepcopy(deepStorageChest.minable)
+deepStorageMonitor.allow_copy_paste = false
 deepStorageMonitor.placeable_by = deepcopy(deepStorageChest.placeable_by)
 
 deepStorageMonitor.selection_box = deepcopy(data.raw["container"]["steel-chest"].selection_box)

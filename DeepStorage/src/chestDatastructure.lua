@@ -6,12 +6,13 @@ ChestDatastructure = {}
 
 
 function ChestDatastructure:onInit()
-  if not self.chestData then
-    self.chestData = {
+  if not global.chestData then
+    global.chestData = {
       ["version"] = 1,
+
+      ["numberOfChests"] = 0, -- Number of chests in the list
       ["firstChest"] = nil,   -- reference to the list
       ["nextChest"] = nil,    -- reference to next chest that needs to be updated
-      ["numberOfChests"] = 0, -- Number of chests in the list
     }
   end
 end
@@ -25,18 +26,18 @@ function ChestDatastructure:addNewChestData(inventoryEntity, monitorEntity)
   local surfacePosY = inventoryEntity.position.y
 
   -- Make sure we can index this new position
-  if not self.chestData[surfaceIndex] then
-    self.chestData[surfaceIndex] = {}
+  if not global.chestData[surfaceIndex] then
+    global.chestData[surfaceIndex] = {}
   end
-  if not self.chestData[surfaceIndex][surfacePosY] then
-    self.chestData[surfaceIndex][surfacePosY] = {}
+  if not global.chestData[surfaceIndex][surfacePosY] then
+    global.chestData[surfaceIndex][surfacePosY] = {}
   end
-  if not self.chestData[surfaceIndex][surfacePosY][surfacePosX] then
-    self.chestData[surfaceIndex][surfacePosY][surfacePosX] = {}
+  if not global.chestData[surfaceIndex][surfacePosY][surfacePosX] then
+    global.chestData[surfaceIndex][surfacePosY][surfacePosX] = {}
   end
 
   -- add the new chest to the data container
-  self.chestData[surfaceIndex][surfacePosY][surfacePosX] =
+  global.chestData[surfaceIndex][surfacePosY][surfacePosX] =
   {
     ["inventoryEntity"] = inventoryEntity,
     ["monitorEntity"] = monitorEntity,
@@ -44,21 +45,21 @@ function ChestDatastructure:addNewChestData(inventoryEntity, monitorEntity)
   }
 
   -- add container to the loop
-  if self.chestData["numberOfChests"] == 0 then
+  if global.chestData["numberOfChests"] == 0 then
     -- loop didn't exist, we create one
-    self.chestData["firstChest"] = deepcopy({
+    global.chestData["firstChest"] = deepcopy({
       ["surfaceIndex"] = surfaceIndex,
       ["surfacePosX"]  = surfacePosX,
       ["surfacePosY"]  = surfacePosY,
     })
-    self.chestData[surfaceIndex][surfacePosY][surfacePosX]["prevChest"] = deepcopy(self.chestData["firstChest"])
-    self.chestData[surfaceIndex][surfacePosY][surfacePosX]["nextChest"] = deepcopy(self.chestData["firstChest"])
-    self.chestData["nextChest"] = deepcopy(self.chestData["firstChest"])
+    global.chestData[surfaceIndex][surfacePosY][surfacePosX]["prevChest"] = deepcopy(global.chestData["firstChest"])
+    global.chestData[surfaceIndex][surfacePosY][surfacePosX]["nextChest"] = deepcopy(global.chestData["firstChest"])
+    global.chestData["nextChest"] = deepcopy(global.chestData["firstChest"])
 
   else
     -- add container afther the last one (AKA before the first one, coz its a loop)
-    local nextChest = deepcopy(self.chestData["firstChest"])
-    local prevChest = deepcopy(self.chestData[nextChest["surfaceIndex"]][nextChest["surfacePosY"]][nextChest["surfacePosX"]]["prevChest"])
+    local nextChest = deepcopy(global.chestData["firstChest"])
+    local prevChest = deepcopy(global.chestData[nextChest["surfaceIndex"]][nextChest["surfacePosY"]][nextChest["surfacePosX"]]["prevChest"])
 
     --      last                     newly placed                   first
     --   -----------                 -----------                 -----------
@@ -71,27 +72,27 @@ function ChestDatastructure:addNewChestData(inventoryEntity, monitorEntity)
     --   -----------                 -----------                 -----------
 
     -- STEP 1: add own 'next reference' (reference to the first one)
-    self.chestData[surfaceIndex][surfacePosY][surfacePosX]["nextChest"] = deepcopy(nextChest)
+    global.chestData[surfaceIndex][surfacePosY][surfacePosX]["nextChest"] = deepcopy(nextChest)
 
     -- STEP 2: add own 'prev reference' (reference to the last one)
-    self.chestData[surfaceIndex][surfacePosY][surfacePosX]["prevChest"] = deepcopy(prevChest)
+    global.chestData[surfaceIndex][surfacePosY][surfacePosX]["prevChest"] = deepcopy(prevChest)
 
     -- STEP 3: add prev his 'next reference' (reference to self from the last one)
-    self.chestData[prevChest["surfaceIndex"]][prevChest["surfacePosY"]][prevChest["surfacePosX"]]["nextChest"] = deepcopy({
+    global.chestData[prevChest["surfaceIndex"]][prevChest["surfacePosY"]][prevChest["surfacePosX"]]["nextChest"] = deepcopy({
       ["surfaceIndex"] = surfaceIndex,
       ["surfacePosX"]  = surfacePosX,
       ["surfacePosY"]  = surfacePosY,
     })
 
     -- STEP 4: add next his 'prev reference' (reference to self from the first one)
-    self.chestData[nextChest["surfaceIndex"]][nextChest["surfacePosY"]][nextChest["surfacePosX"]]["prevChest"] = deepcopy({
+    global.chestData[nextChest["surfaceIndex"]][nextChest["surfacePosY"]][nextChest["surfacePosX"]]["prevChest"] = deepcopy({
       ["surfaceIndex"] = surfaceIndex,
       ["surfacePosX"]  = surfacePosX,
       ["surfacePosY"]  = surfacePosY,
     })
 
   end
-  self.chestData["numberOfChests"] = self.chestData["numberOfChests"] + 1
+  global.chestData["numberOfChests"] = global.chestData["numberOfChests"] + 1
 
 end
 
@@ -99,29 +100,29 @@ end
 
 function ChestDatastructure:removeChestData(surfaceIndex, surfacePosX, surfacePosY)
   -- Check if firstChest is the chest we want to delete, if so, move firstChest over to the next container
-  local firstChest = deepcopy(self.chestData["firstChest"])
+  local firstChest = deepcopy(global.chestData["firstChest"])
   if firstChest["surfaceIndex"] == surfaceIndex
     and firstChest["surfacePosY"] == surfacePosY
     and firstChest["surfacePosX"] == surfacePosX then
 
-    self.chestData["firstChest"] = deepcopy(self.chestData[surfaceIndex][surfacePosY][surfacePosX]["nextChest"])
+    global.chestData["firstChest"] = deepcopy(global.chestData[surfaceIndex][surfacePosY][surfacePosX]["nextChest"])
   end
 
   -- Check if nextChest is the chest we want to delete, if so, move nextChest over to the next container
-  local nextChest = deepcopy(self.chestData["nextChest"])
+  local nextChest = deepcopy(global.chestData["nextChest"])
   if nextChest["surfaceIndex"] == surfaceIndex
     and nextChest["surfacePosY"] == surfacePosY
     and nextChest["surfacePosX"] == surfacePosX then
 
-    self.chestData["nextChest"] = deepcopy(self.chestData[surfaceIndex][surfacePosY][surfacePosX]["nextChest"])
+    global.chestData["nextChest"] = deepcopy(global.chestData[surfaceIndex][surfacePosY][surfacePosX]["nextChest"])
   end
 
   -- Exclude this container from the loop structure
-  local prevChest = deepcopy(self.chestData[surfaceIndex][surfacePosY][surfacePosX]["prevChest"])
-  local nextChest = deepcopy(self.chestData[surfaceIndex][surfacePosY][surfacePosX]["nextChest"])
+  local prevChest = deepcopy(global.chestData[surfaceIndex][surfacePosY][surfacePosX]["prevChest"])
+  local nextChest = deepcopy(global.chestData[surfaceIndex][surfacePosY][surfacePosX]["nextChest"])
 
   --if not tablesAreEqual(nextChest, {["surfaceIndex"] = surfaceIndex, ["surfacePosX"] = surfacePosX, ["surfacePosY"] = surfacePosY,}) then
-  if self.chestData["numberOfChests"] > 1 then
+  if global.chestData["numberOfChests"] > 1 then
 
     --      prev                       removed                      next
     --   -----------                 -----------                 -----------
@@ -134,24 +135,24 @@ function ChestDatastructure:removeChestData(surfaceIndex, surfacePosX, surfacePo
     --   -----------                 -----------                 -----------
 
     -- STEP 1: add prev his 'next reference' (reference to next from the removed one)
-    self.chestData[prevChest["surfaceIndex"]][prevChest["surfacePosY"]][prevChest["surfacePosX"]]["nextChest"] = deepcopy(nextChest)
+    global.chestData[prevChest["surfaceIndex"]][prevChest["surfacePosY"]][prevChest["surfacePosX"]]["nextChest"] = deepcopy(nextChest)
 
     -- STEP 2: add next his 'prev reference' (reference to prev from the removed one)
-    self.chestData[nextChest["surfaceIndex"]][nextChest["surfacePosY"]][nextChest["surfacePosX"]]["prevChest"] = deepcopy(prevChest)
+    global.chestData[nextChest["surfaceIndex"]][nextChest["surfacePosY"]][nextChest["surfacePosX"]]["prevChest"] = deepcopy(prevChest)
 
   else
     -- this was the last chest standing, we need to reset the loop references
-    self.chestData["nextChest"] = nil
-    self.chestData["firstChest"] = nil
+    global.chestData["nextChest"] = nil
+    global.chestData["firstChest"] = nil
   end
-  self.chestData["numberOfChests"] = self.chestData["numberOfChests"] - 1
+  global.chestData["numberOfChests"] = global.chestData["numberOfChests"] - 1
 
   -- Remove references to removed one (and clean up empty tables)
-  self.chestData[surfaceIndex][surfacePosY][surfacePosX] = nil
-  if tableIsEmpty(self.chestData[surfaceIndex][surfacePosY]) then
-    self.chestData[surfaceIndex][surfacePosY] = nil
-    if tableIsEmpty(self.chestData[surfaceIndex]) then
-      self.chestData[surfaceIndex] = nil
+  global.chestData[surfaceIndex][surfacePosY][surfacePosX] = nil
+  if tableIsEmpty(global.chestData[surfaceIndex][surfacePosY]) then
+    global.chestData[surfaceIndex][surfacePosY] = nil
+    if tableIsEmpty(global.chestData[surfaceIndex]) then
+      global.chestData[surfaceIndex] = nil
     end
   end
 
@@ -160,10 +161,10 @@ end
 
 
 function ChestDatastructure:updateNextChest()
-  if self.chestData["nextChest"] then
+  if global.chestData["nextChest"] then
     -- Get reference of the chest and make next reference ready
-    local chestToUpdate = deepcopy(self.chestData["nextChest"])
-    self.chestData["nextChest"] = deepcopy(self.chestData[chestToUpdate["surfaceIndex"]][chestToUpdate["surfacePosY"]][chestToUpdate["surfacePosX"]]["nextChest"])
+    local chestToUpdate = deepcopy(global.chestData["nextChest"])
+    global.chestData["nextChest"] = deepcopy(global.chestData[chestToUpdate["surfaceIndex"]][chestToUpdate["surfacePosY"]][chestToUpdate["surfacePosX"]]["nextChest"])
 
     -- Update chest
     --game.print("Updating chest on surface " .. chestToUpdate["surfaceIndex"] .. " located at (" .. chestToUpdate["surfacePosX"] .. "," .. chestToUpdate["surfacePosY"] .. ").")
@@ -202,7 +203,7 @@ function ChestDatastructure:updateChest(surfaceIndex, surfacePosX, surfacePosY)
     return {["name"] = contentsName, ["count"] = contentsCount}
   end
 
-  local chestData = self.chestData[surfaceIndex][surfacePosY][surfacePosX]
+  local chestData = global.chestData[surfaceIndex][surfacePosY][surfacePosX]
   local chestInventory = chestData["inventoryEntity"].get_inventory(defines.inventory.car_trunk)
   local chestBehaviour = chestData["monitorEntity"].get_or_create_control_behavior()
 
@@ -309,11 +310,11 @@ end
 
 
 function ChestDatastructure:getInventoryEntity(surfaceIndex, surfacePosX, surfacePosY)
-  if self.chestData[surfaceIndex]
-    and self.chestData[surfaceIndex][surfacePosY]
-    and self.chestData[surfaceIndex][surfacePosY][surfacePosX] then
+  if global.chestData[surfaceIndex]
+    and global.chestData[surfaceIndex][surfacePosY]
+    and global.chestData[surfaceIndex][surfacePosY][surfacePosX] then
 
-    return self.chestData[surfaceIndex][surfacePosY][surfacePosX]["inventoryEntity"]
+    return global.chestData[surfaceIndex][surfacePosY][surfacePosX]["inventoryEntity"]
   else
     return nil
   end
@@ -322,11 +323,11 @@ end
 
 
 function ChestDatastructure:getMonitorEntity(surfaceIndex, surfacePosX, surfacePosY)
-  if self.chestData[surfaceIndex]
-    and self.chestData[surfaceIndex][surfacePosY]
-    and self.chestData[surfaceIndex][surfacePosY][surfacePosX] then
+  if global.chestData[surfaceIndex]
+    and global.chestData[surfaceIndex][surfacePosY]
+    and global.chestData[surfaceIndex][surfacePosY][surfacePosX] then
 
-    return self.chestData[surfaceIndex][surfacePosY][surfacePosX]["monitorEntity"]
+    return global.chestData[surfaceIndex][surfacePosY][surfacePosX]["monitorEntity"]
   else
     return nil
   end
@@ -335,5 +336,5 @@ end
 
 
 function ChestDatastructure:getNumberOfChests()
-  return self.chestData["numberOfChests"]
+  return global.chestData["numberOfChests"]
 end

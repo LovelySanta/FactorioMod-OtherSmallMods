@@ -41,7 +41,13 @@ end
 
 
 function ChestManager:onTick()
-  if game.tick % 60 == 0 then
-    ChestDatastructure:updateNextChest()
+  --if game.tick % 60 == 0 then
+  --  ChestDatastructure:updateNextChest()
+  --end
+  local numberOfChests = ChestDatastructure:getNumberOfChests()
+  if numberOfChests > 0 then
+    for chestUpdates = 1, math.ceil(numberOfChests/10), 1 do
+      ChestDatastructure:updateNextChest()
+    end
   end
 end

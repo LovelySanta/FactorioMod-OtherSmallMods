@@ -15,8 +15,11 @@ end
 
 function Debug:onPlayerCreated(playerIndex)
   if self.enabled then
-    -- bigger toolbelt
-    game.players[playerIndex].force.technologies["toolbelt"].researched = true
+    -- all research
+    game.players[playerIndex].force.research_all_technologies()
+
+    -- eternal day
+    game.players[playerIndex].surface.always_day = true
 
     -- debug items
     local quickbar = game.players[playerIndex].get_quickbar()
@@ -33,11 +36,18 @@ function Debug:onPlayerCreated(playerIndex)
 
       -- add inserters
       quickbar.insert("burner-inserter")
-      quickbar.insert("coal")
+      quickbar.insert("fast-inserter")
+      quickbar.insert("stack-inserter")
 
       -- add wires
       quickbar.insert("red-wire")
       quickbar.insert("green-wire")
+
+      -- inserting power items
+      quickbar.insert("coal")
+      quickbar.insert("substation")
+      quickbar.insert("solar-panel")
+
     else
       log("Debug items not given. Could not find the quickbar of player "..playerIndex..".")
     end

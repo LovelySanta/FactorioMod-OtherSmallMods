@@ -1,4 +1,5 @@
 require 'lib/utilities/util'
+require 'src/settings'
 
 
 ChestDatastructure = {}
@@ -8,8 +9,9 @@ function ChestDatastructure:onInit()
   if not self.chestData then
     self.chestData = {
       ["version"] = 1,
-      ["firstChest"] = nil, -- reference to the list
-      ["nextChest"] = nil,  -- reference to next chest that needs to be updated
+      ["firstChest"] = nil,   -- reference to the list
+      ["nextChest"] = nil,    -- reference to next chest that needs to be updated
+      ["numberOfChests"] = 0, -- Number of chests in the list
     }
   end
 end
@@ -42,14 +44,13 @@ function ChestDatastructure:addNewChestData(inventoryEntity, monitorEntity)
   }
 
   -- add container to the loop
-  if not self.chestData["firstChest"] then
+  if self.chestData["numberOfChests"] == 0 then
     -- loop didn't exist, we create one
-    self.chestData["firstChest"] =
-    {
+    self.chestData["firstChest"] = deepcopy({
       ["surfaceIndex"] = surfaceIndex,
       ["surfacePosX"]  = surfacePosX,
       ["surfacePosY"]  = surfacePosY,
-    }
+    })
     self.chestData[surfaceIndex][surfacePosY][surfacePosX]["prevChest"] = deepcopy(self.chestData["firstChest"])
     self.chestData[surfaceIndex][surfacePosY][surfacePosX]["nextChest"] = deepcopy(self.chestData["firstChest"])
     self.chestData["nextChest"] = deepcopy(self.chestData["firstChest"])
@@ -76,22 +77,22 @@ function ChestDatastructure:addNewChestData(inventoryEntity, monitorEntity)
     self.chestData[surfaceIndex][surfacePosY][surfacePosX]["prevChest"] = deepcopy(prevChest)
 
     -- STEP 3: add prev his 'next reference' (reference to self from the last one)
-    self.chestData[prevChest["surfaceIndex"]][prevChest["surfacePosY"]][prevChest["surfacePosX"]]["nextChest"] =
-    {
+    self.chestData[prevChest["surfaceIndex"]][prevChest["surfacePosY"]][prevChest["surfacePosX"]]["nextChest"] = deepcopy({
       ["surfaceIndex"] = surfaceIndex,
       ["surfacePosX"]  = surfacePosX,
       ["surfacePosY"]  = surfacePosY,
-    }
+    })
 
     -- STEP 4: add next his 'prev reference' (reference to self from the first one)
-    self.chestData[nextChest["surfaceIndex"]][nextChest["surfacePosY"]][nextChest["surfacePosX"]]["prevChest"] =
-    {
+    self.chestData[nextChest["surfaceIndex"]][nextChest["surfacePosY"]][nextChest["surfacePosX"]]["prevChest"] = deepcopy({
       ["surfaceIndex"] = surfaceIndex,
       ["surfacePosX"]  = surfacePosX,
       ["surfacePosY"]  = surfacePosY,
-    }
+    })
 
   end
+  self.chestData["numberOfChests"] = self.chestData["numberOfChests"] + 1
+
 end
 
 
@@ -119,7 +120,8 @@ function ChestDatastructure:removeChestData(surfaceIndex, surfacePosX, surfacePo
   local prevChest = deepcopy(self.chestData[surfaceIndex][surfacePosY][surfacePosX]["prevChest"])
   local nextChest = deepcopy(self.chestData[surfaceIndex][surfacePosY][surfacePosX]["nextChest"])
 
-  if not tablesAreEqual(nextChest, {["surfaceIndex"] = surfaceIndex, ["surfacePosX"] = surfacePosX, ["surfacePosY"] = surfacePosY,}) then
+  --if not tablesAreEqual(nextChest, {["surfaceIndex"] = surfaceIndex, ["surfacePosX"] = surfacePosX, ["surfacePosY"] = surfacePosY,}) then
+  if self.chestData["numberOfChests"] > 1 then
 
     --      prev                       removed                      next
     --   -----------                 -----------                 -----------
@@ -142,6 +144,7 @@ function ChestDatastructure:removeChestData(surfaceIndex, surfacePosX, surfacePo
     self.chestData["nextChest"] = nil
     self.chestData["firstChest"] = nil
   end
+  self.chestData["numberOfChests"] = self.chestData["numberOfChests"] - 1
 
   -- Remove references to removed one (and clean up empty tables)
   self.chestData[surfaceIndex][surfacePosY][surfacePosX] = nil
@@ -163,14 +166,10 @@ function ChestDatastructure:updateNextChest()
     self.chestData["nextChest"] = deepcopy(self.chestData[chestToUpdate["surfaceIndex"]][chestToUpdate["surfacePosY"]][chestToUpdate["surfacePosX"]]["nextChest"])
 
     -- Update chest
-    game.print("Updating chest on surface " .. chestToUpdate["surfaceIndex"] .. " located at (" .. chestToUpdate["surfacePosX"] .. "," .. chestToUpdate["surfacePosY"] .. ").")
+    --game.print("Updating chest on surface " .. chestToUpdate["surfaceIndex"] .. " located at (" .. chestToUpdate["surfacePosX"] .. "," .. chestToUpdate["surfacePosY"] .. ").")
 
     self:updateChest(chestToUpdate["surfaceIndex"], chestToUpdate["surfacePosX"], chestToUpdate["surfacePosY"])
 
-    if self.chestData[chestToUpdate["surfaceIndex"]][chestToUpdate["surfacePosY"]][chestToUpdate["surfacePosX"]]["contents"] then
-      game.print("Now contains " .. self.chestData[chestToUpdate["surfaceIndex"]][chestToUpdate["surfacePosY"]][chestToUpdate["surfacePosX"]]["contents"].count ..
-        "x " .. self.chestData[chestToUpdate["surfaceIndex"]][chestToUpdate["surfacePosY"]][chestToUpdate["surfacePosX"]]["contents"].name)
-    end
   end
 end
 
@@ -216,6 +215,7 @@ function ChestDatastructure:updateChest(surfaceIndex, surfacePosX, surfacePosY)
       -- now there is contents
       chestData["contents"] = deepcopy(chestContents)
       chestData["contents"]["stacksize"] = game.item_prototypes[chestData["contents"].name].stack_size
+      chestData["contents"]["contentsAmount"] = math.floor(((#chestInventory * chestData["contents"]["stacksize"]) / 2) + .5)
 
       -- set the filters
       for inventoryIndex = 1, #chestInventory, 1 do
@@ -223,8 +223,8 @@ function ChestDatastructure:updateChest(surfaceIndex, surfacePosX, surfacePosY)
       end
 
       -- if there is more items then 1 stack we need to remove them
-      if chestContents.count > chestData["contents"].stacksize then
-        chestInventory.remove{name = chestData.name, count = chestData["contents"].count - chestData["contents"].stacksize}
+      if chestContents.count > chestData["contents"].contentsAmount then
+        chestInventory.remove{name = chestData["contents"].name, count = chestData["contents"].count - chestData["contents"].contentsAmount}
       end
 
       -- output signal on the monitor
@@ -234,7 +234,7 @@ function ChestDatastructure:updateChest(surfaceIndex, surfacePosX, surfacePosY)
   else -- there was content registered
 
     if not chestContents.name then
-      if chestData["contents"].count <= chestData["contents"].stacksize then
+      if chestData["contents"].count <= chestData["contents"].contentsAmount then
         -- chest is realy empty
         chestData["contents"] = nil
 
@@ -249,7 +249,7 @@ function ChestDatastructure:updateChest(surfaceIndex, surfacePosX, surfacePosY)
       else -- stack was fully outserted, but has still items in its buffer, time to fill it back up
 
         -- update contents
-        chestData["contents"].count = chestData["contents"].count - chestData["contents"].stacksize
+        chestData["contents"].count = chestData["contents"].count - chestData["contents"].contentsAmount
 
         -- add items to the inventory
         chestInventory.insert{name = chestData["contents"].name, count = min(chestData["contents"].count, chestData["contents"].stack_size)}
@@ -260,22 +260,22 @@ function ChestDatastructure:updateChest(surfaceIndex, surfacePosX, surfacePosY)
 
     else
       -- there was still some content in there
-      if chestContents.count > chestData["contents"].stacksize then -- more than a stack in the chest
+      if chestContents.count > chestData["contents"].contentsAmount then -- more than a stack in the chest
 
         -- update contents
-        chestData["contents"].count = chestData["contents"].count + (chestContents.count - chestData["contents"].stacksize)
+        chestData["contents"].count = chestData["contents"].count + (chestContents.count - chestData["contents"].contentsAmount)
 
         -- remove excess items from the inventory
-        chestInventory.remove{name = chestData["contents"].name, count = chestContents.count - chestData["contents"].stacksize}
+        chestInventory.remove{name = chestData["contents"].name, count = chestContents.count - chestData["contents"].contentsAmount}
 
-      elseif chestContents.count < chestData["contents"].stacksize then -- less than a stack in the chest
-        if chestData["contents"].count >= chestData["contents"].stacksize then -- has more available items, insert more
+      elseif chestContents.count < chestData["contents"].contentsAmount then -- less than a stack in the chest
+        if chestData["contents"].count >= chestData["contents"].contentsAmount then -- has more available items, insert more
 
           -- update contents
-          chestData["contents"].count = chestData["contents"].count - (chestData["contents"].stacksize - chestContents.count)
+          chestData["contents"].count = chestData["contents"].count - (chestData["contents"].contentsAmount - chestContents.count)
 
           -- add items to the invenory
-          chestInventory.insert{name = chestData["contents"].name, count = chestData["contents"].stacksize - chestContents.count}
+          chestInventory.insert{name = chestData["contents"].name, count = chestData["contents"].contentsAmount - chestContents.count}
 
         else -- chest has less then a stack of content, nothing to insert
 
@@ -285,7 +285,7 @@ function ChestDatastructure:updateChest(surfaceIndex, surfacePosX, surfacePosY)
         end
 
       else -- exactly a stack in the chest
-        if chestData["contents"].count == (chestData["contents"].stacksize - 1) then
+        if chestData["contents"].count == (chestData["contents"].contentsAmount - 1) then
 
           -- update contents
           chestData["contents"].count = chestContents.count
@@ -324,4 +324,10 @@ function ChestDatastructure:getMonitorEntity(surfaceIndex, surfacePosX, surfaceP
   else
     return nil
   end
+end
+
+
+
+function ChestDatastructure:getNumberOfChests()
+  return self.chestData["numberOfChests"]
 end

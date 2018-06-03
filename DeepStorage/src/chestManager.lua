@@ -1,5 +1,6 @@
 require 'src/settings'
 require 'src/chestDatastructure'
+require 'src/chestGui'
 
 ChestManager = {}
 
@@ -50,4 +51,14 @@ function ChestManager:onTick()
       ChestDatastructure:updateNextChest()
     end
   end
+end
+
+
+function ChestManager:onOpenGui(monitorEntity, playerIndex)
+  -- TODO: add this player to the datastructure
+  ChestGui:createPlayerGui(playerIndex)
+end
+function ChestManager:onCloseGui(monitorEntity, monitorGui, playerIndex)
+  -- TODO: remove this player from the datastructure
+  ChestGui:destroyPlayerGui(monitorEntity,monitorGui, playerIndex)
 end

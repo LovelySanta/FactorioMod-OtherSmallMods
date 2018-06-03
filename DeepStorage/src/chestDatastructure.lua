@@ -42,6 +42,7 @@ function ChestDatastructure:addNewChestData(inventoryEntity, monitorEntity)
     ["inventoryEntity"] = inventoryEntity,
     ["monitorEntity"] = monitorEntity,
     ["contents"] = nil, -- empty
+    ["playerWithGuiOpen"] = nil -- no one has ths UI open
   }
 
   -- add container to the loop

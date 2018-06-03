@@ -20,18 +20,13 @@ end
 
 
 
+-- on entity removal
 local function onEntityDestroyed(event)
   -- TODO
 end
-
-
-
 local function onMarkedForDeconstruction(event)
   -- TODO
 end
-
-
-
 local function onDeconstructionEntity(event)
   if event.entity.name == Settings.storageMonitorName then
     ChestManager:onChestDeconstruction(event.entity)
@@ -39,6 +34,18 @@ local function onDeconstructionEntity(event)
 end
 
 
+
+-- on entity gui
+local function onGuiOpened(event)
+  if event.entity and event.entity.name == Settings.storageMonitorName then
+    ChestManager:onOpenGui(event.entity, event.player_index)
+  end
+end
+local function onGuiClosed(event)
+  ChestManager:onCloseGui(event.entity, event.element, event.playerIndex)
+end
+local function onGuiClicked(event)
+end
 
 
 
@@ -54,6 +61,10 @@ script.on_event(defines.events.on_robot_pre_mined, onDeconstructionEntity)
 script.on_event(defines.events.on_entity_died, onEntityDestroyed)
 
 script.on_event(defines.events.on_tick, onTick)
+
+script.on_event(defines.events.on_gui_opened, onGuiOpened)
+script.on_event(defines.events.on_gui_closed, onGuiClosed)
+script.on_event(defines.events.on_gui_click, onGuiClicked)
 
 
 

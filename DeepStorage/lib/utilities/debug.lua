@@ -24,7 +24,7 @@ function Debug:onPlayerCreated(playerIndex)
     -- debug items
     local quickbar = game.players[playerIndex].get_quickbar()
     if quickbar and quickbar.valid then
-      log("Debug items given.")
+      log("Debug items (part 1) given.")
 
       -- remove spawn items
       quickbar.remove("burner-mining-drill")
@@ -49,7 +49,21 @@ function Debug:onPlayerCreated(playerIndex)
       quickbar.insert("solar-panel")
 
     else
-      log("Debug items not given. Could not find the quickbar of player "..playerIndex..".")
+      log("Debug items (part 1) not given. Could not find the quickbar of player "..playerIndex..".")
+    end
+
+    local inventory = game.players[playerIndex].get_main_inventory()
+    if inventory and inventory.valid then
+      log("Debug items (part 2) given.")
+
+      -- inserting power items
+      inventory.insert("coal")
+
+      -- power armor stuff
+      inventory.insert("construction-robot")
+
+    else
+      log("Debug items (part 2) not given. Could not find the quickbar of player "..playerIndex..".")
     end
 
     local toolbar = game.players[playerIndex].get_inventory(defines.inventory.player_tools)
@@ -58,8 +72,27 @@ function Debug:onPlayerCreated(playerIndex)
 
       -- axe
       toolbar.insert("steel-axe")
+
     else
       log("Debug tools not given. Could not find the toolbar of player "..playerIndex..".")
+    end
+
+    local armor = game.players[playerIndex].get_inventory(defines.inventory.player_armor)
+    if armor and armor.valid then
+      log("Debug armor given.")
+
+      -- power armor
+      armor.insert("power-armor-mk2")
+
+      -- insert modules TODO
+      local powerArmor = armor.equipment_owner
+      if powerArmor and powerArmor.valid then
+        log("now its working!")
+      end
+
+
+    else
+      log("Debug armor not given. Could not find the armor inventory of the player")
     end
   end
 end

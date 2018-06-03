@@ -1,5 +1,0 @@
-Version: 0.1.0 - Initial release
-Date: 30. 5. 2018
-  Major Features:
-    - Initial release of an infinite chest
-    - Connect chest to circuit network

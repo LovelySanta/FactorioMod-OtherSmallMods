@@ -1,0 +1,24 @@
+{
+  "name": "ShredNation_MustHaveMods",
+  "version": "0.16.0",
+  "factorio_version": "0.16",
+  "title": "ShredNation must-have mods",
+  "author": "lovely_santa",
+  "contact": "",
+  "homepage": "https://github.com/LovelySanta/FactorioMods",
+  "description": "A soft-mod containing all dependencies on the must-have mods for the ShredNation.",
+  "dependencies": [
+    "ChatToFile",
+    "EvenMoreLight",
+    "EvoGUI",
+    "ManlyDeathScream",
+    "nicefill",
+    "pushbutton",
+    "SantasNixieTubeDisplay",
+    "UnminableVehicles",
+
+    "?FARL",
+    "?InterFurnaceChange",
+    "?LandMover"
+  ]
+}

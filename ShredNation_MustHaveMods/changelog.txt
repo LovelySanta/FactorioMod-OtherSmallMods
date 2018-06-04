@@ -1,0 +1,9 @@
+---------------------------------------------------------------------------------------------------
+Version: 0.1.0 - First public release
+Date: 30. 7. 2017
+  Major Features:
+    - Initial release containing:
+    - Needed: ChatToFile, EvenMoreLight, EvoGUI, ManlyDeathScream, Nicefill, Pushbutton, SantasNixieTubeDisplay and UnminableVehicles
+    - Optional: FARL, InterFurnaceChange and LandMover
+  Features:
+    - Added readme with small description of each mod

@@ -1,6 +1,6 @@
 {
   "name": "ShredNation_MustHaveMods",
-  "version": "0.16.0",
+  "version": "0.16.1",
   "factorio_version": "0.16",
   "title": "ShredNation must-have mods",
   "author": "lovely_santa",
@@ -17,8 +17,9 @@
     "SantasNixieTubeDisplay",
     "UnminableVehicles",
 
-    "?FARL",
-    "?InterFurnaceChange",
-    "?LandMover"
+    "? angelsaddons-shred",
+    "? FARL",
+    "? InterFurnaceChange",
+    "? LandMover"
   ]
 }

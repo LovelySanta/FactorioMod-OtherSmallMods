@@ -1,6 +1,11 @@
 ---------------------------------------------------------------------------------------------------
-Version: 0.1.0 - First public release
-Date: 30. 7. 2017
+Version: 0.16.1
+Date: 14. 6. 2018
+  Major Features:
+    - Added extra optional mod: "Angel's Addons - Decorations - Shred"
+---------------------------------------------------------------------------------------------------
+Version: 0.16.0 - First public release
+Date: 4. 6. 2018
   Major Features:
     - Initial release containing:
     - Needed: ChatToFile, EvenMoreLight, EvoGUI, ManlyDeathScream, Nicefill, Pushbutton, SantasNixieTubeDisplay and UnminableVehicles

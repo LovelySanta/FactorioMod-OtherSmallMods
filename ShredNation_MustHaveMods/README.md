@@ -28,6 +28,9 @@ Adds admin options to
 - Teleport players to spawn and make them unable to move after they mined/rotated a vehicle (Only works if vehicles can be mined)
 
 # Extra optional mods
+## Angel's Addons - Decorations - Shred
+A small (exclusive) present towards ShredGuy99 for his awesome streams!
+
 ## [F.A.R.L.](https://mods.factorio.com/mod/FARL)
 Fully Automated Rail Layer. Places rails, signals, electric poles, concrete, etc. while driving. Also destroy cliffs and landfill where needed.
 

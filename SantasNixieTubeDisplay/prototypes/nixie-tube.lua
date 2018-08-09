@@ -66,8 +66,8 @@ local SNTD_nixie_tube_entity =
 {
   type = "lamp",
   name = "SNTD-nixie-tube",
-  icon = "__SantasNixieTubeDisplay__/graphics/nixie-tube-base.png",
-  icon_size = 32,
+  icon = SNTD_nixie_tube_item.icon,
+  icon_size = SNTD_nixie_tube_item.icon_size,
   flags = {"placeable-neutral","player-creation","not-on-map"},
   minable = {hardness = 0.2, mining_time = 0.5, result = SNTD_nixie_tube_item.name},
   max_health = 55,
@@ -127,9 +127,9 @@ local SNTD_nixie_tube_sprite =
 {
   type = "arithmetic-combinator",
   name = "SNTD-nixie-tube-sprite",
-  icon = "__SantasNixieTubeDisplay__/graphics/nixie-tube-icon.png",
-  icon_size = 32,
-  flags = {"placeable-neutral", "placeable-off-grid", "player-creation", "hide-alt-info"},
+  icon = SNTD_nixie_tube_item.icon,
+  icon_size = SNTD_nixie_tube_item.icon_size,
+  flags = {"placeable-neutral", "placeable-off-grid", "player-creation", "hide-alt-info", "not-blueprintable", "not-deconstructable"},
   minable = {hardness = 0.2, mining_time = 0.5, result = "SNTD-nixie-tube"},
   max_health = 200,
   order="z[zebra]",

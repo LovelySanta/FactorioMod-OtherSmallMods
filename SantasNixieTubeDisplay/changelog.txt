@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.5
+Date: 9. 8. 2018
+  Fixes:
+    - Fixed invalid nixie when deconstructing using robots
+    - Fixed icon in power network only showing half
+---------------------------------------------------------------------------------------------------
 Version: 0.1.4
 Date: 16. 5. 2018
   Changes:

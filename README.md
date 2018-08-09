@@ -10,3 +10,7 @@
 #### [Santa's Nixie Tube Display](https://github.com/LovelySanta/FactorioMods/tree/master/SantasNixieTubeDisplay)
 * Description: Mod that adds some nixie tubes from the nixie tube mod, in exchange for some extra UPS
 * Latest version: [0.1.4](https://mods.factorio.com/mod/SantasNixieTubeDisplay)
+
+#### [ShredNation must-have mods](https://github.com/LovelySanta/FactorioMod-OtherSmallMods/tree/master/ShredNation_MustHaveMods)
+* Description: A soft-mod containing all dependencies on the must-have mods for the ShredNation.
+* Latest version: [0.16.1](https://mods.factorio.com/mod/ShredNation_MustHaveMods)

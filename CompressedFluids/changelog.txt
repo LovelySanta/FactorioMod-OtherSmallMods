@@ -1,8 +1,12 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.1
+Date: 16. 09. 2018
+  Changes:
+    - Changed technology ingredients to require science pack 2
   Fixes:
     - Fixed localised name of the compressing technology
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.0
+Date: 16. 09. 2018
   Features:
     - Initial release

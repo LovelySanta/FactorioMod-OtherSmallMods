@@ -15,8 +15,8 @@ data:extend{
     unit =
     {
       count = 250,
-      ingredients = data.raw.technology["fluid-handling"].unit.ingredients,
-      time = 2 * data.raw.technology["fluid-handling"].unit.time,
+      ingredients = data.raw.technology["engine"].unit.ingredients,
+      time = 2 * data.raw.technology["engine"].unit.time,
     },
     upgrade = false,
     order = "d-a-a"

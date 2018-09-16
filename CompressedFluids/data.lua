@@ -1,0 +1,5 @@
+require "prototypes/categories/recipe-category"
+require "prototypes/entity/compressor"
+require "prototypes/item/compressor"
+require "prototypes/recipe/compressor"
+require "prototypes/technology/compressor"

@@ -18,6 +18,7 @@ local stateDisplay = {
 
 
 local validNixieNumber = {
+  ['SNTD-old-nixie-tube'] = 1,
   ['SNTD-nixie-tube'] = 1,
   ['SNTD-nixie-tube-small'] = 2
 }
@@ -158,8 +159,13 @@ local function onPlaceEntity(event)
       -- place nixie at same spot
       local name, position
       if num == 1 then -- large nixie, one sprites
-        name = "SNTD-nixie-tube-sprite"
-        position = {x = pos.x + 1/32, y = pos.y + 1/32}
+        if entity.name == "SNTD-nixie-tube" then
+          name = "SNTD-nixie-tube-sprite"
+          position = {x = pos.x + 1/32, y = pos.y + 1/32}
+        else -- old nixie tube
+          name = "SNTD-old-nixie-tube-sprite"
+          position = {x = pos.x + 1/32, y = pos.y + 3.5/32}
+        end
       else -- small nixie, two sprites
         name = "SNTD-nixie-tube-small-sprite"
         position = {x = pos.x - 4/32 + ((n-1)*10/32), y = pos.y + 3/32}

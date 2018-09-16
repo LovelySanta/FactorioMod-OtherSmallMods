@@ -44,7 +44,7 @@ local SNTD_nixie_tube_small_item =
   icon_size = 32,
   flags = {"goes-to-quickbar"},
   subgroup = "circuit-network",
-  order = "c-a",
+  order = "c-a-c",
   place_result = "SNTD-nixie-tube-small",
   stack_size = 50
 }
@@ -112,7 +112,7 @@ local SNTD_nixie_tube_small_sprite =
   name = "SNTD-nixie-tube-small-sprite",
   icon = SNTD_nixie_tube_small_item.icon,
   icon_size = SNTD_nixie_tube_small_item.icon_size,
-  flags = {"placeable-neutral", "placeable-off-grid", "player-creation", "hide-alt-info","not-blueprintable", "not-deconstructable"},
+  flags = {"placeable-neutral", "placeable-off-grid", "hide-alt-info","not-blueprintable", "not-deconstructable"},
   minable = {hardness = 0.2, mining_time = 0.5, result = "SNTD-nixie-tube-small"},
   max_health = 200,
   order="z[zebra]",

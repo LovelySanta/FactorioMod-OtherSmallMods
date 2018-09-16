@@ -1,29 +1,29 @@
 require ("util")
 
-local shift_digit = {x = -1/32, y = -7/32}
+local shift_digit = {x = -1/32, y = -20/32}
 local arrow_box = {{-.5, 1}, {0.5, 1}}
 
-circuit_connector_definitions["SNTD-nixie-tube"] = circuit_connector_definitions.create
+circuit_connector_definitions["SNTD-old-nixie-tube"] = circuit_connector_definitions.create
 (
   universal_connector_template,
   {
-    { variation = 26,
-    main_offset = util.by_pixel(2.5, 18.0),
-    shadow_offset = util.by_pixel(2.0, 18.0),
+    { variation = 27, --26
+    main_offset = util.by_pixel(10.5, 3.0),
+    shadow_offset = util.by_pixel(10.0, 3.0),
     show_shadow = true },
   }
 )
 
-local function SNTD_nixie_tube_sprite_getNumber(number)
+local function SNTD_old_nixie_tube_sprite_getNumber(number)
   local function getNumberOrientation(number)
     local orientation = {}
-    orientation.filename = "__SantasNixieTubeDisplay__/graphics/nixie-tube-numbers.png"
-    orientation.width = 20
-    orientation.height = 44
+    orientation.filename = "__SantasNixieTubeDisplay__/graphics/old-nixie-tube-numbers.png"
+    orientation.width = 27
+    orientation.height = 45
     orientation.scale = 1
     orientation.shift = shift_digit
-    orientation.x = orientation.width * number
-    orientation.y=0
+    orientation.x=0
+    orientation.y=orientation.height * (number+1)
 
     return util.table.deepcopy(orientation)
   end
@@ -36,45 +36,45 @@ local function SNTD_nixie_tube_sprite_getNumber(number)
   })
 end
 
-local SNTD_nixie_tube_recipe =
+local SNTD_old_nixie_tube_recipe =
 {
   type = "recipe",
-  name = "SNTD-nixie-tube",
+  name = "SNTD-old-nixie-tube",
   enabled = "false",
   ingredients = {
     {"electronic-circuit", 1},
     {"iron-plate", 2},
     {"iron-stick", 10},
   },
-  result = "SNTD-nixie-tube"
+  result = "SNTD-old-nixie-tube"
 }
 
-local SNTD_nixie_tube_item =
+local SNTD_old_nixie_tube_item =
 {
   type = "item",
-  name = "SNTD-nixie-tube",
-  icon = "__SantasNixieTubeDisplay__/graphics/nixie-tube-icon.png",
+  name = "SNTD-old-nixie-tube",
+  icon = "__SantasNixieTubeDisplay__/graphics/old-nixie-tube-icon.png",
   icon_size = 32,
   flags = {"goes-to-quickbar"},
   subgroup = "circuit-network",
-  order = "c-a-b",
-  place_result = "SNTD-nixie-tube",
+  order = "c-a-a",
+  place_result = "SNTD-old-nixie-tube",
   stack_size = 50
 }
 
-local SNTD_nixie_tube_entity =
+local SNTD_old_nixie_tube_entity =
 {
   type = "lamp",
-  name = "SNTD-nixie-tube",
-  icon = SNTD_nixie_tube_item.icon,
-  icon_size = SNTD_nixie_tube_item.icon_size,
+  name = "SNTD-old-nixie-tube",
+  icon = SNTD_old_nixie_tube_item.icon,
+  icon_size = SNTD_old_nixie_tube_item.icon_size,
   flags = {"placeable-neutral","player-creation","not-on-map"},
-  minable = {hardness = 0.2, mining_time = 0.5, result = SNTD_nixie_tube_item.name},
+  minable = {hardness = 0.2, mining_time = 0.5, result = SNTD_old_nixie_tube_item.name},
   max_health = 55,
   order = "z[zebra]",
   corpse = "small-remnants",
-  collision_box = {{-0.49, -0.9}, {0.49, .9}},
-  selection_box = {{-.5, -1.0}, {0.5, 1.0}},
+  collision_box = {{-.49, -.45}, {.49, .45}},
+  selection_box = {{-.5 , -.5 }, {.5 , .5 }},
   energy_source =
   {
     type = "electric",
@@ -84,14 +84,14 @@ local SNTD_nixie_tube_entity =
   light = {intensity = 0.0, size = 0, color = {r=1, g=.6, b=.3, a=0}},
   picture_off =
   {
-    filename = "__SantasNixieTubeDisplay__/graphics/nixie-tube-base.png",
+    filename = "__SantasNixieTubeDisplay__/graphics/old-nixie-tube-base.png",
     priority = "high",
-    width = 40,
-    height = 64,
+    width = 64,
+    height = 55,
     frame_count = 1,
     axially_symmetrical = false,
     direction_count = 1,
-    shift = {4/32,0}
+    shift = {16/32,-13/32}
   },
   picture_on =
   {
@@ -117,18 +117,18 @@ local SNTD_nixie_tube_entity =
       green = {12/32, 28/32},
     }
   },
-  circuit_wire_connection_point = circuit_connector_definitions["SNTD-nixie-tube"].points,
-  circuit_connector_sprites = circuit_connector_definitions["SNTD-nixie-tube"].sprites,
+  circuit_wire_connection_point = circuit_connector_definitions["SNTD-old-nixie-tube"].points,
+  circuit_connector_sprites = circuit_connector_definitions["SNTD-old-nixie-tube"].sprites,
 
   circuit_wire_max_distance = 7.5
 }
 
-local SNTD_nixie_tube_sprite =
+local SNTD_old_nixie_tube_sprite =
 {
   type = "arithmetic-combinator",
-  name = "SNTD-nixie-tube-sprite",
-  icon = SNTD_nixie_tube_item.icon,
-  icon_size = SNTD_nixie_tube_item.icon_size,
+  name = "SNTD-old-nixie-tube-sprite",
+  icon = SNTD_old_nixie_tube_item.icon,
+  icon_size = SNTD_old_nixie_tube_item.icon_size,
   flags = {"placeable-neutral", "placeable-off-grid", "hide-alt-info", "not-blueprintable", "not-deconstructable"},
   minable = {hardness = 0.2, mining_time = 0.5, result = "SNTD-nixie-tube"},
   max_health = 200,
@@ -162,29 +162,29 @@ local SNTD_nixie_tube_sprite =
   sprites = {
     north = {
       filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 40,
-      height = 64,
+      width = 1,
+      height = 1,
       frame_count = 1,
       shift = {0,0}
     },
     east = {
       filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 40,
-      height = 64,
+      width = 1,
+      height = 1,
       frame_count = 1,
       shift = {0,0}
     },
     south = {
       filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 40,
-      height = 64,
+      width = 1,
+      height = 1,
       frame_count = 1,
       shift = {0,0}
     },
     west = {
       filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 40,
-      height = 64,
+      width = 1,
+      height = 1,
       frame_count = 1,
       shift = {0,0}
     }
@@ -284,16 +284,16 @@ local SNTD_nixie_tube_sprite =
     }
   },
 
-  plus_symbol_sprites        = SNTD_nixie_tube_sprite_getNumber(0), -- number 0
-  minus_symbol_sprites       = SNTD_nixie_tube_sprite_getNumber(1), -- number 1
-  divide_symbol_sprites      = SNTD_nixie_tube_sprite_getNumber(2), -- number 2
-  modulo_symbol_sprites      = SNTD_nixie_tube_sprite_getNumber(3), -- number 3
-  power_symbol_sprites       = SNTD_nixie_tube_sprite_getNumber(4), -- number 4
-  left_shift_symbol_sprites  = SNTD_nixie_tube_sprite_getNumber(5), -- number 5
-  right_shift_symbol_sprites = SNTD_nixie_tube_sprite_getNumber(6), -- number 6
-  and_symbol_sprites         = SNTD_nixie_tube_sprite_getNumber(7), -- number 7
-  or_symbol_sprites          = SNTD_nixie_tube_sprite_getNumber(8), -- number 8
-  xor_symbol_sprites         = SNTD_nixie_tube_sprite_getNumber(9), -- number 9
+  plus_symbol_sprites        = SNTD_old_nixie_tube_sprite_getNumber(0), -- number 0
+  minus_symbol_sprites       = SNTD_old_nixie_tube_sprite_getNumber(1), -- number 1
+  divide_symbol_sprites      = SNTD_old_nixie_tube_sprite_getNumber(2), -- number 2
+  modulo_symbol_sprites      = SNTD_old_nixie_tube_sprite_getNumber(3), -- number 3
+  power_symbol_sprites       = SNTD_old_nixie_tube_sprite_getNumber(4), -- number 4
+  left_shift_symbol_sprites  = SNTD_old_nixie_tube_sprite_getNumber(5), -- number 5
+  right_shift_symbol_sprites = SNTD_old_nixie_tube_sprite_getNumber(6), -- number 6
+  and_symbol_sprites         = SNTD_old_nixie_tube_sprite_getNumber(7), -- number 7
+  or_symbol_sprites          = SNTD_old_nixie_tube_sprite_getNumber(8), -- number 8
+  xor_symbol_sprites         = SNTD_old_nixie_tube_sprite_getNumber(9), -- number 9
 
   input_connection_bounding_box = arrow_box,
   input_connection_points = {
@@ -386,12 +386,11 @@ local SNTD_nixie_tube_sprite =
   circuit_wire_max_distance = 9
 }
 
-
 data:extend{
 
   -- nixie-tube
-  SNTD_nixie_tube_recipe,
-  SNTD_nixie_tube_item,
-  SNTD_nixie_tube_entity,
-  SNTD_nixie_tube_sprite,
+  SNTD_old_nixie_tube_recipe,
+  SNTD_old_nixie_tube_item,
+  SNTD_old_nixie_tube_entity,
+  SNTD_old_nixie_tube_sprite,
 }

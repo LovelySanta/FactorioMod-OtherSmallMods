@@ -9,7 +9,7 @@ for fluidName,fluidPrototype in pairs(data.raw.fluid) do
         hide_from_stats = true,
         enabled = true,
         category = "fluid-compressing",
-        energy_required = 1,
+        energy_required = .1,
         ingredients =
         {
           {type="fluid", name=fluidName, amount=settings.startup["fluid-compression-rate"].value}

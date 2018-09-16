@@ -5,7 +5,7 @@ data:extend{
   setting_type = "startup",
   minimum_value = 2,
   maximum_value = 100,
-  default_value = 100,
+  default_value = 10,
   order = "a",
 },
 }

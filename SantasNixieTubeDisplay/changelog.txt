@@ -2,7 +2,9 @@
 Version: 0.1.6
 Date: 16. 9. 2018
   Features:
-    - New nixie tube sprite
+    - New additional nixie tube sprite
+  Changes:
+    - Added new nixie recipe to include the new nixie
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.5
 Date: 9. 8. 2018

@@ -41,10 +41,11 @@ local SNTD_old_nixie_tube_recipe =
   type = "recipe",
   name = "SNTD-old-nixie-tube",
   enabled = "false",
+  energy_required = 3,
   ingredients = {
     {"electronic-circuit", 1},
     {"iron-plate", 2},
-    {"iron-stick", 10},
+    {"copper-cable", 10},
   },
   result = "SNTD-old-nixie-tube"
 }
@@ -82,6 +83,13 @@ local SNTD_old_nixie_tube_entity =
   },
   energy_usage_per_tick = "4KW",
   light = {intensity = 0.0, size = 0, color = {r=1, g=.6, b=.3, a=0}},
+  resistances =
+  {
+    {
+      type = "fire",
+      percent = 50
+    },
+  },
   picture_off =
   {
     filename = "__SantasNixieTubeDisplay__/graphics/old-nixie-tube-base.png",

@@ -41,9 +41,10 @@ local SNTD_nixie_tube_recipe =
   type = "recipe",
   name = "SNTD-nixie-tube",
   enabled = "false",
+  energy_required = 5,
   ingredients = {
-    {"electronic-circuit", 1},
-    {"iron-plate", 2},
+    {"SNTD-old-nixie-tube", 1},
+    {"steel-plate", 3},
     {"iron-stick", 10},
   },
   result = "SNTD-nixie-tube"
@@ -70,7 +71,7 @@ local SNTD_nixie_tube_entity =
   icon_size = SNTD_nixie_tube_item.icon_size,
   flags = {"placeable-neutral","player-creation","not-on-map"},
   minable = {hardness = 0.2, mining_time = 0.5, result = SNTD_nixie_tube_item.name},
-  max_health = 55,
+  max_health = 200,
   order = "z[zebra]",
   corpse = "small-remnants",
   collision_box = {{-0.49, -0.9}, {0.49, .9}},
@@ -82,6 +83,17 @@ local SNTD_nixie_tube_entity =
   },
   energy_usage_per_tick = "4KW",
   light = {intensity = 0.0, size = 0, color = {r=1, g=.6, b=.3, a=0}},
+  resistances =
+  {
+    {
+      type = "fire",
+      percent = 100
+    },
+    {
+      type = "physical",
+      percent = 50
+    },
+  },
   picture_off =
   {
     filename = "__SantasNixieTubeDisplay__/graphics/nixie-tube-base.png",

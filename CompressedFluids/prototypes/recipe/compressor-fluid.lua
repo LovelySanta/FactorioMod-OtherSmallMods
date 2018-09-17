@@ -1,3 +1,5 @@
+local compressionRate = settings.startup["fluid-compression-rate"].value
+local compressionSpeed = settings.startup["fluid-compression-speed"].value
 
 for fluidName,fluidPrototype in pairs(data.raw.fluid) do
   if (fluidPrototype.auto_barrel == nil) or (fluidPrototype.auto_barrel == "true") or (fluidPrototype.auto_barrel == true) then
@@ -12,11 +14,11 @@ for fluidName,fluidPrototype in pairs(data.raw.fluid) do
         energy_required = .1,
         ingredients =
         {
-          {type="fluid", name=fluidName, amount=settings.startup["fluid-compression-rate"].value}
+          {type="fluid", name=fluidName, amount=compressionRate*compressionSpeed}
         },
         results =
         {
-          {type="fluid", name="high-pressure-"..fluidName, amount=1}
+          {type="fluid", name="high-pressure-"..fluidName, amount=compressionSpeed}
         }
       },
 
@@ -26,15 +28,15 @@ for fluidName,fluidPrototype in pairs(data.raw.fluid) do
         hidden = true,
         hide_from_stats = true,
         enabled = true,
-        category = "fluid-compressing",
+        category = "fluid-decompressing",
         energy_required = .1,
         ingredients =
         {
-          {type="fluid", name="high-pressure-"..fluidName, amount=1}
+          {type="fluid", name="high-pressure-"..fluidName, amount=compressionSpeed}
         },
         results =
         {
-          {type="fluid", name=fluidName, amount=settings.startup["fluid-compression-rate"].value}
+          {type="fluid", name=fluidName, amount=compressionRate*compressionSpeed}
         }
       },
     }

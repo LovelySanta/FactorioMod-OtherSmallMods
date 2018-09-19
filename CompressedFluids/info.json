@@ -1,11 +1,11 @@
 {
   "name": "CompressedFluids",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "factorio_version": "0.16",
   "title": "Compressed Fluids",
   "author": "lovely_santa",
-  "homepage": "https://mods.factorio.com/mod/compressedFluids",
-  "description": "Tired of fluid throughput issues? Compress fluids to increase throughput significantly.",
+  "homepage": "https://mods.factorio.com/mod/CompressedFluids",
+  "description": "Tired of fluid throughput issues? Pressurize fluids to increase throughput significantly.",
   "dependencies": [
     "base >= 0.16.51"
   ]

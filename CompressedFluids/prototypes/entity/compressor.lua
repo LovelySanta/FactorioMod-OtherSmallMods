@@ -12,9 +12,9 @@ data:extend{
     collision_box = {{-0.29, -0.29}, {0.29, 0.29}},
     selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
     crafting_categories = {"fluid-compressing","fluid-decompressing"},
-    result_inventory_size = math.ceil((1.5/1000)*settings.startup["fluid-compression-rate"].value*settings.startup["fluid-compression-speed"].value),
+    result_inventory_size = 1,
     crafting_speed = 1,
-    source_inventory_size = math.ceil((1.5/1000)*settings.startup["fluid-compression-rate"].value*settings.startup["fluid-compression-speed"].value),
+    source_inventory_size = 1,
     resistances =
     {
       {

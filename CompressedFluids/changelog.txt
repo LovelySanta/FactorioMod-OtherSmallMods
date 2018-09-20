@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.5
+Date: 19. 09. 2018
+  Changes:
+    - Increased settings again to allow a speed up to 100
+  Fixes:
+    - Fixed output inventory size wasn't working correctly, no more need for multiple output boxes
+---------------------------------------------------------------------------------------------------
 Version: 0.1.4
 Date: 19. 09. 2018
   Fixes:

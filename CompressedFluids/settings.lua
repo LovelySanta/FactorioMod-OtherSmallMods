@@ -13,7 +13,7 @@ data:extend{
     name = "fluid-compression-speed",
     setting_type = "startup",
     minimum_value = 1,
-    maximum_value = 10,
+    maximum_value = 100,
     default_value = 10,
     order = "b",
   },

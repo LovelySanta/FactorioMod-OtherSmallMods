@@ -1,17 +1,19 @@
-require ("util")
+require "util"
+require "lib.prototyping.circuit-network"
 
 local shift_digit = {x = -1/32, y = -20/32}
 local arrow_box = {{-.5, 1}, {0.5, 1}}
 
-circuit_connector_definitions["SNTD-old-nixie-tube"] = circuit_connector_definitions.create
+circuit_connector_definitions["SNTD-old-nixie-tube"] = circuit_connector_definitions.create_scaled
 (
   universal_connector_template,
   {
     { variation = 27, --26
-    main_offset = util.by_pixel(10.5, 3.0),
-    shadow_offset = util.by_pixel(10.0, 3.0),
+    main_offset = util.by_pixel(20.5, 13.0),
+    shadow_offset = util.by_pixel(20.0, 13.0),
     show_shadow = true },
-  }
+  },
+  .5
 )
 
 local function SNTD_old_nixie_tube_sprite_getNumber(number)

@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.7
+Date: 27. 10. 2018
+  Changes:
+    - Made smaller circuit network connector sprites for the regular nixie tube (not reinforced)
+    - New screenshots for the mod page (and also available in the mod itself)
+---------------------------------------------------------------------------------------------------
 Version: 0.1.6
 Date: 16. 9. 2018
   Features:

@@ -24,6 +24,7 @@ for fluidName,fluidPrototype in pairs(util.table.deepcopy(data.raw.fluid)) do
     })
 
     fluidPrototype.subgroup = fluidPrototype.subgroup or "fluid-recipes"
+    fluidPrototype.order = fluidPrototype.order or "zzz"
     if not data.raw["item-subgroup"]["compressed-fluids["..data.raw["item-subgroup"][fluidPrototype.subgroup].group.."]"] then
       data:extend{
         {

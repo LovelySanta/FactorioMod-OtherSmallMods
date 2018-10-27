@@ -5,7 +5,7 @@
   "title": "Pressurized Fluids",
   "author": "lovely_santa",
   "homepage": "https://mods.factorio.com/mod/CompressedFluids",
-  "description": "Tired of fluid throughput issues? Pressurize fluids to increase throughput significantly.",
+  "description": "Tired of pipe throughput issues? Presurize fluids to increase throughput significantly.",
   "dependencies": [
     "base >= 0.16.51"
   ]

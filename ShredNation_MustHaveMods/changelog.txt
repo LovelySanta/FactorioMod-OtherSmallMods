@@ -1,4 +1,13 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.16.2
+Date: 8. 11. 2018
+  Major Features:
+    - Added mod "CompressedFluids" as optinal mod.
+    - Added mod "rewire" as needed mod.
+  Changes:
+    - Changed mod "FARL" to needed mod.
+    - Changed mod "Angel's Addons - Decorations - Shred" to needed mod.
+---------------------------------------------------------------------------------------------------
 Version: 0.16.1
 Date: 14. 6. 2018
   Major Features:

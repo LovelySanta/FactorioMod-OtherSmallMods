@@ -8,17 +8,19 @@
   "homepage": "https://github.com/LovelySanta/FactorioMods",
   "description": "A soft-mod containing all dependencies on the must-have mods for the ShredNation.",
   "dependencies": [
+    "angelsaddons-shred",
     "ChatToFile",
     "EvenMoreLight",
     "EvoGUI",
+    "FARL",
     "ManlyDeathScream",
     "nicefill",
     "pushbutton",
+    "rewire",
     "SantasNixieTubeDisplay",
     "UnminableVehicles",
 
-    "? angelsaddons-shred",
-    "? FARL",
+    "? CompressedFluids",
     "? InterFurnaceChange",
     "? LandMover"
   ]

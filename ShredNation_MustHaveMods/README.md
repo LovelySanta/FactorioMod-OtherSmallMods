@@ -10,6 +10,9 @@ Useful tool for streamers playing multilayer games with their streaming overlays
 ## [Even More Light](https://mods.factorio.com/mod/EvenMoreLight)
 This mod gives the player more light, that way it is not so dark at night. Also adds exra lights to Cars, Trains and some other vehicles.
 
+## [Equipment Hotkeys](https://mods.factorio.com/mod/EquipmentHotkeys_fixed)
+Adds hotkeys to toggle exoskeletons, night vision and personal roboports.
+
 ## [EvoGUI](https://mods.factorio.com/mod/EvoGUI)
 This mod places some indicators on your UI for various little statistics that are nice to have.
 
@@ -24,6 +27,9 @@ Mod that changes landfill. Landfill has the same texture as the surrounding tile
 
 ## [Pushbutton](https://mods.factorio.com/mod/pushbutton)
 Modified constant combinators that produce a single-tick pulse of the configured data when pushed (key 'f' by default). These are useful for making / testing many kinds of circuits. Also enables toggling Constant Combinators with the same key.
+
+## [Rewire](https://mods.factorio.com/mod/rewire)
+Neatly rewire electric grid setups.
 
 ## [Santa's Nixie Tube Display](https://mods.factorio.com/mod/SantasNixieTubeDisplay)
 Nixie tubes for display of circuit values. Nixies come in two sizes will link to the same size if they are side by side, and display the value configured in the condition of the rightmost digit. The condition itself is ignored.

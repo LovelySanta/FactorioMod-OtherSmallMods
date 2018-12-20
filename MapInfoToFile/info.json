@@ -1,12 +1,12 @@
 {
   "name": "MapInfoToFile",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "factorio_version": "0.16",
   "title": "Map info to file",
   "author": "lovely_santa",
-  "homepage": "https://mods.factorio.com/mod/ForceFields2",
-  "description": "Easy output map info to a file, for you to use in your streaming overlay.",
+  "homepage": "https://mods.factorio.com/mod/MapInfoToFile",
+  "description": "Easy output map info to a file, for you to use in your streaming overlay (see mod portal for detailed information).",
   "dependencies": [
-    "base >= 0.16.36"
+    "base"
   ]
 }

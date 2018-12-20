@@ -47,9 +47,9 @@ local function writeEvolution(_)
   local precision = 4
 
   local beforeDecimalPoint = math.floor(evolution)
-  local aftherDecimalPoint = math.floor((evolution - beforeDecimalPoint) * (10 ^ precision))
+  local afterDecimalPoint = math.floor((evolution - beforeDecimalPoint) * (10 ^ precision))
 
-  local evoFactor = "" .. beforeDecimalPoint .. "." .. aftherDecimalPoint .. " %"
+  local evoFactor = "" .. beforeDecimalPoint .. "." .. string.format("%0"..precision.."d", afterDecimalPoint) .. " %"
 
   game.write_file(folder .. "MapInfoToFile-evolution.txt", evoFactor, false)
 

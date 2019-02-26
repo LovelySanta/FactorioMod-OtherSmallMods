@@ -5,13 +5,6 @@ Mod that adds some nixie tubes from the [original mod](https://mods.factorio.com
 - Only positive numbers (negative numbers will show up as positive numbers at this time)
 - No colors (Nixies are originaly orange from the heated metal, maybe i'll look into adding this feature)
 
-# Screenshots
-#### Regular nixie tube display
-![Regular nixie display](https://raw.githubusercontent.com/LovelySanta/FactorioMod-OtherSmallMods/master/SantasNixieTubeDisplay/graphics/screenshots/02_Regular_nixie_display.png)
-
-#### Reinforced nixie tube display
-![Reinforced nixie display](https://raw.githubusercontent.com/LovelySanta/FactorioMod-OtherSmallMods/master/SantasNixieTubeDisplay/graphics/screenshots/03_Reinforced_nixie_display.png)
-
 # Changelog
 ### Future
 + Negative numbers

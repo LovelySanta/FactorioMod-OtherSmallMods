@@ -58,7 +58,7 @@ local SNTD_old_nixie_tube_item =
   name = "SNTD-old-nixie-tube",
   icon = "__SantasNixieTubeDisplay__/graphics/old-nixie-tube-icon.png",
   icon_size = 32,
-  flags = {"goes-to-quickbar"},
+  --flags = {},
   subgroup = "circuit-network",
   order = "c-a-a",
   place_result = "SNTD-old-nixie-tube",
@@ -149,12 +149,12 @@ local SNTD_old_nixie_tube_sprite =
 
   energy_source =
   {
-    type = "electric",
+    type = "void",
     usage_priority = "secondary-input",
     render_no_network_icon = false,
     render_no_power_icon = false
   },
-  active_energy_usage = "0KW",
+  active_energy_usage = "1W",
 
   working_sound =
   {

@@ -56,7 +56,7 @@ local SNTD_nixie_tube_item =
   name = "SNTD-nixie-tube",
   icon = "__SantasNixieTubeDisplay__/graphics/nixie-tube-icon.png",
   icon_size = 32,
-  flags = {"goes-to-quickbar"},
+  --flags = {},
   subgroup = "circuit-network",
   order = "c-a-b",
   place_result = "SNTD-nixie-tube",
@@ -151,12 +151,12 @@ local SNTD_nixie_tube_sprite =
 
   energy_source =
   {
-    type = "electric",
+    type = "void",
     usage_priority = "secondary-input",
     render_no_network_icon = false,
     render_no_power_icon = false
   },
-  active_energy_usage = "0KW",
+  active_energy_usage = "1W",
 
   working_sound =
   {
@@ -174,29 +174,29 @@ local SNTD_nixie_tube_sprite =
   sprites = {
     north = {
       filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 40,
-      height = 64,
+      width = 1,
+      height = 1,
       frame_count = 1,
       shift = {0,0}
     },
     east = {
       filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 40,
-      height = 64,
+      width = 1,
+      height = 1,
       frame_count = 1,
       shift = {0,0}
     },
     south = {
       filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 40,
-      height = 64,
+      width = 1,
+      height = 1,
       frame_count = 1,
       shift = {0,0}
     },
     west = {
       filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 40,
-      height = 64,
+      width = 1,
+      height = 1,
       frame_count = 1,
       shift = {0,0}
     }

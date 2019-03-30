@@ -95,7 +95,7 @@ local SNTD_nixie_tube_small_entity =
   picture_on =
   {
     filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-    priority = "high",
+    priority = "low",
     width = 1,
     height = 1,
     frame_count = 1,
@@ -116,6 +116,15 @@ local SNTD_nixie_tube_small_entity =
   },
   circuit_connector_sprites = nil,
   circuit_wire_max_distance = 7.5
+}
+
+local emptySprite =
+{
+  filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
+  width = 1,
+  height = 1,
+  frame_count = 1,
+  shift = {0,0}
 }
 
 local SNTD_nixie_tube_small_sprite =
@@ -154,71 +163,20 @@ local SNTD_nixie_tube_small_sprite =
   vehicle_impact_sound =  { filename = "__base__/sound/car-metal-impact.ogg", volume = 0.65 },
 
   -- base of the nixie tube
-  sprites = {
-    north = {
-      filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 1,
-      height = 1,
-      frame_count = 1,
-      shift = {0,0}
-    },
-    east = {
-      filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 1,
-      height = 1,
-      frame_count = 1,
-      shift = {0,0}
-    },
-    south = {
-      filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 1,
-      height = 1,
-      frame_count = 1,
-      shift = {0,0}
-    },
-    west = {
-      filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 1,
-      height = 1,
-      frame_count = 1,
-      shift = {0,0}
-    }
+  sprites =
+  {
+    north = emptySprite,
+    east  = emptySprite,
+    south = emptySprite,
+    west  = emptySprite,
   },
 
   activity_led_sprites =
   {
-    north =
-    {
-      filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 1,
-      height = 1,
-      frame_count = 1,
-      shift = {0,0}
-    },
-    east =
-    {
-      filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 1,
-      height = 1,
-      frame_count = 1,
-      shift = {0,0}
-    },
-    south =
-    {
-      filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 1,
-      height = 1,
-      frame_count = 1,
-      shift = {0,0}
-    },
-    west =
-    {
-      filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 1,
-      height = 1,
-      frame_count = 1,
-      shift = {0,0}
-    }
+    north = emptySprite,
+    east  = emptySprite,
+    south = emptySprite,
+    west  = emptySprite,
   },
 
   activity_led_light =
@@ -252,35 +210,12 @@ local SNTD_nixie_tube_small_sprite =
   },
 
   -- empty number display
-  multiply_symbol_sprites = {
-    north = {
-      filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 1,
-      height = 1,
-      shift = shift_digit,
-      scale=.5
-    },
-    east = {
-      filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 1,
-      height = 1,
-      shift = shift_digit,
-      scale=.5
-    },
-    south = {
-      filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 1,
-      height = 1,
-      shift = shift_digit,
-      scale=.5
-    },
-    west = {
-      filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 1,
-      height = 1,
-      shift = shift_digit,
-      scale=.5
-    }
+  multiply_symbol_sprites =
+  {
+    north = emptySprite,
+    east  = emptySprite,
+    south = emptySprite,
+    west  = emptySprite,
   },
 
   plus_symbol_sprites        = SNTD_nixie_tube_sprite_small_getNumber(0), -- number 0

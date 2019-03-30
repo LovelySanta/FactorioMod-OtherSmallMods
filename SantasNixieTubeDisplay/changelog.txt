@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.9
+Date: 30. 03. 2019
+  Changes:
+    - Made smaller circuit network connector sprites for the reinforced nixie tube
+  Modding:
+    - Listening to script_raised events (mod compatibility with "Construction Drones" mod)
+---------------------------------------------------------------------------------------------------
 Version: 0.1.8
 Date: 26. 02. 2019
   Features:

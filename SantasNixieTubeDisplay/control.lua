@@ -142,7 +142,7 @@ end
 
 local function onPlaceEntity(event)
 
-  local entity = event.created_entity
+  local entity = event.created_entity or event.entity
   if not entity.valid then
     game.print("invalid placement?")
     return
@@ -260,7 +260,7 @@ end
 local function onTickController(entity)
 
   if not entity.valid then
-    onRemoveEntity(entity)
+    onRemoveEntity{entity=entity}
     game.print("Removed a invalid nixie (you're welcome)")
     return
   end
@@ -305,9 +305,11 @@ end)
 
 script.on_event(defines.events.on_built_entity, onPlaceEntity)
 script.on_event(defines.events.on_robot_built_entity, onPlaceEntity)
+script.on_event(defines.events.script_raised_revive, onPlaceEntity)
 
 script.on_event(defines.events.on_pre_player_mined_item, onRemoveEntity)
 script.on_event(defines.events.on_robot_pre_mined, onRemoveEntity)
 script.on_event(defines.events.on_entity_died, onRemoveEntity)
+script.on_event(defines.events.script_raised_destroy, onRemoveEntity)
 
 script.on_event(defines.events.on_tick, onTick)

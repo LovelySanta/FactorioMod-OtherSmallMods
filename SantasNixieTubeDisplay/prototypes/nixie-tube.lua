@@ -3,15 +3,16 @@ require ("util")
 local shift_digit = {x = -1/32, y = -7/32}
 local arrow_box = {{-.5, 1}, {0.5, 1}}
 
-circuit_connector_definitions["SNTD-nixie-tube"] = circuit_connector_definitions.create
+circuit_connector_definitions["SNTD-nixie-tube"] = circuit_connector_definitions.create_scaled
 (
   universal_connector_template,
   {
     { variation = 26,
-    main_offset = util.by_pixel(2.5, 18.0),
-    shadow_offset = util.by_pixel(2.0, 18.0),
+    main_offset = util.by_pixel(-0.5, 34.5), -- util.by_pixel(2.5, 18.0),
+    shadow_offset = util.by_pixel(-1.0, 34.5), -- util.by_pixel(2.0, 18.0),
     show_shadow = true },
-  }
+  },
+  .65
 )
 
 local function SNTD_nixie_tube_sprite_getNumber(number)
@@ -108,7 +109,7 @@ local SNTD_nixie_tube_entity =
   picture_on =
   {
     filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-    priority = "high",
+    priority = "low",
     width = 1,
     height = 1,
     frame_count = 1,
@@ -133,6 +134,15 @@ local SNTD_nixie_tube_entity =
   circuit_connector_sprites = circuit_connector_definitions["SNTD-nixie-tube"].sprites,
 
   circuit_wire_max_distance = 7.5
+}
+
+local emptySprite =
+{
+  filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
+  width = 1,
+  height = 1,
+  frame_count = 1,
+  shift = {0,0}
 }
 
 local SNTD_nixie_tube_sprite =
@@ -171,71 +181,20 @@ local SNTD_nixie_tube_sprite =
   vehicle_impact_sound =  { filename = "__base__/sound/car-metal-impact.ogg", volume = 0.65 },
 
   -- base of the nixie tube
-  sprites = {
-    north = {
-      filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 1,
-      height = 1,
-      frame_count = 1,
-      shift = {0,0}
-    },
-    east = {
-      filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 1,
-      height = 1,
-      frame_count = 1,
-      shift = {0,0}
-    },
-    south = {
-      filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 1,
-      height = 1,
-      frame_count = 1,
-      shift = {0,0}
-    },
-    west = {
-      filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 1,
-      height = 1,
-      frame_count = 1,
-      shift = {0,0}
-    }
+  sprites =
+  {
+    north = emptySprite,
+    east  = emptySprite,
+    south = emptySprite,
+    west  = emptySprite,
   },
 
   activity_led_sprites =
   {
-    north =
-    {
-      filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 1,
-      height = 1,
-      frame_count = 1,
-      shift = {0,0}
-    },
-    east =
-    {
-      filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 1,
-      height = 1,
-      frame_count = 1,
-      shift = {0,0}
-    },
-    south =
-    {
-      filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 1,
-      height = 1,
-      frame_count = 1,
-      shift = {0,0}
-    },
-    west =
-    {
-      filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 1,
-      height = 1,
-      frame_count = 1,
-      shift = {0,0}
-    }
+    north = emptySprite,
+    east  = emptySprite,
+    south = emptySprite,
+    west  = emptySprite,
   },
 
   activity_led_light =
@@ -269,31 +228,12 @@ local SNTD_nixie_tube_sprite =
   },
 
   -- empty number display
-  multiply_symbol_sprites = {
-    north = {
-      filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 1,
-      height = 1,
-      shift = shift_digit
-    },
-    east = {
-      filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 1,
-      height = 1,
-      shift = shift_digit
-    },
-    south = {
-      filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 1,
-      height = 1,
-      shift = shift_digit
-    },
-    west = {
-      filename = "__SantasNixieTubeDisplay__/graphics/empty.png",
-      width = 1,
-      height = 1,
-      shift = shift_digit
-    }
+  multiply_symbol_sprites =
+  {
+    north = emptySprite,
+    east  = emptySprite,
+    south = emptySprite,
+    west  = emptySprite,
   },
 
   plus_symbol_sprites        = SNTD_nixie_tube_sprite_getNumber(0), -- number 0

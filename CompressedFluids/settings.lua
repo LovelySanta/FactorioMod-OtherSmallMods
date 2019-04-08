@@ -11,8 +11,8 @@ data:extend{
     name = "fluid-compression-rate",
     setting_type = "startup",
     minimum_value = 2,
-    maximum_value = 100,
-    default_value = 10,
+    maximum_value = 1000,
+    default_value = 100,
     order = "b",
   },
   {
@@ -20,8 +20,8 @@ data:extend{
     name = "fluid-compression-speed",
     setting_type = "startup",
     minimum_value = 1,
-    maximum_value = 100,
-    default_value = 10,
+    maximum_value = 12000,
+    default_value = 12000,
     order = "c",
   },
 }

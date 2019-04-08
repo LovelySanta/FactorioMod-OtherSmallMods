@@ -1,3 +1,9 @@
+--See prototypes/recipie/compressor-fluid.lua for explainations
+local compressionRate = settings.startup["fluid-compression-rate"].value
+local compressionFlow = settings.startup["fluid-compression-speed"].value
+local inputBaseArea = math.ceil(compressionFlow / 100)
+local outputBaseArea = math.ceil(compressionFlow / compressionRate / 100)
+
 data:extend{
   {
     type = "furnace",
@@ -35,14 +41,14 @@ data:extend{
       {
         production_type = "input",
         pipe_covers = pipecoverspictures(),
-        base_area = math.ceil((10*settings.startup["fluid-compression-rate"].value*settings.startup["fluid-compression-speed"].value)/100),
+        base_area = inputBaseArea,
         base_level = -1,
         pipe_connections = {{ type="input", position = {0, -1} }}
       },
       {
         production_type = "output",
         pipe_covers = pipecoverspictures(),
-        base_area = math.ceil((10*settings.startup["fluid-compression-rate"].value*settings.startup["fluid-compression-speed"].value)/100),
+        base_area = outputBaseArea,
         base_level = 1,
         pipe_connections = {{ position = {0, 1} }}
       },

@@ -1,19 +1,12 @@
 data:extend{
   {
-    type = "bool-setting",
-    name = "fluid-compression-singeEntity",
-    setting_type = "startup",
-    default_value = false,
-    order = "a",
-  },
-  {
     type = "int-setting",
     name = "fluid-compression-rate",
     setting_type = "startup",
     minimum_value = 2,
     maximum_value = 100,
     default_value = 10,
-    order = "b",
+    order = "a[settings]-a",
   },
   {
     type = "int-setting",
@@ -22,6 +15,27 @@ data:extend{
     minimum_value = 1,
     maximum_value = 100,
     default_value = 10,
-    order = "c",
+    order = "a[settings]-b",
+  },
+  {
+    type = "bool-setting",
+    name = "fluid-compressor-singeEntity",
+    setting_type = "startup",
+    default_value = false,
+    order = "b[features]-a",
+  },
+  {
+    type = "bool-setting",
+    name = "fluid-compressor-manual-recipes",
+    setting_type = "startup",
+    default_value = false,
+    order = "b[features]-b",
+  },
+  {
+    type = "bool-setting",
+    name = "fluid-compressor-hide-recipes",
+    setting_type = "startup",
+    default_value = true,
+    order = "b[features]-c",
   },
 }

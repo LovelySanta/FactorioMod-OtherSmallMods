@@ -1,6 +1,6 @@
 data:extend{
   {
-    type = "furnace",
+    type = (settings.startup["fluid-compressor-manual-recipes"].value == false) and "furnace" or "assembling-machine",
     name = "fluid-compressor",
     icon = "__CompressedFluids__/graphics/icons/compressor.png",
     icon_size = 51,
@@ -42,7 +42,7 @@ data:extend{
       {
         production_type = "output",
         pipe_covers = pipecoverspictures(),
-        base_area = math.ceil((10*settings.startup["fluid-compression-rate"].value*settings.startup["fluid-compression-speed"].value)/100),
+        base_area = math.ceil((10*settings.startup["fluid-compression-speed"].value)/100),
         base_level = 1,
         pipe_connections = {{ position = {0, 1} }}
       },

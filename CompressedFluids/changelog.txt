@@ -1,4 +1,15 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.11
+Date: 16. 07. 2019
+  Features:
+    - Setting to allow the (de)compressor to have a selected recipe so empty pipes have fluid filters
+    - Setting to hide the (de)compressor recipes from the player crafting menu (when having selection option enabled)
+  Changes:
+    - When having both entities, the compressor output and decompressor input will buffer less compressed fluids
+    - New thumbnail
+  Bugfixes:
+    - Rotating a (de)compressor now rotates it 180 degrees instead of only 90 degrees
+---------------------------------------------------------------------------------------------------
 Version: 0.1.10
 Date: 26. 02. 2019
   Features:
@@ -6,18 +17,18 @@ Date: 26. 02. 2019
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.9
 Date: 3. 11. 2018
-  Fixes:
+  Bugfixes:
     - Fixed setting to toggle the expander didn't work correctly
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.8
 Date: 3. 11. 2018
-  Fixes:
+  Bugfixes:
     - Removed fuel_value from high pressure fluids
     - Removing heating capacity from high pressure fluids (max_temp = min_temp)
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.7
 Date: 27. 10. 2018
-  Fixes:
+  Bugfixes:
     - Fixed error when the fluids don't have an order string set
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.6
@@ -27,19 +38,19 @@ Date: 27. 10. 2018
   Changes:
     - High pressurised fluids now have a "HP" overlay to indicate high pressure
     - High pressurised fluids now show in a seperate fluid tab instead of mixed inbetween
-  Fixes:
+  Bugfixes:
     - Fixed compressor to the east was not aligned with the pipes connecting to it
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.5
 Date: 19. 09. 2018
   Changes:
     - Increased settings again to allow a speed up to 100
-  Fixes:
+  Bugfixes:
     - Fixed output inventory size wasn't working correctly, no more need for multiple output boxes
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.4
 Date: 19. 09. 2018
-  Fixes:
+  Bugfixes:
     - Compressed fluid icons are now hidden as intended (since they are duplicates of the regular fluid anyway)
     - Fixed error when settings where set too high it would error the compressor
     - Fixed broken link to homepage of the mod
@@ -57,14 +68,14 @@ Version: 0.1.2
 Date: 16. 09. 2018
   Changes:
     - Changed default compressing ratio to 10:1
-  Fixes:
+  Bugfixes:
     - Fixed decompressing time didn't match compressing
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.1
 Date: 16. 09. 2018
   Changes:
     - Changed technology ingredients to require science pack 2
-  Fixes:
+  Bugfixes:
     - Fixed localised name of the compressing technology
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.0

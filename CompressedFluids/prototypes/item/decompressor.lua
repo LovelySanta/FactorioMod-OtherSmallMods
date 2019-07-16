@@ -1,4 +1,4 @@
-if settings.startup["fluid-compression-singeEntity"].value == false then
+if settings.startup["fluid-compressor-singeEntity"].value == false then
   -- add overlay to compressor
   data.raw["item"]["fluid-compressor"].icons =
   {

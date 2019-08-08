@@ -1,10 +1,12 @@
+CF_compressedFluidNames = {}
 
 for fluidName,fluidPrototype in pairs(util.table.deepcopy(data.raw.fluid)) do
   if (fluidPrototype.auto_barrel == nil) or (fluidPrototype.auto_barrel == "true") or (fluidPrototype.auto_barrel == true) then
     fluidPrototype.auto_barrel = false
 
     fluidPrototype.name = "high-pressure-"..fluidName
-    fluidPrototype.localised_name = {"fluid-name.compressed-fluid", {"fluid-name."..fluidName}}
+    table.insert(CF_compressedFluidNames, fluidPrototype.name)
+    fluidPrototype.localised_name = {"fluid-name.compressed-fluid", fluidPrototype.localised_name or {"fluid-name."..fluidName}}
 
     if fluidPrototype.icon and (not fluidPrototype.icons) then
       fluidPrototype.icons = {{icon = fluidPrototype.icon}}

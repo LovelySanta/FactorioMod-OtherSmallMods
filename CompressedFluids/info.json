@@ -1,6 +1,6 @@
 {
   "name": "CompressedFluids",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "factorio_version": "0.17",
   "title": "Pressurized Fluids",
   "author": "lovely_santa",
@@ -8,6 +8,9 @@
   "homepage": "https://mods.factorio.com/mod/CompressedFluids",
   "description": "Tired of pipe throughput issues? Pressurize fluids to increase throughput significantly.",
   "dependencies": [
-    "base >= 0.17.57"
+    "base >= 0.17.57",
+
+    "? angelssmelting",
+    "? angelspetrochem"
   ]
 }

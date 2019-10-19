@@ -55,7 +55,7 @@ local SNTD_old_nixie_tube_recipe =
 local SNTD_old_nixie_tube_item =
 {
   type = "item",
-  name = "SNTD-old-nixie-tube",
+  name = SNTD_old_nixie_tube_recipe.result,
   icon = "__SantasNixieTubeDisplay__/graphics/old-nixie-tube-icon.png",
   icon_size = 32,
   --flags = {},
@@ -68,7 +68,7 @@ local SNTD_old_nixie_tube_item =
 local SNTD_old_nixie_tube_entity =
 {
   type = "lamp",
-  name = "SNTD-old-nixie-tube",
+  name = SNTD_old_nixie_tube_item.place_result,
   icon = SNTD_old_nixie_tube_item.icon,
   icon_size = SNTD_old_nixie_tube_item.icon_size,
   flags = {"placeable-neutral","player-creation","not-on-map"},
@@ -145,14 +145,15 @@ local emptySprite =
 local SNTD_old_nixie_tube_sprite =
 {
   type = "arithmetic-combinator",
-  name = "SNTD-old-nixie-tube-sprite",
+  name = SNTD_old_nixie_tube_entity.name.."-sprite",
+  localised_name = {"", "__ENTITY__"..SNTD_old_nixie_tube_entity.name.."__"},
   icon = SNTD_old_nixie_tube_item.icon,
   icon_size = SNTD_old_nixie_tube_item.icon_size,
   flags = {"placeable-neutral", "placeable-off-grid", "hide-alt-info", "not-blueprintable", "not-deconstructable"},
-  minable = {hardness = 0.2, mining_time = 0.5, result = "SNTD-nixie-tube"},
-  max_health = 200,
-  order="z[zebra]",
-  corpse = "small-remnants",
+  minable = SNTD_old_nixie_tube_entity.minable,
+  max_health = SNTD_old_nixie_tube_entity.max_health,
+  order = SNTD_old_nixie_tube_entity.order,
+  corpse = SNTD_old_nixie_tube_entity.corpse,
   collision_box = {{-0.1, -.1}, {.1,.1}},
   selection_box = {{0,-.5}, {0,-.5}},
 

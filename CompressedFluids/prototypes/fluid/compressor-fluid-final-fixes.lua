@@ -1,7 +1,7 @@
 
-for _,fluidNameHP in pairs(CF_compressedFluidNames) do
+for fluidName,fluidNameHP in pairs(CF_compressedFluidNames) do
   local fluidHP = data.raw.fluid[fluidNameHP]
-  local fluid = data.raw.fluid[string.sub(fluidNameHP, 15)]
+  local fluid = data.raw.fluid[fluidName]
 
   if not fluid then -- fluid was removed, remove HP as well
     fluidHP = nil

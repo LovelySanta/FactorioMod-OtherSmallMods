@@ -5,7 +5,8 @@ for fluidName,fluidPrototype in pairs(util.table.deepcopy(data.raw.fluid)) do
     fluidPrototype.auto_barrel = false
 
     fluidPrototype.name = "high-pressure-"..fluidName
-    table.insert(CF_compressedFluidNames, fluidPrototype.name)
+    CF_compressedFluidNames[fluidName] = fluidPrototype.name
+    
     fluidPrototype.localised_name = {"fluid-name.compressed-fluid", fluidPrototype.localised_name or {"fluid-name."..fluidName}}
 
     if fluidPrototype.icon and (not fluidPrototype.icons) then

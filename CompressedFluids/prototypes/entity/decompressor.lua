@@ -20,6 +20,9 @@ if settings.startup["fluid-compressor-singeEntity"].value == true then
 else
   local decompressor = util.table.deepcopy(compressor)
 
+  -- update localised description
+  decompressor.localised_description[2] = {"entity-description.fluid-decompressor"}
+
   -- make sure the decompressor works, this means allow to have a small
   -- input side, but have a big output side to output lots of fluids
   for _,decompressorFluidBox in pairs(decompressor.fluid_boxes) do

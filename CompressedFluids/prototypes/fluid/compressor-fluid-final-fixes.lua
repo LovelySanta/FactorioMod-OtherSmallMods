@@ -1,10 +1,11 @@
 
 for fluidName,fluidNameHP in pairs(CF_compressedFluidNames) do
+  local fluid   = data.raw.fluid[fluidName]
   local fluidHP = data.raw.fluid[fluidNameHP]
-  local fluid = data.raw.fluid[fluidName]
 
   if not fluid then -- fluid was removed, remove HP as well
     fluidHP = nil
+    CF_compressedFluidNames[fluidName] = nil
 
   elseif fluidHP then
     -- update icon

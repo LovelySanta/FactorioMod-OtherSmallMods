@@ -1,4 +1,21 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.16
+Date: 23. 04. 2020
+  Bugfixes:
+    - Fixed that (de)compressor wouldn't work if speed was set too high
+---------------------------------------------------------------------------------------------------
+Version: 0.1.15
+Date: 19. 04. 2020
+  Features:
+    - Setting to set the amount of fluid that is stored inside the compressors
+  Bugfixes:
+    - Fixed crash due to compressing recipes for non existing fluids
+---------------------------------------------------------------------------------------------------
+Version: 0.1.14
+Date: 25. 01. 2020
+  Features:
+    - Updated to base game 0.18
+---------------------------------------------------------------------------------------------------
 Version: 0.1.13
 Date: 19. 10. 2019
   Bugfixes:

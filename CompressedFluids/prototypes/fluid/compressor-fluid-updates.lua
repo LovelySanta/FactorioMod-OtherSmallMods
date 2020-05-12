@@ -38,7 +38,7 @@ for fluidName,fluidPrototype in pairs(util.table.deepcopy(data.raw.fluid)) do
     fluidPrototype.order = fluidPrototype.order or "zzz"                 -- make sure it has an order string
     -- If our subgroup is nil, insert a raw table
     local itemSubgroup = data.raw["item-subgroup"][fluidPrototype.subgroup] or {}
-    if not data.raw["item-subgroup"]["compressed-fluids["..itemSubgroup.group or "".."]"] then
+    if not data.raw["item-subgroup"]["compressed-fluids["..(itemSubgroup.group or "").."]"] then
       data:extend{
         {
           type = "item-subgroup",
@@ -49,8 +49,8 @@ for fluidName,fluidPrototype in pairs(util.table.deepcopy(data.raw.fluid)) do
       }
     end
 
-    fluidPrototype.order = itemSubgroup.order or "".."["..fluidPrototype.subgroup.."]-"..fluidPrototype.order
-    fluidPrototype.subgroup = "compressed-fluids["..itemSubgroup.group or "".."]"
+    fluidPrototype.order = (itemSubgroup.order or "").."["..fluidPrototype.subgroup.."]-"..fluidPrototype.order
+    fluidPrototype.subgroup = "compressed-fluids["..(itemSubgroup.group or "").."]"
 
     fluidPrototype.flags = fluidPrototype.flags or {}
     table.insert(fluidPrototype.flags, "hidden")

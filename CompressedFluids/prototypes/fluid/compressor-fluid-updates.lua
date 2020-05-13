@@ -1,14 +1,17 @@
 CF_compressedFluidNames = {}
 
 for fluidName,fluidPrototype in pairs(util.table.deepcopy(data.raw.fluid)) do
+  -- If the fluid is barrelable, we create the HP fluid
   if (fluidPrototype.auto_barrel == nil) or (fluidPrototype.auto_barrel == "true") or (fluidPrototype.auto_barrel == true) then
     fluidPrototype.auto_barrel = false
 
+    -- name
     fluidPrototype.name = "high-pressure-"..fluidName
     CF_compressedFluidNames[fluidName] = fluidPrototype.name
     
     fluidPrototype.localised_name = {"fluid-name.compressed-fluid", fluidPrototype.localised_name or {"fluid-name."..fluidName}}
 
+    -- icon
     if fluidPrototype.icon and (not fluidPrototype.icons) then
       fluidPrototype.icons = {{icon = fluidPrototype.icon}}
     end
@@ -26,6 +29,7 @@ for fluidName,fluidPrototype in pairs(util.table.deepcopy(data.raw.fluid)) do
       tint = {r=0,g=1,b=0}
     })
 
+    -- Fluid properties
     fluidPrototype.fuel_value = nil
     fluidPrototype.max_temperature = fluidPrototype.default_temperature
 

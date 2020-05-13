@@ -18,6 +18,15 @@ data:extend{
     order = "a[settings]-b",
   },
   {
+    type = "int-setting",
+    name = "fluid-compressor-buffer",
+    setting_type = "startup",
+    minimum_value = 1,
+    maximum_value = 10,
+    default_value = 2,
+    order = "a[settings]-c",
+  },
+  {
     type = "bool-setting",
     name = "fluid-compressor-singeEntity",
     setting_type = "startup",

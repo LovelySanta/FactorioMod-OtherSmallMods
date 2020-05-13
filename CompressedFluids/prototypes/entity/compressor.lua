@@ -1,7 +1,17 @@
+local compressionRate = settings.startup["fluid-compression-rate"].value
+local compressionSpeed = settings.startup["fluid-compression-speed"].value
+local compressionBuffer = settings.startup["fluid-compressor-buffer"].value
+local compressionThroughput = 10 * compressionRate * compressionSpeed
+local baseAreaUnit = 1/100 -- amount of fluid fits in 1 unit of base area
+
 data:extend{
   {
     type = (settings.startup["fluid-compressor-manual-recipes"].value == false) and "furnace" or "assembling-machine",
     name = "fluid-compressor",
+    localised_description = {"",
+      {"entity-description.fluid-compressor"},
+      {"tooltip-description.custom-parameter", {"description.pumping-speed" }, {"", string.format("%.0f", compressionThroughput), {"per-second-suffix"}}}
+    },
     icon = "__CompressedFluids__/graphics/icons/compressor.png",
     icon_size = 51,
     flags = {"placeable-neutral", "placeable-player", "player-creation"},
@@ -35,14 +45,14 @@ data:extend{
       {
         production_type = "input",
         pipe_covers = pipecoverspictures(),
-        base_area = math.ceil((10*settings.startup["fluid-compression-rate"].value*settings.startup["fluid-compression-speed"].value)/100),
+        base_area = math.ceil(compressionSpeed/10)*baseAreaUnit * compressionBuffer*compressionSpeed*compressionRate,
         base_level = -1,
         pipe_connections = {{ type="input", position = {0, -1} }}
       },
       {
         production_type = "output",
         pipe_covers = pipecoverspictures(),
-        base_area = math.ceil((10*settings.startup["fluid-compression-speed"].value)/100),
+        base_area = math.ceil(compressionSpeed/10)*baseAreaUnit * compressionBuffer*compressionSpeed,
         base_level = 1,
         pipe_connections = {{ position = {0, 1} }}
       },

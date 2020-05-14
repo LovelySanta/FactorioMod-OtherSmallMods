@@ -9,7 +9,7 @@
   "description": "Tired of pipe throughput issues? Pressurize fluids to increase throughput significantly.",
   "dependencies": [
     "base >= 0.18.01",
-    "LSlib >= 2020.1.24",
+    "LSlib >= 2020.5.11",
 
     "? angelssmelting",
     "? angelspetrochem"

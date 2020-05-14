@@ -46,8 +46,8 @@ for fluidName,fluidPrototype in pairs(util.table.deepcopy(data.raw.fluid)) do
         }
       }
     end
-    fluidPrototype.order = data.raw["item-subgroup"][fluidPrototype.subgroup].order.."["..fluidPrototype.subgroup.."]-"..fluidPrototype.order
     fluidPrototype.subgroup = "compressed-fluids["..data.raw["item-subgroup"][fluidPrototype.subgroup].group.."]"
+    fluidPrototype.order = data.raw["item-subgroup"][fluidPrototype.subgroup].order.."["..fluidPrototype.subgroup.."]-"..fluidPrototype.order
 
     fluidPrototype.flags = fluidPrototype.flags or {}
     table.insert(fluidPrototype.flags, "hidden")

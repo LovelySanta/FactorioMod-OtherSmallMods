@@ -36,21 +36,18 @@ for fluidName,fluidPrototype in pairs(util.table.deepcopy(data.raw.fluid)) do
     -- Move compressed fluids to a new group and create subgroup for it
     fluidPrototype.subgroup = fluidPrototype.subgroup or "fluid-recipes" -- make sure it has a subgroup
     fluidPrototype.order = fluidPrototype.order or "zzz"                 -- make sure it has an order string
-    -- If our subgroup is nil, insert a raw table
-    local itemSubgroup = data.raw["item-subgroup"][fluidPrototype.subgroup] or {}
-    if not data.raw["item-subgroup"]["compressed-fluids["..(itemSubgroup.group or "").."]"] then
+    if not data.raw["item-subgroup"]["compressed-fluids["..data.raw["item-subgroup"][fluidPrototype.subgroup].group.."]"] then
       data:extend{
         {
           type = "item-subgroup",
-          name = "compressed-fluids["..itemSubgroup.group.."]",
+          name = "compressed-fluids["..data.raw["item-subgroup"][fluidPrototype.subgroup].group.."]",
           group = "compressed-fluids",
-          order = data.raw["item-group"][itemSubgroup.group].order
+          order = data.raw["item-group"][data.raw["item-subgroup"][fluidPrototype.subgroup].group].order
         }
       }
     end
-
-    fluidPrototype.order = (itemSubgroup.order or "").."["..fluidPrototype.subgroup.."]-"..fluidPrototype.order
-    fluidPrototype.subgroup = "compressed-fluids["..(itemSubgroup.group or "").."]"
+    fluidPrototype.subgroup = "compressed-fluids["..data.raw["item-subgroup"][fluidPrototype.subgroup].group.."]"
+    fluidPrototype.order = data.raw["item-subgroup"][fluidPrototype.subgroup].order.."["..fluidPrototype.subgroup.."]-"..fluidPrototype.order
 
     fluidPrototype.flags = fluidPrototype.flags or {}
     table.insert(fluidPrototype.flags, "hidden")

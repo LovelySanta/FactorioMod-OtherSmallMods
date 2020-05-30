@@ -5,7 +5,7 @@ for fluidName,fluidNameHP in pairs(CF_compressedFluidNames) do
 
   if not fluid then -- fluid was removed, remove HP as well
     fluidHP = nil
-    CF_compressedFluidNames[fluidName] = nil
+    CF_compressedFluidNames[fluidName] = false
 
   elseif fluidHP then
     -- update icon

@@ -1,7 +1,7 @@
 
 for fluidName,fluidNameHP in pairs(CF_compressedFluidNames) do
 
-  if data.raw.fluid[fluidName] then
+  if fluidNameHP and data.raw.fluid[fluidName] then
     
     local compressingRecipe = data.raw.recipe["compressing-"..fluidName]
     if compressingRecipe then

@@ -1,5 +1,5 @@
 
-for fluidName,fluidNameHP in pairs(CF_compressedFluidNames) do
+for fluidName,fluidNameHP in pairs(compressedFluids.internalData.compressedFluidNames) do
 
   if fluidNameHP and data.raw.fluid[fluidName] then
     

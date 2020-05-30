@@ -4,7 +4,7 @@ local compressionSpeed = settings.startup["fluid-compression-speed"].value
 local manualCompressionRecipes = settings.startup["fluid-compressor-manual-recipes"].value
 local hideCompressionRecipes = manualCompressionRecipes and settings.startup["fluid-compressor-hide-recipes"].value
 
-for fluidName,fluidNameHP in pairs(CF_compressedFluidNames) do
+for fluidName,fluidNameHP in pairs(compressedFluids.internalData.compressedFluidNames) do
 
   data:extend{
     {
@@ -23,7 +23,14 @@ for fluidName,fluidNameHP in pairs(CF_compressedFluidNames) do
       results =
       {
         {type="fluid", name=fluidNameHP, amount=compressionSpeed}
-      }
+      },
+      main_product = fluidNameHP,
+      show_amount_in_title = false,
+      always_show_products = true,
+      allow_as_intermediate = false,
+      allow_decomposition = false,
+      subgroup = data.raw["fluid"][fluidNameHP].subgroup,
+      order = data.raw["fluid"][fluidNameHP].order
     },
 
     {
@@ -42,8 +49,15 @@ for fluidName,fluidNameHP in pairs(CF_compressedFluidNames) do
       results =
       {
         {type="fluid", name=fluidName, amount=compressionRate*compressionSpeed}
-      }
-    },
+      },
+      main_product = fluidName,
+      show_amount_in_title = false,
+      always_show_products = true,
+      allow_as_intermediate = false,
+      allow_decomposition = false,
+      subgroup = "de"..data.raw["fluid"][fluidNameHP].subgroup,
+      order = data.raw["fluid"][fluidNameHP].order
+    }
   }
 
 end

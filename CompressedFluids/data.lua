@@ -11,3 +11,5 @@ require "prototypes/recipe/decompressor"
 
 require "prototypes/technology/compressor"
 require "prototypes/technology/decompressor"
+
+require "prototypes/fluid/compressor-fluid"

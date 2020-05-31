@@ -1,8 +1,10 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.18
-Date: 30. 05. 2020
+Date: 31. 05. 2020
   Features:
-    - Allow barreling of steam (only base game for now, so only at 165° and 500° steam)
+    - Allow barreling of steam
+      - Supports base game temperatures (165°, 500°)
+      - Supports bobs power temperatures (165°, 315°, 465°, 615°, 765°)
   Bugfixes:
     - Fixed crash with fluids not being deleted as intended
     - Fixed some decompressing recipes would be in the correct tab (when visible)

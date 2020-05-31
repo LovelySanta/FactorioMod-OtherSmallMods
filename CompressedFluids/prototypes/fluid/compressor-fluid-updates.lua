@@ -40,7 +40,7 @@ for fluidName,fluidPrototype in pairs(util.table.deepcopy(data.raw.fluid)) do
 
     -- Fluid properties
     fluidPrototype.fuel_value = nil
-    fluidPrototype.max_temperature = fluidPrototype.default_temperature
+    --fluidPrototype.max_temperature = fluidPrototype.default_temperature
 
     -- Move compressed fluids to a new group and create subgroup for it
     fluidPrototype.subgroup = fluidPrototype.subgroup or "fluid-recipes" -- make sure it has a subgroup

@@ -76,7 +76,75 @@ for fluidName,fluidNameHP in pairs(compressedFluids.internalData.compressedFluid
       end
       table.insert(fluidTemps, fluidMaxTemp)
 
-      -- now create temperature for the recipes
+      -- create the dummy (visible) compressing temperature recipes
+      if data.raw.recipe["compressing-"..fluidName] and
+         settings.startup["fluid-compressor-manual-recipes"].value == true and
+         settings.startup["fluid-compressor-hide-recipes"].value == false
+      then
+        for tempIndex=2, #fluidTemps-1 do
+          local compressingRecipe = util.table.deepcopy(data.raw.recipe["compressing-"..fluidName])
+          compressingRecipe.name = compressingRecipe.name.."-"..fluidTemps[tempIndex].."-dummy"
+          compressingRecipe.category = compressingRecipe.category .. "-dummy"
+
+          if compressingRecipe.ingredients then
+            compressingRecipe.ingredients[1].temperature = fluidTemps[tempIndex]
+          end
+          if compressingRecipe.normal and compressingRecipe.normal.ingredients then
+            compressingRecipe.normal.ingredients[1].temperature = fluidTemps[tempIndex]
+          end
+          if compressingRecipe.expensive and compressingRecipe.expensive.ingredients then
+            compressingRecipe.expensive.ingredients[1].temperature = fluidTemps[tempIndex]
+          end
+
+          if compressingRecipe.results then
+            compressingRecipe.results[1].temperature = fluidTemps[tempIndex]
+          end
+          if compressingRecipe.normal and compressingRecipe.normal.results then
+            compressingRecipe.normal.results[1].temperature = fluidTemps[tempIndex]
+          end
+          if compressingRecipe.expensive and compressingRecipe.expensive.results then
+            compressingRecipe.expensive.results[1].temperature = fluidTemps[tempIndex]
+          end
+
+          data:extend{compressingRecipe}
+        end
+      end
+
+      -- create the dummy (visible) decompressing temperature recipes
+      if data.raw.recipe["decompressing-"..fluidName] and
+         settings.startup["fluid-compressor-manual-recipes"].value == true and
+         settings.startup["fluid-compressor-hide-recipes"].value == false
+      then
+        for tempIndex=2, #fluidTemps-1 do
+          local decompressingRecipe = util.table.deepcopy(data.raw.recipe["decompressing-"..fluidName])
+          decompressingRecipe.name = decompressingRecipe.name.."-"..fluidTemps[tempIndex].."-dummy"
+          decompressingRecipe.category = decompressingRecipe.category .. "-dummy"
+
+          if decompressingRecipe.ingredients then
+            decompressingRecipe.ingredients[1].temperature = fluidTemps[tempIndex]
+          end
+          if decompressingRecipe.normal and decompressingRecipe.normal.ingredients then
+            decompressingRecipe.normal.ingredients[1].temperature = fluidTemps[tempIndex]
+          end
+          if decompressingRecipe.expensive and decompressingRecipe.expensive.ingredients then
+            decompressingRecipe.expensive.ingredients[1].temperature = fluidTemps[tempIndex]
+          end
+
+          if decompressingRecipe.results then
+            decompressingRecipe.results[1].temperature = fluidTemps[tempIndex]
+          end
+          if decompressingRecipe.normal and decompressingRecipe.normal.results then
+            decompressingRecipe.normal.results[1].temperature = fluidTemps[tempIndex]
+          end
+          if decompressingRecipe.expensive and decompressingRecipe.expensive.results then
+            decompressingRecipe.expensive.results[1].temperature = fluidTemps[tempIndex]
+          end
+
+          data:extend{decompressingRecipe}
+        end
+      end
+
+      -- create temperature for the actual recipes
       local recipeTemps = {}
       for tempIndex=1, #fluidTemps-1 do
         table.insert(recipeTemps, {
@@ -85,11 +153,12 @@ for fluidName,fluidNameHP in pairs(compressedFluids.internalData.compressedFluid
         })
       end
 
-      -- now create compressing temperature recipes
+      -- create the actual compressing temperature recipes
       if data.raw.recipe["compressing-"..fluidName] then
         for _,recipeTemp in pairs(recipeTemps) do
           local compressingRecipe = util.table.deepcopy(data.raw.recipe["compressing-"..fluidName])
           compressingRecipe.name = compressingRecipe.name .. "-" .. (recipeTemp.min or fluidMinTemp)
+          compressingRecipe.hide_from_player_crafting = true
 
           if compressingRecipe.ingredients then
             compressingRecipe.ingredients[1].temperature = nil
@@ -128,11 +197,12 @@ for fluidName,fluidNameHP in pairs(compressedFluids.internalData.compressedFluid
         data.raw.recipe["compressing-"..fluidName] = nil
       end
 
-      -- now create decompressing temperature recipes
+      -- create actual decompressing temperature recipes
       if data.raw.recipe["decompressing-"..fluidName] then
         for _,recipeTemp in pairs(recipeTemps) do
           local decompressingRecipe = util.table.deepcopy(data.raw.recipe["decompressing-"..fluidName])
           decompressingRecipe.name = decompressingRecipe.name .. "-" .. (recipeTemp.min or fluidMinTemp)
+          decompressingRecipe.hide_from_player_crafting = true
 
           if decompressingRecipe.ingredients then
             decompressingRecipe.ingredients[1].temperature = nil

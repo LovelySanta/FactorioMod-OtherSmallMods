@@ -34,7 +34,7 @@ compressedFluids.remote.addTemperatureToFluid = function(fluidName, temperatureT
   end
 end
 
-compressedFluids.remote.removeTemperatureToFluid = function(fluidName, temperatureToRemove)
+compressedFluids.remote.removeTemperatureFromFluid = function(fluidName, temperatureToRemove)
   compressedFluids.remoteData.fluidTemperatures =
     compressedFluids.remoteData.fluidTemperatures or {}
   if not compressedFluids.remoteData.fluidTemperatures[fluidName] then return end

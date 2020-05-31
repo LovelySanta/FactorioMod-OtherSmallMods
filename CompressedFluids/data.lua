@@ -5,11 +5,11 @@ require "prototypes/categories/item-category"
 require "prototypes/item/compressor"
 require "prototypes/item/decompressor"
 
+require "prototypes/fluid/compressor-fluid"
+
 require "prototypes/categories/recipe-category"
 require "prototypes/recipe/compressor"
 require "prototypes/recipe/decompressor"
 
 require "prototypes/technology/compressor"
 require "prototypes/technology/decompressor"
-
-require "prototypes/fluid/compressor-fluid"

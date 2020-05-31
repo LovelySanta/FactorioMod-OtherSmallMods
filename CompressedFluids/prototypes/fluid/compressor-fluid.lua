@@ -24,3 +24,15 @@ if mods["bobplates"] then
   compressedFluids.remote.forceCompressingFluid("oxygen")
   compressedFluids.remote.forceCompressingFluid("sulfur-dioxide")
 end
+
+if mods["bobpower"] then
+  if settings.startup["bobmods-power-steam"].value == true then
+    -- Steam
+    compressedFluids.remote.addTemperatureToFluid("steam", 165) -- Boiler 1
+    compressedFluids.remote.addTemperatureToFluid("steam", 315) -- Boiler 2
+    compressedFluids.remote.addTemperatureToFluid("steam", 465) -- Boiler 3, Heat Exchanger 1
+    compressedFluids.remote.addTemperatureToFluid("steam", 615) -- Boiler 4, Heat Exchanger 2
+    compressedFluids.remote.addTemperatureToFluid("steam", 765) -- Boiler 5, Heat Exchanger 3
+    compressedFluids.remote.removeTemperatureFromFluid("steam", 500)
+  end
+end

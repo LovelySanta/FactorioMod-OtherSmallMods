@@ -35,4 +35,10 @@ if mods["bobpower"] then
     compressedFluids.remote.addTemperatureToFluid("steam", 765) -- Boiler 5, Heat Exchanger 3
     compressedFluids.remote.removeTemperatureFromFluid("steam", 500)
   end
+if mods["advancedelectric"] then
+    compressedFluids.remote.addTemperatureToFluid("steam", 165) -- Boiler 1
+    compressedFluids.remote.addTemperatureToFluid("steam", 215) -- Boiler 2
+    compressedFluids.remote.addTemperatureToFluid("steam", 265) -- Boiler 3
+    compressedFluids.remote.addTemperatureToFluid("steam", 315) -- Boiler 4
+  end  
 end

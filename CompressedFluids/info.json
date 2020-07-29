@@ -1,6 +1,6 @@
 {
   "name": "CompressedFluids",
-  "version": "0.1.18",
+  "version": "0.1.20",
   "factorio_version": "0.18",
   "title": "Pressurized Fluids",
   "author": "lovely_santa",
@@ -11,7 +11,8 @@
     "base >= 0.18.28",
     "LSlib >= 2020.5.26",
 
-    "? angelssmelting",
-    "? angelspetrochem"
+    "(?) angelspetrochem",
+    "(?) angelssmelting",
+    "(?) angelsindustries"
   ]
 }

@@ -28,12 +28,15 @@ for fluidName,fluidNameHP in pairs(compressedFluids.internalData.compressedFluid
 
       if decompressingRecipe.results then
         decompressingRecipe.results[1].name = resultName
+        decompressingRecipe.main_product = decompressingRecipe.main_product and resultName or nil
       end
       if decompressingRecipe.normal and decompressingRecipe.normal.results then
         decompressingRecipe.normal.results[1].name = resultName
+        decompressingRecipe.normal.main_product = decompressingRecipe.normal.main_product and resultName or nil
       end
       if decompressingRecipe.expensive and decompressingRecipe.expensive.results then
         decompressingRecipe.expensive.results[1].name = resultName
+        decompressingRecipe.expensive.main_product = decompressingRecipe.expensive.main_product and resultName or nil
       end
     end
 

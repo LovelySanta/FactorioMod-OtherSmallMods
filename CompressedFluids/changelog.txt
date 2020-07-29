@@ -3,7 +3,8 @@ Version: 0.1.20
 Date: ??
   Features:
     - Hidden the mod compatibility dependencies
-    - Added mod compatibility with angelsindustries science overhauls
+    - Added mod compatibility with "angelsindustries" science overhauls
+    - Added mod compatibility with "Advanced_Electric"
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.19
 Date: 04. 06. 2020

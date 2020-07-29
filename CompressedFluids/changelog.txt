@@ -3,7 +3,8 @@ Version: 0.1.20
 Date: ??
   Features:
     - Added mod compatibility with "angelsindustries" science overhauls
-    - Added mod compatibility with "Advanced_Electric"
+    - Added mod compatibility to steam temperatures of "Advanced_Electric"
+    - Added mod compatibility to steam temperatures of "Geothermal-Vents"
     - Hidden the mod compatibility dependencies
   Bugfixes:
     - Bump base game version dependency to fix (temperatured) steam would not compress

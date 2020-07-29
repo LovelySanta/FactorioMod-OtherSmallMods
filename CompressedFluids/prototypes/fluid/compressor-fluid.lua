@@ -46,3 +46,8 @@ if mods["Advanced_Electric"] then
     compressedFluids.remote.addTemperatureToFluid("steam", 500) -- Boiler 5, Heat Exchanger 1
     compressedFluids.remote.addTemperatureToFluid("steam", 750) -- Boiler 6, Heat Exchanger 2
 end
+
+if mods["Geothermal-Vents"] then
+  compressedFluids.remote.forceCompressingFluid("steam")
+  compressedFluids.remote.addTemperatureToFluid("steam", settings.startup["geothermal-vents-steam-temp"].value)
+end

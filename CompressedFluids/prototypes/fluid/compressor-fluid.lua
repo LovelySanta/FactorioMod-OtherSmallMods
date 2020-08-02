@@ -49,6 +49,7 @@ end
 
 if mods["Krastorio2"] then
     compressedFluids.remote.forceCompressingFluid("steam")
+    compressedFluids.remote.addTemperatureToFluid("steam", 415) -- Rescalled Heat exchanger
     compressedFluids.remote.addTemperatureToFluid("steam", 975) -- Fusion reactor
 end
 

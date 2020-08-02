@@ -1,6 +1,14 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.21
+Date: 02. 08. 2020
+  Features:
+    - Added mod compatibility with "space-exploration"
+    - Added mod compatibility with "Krastorio2"
+  Bugfixes:
+    - Fixed edge case where the max_temperature could not be a valid compression point
+---------------------------------------------------------------------------------------------------
 Version: 0.1.20
-Date: ??
+Date: 30. 07. 2020
   Features:
     - Added mod compatibility with "angelsindustries" science overhauls
     - Added mod compatibility to steam temperatures of "Advanced_Electric"

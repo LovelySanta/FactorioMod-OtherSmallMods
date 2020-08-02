@@ -67,11 +67,11 @@ for fluidName,fluidNameHP in pairs(compressedFluids.internalData.compressedFluid
       -- create an ordered list of all temperatures
       local fluidTemps = {}
       local thisFluidTemp = fluidMinTemp
-      while(thisFluidTemp < fluidMaxTemp) do
+      while(thisFluidTemp <= fluidMaxTemp) do
         table.insert(fluidTemps, thisFluidTemp)
-        local nextFluidTemp = fluidMaxTemp
+        local nextFluidTemp = fluidMaxTemp + 1
         for _, temp in pairs(compressedFluids.remoteData.fluidTemperatures[fluidName]) do
-          if (temp < nextFluidTemp) and (thisFluidTemp < temp and temp < fluidMaxTemp) then
+          if (temp < nextFluidTemp) and (thisFluidTemp < temp and temp <= fluidMaxTemp) then
             nextFluidTemp = temp
           end
         end

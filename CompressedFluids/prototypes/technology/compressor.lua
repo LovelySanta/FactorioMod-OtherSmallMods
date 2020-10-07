@@ -3,7 +3,9 @@ data:extend{
     type = "technology",
     name = "fluid-compressor",
     icon = data.raw.technology["fluid-handling"].icon,
+    icons = data.raw.technology["fluid-handling"].icons,
     icon_size = data.raw.technology["fluid-handling"].icon_size,
+    icon_mipmaps = data.raw.technology["fluid-handling"].icon_mipmaps,
     effects =
     {
       {

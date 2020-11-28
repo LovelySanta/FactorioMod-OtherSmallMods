@@ -8,8 +8,8 @@
   "homepage": "https://mods.factorio.com/mod/CompressedFluids",
   "description": "Tired of pipe throughput issues? Pressurize fluids to increase throughput significantly.",
   "dependencies": [
-    "base >= 1.0.0",
-    "LSlib >= 2020.5.26",
+    "base >= 1.1.0",
+    "LSlib >= 2020.8.23",
 
     "(?) angelspetrochem",
     "(?) angelssmelting",

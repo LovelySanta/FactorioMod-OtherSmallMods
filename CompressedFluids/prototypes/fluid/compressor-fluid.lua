@@ -6,6 +6,23 @@ if true then -- base game
   compressedFluids.remote.addTemperatureToFluid("steam", 500) -- heat exchanger
 end
 
+if mods["pycoalprocessing"] then
+    compressedFluids.remote.forceCompressingFluid("combustion-mixture1")
+    compressedFluids.remote.addTemperatureToFluid("combustion-mixture1", 500) -- CoalGas, Heavy Oil
+    compressedFluids.remote.addTemperatureToFluid("combustion-mixture1", 520)
+    compressedFluids.remote.addTemperatureToFluid("combustion-mixture1", 525) -- CoalSlurry
+    compressedFluids.remote.addTemperatureToFluid("combustion-mixture1", 550) -- SynGas, Light Oil
+    compressedFluids.remote.addTemperatureToFluid("combustion-mixture1", 600) -- Diborane, PetGas
+    compressedFluids.remote.addTemperatureToFluid("combustion-mixture1", 650) -- Methanol
+    compressedFluids.remote.addTemperatureToFluid("combustion-mixture1", 670) -- Acetylene
+    compressedFluids.remote.addTemperatureToFluid("combustion-mixture1", 700) -- RefSynGas
+    compressedFluids.remote.addTemperatureToFluid("combustion-mixture1", 750) -- Olefin
+    compressedFluids.remote.addTemperatureToFluid("combustion-mixture1", 800) -- Diesel
+    compressedFluids.remote.addTemperatureToFluid("combustion-mixture1", 850) -- Gasoline
+    compressedFluids.remote.addTemperatureToFluid("combustion-mixture1", 900) -- Supercritical Coal
+    compressedFluids.remote.addTemperatureToFluid("combustion-mixture1", 1000) -- Ultracritical Coal
+end
+
 if mods["bobrevamp"] then
   compressedFluids.remote.forceCompressingFluid("ammonia")
   compressedFluids.remote.forceCompressingFluid("carbon-dioxide")

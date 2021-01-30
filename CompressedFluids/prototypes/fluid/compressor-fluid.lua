@@ -9,7 +9,7 @@ end
 if mods["pycoalprocessing"] then
     compressedFluids.remote.forceCompressingFluid("combustion-mixture1")
     compressedFluids.remote.addTemperatureToFluid("combustion-mixture1", 500) -- CoalGas, Heavy Oil
-    compressedFluids.remote.addTemperatureToFluid("combustion-mixture1", 520)
+    compressedFluids.remote.addTemperatureToFluid("combustion-mixture1", 520) -- Hydrogen
     compressedFluids.remote.addTemperatureToFluid("combustion-mixture1", 525) -- CoalSlurry
     compressedFluids.remote.addTemperatureToFluid("combustion-mixture1", 550) -- SynGas, Light Oil
     compressedFluids.remote.addTemperatureToFluid("combustion-mixture1", 600) -- Diborane, PetGas
@@ -20,6 +20,7 @@ if mods["pycoalprocessing"] then
     compressedFluids.remote.addTemperatureToFluid("combustion-mixture1", 800) -- Diesel
     compressedFluids.remote.addTemperatureToFluid("combustion-mixture1", 850) -- Gasoline
     compressedFluids.remote.addTemperatureToFluid("combustion-mixture1", 900) -- Supercritical Coal
+    compressedFluids.remote.addTemperatureToFluid("combustion-mixture1", 950)
     compressedFluids.remote.addTemperatureToFluid("combustion-mixture1", 1000) -- Ultracritical Coal
 end
 

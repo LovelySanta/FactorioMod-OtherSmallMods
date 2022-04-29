@@ -47,11 +47,11 @@ local function setStates(nixie, newstates)
       local parameters = behavior.parameters
       if nixie.energy >= 50 then
         -- new_state is a string of the new state (see stateDisplay)
-        parameters.parameters.operation = stateDisplay[new_state]
+        parameters.operation = stateDisplay[new_state]
 
       else
-        if parameters.parameters.operation ~= stateDisplay["off"] then
-          parameters.parameters.operation = stateDisplay["off"]
+        if parameters.operation ~= stateDisplay["off"] then
+          parameters.operation = stateDisplay["off"]
         end
       end
       behavior.parameters = parameters
@@ -72,8 +72,8 @@ local function get_signal_value(entity, sig)
   if condition == nil then return nil end
 
   -- shortcut, return stored value if unchanged
-  if not sig and condition.fulfilled and condition.condition.comparator == "=" then
-    return condition.condition.constant, false
+  if not sig and condition.fulfilled and condition.comparator == "=" then
+    return condition.constant, false
   end
 
   -- get the variable to display; return if none selected
@@ -102,9 +102,9 @@ local function get_signal_value(entity, sig)
 
   -- If no signal has been set, make sure to init condition
   if not sig then
-    condition.condition.comparator="="
-    condition.condition.constant=val
-    condition.condition.second_signal=nil
+    condition.comparator="="
+    condition.constant=val
+    condition.second_signal=nil
     behavior.circuit_condition = condition
   end
 
@@ -185,9 +185,9 @@ local function onPlaceEntity(event)
     -- properly reset nixies when (re)added
     local behavior = entity.get_or_create_control_behavior()
     local condition = behavior.circuit_condition
-    condition.condition.comparator = "="
-    condition.condition.constant = 0
-    condition.condition.second_signal = nil
+    condition.comparator = "="
+    condition.constant = 0
+    condition.second_signal = nil
     behavior.circuit_condition = condition
 
     --enslave guy to left, if there is one
@@ -303,13 +303,15 @@ script.on_init(function()
   global.SNTD_nextNixieDigit = {}
 end)
 
-script.on_event(defines.events.on_built_entity, onPlaceEntity)
-script.on_event(defines.events.on_robot_built_entity, onPlaceEntity)
-script.on_event(defines.events.script_raised_revive, onPlaceEntity)
+script.on_event({defines.events.on_built_entity,
+                 defines.events.on_robot_built_entity,
+                 defines.events.script_raised_revive,
+                }, onPlaceEntity)
 
-script.on_event(defines.events.on_pre_player_mined_item, onRemoveEntity)
-script.on_event(defines.events.on_robot_pre_mined, onRemoveEntity)
-script.on_event(defines.events.on_entity_died, onRemoveEntity)
-script.on_event(defines.events.script_raised_destroy, onRemoveEntity)
+script.on_event({defines.events.on_pre_player_mined_item,
+                 defines.events.on_robot_pre_mined,
+                 defines.events.on_entity_died,
+                 defines.events.script_raised_destroy,
+                }, onRemoveEntity)
 
 script.on_event(defines.events.on_tick, onTick)

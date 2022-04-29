@@ -24,9 +24,42 @@ local validNixieNumber = {
 }
 
 
+local function nixieSprites(nixie)
+  local sprites = {}
+  for i= 1, validNixieNumber[nixie.name] do
+    local name, pos
+    if nixie.name == "SNTD-nixie-tube" then
+      name = "SNTD-nixie-tube-sprite"
+      pos = {x = nixie.position.x + 1/32, y = nixie.position.y + 1/32}
+    elseif  nixie.name == "SNTD-old-nixie-tube" then
+      name = "SNTD-old-nixie-tube-sprite"
+      pos = {x = nixie.position.x + 1/32, y = nixie.position.y + 3.5/32}
+    else -- small nixie, two sprites
+      name = "SNTD-nixie-tube-small-sprite"
+      pos = {x = nixie.position.x - 4/32 + ((i-1)*10/32), y = nixie.position.y + 3/32}
+    end
+    sprites[i] = {name=name, pos=pos}
+  end
+  return sprites
+end
+
 
 local function removeNixieSprites(nixie)
-  for _,sprite in pairs(global.SNTD_nixieSprites[nixie.unit_number]) do
+  local nixieSprite = global.SNTD_nixieSprites[nixie.unit_number]
+  if nixieSprite == nil then
+    -- this happens if nixie tubes were created by other mods/scripts in older versions
+    -- the link is lost, find the sprites manually
+    nixieSprite = {}
+    for i, sprite in pairs(nixieSprites(nixie)) do
+      local recoveredSprite = nixie.surface.find_entities_filtered{position=sprite.pos, name=sprite.name}
+      if next(recoveredSprite) == nil then
+        game.print("unable to recover sprite")
+        return
+      end
+      nixieSprite[i] = recoveredSprite[1]
+    end
+  end
+  for _,sprite in pairs(nixieSprite) do
     if sprite.valid then
       sprite.destroy()
     end
@@ -142,7 +175,7 @@ end
 
 local function onPlaceEntity(event)
 
-  local entity = event.created_entity or event.entity
+  local entity = event.created_entity or event.entity or event.destination
   if not entity.valid then
     game.print("invalid placement?")
     return
@@ -155,29 +188,21 @@ local function onPlaceEntity(event)
 
     local sprites = {}
     -- placing the base of the nixie
-    for n=1, num do
-      -- place nixie at same spot
-      local name, position
-      if num == 1 then -- large nixie, one sprites
-        if entity.name == "SNTD-nixie-tube" then
-          name = "SNTD-nixie-tube-sprite"
-          position = {x = pos.x + 1/32, y = pos.y + 1/32}
-        else -- old nixie tube
-          name = "SNTD-old-nixie-tube-sprite"
-          position = {x = pos.x + 1/32, y = pos.y + 3.5/32}
-        end
-      else -- small nixie, two sprites
-        name = "SNTD-nixie-tube-small-sprite"
-        position = {x = pos.x - 4/32 + ((n-1)*10/32), y = pos.y + 3/32}
+    -- place nixie at same spot
+    for n, sprite in pairs(nixieSprites(entity)) do
+      -- don't create if already exists
+      local recoveredSprites = surf.find_entities_filtered{position=sprite.pos, name=sprite.name}
+      if next(recoveredSprites) ~= nil then
+        sprites[n]=recoveredSprites[1]
+      else
+        local newSprite = surf.create_entity(
+          {
+            name = sprite.name,
+            position = sprite.pos,
+            force = entity.force
+          })
+        sprites[n]=newSprite
       end
-
-      local sprite = surf.create_entity(
-        {
-          name = name,
-          position = position,
-          force = entity.force
-        })
-      sprites[n]=sprite
     end
     global.SNTD_nixieSprites[entity.unit_number] = sprites
     -- game.print("created sprite for entity " .. entity.unit_number)
@@ -305,6 +330,8 @@ end)
 
 script.on_event({defines.events.on_built_entity,
                  defines.events.on_robot_built_entity,
+                 defines.events.on_entity_cloned,
+                 defines.events.script_raised_built,
                  defines.events.script_raised_revive,
                 }, onPlaceEntity)
 

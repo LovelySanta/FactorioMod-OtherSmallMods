@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.13
+Date: ??. ??. 2022
+  Features:
+    - Compatibility with Space Exploration (and other mods that create/clone entities via script)
+  Bugfixes:
+    - Fixed crash on deletion of nixies created by scripts/cloning in older versions of this mod
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.12
 Date: 26. 11. 2020

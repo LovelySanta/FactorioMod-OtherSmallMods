@@ -17,7 +17,7 @@ data:extend{
     unit =
     {
       count = 250,
-      ingredients = data.raw.technology["engine"].unit.ingredients,
+      ingredients = table.deepcopy(data.raw.technology["engine"].unit.ingredients),
       time = 2 * data.raw.technology["engine"].unit.time,
     },
     upgrade = false,

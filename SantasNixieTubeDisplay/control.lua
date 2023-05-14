@@ -24,9 +24,42 @@ local validNixieNumber = {
 }
 
 
+local function nixieSprites(nixie)
+  local sprites = {}
+  for i= 1, validNixieNumber[nixie.name] do
+    local name, pos
+    if nixie.name == "SNTD-nixie-tube" then
+      name = "SNTD-nixie-tube-sprite"
+      pos = {x = nixie.position.x + 1/32, y = nixie.position.y + 1/32}
+    elseif  nixie.name == "SNTD-old-nixie-tube" then
+      name = "SNTD-old-nixie-tube-sprite"
+      pos = {x = nixie.position.x + 1/32, y = nixie.position.y + 3.5/32}
+    else -- small nixie, two sprites
+      name = "SNTD-nixie-tube-small-sprite"
+      pos = {x = nixie.position.x - 4/32 + ((i-1)*10/32), y = nixie.position.y + 3/32}
+    end
+    sprites[i] = {name=name, pos=pos}
+  end
+  return sprites
+end
+
 
 local function removeNixieSprites(nixie)
-  for _,sprite in pairs(global.SNTD_nixieSprites[nixie.unit_number]) do
+  local nixieSprite = global.SNTD_nixieSprites[nixie.unit_number]
+  if nixieSprite == nil then
+    -- this happens if nixie tubes were created by other mods/scripts in older versions
+    -- the link is lost, find the sprites manually
+    nixieSprite = {}
+    for i, sprite in pairs(nixieSprites(nixie)) do
+      local recoveredSprite = nixie.surface.find_entities_filtered{position=sprite.pos, name=sprite.name}
+      if next(recoveredSprite) == nil then
+        game.print("unable to recover sprite")
+        return
+      end
+      nixieSprite[i] = recoveredSprite[1]
+    end
+  end
+  for _,sprite in pairs(nixieSprite) do
     if sprite.valid then
       sprite.destroy()
     end
@@ -47,11 +80,11 @@ local function setStates(nixie, newstates)
       local parameters = behavior.parameters
       if nixie.energy >= 50 then
         -- new_state is a string of the new state (see stateDisplay)
-        parameters.parameters.operation = stateDisplay[new_state]
+        parameters.operation = stateDisplay[new_state]
 
       else
-        if parameters.parameters.operation ~= stateDisplay["off"] then
-          parameters.parameters.operation = stateDisplay["off"]
+        if parameters.operation ~= stateDisplay["off"] then
+          parameters.operation = stateDisplay["off"]
         end
       end
       behavior.parameters = parameters
@@ -72,8 +105,8 @@ local function get_signal_value(entity, sig)
   if condition == nil then return nil end
 
   -- shortcut, return stored value if unchanged
-  if not sig and condition.fulfilled and condition.condition.comparator == "=" then
-    return condition.condition.constant, false
+  if not sig and condition.fulfilled and condition.comparator == "=" then
+    return condition.constant, false
   end
 
   -- get the variable to display; return if none selected
@@ -102,9 +135,9 @@ local function get_signal_value(entity, sig)
 
   -- If no signal has been set, make sure to init condition
   if not sig then
-    condition.condition.comparator="="
-    condition.condition.constant=val
-    condition.condition.second_signal=nil
+    condition.comparator="="
+    condition.constant=val
+    condition.second_signal=nil
     behavior.circuit_condition = condition
   end
 
@@ -142,7 +175,7 @@ end
 
 local function onPlaceEntity(event)
 
-  local entity = event.created_entity or event.entity
+  local entity = event.created_entity or event.entity or event.destination
   if not entity.valid then
     game.print("invalid placement?")
     return
@@ -155,29 +188,21 @@ local function onPlaceEntity(event)
 
     local sprites = {}
     -- placing the base of the nixie
-    for n=1, num do
-      -- place nixie at same spot
-      local name, position
-      if num == 1 then -- large nixie, one sprites
-        if entity.name == "SNTD-nixie-tube" then
-          name = "SNTD-nixie-tube-sprite"
-          position = {x = pos.x + 1/32, y = pos.y + 1/32}
-        else -- old nixie tube
-          name = "SNTD-old-nixie-tube-sprite"
-          position = {x = pos.x + 1/32, y = pos.y + 3.5/32}
-        end
-      else -- small nixie, two sprites
-        name = "SNTD-nixie-tube-small-sprite"
-        position = {x = pos.x - 4/32 + ((n-1)*10/32), y = pos.y + 3/32}
+    -- place nixie at same spot
+    for n, sprite in pairs(nixieSprites(entity)) do
+      -- don't create if already exists
+      local recoveredSprites = surf.find_entities_filtered{position=sprite.pos, name=sprite.name}
+      if next(recoveredSprites) ~= nil then
+        sprites[n]=recoveredSprites[1]
+      else
+        local newSprite = surf.create_entity(
+          {
+            name = sprite.name,
+            position = sprite.pos,
+            force = entity.force
+          })
+        sprites[n]=newSprite
       end
-
-      local sprite = surf.create_entity(
-        {
-          name = name,
-          position = position,
-          force = entity.force
-        })
-      sprites[n]=sprite
     end
     global.SNTD_nixieSprites[entity.unit_number] = sprites
     -- game.print("created sprite for entity " .. entity.unit_number)
@@ -185,9 +210,9 @@ local function onPlaceEntity(event)
     -- properly reset nixies when (re)added
     local behavior = entity.get_or_create_control_behavior()
     local condition = behavior.circuit_condition
-    condition.condition.comparator = "="
-    condition.condition.constant = 0
-    condition.condition.second_signal = nil
+    condition.comparator = "="
+    condition.constant = 0
+    condition.second_signal = nil
     behavior.circuit_condition = condition
 
     --enslave guy to left, if there is one
@@ -303,13 +328,17 @@ script.on_init(function()
   global.SNTD_nextNixieDigit = {}
 end)
 
-script.on_event(defines.events.on_built_entity, onPlaceEntity)
-script.on_event(defines.events.on_robot_built_entity, onPlaceEntity)
-script.on_event(defines.events.script_raised_revive, onPlaceEntity)
+script.on_event({defines.events.on_built_entity,
+                 defines.events.on_robot_built_entity,
+                 defines.events.on_entity_cloned,
+                 defines.events.script_raised_built,
+                 defines.events.script_raised_revive,
+                }, onPlaceEntity)
 
-script.on_event(defines.events.on_pre_player_mined_item, onRemoveEntity)
-script.on_event(defines.events.on_robot_pre_mined, onRemoveEntity)
-script.on_event(defines.events.on_entity_died, onRemoveEntity)
-script.on_event(defines.events.script_raised_destroy, onRemoveEntity)
+script.on_event({defines.events.on_pre_player_mined_item,
+                 defines.events.on_robot_pre_mined,
+                 defines.events.on_entity_died,
+                 defines.events.script_raised_destroy,
+                }, onRemoveEntity)
 
 script.on_event(defines.events.on_tick, onTick)
